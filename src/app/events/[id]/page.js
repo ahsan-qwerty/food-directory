@@ -38,7 +38,7 @@ export default async function EventDetailPage({ params }) {
     .filter(Boolean);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 px-4">
       
       <main className="container mx-auto px-4 py-8">
         {/* Breadcrumb */}
