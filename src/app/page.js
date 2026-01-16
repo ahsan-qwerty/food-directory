@@ -1,21 +1,52 @@
+'use client';
+
 import Link from 'next/link';
+import { useState, useEffect } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
-export const metadata = {
+const metadata = {
   title: 'TDAP Food Directory - Pakistani Food Companies',
   description: 'Official directory of Pakistani food companies registered with Trade Development Authority of Pakistan (TDAP). Discover exporters, manufacturers, and suppliers in the food sector.',
   keywords: 'TDAP, Pakistan food export, food companies Pakistan, rice exporters, spices exporters, food directory'
 };
 
 export default function Home() {
+
+  const [companies, setCompanies] = useState([]);
+  const [sectors, setSectors] = useState([]);
+  const [events, setEvents] = useState([]);
+  useEffect(() => {
+    const fetchEvents = async () => {
+      const res = await fetch('/api/events');
+      const data = await res.json();
+      setEvents(data.events);
+    }
+    fetchEvents();
+  }, []);
+  useEffect(() => {
+    const fetchCompanies = async () => {
+      const res = await fetch('/api/companies');
+      const data = await res.json();
+      setCompanies(data.companies);
+    }
+    fetchCompanies();
+  }, []);
+  useEffect(() => {
+    const fetchSectors = async () => {
+      const res = await fetch('/api/sectors');
+      const data = await res.json();
+      setSectors(data.sectors);
+    }
+    fetchSectors();
+  }, []);
+
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header />
       
       <main>
         {/* Hero Section */}
-        <section className="bg-gradient-to-r from-green-700 to-green-600 text-white">
+        <section className="bg-gradient-to-r from-green-700 to-green-600 text-white px-4">
           <div className="container mx-auto px-4 py-16 md:py-24">
             <div className="max-w-3xl">
               <h1 className="text-4xl md:text-5xl font-bold mb-6">
@@ -47,15 +78,15 @@ export default function Home() {
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
               <div>
-                <div className="text-4xl font-bold text-green-700 mb-2">8+</div>
+                <div className="text-4xl font-bold text-green-700 mb-2">{companies.length}</div>
                 <div className="text-gray-600">Registered Companies</div>
               </div>
               <div>
-                <div className="text-4xl font-bold text-green-700 mb-2">11+</div>
+                <div className="text-4xl font-bold text-green-700 mb-2">{sectors.length}</div>
                 <div className="text-gray-600">Food Sectors</div>
               </div>
               <div>
-                <div className="text-4xl font-bold text-green-700 mb-2">5+</div>
+                <div className="text-4xl font-bold text-green-700 mb-2">{events.length}</div>
                 <div className="text-gray-600">Upcoming Events</div>
               </div>
             </div>
@@ -74,7 +105,7 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 px-4">
               <div className="bg-white rounded-lg shadow-md p-6 text-center">
                 <div className="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                   <svg className="w-8 h-8 text-green-700" fill="currentColor" viewBox="0 0 20 20">
@@ -115,7 +146,7 @@ export default function Home() {
         </section>
 
         {/* Sectors Section */}
-        <section className="py-16 bg-white">
+        <section className="py-16 bg-white px-4">
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
@@ -167,8 +198,6 @@ export default function Home() {
           </div>
         </section>
       </main>
-
-      <Footer />
     </div>
   );
 }

@@ -1,13 +1,13 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 import { getCompanyById } from '@/data/companies';
 import { getSectorName } from '@/data/sectors';
 
 export async function generateMetadata({ params }) {
-  const company = getCompanyById(params.id);
-  
+  const { id } = await params;
+  console.log("ID: ", id);
+  const company = getCompanyById(id);
+  console.log("Company: ", company);
   if (!company) {
     return {
       title: 'Company Not Found'
@@ -21,16 +21,17 @@ export async function generateMetadata({ params }) {
   };
 }
 
-export default function CompanyProfilePage({ params }) {
-  const company = getCompanyById(params.id);
+export default async function CompanyProfilePage({ params }) {
+  const { id } = await params;
+  const company = getCompanyById(id);
 
   if (!company || company.status !== 'Approved') {
+    console.log("Company not found: ", company);
     notFound();
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Header />
+    <div className="min-h-screen bg-gray-50 px-4">
       
       <main className="container mx-auto px-4 py-8">
         {/* Breadcrumb */}
@@ -236,8 +237,6 @@ export default function CompanyProfilePage({ params }) {
           </div>
         </div>
       </main>
-
-      <Footer />
     </div>
   );
 }

@@ -2,7 +2,7 @@
 // Will be migrated to MySQL in Phase 2
 export const companies = [
     {
-        id: "1",
+        id: 1,
         company_name: "JJ RICE",
         company_profile: "For over 25 years, JJ Rice has been a trusted name in Pakistan's export industry, proudly sourcing and delivering the country’s finest agricultural products to the world. Our portfolio includes premium-quality rice, sugar, wheat, yellow maize, and spices.We have successfully exported our products to global markets, including China,Africa,USA,Mauritius, and the Middle East, earning a reputation for reliability and excellence.",
         interested_sector_id: 52,
@@ -22,7 +22,7 @@ export const companies = [
         status: "Approved"
     },
     {
-        id: "2",
+        id: 2,
         company_name: "KHADIM INDUSTRY",
         company_profile: "HIMALAYAN PINK ROCK SALT, ORGANIC SEEDS & SPICES SUPPLIER:\nAt Khadim Industry, our journey began with a belief: that Himalayan Pink Rock Salt is more than a mineral – it is a gift of nature, and Organic Seeds & Spices from Pakistan. With over three decades of dedication, we’ve earned the trust of thousands through consistency, authenticity, and uncompromising quality. We proudly represent Pakistan’s natural heritage on the global stage and remain committed to evolving with modern needs.",
         interested_sector_id: 26,
@@ -43,7 +43,7 @@ export const companies = [
         status: "Approved"
     },
     {
-        id: "3",
+        id: 3,
         company_name: "Marhaba Laboratories (Pvt.) Ltd.",
         company_profile: "Marhaba Laboratories (Pvt.) Ltd. is one of the largest companies engaged in research, development, production and marketing of Natural Food Products. Marhaba has a perfect Quality Assurance and Quality Management System to meet the customer satisfaction, National & International standards. Consistent quality products, continuous high standards of service and affordable prices are playing a major role in the growth of our business.",
         interested_sector_id: 46,
@@ -64,7 +64,7 @@ export const companies = [
         status: "Approved"
     },
     {
-        id: "4",
+        id: 4,
         company_name: "Sana Salt",
         company_profile: "Sana Salt, established in 2002, is a leading manufacturer and exporter of 100% natural Himalayan pink rock salt. With over 450 products across gourmet, spa, wellness, decor, and speciality ranges, we serve five continents. Operating from an 85,000 sq. ft. modern facility, we hold certifications including BRCGS, Halal, Kosher, ISO, FDA, GMP, amfori BSCI, and are a Registered Authorized User of “Khewra Pink Rock Salt” (GI Pakistan), ensuring authenticity, heritage, and global trust.",
         interested_sector_id: 26,
@@ -85,7 +85,7 @@ export const companies = [
         status: "Approved"
     },
     {
-        id: "5",
+        id: 5,
         company_name: "SGS Pakistan Private Limited",
         company_profile: "We are the World\\'s Leading Testing, Inspection and Certification Company. \nOur Focus areas are : Natural Resources (mineral, Grains, Oil and Gas, Soft trade, Fumigation and crop Science), Health and Nutrition (Food, Cosmetics and Pharma), Connectivity and Product (Textiles), knowledge (Audits and Training), and Industries and Environment.",
         interested_sector_id: 10,
@@ -106,7 +106,7 @@ export const companies = [
         status: "Approved"
     },
     {
-        id: "6",
+        id: 6,
         company_name: "Bell More Aromatics",
         company_profile: "We serve the world with our precious and life adorning chemicals. We make nature to flow through our funnels and nurture essences, synthetic natural identical, essential oils, fragrances and chemicals.",
         interested_sector_id: 11,
@@ -127,7 +127,7 @@ export const companies = [
         status: "Approved"
     },
     {
-        id: "7",
+        id: 7,
         company_name: "Mehran Spice & Food Industries",
         company_profile: "Mehran launched in 1975 with a vision of weaving a culinary tale evoking memories of a mother\\'s love and the irresistible taste of home-cooked meals because we know there is No Taste Like Home. \nWith consumer satisfaction as our mission, we aimed to fuse traditional authenticity with cutting-edge technology. We set a precedent for quality, earning QMS ISO 9001, HACCP, FSSC ISO 22000, and GVCS VEGAN certifications.",
         interested_sector_id: 33,
@@ -148,7 +148,7 @@ export const companies = [
         status: "Approved"
     },
     {
-        id: "8",
+        id: 8,
         company_name: "LalQila Pvt Ltd",
         company_profile: "The name LalQila rekindles the chapter of a Legacy full of fascination and interest. A renowned name in Hotel / Food & Beverages Industry Since 1998 (More than 25 Years).\n\nPREMIUM AND HIGH QUALITY BRAND FOR INTERNATIONAL BUYERS:\nWe are one of the leading Manufacturer Exporter of Food Related Products and comes up as a Global Business Partner for international buyers. Having extensive Brand Portfolio in both Commercial and Bulk Packaging with excellent services to consumer / customer and ready to",
         interested_sector_id: 33,
@@ -169,7 +169,7 @@ export const companies = [
         status: "Approved"
     },
     {
-        id: "9",
+        id: 9,
         company_name: "AL Khair Premium Natural Products",
         company_profile: "Al Khair is a trusted and established name in the health and personal care industry, serving global markets for over 25 years. With exports to more than 30 countries—including the USA, UK, South Africa, Canada, Australia, Indonesia, Malaysia, and the Kingdom of Saudi Arabia. The company’s diverse product portfolio is rooted in natural wellness, with Miswak as its flagship category and new frontiers being developed in herbal and wellness products like Shilajit, Black Seed Oil, Lozenges, Gummies.",
         interested_sector_id: 33,
@@ -190,7 +190,7 @@ export const companies = [
         status: "Approved"
     },
     {
-        id: "10",
+        id: 10,
         company_name: "M.MANZOOR & CO. PAKISTAN PVT.LTD.",
         company_profile: "M. Manzoor & Company (Pakistan) Pvt. Ltd., registered office at 13, Sindh Market, M.A. Jinnah Road, Karachi and Food Processing Unit at S/75 Sindh Industrial Trading Estate Karachi is Food Processing and Trading Company dealing in Spices, Dry Fruit, Nuts and other Allied Food items in consumer and bulk packing under Brand Name A-1.\n\nIn conformity with 70 years of business establishment and efficient team work, A-1 Products has received great acceptance from satisfied regular customers from U.S.A",
         interested_sector_id: 33,
@@ -214,6 +214,9 @@ export const companies = [
 
 // Helper functions
 export function getCompanyById(id) {
+    console.log("[getCompanyById] ID: ", id);
+    console.log("[getCompanyById] Companies: ", companies);
+    console.log("[getCompanyById] Company: ", companies.find(c => c.id === parseInt(id)));
     return companies.find(c => c.id === parseInt(id));
 }
 

@@ -7,7 +7,9 @@ import { getEventById } from '@/data/events';
 import { getCompanyById } from '@/data/companies';
 
 export async function generateMetadata({ params }) {
-  const event = getEventById(params.id);
+  const { id } = await params;
+  const event = getEventById(id);
+  console.log("Event: ", event);
   
   if (!event) {
     return {
@@ -21,8 +23,10 @@ export async function generateMetadata({ params }) {
   };
 }
 
-export default function EventDetailPage({ params }) {
-  const event = getEventById(params.id);
+export default async function EventDetailPage({ params }) {
+  const { id } = await params;
+  const event = getEventById(id);
+  console.log("Event: ", event);
 
   if (!event) {
     notFound();
@@ -35,7 +39,6 @@ export default function EventDetailPage({ params }) {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header />
       
       <main className="container mx-auto px-4 py-8">
         {/* Breadcrumb */}
@@ -176,8 +179,6 @@ export default function EventDetailPage({ params }) {
           </div>
         </div>
       </main>
-
-      <Footer />
     </div>
   );
 }

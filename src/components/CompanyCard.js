@@ -3,8 +3,8 @@ import { getSectorName } from '@/data/sectors';
 
 export default function CompanyCard({ company }) {
   return (
-    <Link href={`/companies/${company.id}`}>
-      <div className="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-lg transition-shadow cursor-pointer h-full">
+    <Link href={`/companies/${company.id}`} >
+      <div className="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-lg transition-shadow cursor-pointer h-full flex flex-col justify-between">
         <h3 className="text-xl font-bold text-green-700 mb-2">
           {company.company_name}
         </h3>

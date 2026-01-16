@@ -76,9 +76,7 @@ export default function CompaniesPage() {
   const hasActiveFilters = filters.sector || filters.product || filters.certification || filters.search;
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Header />
-      
+    <div className="min-h-screen bg-gray-50 px-4">
       <main className="container mx-auto px-4 py-8">
         {/* Page Header */}
         <div className="mb-8">
@@ -212,8 +210,6 @@ export default function CompaniesPage() {
           </>
         )}
       </main>
-
-      <Footer />
     </div>
   );
 }

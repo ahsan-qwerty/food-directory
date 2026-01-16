@@ -4,10 +4,9 @@ import Footer from '@/components/Footer';
 
 export default function CompanyNotFound() {
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Header />
+    <div className="h-full bg-gray-50">
       
-      <main className="container mx-auto px-4 py-16">
+      <main className="container mx-auto px-4 py-16 h-full">
         <div className="max-w-2xl mx-auto text-center">
           <div className="mb-8">
             <div className="inline-flex items-center justify-center w-24 h-24 bg-red-100 rounded-full mb-6">
@@ -39,8 +38,6 @@ export default function CompanyNotFound() {
           </div>
         </div>
       </main>
-
-      <Footer />
     </div>
   );
 }
