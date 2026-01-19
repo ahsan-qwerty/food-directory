@@ -43,7 +43,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      
+
       <main>
         {/* Hero Section */}
         <section className="bg-gradient-to-r from-green-700 to-green-600 text-white px-4">
@@ -56,13 +56,13 @@ export default function Home() {
                 Your gateway to discovering quality food exporters and manufacturers from Pakistan
               </p>
               <div className="flex flex-wrap gap-4">
-                <Link 
+                <Link
                   href="/companies"
                   className="px-8 py-3 bg-white text-green-700 rounded-lg font-semibold hover:bg-green-50 transition-colors"
                 >
                   Browse Companies
                 </Link>
-                <Link 
+                <Link
                   href="/events"
                   className="px-8 py-3 bg-green-800 text-white rounded-lg font-semibold hover:bg-green-900 transition-colors"
                 >
@@ -184,19 +184,38 @@ export default function Home() {
 
         {/* CTA Section */}
         <section className="py-16 bg-gradient-to-r from-green-700 to-green-600 text-white">
-          <div className="container mx-auto px-4 text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Ready to Connect?
-            </h2>
-            <p className="text-xl text-green-100 mb-8 max-w-2xl mx-auto">
-              Start exploring Pakistani food companies and discover your next business partner
-            </p>
-            <Link 
-              href="/companies"
-              className="inline-block px-8 py-3 bg-white text-green-700 rounded-lg font-semibold hover:bg-green-50 transition-colors text-lg"
-            >
-              Explore Directory
-            </Link>
+          <div className="container mx-auto px-4">
+            <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+              <div className="text-center bg-white/10 rounded-lg p-8 backdrop-blur-sm">
+                <h2 className="text-2xl md:text-3xl font-bold mb-4">
+                  Find Business Partners
+                </h2>
+                <p className="text-green-100 mb-6">
+                  Explore Pakistani food companies and discover your next business partner
+                </p>
+                <Link
+                  href="/companies"
+                  className="inline-block px-8 py-3 bg-white text-green-700 rounded-lg font-semibold hover:bg-green-50 transition-colors"
+                >
+                  Browse Directory
+                </Link>
+              </div>
+
+              <div className="text-center bg-white/10 rounded-lg p-8 backdrop-blur-sm">
+                <h2 className="text-2xl md:text-3xl font-bold mb-4">
+                  Register Your Company
+                </h2>
+                <p className="text-green-100 mb-6">
+                  Join Pakistan's premier food industry directory and expand your reach
+                </p>
+                <Link
+                  href="/register"
+                  className="inline-block px-8 py-3 bg-white text-green-700 rounded-lg font-semibold hover:bg-green-50 transition-colors"
+                >
+                  Register Now
+                </Link>
+              </div>
+            </div>
           </div>
         </section>
       </main>

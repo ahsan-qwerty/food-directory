@@ -18,25 +18,31 @@ export default function Header() {
               </div>
             </div>
           </Link>
-          
-          <nav className="flex flex-wrap gap-2 md:gap-6">
-            <Link 
-              href="/" 
+
+          <nav className="flex flex-wrap gap-2 md:gap-6 items-center">
+            <Link
+              href="/"
               className="text-white hover:text-green-100 transition-colors font-medium"
             >
               Home
             </Link>
-            <Link 
-              href="/companies" 
+            <Link
+              href="/companies"
               className="text-white hover:text-green-100 transition-colors font-medium"
             >
               Companies
             </Link>
-            <Link 
-              href="/events" 
+            <Link
+              href="/events"
               className="text-white hover:text-green-100 transition-colors font-medium"
             >
               Events
+            </Link>
+            <Link
+              href="/register"
+              className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-500 transition-colors font-medium"
+            >
+              Register Company
             </Link>
           </nav>
         </div>
