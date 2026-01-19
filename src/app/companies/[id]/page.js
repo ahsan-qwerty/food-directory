@@ -2,6 +2,8 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { getCompanyById } from '@/data/companies';
 import { getSectorName } from '@/data/sectors';
+import { getCategoryName } from '@/data/categories';
+import { getSubCategoryName } from '@/data/subcategories';
 
 export async function generateMetadata({ params }) {
   const { id } = await params;
@@ -16,8 +18,8 @@ export async function generateMetadata({ params }) {
 
   return {
     title: `${company.company_name} - TDAP Food Directory`,
-    description: company.company_profile.substring(0, 160),
-    keywords: company.products_to_be_displayed.join(', '),
+    description: company?.company_profile?.substring(0, 160),
+    keywords: company?.products_to_be_displayed?.join(', '),
   };
 }
 
@@ -25,14 +27,14 @@ export default async function CompanyProfilePage({ params }) {
   const { id } = await params;
   const company = getCompanyById(id);
 
-  if (!company || company.status !== 'Approved') {
+  if (!company) {
     console.log("Company not found: ", company);
     notFound();
   }
 
   return (
     <div className="min-h-screen bg-gray-50 px-4">
-      
+
       <main className="container mx-auto px-4 py-8">
         {/* Breadcrumb */}
         <div className="mb-6">
@@ -54,14 +56,27 @@ export default async function CompanyProfilePage({ params }) {
               </h1>
               <div className="flex flex-wrap gap-2 mb-4">
                 <span className="inline-block bg-green-100 text-green-800 text-sm px-3 py-1 rounded-full font-medium">
-                  {getSectorName(company.interested_sector_id)}
+                  {getSectorName(company.sector_id)}
                 </span>
-                <span className="inline-block bg-blue-100 text-blue-800 text-sm px-3 py-1 rounded-full font-medium">
-                  Since {company.year_of_incorporation}
-                </span>
-                <span className="inline-block bg-purple-100 text-purple-800 text-sm px-3 py-1 rounded-full font-medium">
-                  {company.no_of_employees} Employees
-                </span>
+                {company.category_id && (
+                  <>
+                    {(Array.isArray(company.category_id) ? company.category_id : [company.category_id]).map((catId, idx) => (
+                      <span key={idx} className="inline-block bg-blue-100 text-blue-800 text-sm px-3 py-1 rounded-full font-medium">
+                        {getCategoryName(catId)}
+                      </span>
+                    ))}
+                  </>
+                )}
+                {company.year_of_incorporation && (
+                  <span className="inline-block bg-purple-100 text-purple-800 text-sm px-3 py-1 rounded-full font-medium">
+                    Since {company.year_of_incorporation}
+                  </span>
+                )}
+                {company.no_of_employees && (
+                  <span className="inline-block bg-orange-100 text-orange-800 text-sm px-3 py-1 rounded-full font-medium">
+                    {company.no_of_employees} Employees
+                  </span>
+                )}
               </div>
             </div>
           </div>
@@ -79,19 +94,21 @@ export default async function CompanyProfilePage({ params }) {
             </div>
 
             {/* Products */}
-            <div className="bg-white rounded-lg shadow-md p-6">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Products</h2>
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                {company.products_to_be_displayed.map((product, index) => (
-                  <div 
-                    key={index}
-                    className="bg-green-50 border border-green-200 rounded-lg p-4 text-center"
-                  >
-                    <p className="text-green-800 font-medium">{product}</p>
-                  </div>
-                ))}
+            {company.sub_category_ids && company.sub_category_ids.length > 0 && (
+              <div className="bg-white rounded-lg shadow-md p-6">
+                <h2 className="text-2xl font-bold text-gray-900 mb-4">Products / Sub-Categories</h2>
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                  {company.sub_category_ids.map((subCatId, index) => (
+                    <div
+                      key={index}
+                      className="bg-green-50 border border-green-200 rounded-lg p-4 text-center"
+                    >
+                      <p className="text-green-800 font-medium">{getSubCategoryName(subCatId)}</p>
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
 
             {/* Company Competence */}
             {company.company_competence && (
@@ -107,7 +124,7 @@ export default async function CompanyProfilePage({ params }) {
                 <h2 className="text-2xl font-bold text-gray-900 mb-4">Certifications</h2>
                 <div className="flex flex-wrap gap-2">
                   {company.certification.split(',').map((cert, index) => (
-                    <span 
+                    <span
                       key={index}
                       className="bg-blue-100 text-blue-800 px-4 py-2 rounded-lg font-medium"
                     >
@@ -124,7 +141,7 @@ export default async function CompanyProfilePage({ params }) {
             {/* Contact Information */}
             <div className="bg-white rounded-lg shadow-md p-6">
               <h2 className="text-xl font-bold text-gray-900 mb-4">Contact Information</h2>
-              
+
               <div className="space-y-4">
                 {/* Address */}
                 <div>
@@ -136,7 +153,7 @@ export default async function CompanyProfilePage({ params }) {
                 {company.company_email_address && (
                   <div>
                     <h3 className="text-sm font-semibold text-gray-700 mb-1">Email</h3>
-                    <a 
+                    <a
                       href={`mailto:${company.company_email_address}`}
                       className="text-green-600 hover:text-green-700 text-sm break-all"
                     >
@@ -149,7 +166,7 @@ export default async function CompanyProfilePage({ params }) {
                 {company.web_address && (
                   <div>
                     <h3 className="text-sm font-semibold text-gray-700 mb-1">Website</h3>
-                    <a 
+                    <a
                       href={company.web_address}
                       target="_blank"
                       rel="noopener noreferrer"
@@ -165,7 +182,7 @@ export default async function CompanyProfilePage({ params }) {
             {/* Contact Person */}
             <div className="bg-white rounded-lg shadow-md p-6">
               <h2 className="text-xl font-bold text-gray-900 mb-4">Contact Person</h2>
-              
+
               <div className="space-y-3">
                 <div>
                   <h3 className="text-sm font-semibold text-gray-700">Name</h3>
@@ -182,7 +199,7 @@ export default async function CompanyProfilePage({ params }) {
                 {company.person_cell_no && (
                   <div>
                     <h3 className="text-sm font-semibold text-gray-700">Phone</h3>
-                    <a 
+                    <a
                       href={`tel:${company.person_cell_no}`}
                       className="text-green-600 hover:text-green-700"
                     >
@@ -194,7 +211,7 @@ export default async function CompanyProfilePage({ params }) {
                 {company.person_whatsapp_no && (
                   <div>
                     <h3 className="text-sm font-semibold text-gray-700">WhatsApp</h3>
-                    <a 
+                    <a
                       href={`https://wa.me/${company.person_whatsapp_no.replace(/\D/g, '')}`}
                       target="_blank"
                       rel="noopener noreferrer"
@@ -208,7 +225,7 @@ export default async function CompanyProfilePage({ params }) {
                 {company.person_email_address && (
                   <div>
                     <h3 className="text-sm font-semibold text-gray-700">Email</h3>
-                    <a 
+                    <a
                       href={`mailto:${company.person_email_address}`}
                       className="text-green-600 hover:text-green-700 text-sm break-all"
                     >
@@ -227,7 +244,7 @@ export default async function CompanyProfilePage({ params }) {
               <p className="text-sm text-green-800 mb-4">
                 Contact them directly using the information provided.
               </p>
-              <Link 
+              <Link
                 href="/companies"
                 className="inline-block px-6 py-2 bg-green-700 text-white rounded-md hover:bg-green-800 transition-colors"
               >

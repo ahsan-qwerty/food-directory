@@ -1,19 +1,17 @@
 import { NextResponse } from 'next/server';
-import { 
-  companies, 
-  getCompanyById, 
+import {
+  companies,
+  getCompanyById,
   getApprovedCompanies,
   filterCompaniesBySector,
-  filterCompaniesByProduct,
-  filterCompaniesByCertification,
-  searchCompanies,
-  getAllProducts,
-  getAllCertifications
+  filterCompaniesByCategory,
+  filterCompaniesBySubCategory,
+  searchCompanies
 } from '@/data/companies';
 
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
-  
+
   // Get single company by ID
   const id = searchParams.get('id');
   if (id) {
@@ -26,43 +24,37 @@ export async function GET(request) {
     }
     return NextResponse.json(company);
   }
-  
-  // Get filter options
-  if (searchParams.get('action') === 'filters') {
-    return NextResponse.json({
-      products: getAllProducts(),
-      certifications: getAllCertifications()
-    });
-  }
-  
+
   // Apply filters
   const sector = searchParams.get('sector');
-  const product = searchParams.get('product');
-  const certification = searchParams.get('certification');
+  const category = searchParams.get('category');
+  const subCategory = searchParams.get('sub_category');
   const query = searchParams.get('q');
-  
+
   let result = getApprovedCompanies();
-  
+
   if (query) {
     result = searchCompanies(query);
   } else {
     if (sector) {
       result = filterCompaniesBySector(sector);
     }
-    if (product) {
-      result = result.filter(c => 
-        c.products_to_be_displayed.some(p => 
-          p.toLowerCase().includes(product.toLowerCase())
-        )
-      );
+    if (category) {
+      result = result.filter(c => {
+        if (!c.category_id) return false;
+        // Handle both array and single value
+        return Array.isArray(c.category_id)
+          ? c.category_id.includes(parseInt(category))
+          : c.category_id === parseInt(category);
+      });
     }
-    if (certification) {
-      result = result.filter(c => 
-        c.certification.toLowerCase().includes(certification.toLowerCase())
+    if (subCategory) {
+      result = result.filter(c =>
+        c.sub_category_ids && c.sub_category_ids.includes(parseInt(subCategory))
       );
     }
   }
-  
+
   return NextResponse.json({
     companies: result,
     total: result.length

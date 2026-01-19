@@ -159,14 +159,16 @@ export default function Home() {
 
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {[
-                'Rice & Grains',
-                'Spices & Seasonings',
+                'Cereals',
+                'Spices',
                 'Fruits & Vegetables',
-                'Dairy Products',
+                'Dairy',
+                'Meat & Poultry',
                 'Seafood',
                 'Bakery & Confectionery',
                 'Beverages',
-                'Processed Foods'
+                'Processed Foods',
+                'Organic Products'
               ].map((sector, index) => (
                 <Link
                   key={index}
