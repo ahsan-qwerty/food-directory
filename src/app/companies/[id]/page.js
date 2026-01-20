@@ -2,8 +2,8 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { getCompanyById } from '@/data/companies';
 import { getSectorName } from '@/data/sectors';
-import { getCategoryName } from '@/data/categories';
-import { getSubCategoryName } from '@/data/subcategories';
+import { getSubSectorName } from '@/data/categories';
+import { getProductName } from '@/data/subcategories';
 
 export async function generateMetadata({ params }) {
   const { id } = await params;
@@ -60,9 +60,9 @@ export default async function CompanyProfilePage({ params }) {
                 </span>
                 {company.category_id && (
                   <>
-                    {(Array.isArray(company.category_id) ? company.category_id : [company.category_id]).map((catId, idx) => (
+                    {(Array.isArray(company.category_id) ? company.category_id : [company.category_id]).map((subSectorId, idx) => (
                       <span key={idx} className="inline-block bg-blue-100 text-blue-800 text-sm px-3 py-1 rounded-full font-medium">
-                        {getCategoryName(catId)}
+                        {getSubSectorName(subSectorId)}
                       </span>
                     ))}
                   </>
@@ -96,14 +96,14 @@ export default async function CompanyProfilePage({ params }) {
             {/* Products */}
             {company.sub_category_ids && company.sub_category_ids.length > 0 && (
               <div className="bg-white rounded-lg shadow-md p-6">
-                <h2 className="text-2xl font-bold text-gray-900 mb-4">Products / Sub-Categories</h2>
+                <h2 className="text-2xl font-bold text-gray-900 mb-4">Products</h2>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                   {company.sub_category_ids.map((subCatId, index) => (
                     <div
                       key={index}
                       className="bg-green-50 border border-green-200 rounded-lg p-4 text-center"
                     >
-                      <p className="text-green-800 font-medium">{getSubCategoryName(subCatId)}</p>
+                      <p className="text-green-800 font-medium">{getProductName(subCatId)}</p>
                     </div>
                   ))}
                 </div>

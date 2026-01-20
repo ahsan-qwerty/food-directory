@@ -1,5 +1,5 @@
-// Categories (Sub-Sectors) - Second level
-export const categories = [
+// Sub-Sectors - Second level
+export const subSectors = [
   { id: 0, name: 'Agritech' },
   { id: 1, name: 'Agritech & other Services' },
   { id: 2, name: 'Agritech & other services' },
@@ -87,16 +87,16 @@ export const categories = [
   { id: 84, name: 'water' }
 ];
 
-export function getCategoryById(id) {
-  return categories.find(c => c.id === id);
+export function getSubSectorById(id) {
+  return subSectors.find(c => c.id === id);
 }
 
-export function getCategoryName(id) {
-  const category = getCategoryById(id);
-  return category ? category.name : 'Unknown Category';
+export function getSubSectorName(id) {
+  const subSector = getSubSectorById(id);
+  return subSector ? subSector.name : 'Unknown Sub-Sector';
 }
 
-export function getCategoriesBySector(sectorId) {
-  // Categories are no longer linked to sectors, return all categories
-  return categories;
+export function getSubSectorsBySector(sectorId) {
+  // Sub-sectors are no longer linked to sectors, return all sub-sectors
+  return subSectors;
 }

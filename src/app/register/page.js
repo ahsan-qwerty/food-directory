@@ -7,8 +7,8 @@ import Link from 'next/link';
 export default function RegisterPage() {
     const router = useRouter();
     const [sectors, setSectors] = useState([]);
-    const [categories, setCategories] = useState([]);
-    const [subCategories, setSubCategories] = useState([]);
+    const [subSectors, setSubSectors] = useState([]);
+    const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [success, setSuccess] = useState(false);
@@ -33,7 +33,7 @@ export default function RegisterPage() {
         // person_email_address: ''
     });
 
-    // Fetch sectors, categories, and sub-categories on mount
+    // Fetch sectors, sub-sectors, and products on mount
     useEffect(() => {
         async function fetchData() {
             try {
@@ -44,12 +44,12 @@ export default function RegisterPage() {
                 ]);
 
                 const sectorsData = await sectorsRes.json();
-                const categoriesData = await categoriesRes.json();
-                const subCategoriesData = await subCategoriesRes.json();
+                const subSectorsData = await categoriesRes.json();
+                const productsData = await subCategoriesRes.json();
 
                 setSectors(sectorsData.sectors);
-                setCategories(categoriesData.categories);
-                setSubCategories(subCategoriesData.subCategories);
+                setSubSectors(subSectorsData.subSectors);
+                setProducts(productsData.products);
             } catch (error) {
                 console.error('Error fetching data:', error);
                 setError('Failed to load form data. Please refresh the page.');
@@ -265,9 +265,9 @@ export default function RegisterPage() {
                         </div>
                     </div>
 
-                    {/* Business Categories */}
+                     {/* Business Categories (Sector / Sub-Sector / Products) */}
                     <div>
-                        <h2 className="text-xl font-bold text-gray-900 mb-4">Business Categories</h2>
+                         <h2 className="text-xl font-bold text-gray-900 mb-4">Business Classification</h2>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -291,7 +291,7 @@ export default function RegisterPage() {
 
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                                    Categories <span className="text-red-500">*</span>
+                                     Sub-Sectors <span className="text-red-500">*</span>
                                     <span className="text-xs text-gray-500 ml-1">(Hold Ctrl/Cmd to select multiple)</span>
                                 </label>
                                 <select
@@ -301,9 +301,9 @@ export default function RegisterPage() {
                                     className="w-full px-3 py-2 border border-gray-300 text-gray-950 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 min-h-[120px]"
                                     required
                                 >
-                                    {categories.map(category => (
-                                        <option key={category.id} value={category.id}>
-                                            {category.name}
+                                     {subSectors.map(subSector => (
+                                         <option key={subSector.id} value={subSector.id}>
+                                             {subSector.name}
                                         </option>
                                     ))}
                                 </select>
@@ -311,7 +311,7 @@ export default function RegisterPage() {
 
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                                    Sub-Categories (Products)
+                                     Products
                                     <span className="text-xs text-gray-500 ml-1">(Hold Ctrl/Cmd to select multiple)</span>
                                 </label>
                                 <select
@@ -320,9 +320,9 @@ export default function RegisterPage() {
                                     onChange={(e) => handleMultiSelectChange(e, 'sub_category_ids')}
                                     className="w-full px-3 py-2 border border-gray-300 text-gray-950 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 min-h-[120px]"
                                 >
-                                    {subCategories.map(subCategory => (
-                                        <option key={subCategory.id} value={subCategory.id}>
-                                            {subCategory.name}
+                                     {products.map(product => (
+                                         <option key={product.id} value={product.id}>
+                                             {product.name}
                                         </option>
                                     ))}
                                 </select>

@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { getSectorName } from '@/data/sectors';
-import { getCategoryName } from '@/data/categories';
-import { getSubCategoryName } from '@/data/subcategories';
+import { getSubSectorName } from '@/data/categories';
+import { getProductName } from '@/data/subcategories';
 
 export default function CompanyCard({ company }) {
   return (
@@ -17,9 +17,9 @@ export default function CompanyCard({ company }) {
           </span>
           {company.category_id && (
             <>
-              {(Array.isArray(company.category_id) ? company.category_id : [company.category_id]).slice(0, 2).map((catId, idx) => (
+              {(Array.isArray(company.category_id) ? company.category_id : [company.category_id]).slice(0, 2).map((subSectorId, idx) => (
                 <span key={idx} className="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">
-                  {getCategoryName(catId)}
+                  {getSubSectorName(subSectorId)}
                 </span>
               ))}
               {Array.isArray(company.category_id) && company.category_id.length > 2 && (
@@ -44,7 +44,7 @@ export default function CompanyCard({ company }) {
                   key={index}
                   className="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded"
                 >
-                  {getSubCategoryName(subCatId)}
+                  {getProductName(subCatId)}
                 </span>
               ))}
               {company.sub_category_ids.length > 3 && (

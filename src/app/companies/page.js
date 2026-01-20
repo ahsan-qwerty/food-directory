@@ -15,8 +15,8 @@ export default function CompaniesPage() {
 
   // Filter options
   const [sectors, setSectors] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [subCategories, setSubCategories] = useState([]);
+  const [subSectors, setSubSectors] = useState([]);
+  const [products, setProducts] = useState([]);
 
   // Fetch sectors on mount
   useEffect(() => {
@@ -32,32 +32,32 @@ export default function CompaniesPage() {
     fetchSectors();
   }, []);
 
-  // Fetch all categories on mount (no longer filtered by sector)
+  // Fetch all sub-sectors on mount (no longer filtered by sector)
   useEffect(() => {
-    async function fetchCategories() {
+    async function fetchSubSectors() {
       try {
         const res = await fetch('/api/categories');
         const data = await res.json();
-        setCategories(data.categories);
+        setSubSectors(data.subSectors);
       } catch (error) {
-        console.error('Error fetching categories:', error);
+        console.error('Error fetching sub-sectors:', error);
       }
     }
-    fetchCategories();
+    fetchSubSectors();
   }, []);
 
-  // Fetch all sub-categories on mount (no longer filtered by category)
+  // Fetch all products on mount (no longer filtered by sub-sector)
   useEffect(() => {
-    async function fetchSubCategories() {
+    async function fetchProducts() {
       try {
         const res = await fetch('/api/subcategories');
         const data = await res.json();
-        setSubCategories(data.subCategories);
+        setProducts(data.products);
       } catch (error) {
-        console.error('Error fetching sub-categories:', error);
+        console.error('Error fetching products:', error);
       }
     }
-    fetchSubCategories();
+    fetchProducts();
   }, []);
 
   // Fetch companies based on filters
@@ -97,7 +97,7 @@ export default function CompaniesPage() {
       sub_category: '',
       search: ''
     });
-    setSubCategories([]);
+    setProducts([]);
   };
 
   const hasActiveFilters = filters.sector || filters.category || filters.sub_category || filters.search;
@@ -163,29 +163,29 @@ export default function CompaniesPage() {
               </select>
             </div>
 
-            {/* Category Filter (Sub-Sector) */}
+            {/* Sub-Sector Filter */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Category
+                Sub-Sector
               </label>
               <select
                 value={filters.category}
                 onChange={(e) => handleFilterChange('category', e.target.value)}
                 className="w-full px-3 py-2 border border-gray-300 text-gray-950 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
               >
-                <option value="">All Categories</option>
-                {categories.map(category => (
-                  <option key={category.id} value={category.id}>
-                    {category.name}
+                <option value="">All Sub-Sectors</option>
+                {subSectors.map(subSector => (
+                  <option key={subSector.id} value={subSector.id}>
+                    {subSector.name}
                   </option>
                 ))}
               </select>
             </div>
 
-            {/* Sub-Category Filter (Products) */}
+            {/* Product Filter */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Sub-Category (Product)
+                Product
               </label>
               <select
                 value={filters.sub_category}
@@ -193,9 +193,9 @@ export default function CompaniesPage() {
                 className="w-full px-3 py-2 border border-gray-300 text-gray-950 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
               >
                 <option value="">All Products</option>
-                {subCategories.map(subCategory => (
-                  <option key={subCategory.id} value={subCategory.id}>
-                    {subCategory.name}
+                {products.map(product => (
+                  <option key={product.id} value={product.id}>
+                    {product.name}
                   </option>
                 ))}
               </select>
