@@ -2,8 +2,8 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { getCompanyById } from '@/data/companies';
 import { getSectorName } from '@/data/sectors';
-import { getSubSectorName } from '@/data/categories';
-import { getProductName } from '@/data/subcategories';
+import { getSubSectorName } from '@/data/subSectors';
+import { getProductName } from '@/data/products';
 
 export async function generateMetadata({ params }) {
   const { id } = await params;

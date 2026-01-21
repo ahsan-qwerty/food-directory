@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { getSectorName } from '@/data/sectors';
-import { getSubSectorName } from '@/data/categories';
-import { getProductName } from '@/data/subcategories';
+import { getSubSectorName } from '@/data/subSectors';
+import { getProductName } from '@/data/products';
 
 export default function CompanyCard({ company }) {
   return (

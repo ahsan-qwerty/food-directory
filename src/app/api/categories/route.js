@@ -1,9 +1,9 @@
 import { NextResponse } from 'next/server';
-import { subSectors, getSubSectorById, getSubSectorsBySector } from '@/data/categories';
+import { subSectors, getSubSectorById, getSubSectorsBySector } from '@/data/subSectors';
 
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
-  
+
   // Get single sub-sector by ID
   const id = searchParams.get('id');
   if (id) {
@@ -16,7 +16,7 @@ export async function GET(request) {
     }
     return NextResponse.json(subSector);
   }
-  
+
   // Get sub-sectors by sector
   const sectorId = searchParams.get('sector_id');
   if (sectorId) {
@@ -26,7 +26,7 @@ export async function GET(request) {
       total: sectorSubSectors.length
     });
   }
-  
+
   // Get all sub-sectors
   return NextResponse.json({
     subSectors,
