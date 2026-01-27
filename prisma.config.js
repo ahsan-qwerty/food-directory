@@ -1,0 +1,16 @@
+// Prisma config (JavaScript) - avoids TypeScript module-resolution issues
+require('dotenv/config');
+const { defineConfig, env } = require('prisma/config');
+
+module.exports = defineConfig({
+    schema: 'prisma/schema.prisma',
+    migrations: {
+        path: 'prisma/migrations',
+    },
+    engine: 'classic',
+    datasource: {
+        // url: env('DATABASE_URL'),
+        url: "mysql://root:@localhost:3306/food-directory",
+    },
+});
+
