@@ -1,6 +1,12 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
 generator client {
   provider = "prisma-client"
-  output   = "../src/generated/prisma"
+  output   = "../src/app/generated/prisma"
 }
 
 datasource db {
@@ -8,32 +14,41 @@ datasource db {
 }
 
 model Sector {
-  id         Int         @id @default(autoincrement())
-  name       String      @unique
+id Int @id @default(autoincrement())
+name String @unique
 
-  subSectors SubSector[]
 
-  createdAt  DateTime    @default(now())
+subSectors SubSector[]
+
+
+createdAt DateTime @default(now())
 }
+
 
 model SubSector {
-  id        Int      @id @default(autoincrement())
-  name      String
+id Int @id @default(autoincrement())
+name String
 
-  sectorId  Int
-  sector    Sector   @relation(fields: [sectorId], references: [id])
 
-  products  Product[]
+sectorId Int
+sector Sector @relation(fields: [sectorId], references: [id])
 
-  createdAt DateTime @default(now())
+
+products Product[]
+
+
+createdAt DateTime @default(now())
 }
 
+
 model Product {
-  id           Int       @id @default(autoincrement())
-  name         String
+id Int @id @default(autoincrement())
+name String
 
-  subSectorId  Int
-  subSector    SubSector @relation(fields: [subSectorId], references: [id])
 
-  createdAt    DateTime  @default(now())
+subSectorId Int
+subSector SubSector @relation(fields: [subSectorId], references: [id])
+
+
+createdAt DateTime @default(now())
 }
