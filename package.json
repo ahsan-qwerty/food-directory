@@ -6,7 +6,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "db:cleanup": "tsx prisma/cleanup.ts",
+    "db:seed:sectors": "tsx prisma/sector_seed.ts",
+    "db:seed:subsectors": "tsx prisma/subsector_seed.ts",
+    "db:seed:products": "tsx prisma/product_seed.ts"
   },
   "dependencies": {
     "@prisma/adapter-mariadb": "^7.3.0",

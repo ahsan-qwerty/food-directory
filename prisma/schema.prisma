@@ -16,6 +16,7 @@ datasource db {
 model Sector {
 id Int @id @default(autoincrement())
 name String @unique
+hsCode String?
 
 
 subSectors SubSector[]
@@ -28,6 +29,7 @@ createdAt DateTime @default(now())
 model SubSector {
 id Int @id @default(autoincrement())
 name String
+hsCode String?
 
 
 sectorId Int
@@ -44,6 +46,7 @@ createdAt DateTime @default(now())
 model Product {
 id Int @id @default(autoincrement())
 name String
+hsCode String?
 
 
 subSectorId Int

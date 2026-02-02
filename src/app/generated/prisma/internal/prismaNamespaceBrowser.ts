@@ -17,8 +17,8 @@
 
 import * as runtime from "@prisma/client/runtime/index-browser"
 
-export type * from '../models.ts'
-export type * from './prismaNamespace.ts'
+export type * from '../models.js'
+export type * from './prismaNamespace.js'
 
 export const Decimal = runtime.Decimal
 
@@ -75,6 +75,7 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 export const SectorScalarFieldEnum = {
   id: 'id',
   name: 'name',
+  hsCode: 'hsCode',
   createdAt: 'createdAt'
 } as const
 
@@ -84,6 +85,7 @@ export type SectorScalarFieldEnum = (typeof SectorScalarFieldEnum)[keyof typeof 
 export const SubSectorScalarFieldEnum = {
   id: 'id',
   name: 'name',
+  hsCode: 'hsCode',
   sectorId: 'sectorId',
   createdAt: 'createdAt'
 } as const
@@ -94,6 +96,7 @@ export type SubSectorScalarFieldEnum = (typeof SubSectorScalarFieldEnum)[keyof t
 export const ProductScalarFieldEnum = {
   id: 'id',
   name: 'name',
+  hsCode: 'hsCode',
   subSectorId: 'subSectorId',
   createdAt: 'createdAt'
 } as const
@@ -109,22 +112,33 @@ export const SortOrder = {
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
+export const NullsOrder = {
+  first: 'first',
+  last: 'last'
+} as const
+
+export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
 export const SectorOrderByRelevanceFieldEnum = {
-  name: 'name'
+  name: 'name',
+  hsCode: 'hsCode'
 } as const
 
 export type SectorOrderByRelevanceFieldEnum = (typeof SectorOrderByRelevanceFieldEnum)[keyof typeof SectorOrderByRelevanceFieldEnum]
 
 
 export const SubSectorOrderByRelevanceFieldEnum = {
-  name: 'name'
+  name: 'name',
+  hsCode: 'hsCode'
 } as const
 
 export type SubSectorOrderByRelevanceFieldEnum = (typeof SubSectorOrderByRelevanceFieldEnum)[keyof typeof SubSectorOrderByRelevanceFieldEnum]
 
 
 export const ProductOrderByRelevanceFieldEnum = {
-  name: 'name'
+  name: 'name',
+  hsCode: 'hsCode'
 } as const
 
 export type ProductOrderByRelevanceFieldEnum = (typeof ProductOrderByRelevanceFieldEnum)[keyof typeof ProductOrderByRelevanceFieldEnum]
