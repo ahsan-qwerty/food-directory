@@ -27,12 +27,27 @@ export default async function CompanyProfilePage({ params }) {
   const companyId = Number(id);
   if (Number.isNaN(companyId)) notFound();
 
-  const company = await prisma.company.findUnique({ where: { id: companyId } });
-  console.log('CompanyProfilePage DB company:', company);
+  const company = await prisma.company.findUnique({
+    where: { id: companyId },
+  });
 
   if (!company) {
     notFound();
   }
+
+  console.log('CompanyProfilePage DB company ::', company);
+
+  // Fetch related sector and sub-sector using foreign keys on Company
+  const [sector, subSector] = await Promise.all([
+    company.sectorId
+      ? prisma.sector.findUnique({ where: { id: company.sectorId } })
+      : Promise.resolve(null),
+    company.subSectorId
+      ? prisma.subSector.findUnique({ where: { id: company.subSectorId } })
+      : Promise.resolve(null),
+  ]);
+
+  // console.log('CompanyProfilePage DB company:', { ...company, sector, subSector });
 
   return (
     <div className="min-h-screen bg-gray-50 px-4">
@@ -56,6 +71,18 @@ export default async function CompanyProfilePage({ params }) {
               <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
                 {company.name}
               </h1>
+              <div className="flex flex-wrap gap-2 mb-3">
+                {sector && (
+                  <span className="inline-block bg-green-100 text-green-800 text-sm px-3 py-1 rounded-full font-medium">
+                    {sector.name}
+                  </span>
+                )}
+                {subSector && (
+                  <span className="inline-block bg-blue-100 text-blue-800 text-sm px-3 py-1 rounded-full font-medium">
+                    {subSector.name}
+                  </span>
+                )}
+              </div>
               {company.address && (
                 <p className="text-gray-600">{company.address}</p>
               )}
