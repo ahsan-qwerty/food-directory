@@ -116,6 +116,7 @@ export const CompanyScalarFieldEnum = {
   representativeTel: 'representativeTel',
   representativeWhatsapp: 'representativeWhatsapp',
   representativeEmail: 'representativeEmail',
+  productsToBeDisplayed: 'productsToBeDisplayed',
   createdAt: 'createdAt'
 } as const
 
@@ -171,7 +172,8 @@ export const CompanyOrderByRelevanceFieldEnum = {
   representativeName: 'representativeName',
   representativeTel: 'representativeTel',
   representativeWhatsapp: 'representativeWhatsapp',
-  representativeEmail: 'representativeEmail'
+  representativeEmail: 'representativeEmail',
+  productsToBeDisplayed: 'productsToBeDisplayed'
 } as const
 
 export type CompanyOrderByRelevanceFieldEnum = (typeof CompanyOrderByRelevanceFieldEnum)[keyof typeof CompanyOrderByRelevanceFieldEnum]

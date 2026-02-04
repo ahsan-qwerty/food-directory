@@ -45,6 +45,7 @@ export type CompanyMinAggregateOutputType = {
   representativeTel: string | null
   representativeWhatsapp: string | null
   representativeEmail: string | null
+  productsToBeDisplayed: string | null
   createdAt: Date | null
 }
 
@@ -59,6 +60,7 @@ export type CompanyMaxAggregateOutputType = {
   representativeTel: string | null
   representativeWhatsapp: string | null
   representativeEmail: string | null
+  productsToBeDisplayed: string | null
   createdAt: Date | null
 }
 
@@ -73,6 +75,7 @@ export type CompanyCountAggregateOutputType = {
   representativeTel: number
   representativeWhatsapp: number
   representativeEmail: number
+  productsToBeDisplayed: number
   createdAt: number
   _all: number
 }
@@ -97,6 +100,7 @@ export type CompanyMinAggregateInputType = {
   representativeTel?: true
   representativeWhatsapp?: true
   representativeEmail?: true
+  productsToBeDisplayed?: true
   createdAt?: true
 }
 
@@ -111,6 +115,7 @@ export type CompanyMaxAggregateInputType = {
   representativeTel?: true
   representativeWhatsapp?: true
   representativeEmail?: true
+  productsToBeDisplayed?: true
   createdAt?: true
 }
 
@@ -125,6 +130,7 @@ export type CompanyCountAggregateInputType = {
   representativeTel?: true
   representativeWhatsapp?: true
   representativeEmail?: true
+  productsToBeDisplayed?: true
   createdAt?: true
   _all?: true
 }
@@ -226,6 +232,7 @@ export type CompanyGroupByOutputType = {
   representativeTel: string | null
   representativeWhatsapp: string | null
   representativeEmail: string | null
+  productsToBeDisplayed: string | null
   createdAt: Date
   _count: CompanyCountAggregateOutputType | null
   _avg: CompanyAvgAggregateOutputType | null
@@ -263,6 +270,7 @@ export type CompanyWhereInput = {
   representativeTel?: Prisma.StringNullableFilter<"Company"> | string | null
   representativeWhatsapp?: Prisma.StringNullableFilter<"Company"> | string | null
   representativeEmail?: Prisma.StringNullableFilter<"Company"> | string | null
+  productsToBeDisplayed?: Prisma.StringNullableFilter<"Company"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Company"> | Date | string
 }
 
@@ -277,6 +285,7 @@ export type CompanyOrderByWithRelationInput = {
   representativeTel?: Prisma.SortOrderInput | Prisma.SortOrder
   representativeWhatsapp?: Prisma.SortOrderInput | Prisma.SortOrder
   representativeEmail?: Prisma.SortOrderInput | Prisma.SortOrder
+  productsToBeDisplayed?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _relevance?: Prisma.CompanyOrderByRelevanceInput
 }
@@ -295,6 +304,7 @@ export type CompanyWhereUniqueInput = Prisma.AtLeast<{
   representativeTel?: Prisma.StringNullableFilter<"Company"> | string | null
   representativeWhatsapp?: Prisma.StringNullableFilter<"Company"> | string | null
   representativeEmail?: Prisma.StringNullableFilter<"Company"> | string | null
+  productsToBeDisplayed?: Prisma.StringNullableFilter<"Company"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Company"> | Date | string
 }, "id">
 
@@ -309,6 +319,7 @@ export type CompanyOrderByWithAggregationInput = {
   representativeTel?: Prisma.SortOrderInput | Prisma.SortOrder
   representativeWhatsapp?: Prisma.SortOrderInput | Prisma.SortOrder
   representativeEmail?: Prisma.SortOrderInput | Prisma.SortOrder
+  productsToBeDisplayed?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.CompanyCountOrderByAggregateInput
   _avg?: Prisma.CompanyAvgOrderByAggregateInput
@@ -331,6 +342,7 @@ export type CompanyScalarWhereWithAggregatesInput = {
   representativeTel?: Prisma.StringNullableWithAggregatesFilter<"Company"> | string | null
   representativeWhatsapp?: Prisma.StringNullableWithAggregatesFilter<"Company"> | string | null
   representativeEmail?: Prisma.StringNullableWithAggregatesFilter<"Company"> | string | null
+  productsToBeDisplayed?: Prisma.StringNullableWithAggregatesFilter<"Company"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Company"> | Date | string
 }
 
@@ -344,6 +356,7 @@ export type CompanyCreateInput = {
   representativeTel?: string | null
   representativeWhatsapp?: string | null
   representativeEmail?: string | null
+  productsToBeDisplayed?: string | null
   createdAt?: Date | string
 }
 
@@ -358,6 +371,7 @@ export type CompanyUncheckedCreateInput = {
   representativeTel?: string | null
   representativeWhatsapp?: string | null
   representativeEmail?: string | null
+  productsToBeDisplayed?: string | null
   createdAt?: Date | string
 }
 
@@ -371,6 +385,7 @@ export type CompanyUpdateInput = {
   representativeTel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   representativeWhatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   representativeEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  productsToBeDisplayed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -385,6 +400,7 @@ export type CompanyUncheckedUpdateInput = {
   representativeTel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   representativeWhatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   representativeEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  productsToBeDisplayed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -399,6 +415,7 @@ export type CompanyCreateManyInput = {
   representativeTel?: string | null
   representativeWhatsapp?: string | null
   representativeEmail?: string | null
+  productsToBeDisplayed?: string | null
   createdAt?: Date | string
 }
 
@@ -412,6 +429,7 @@ export type CompanyUpdateManyMutationInput = {
   representativeTel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   representativeWhatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   representativeEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  productsToBeDisplayed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -426,6 +444,7 @@ export type CompanyUncheckedUpdateManyInput = {
   representativeTel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   representativeWhatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   representativeEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  productsToBeDisplayed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -446,6 +465,7 @@ export type CompanyCountOrderByAggregateInput = {
   representativeTel?: Prisma.SortOrder
   representativeWhatsapp?: Prisma.SortOrder
   representativeEmail?: Prisma.SortOrder
+  productsToBeDisplayed?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -464,6 +484,7 @@ export type CompanyMaxOrderByAggregateInput = {
   representativeTel?: Prisma.SortOrder
   representativeWhatsapp?: Prisma.SortOrder
   representativeEmail?: Prisma.SortOrder
+  productsToBeDisplayed?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -478,6 +499,7 @@ export type CompanyMinOrderByAggregateInput = {
   representativeTel?: Prisma.SortOrder
   representativeWhatsapp?: Prisma.SortOrder
   representativeEmail?: Prisma.SortOrder
+  productsToBeDisplayed?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -498,6 +520,7 @@ export type CompanySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   representativeTel?: boolean
   representativeWhatsapp?: boolean
   representativeEmail?: boolean
+  productsToBeDisplayed?: boolean
   createdAt?: boolean
 }, ExtArgs["result"]["company"]>
 
@@ -514,10 +537,11 @@ export type CompanySelectScalar = {
   representativeTel?: boolean
   representativeWhatsapp?: boolean
   representativeEmail?: boolean
+  productsToBeDisplayed?: boolean
   createdAt?: boolean
 }
 
-export type CompanyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "profile" | "address" | "email" | "website" | "representativeName" | "representativeTel" | "representativeWhatsapp" | "representativeEmail" | "createdAt", ExtArgs["result"]["company"]>
+export type CompanyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "profile" | "address" | "email" | "website" | "representativeName" | "representativeTel" | "representativeWhatsapp" | "representativeEmail" | "productsToBeDisplayed" | "createdAt", ExtArgs["result"]["company"]>
 
 export type $CompanyPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Company"
@@ -533,6 +557,7 @@ export type $CompanyPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     representativeTel: string | null
     representativeWhatsapp: string | null
     representativeEmail: string | null
+    productsToBeDisplayed: string | null
     createdAt: Date
   }, ExtArgs["result"]["company"]>
   composites: {}
@@ -913,6 +938,7 @@ export interface CompanyFieldRefs {
   readonly representativeTel: Prisma.FieldRef<"Company", 'String'>
   readonly representativeWhatsapp: Prisma.FieldRef<"Company", 'String'>
   readonly representativeEmail: Prisma.FieldRef<"Company", 'String'>
+  readonly productsToBeDisplayed: Prisma.FieldRef<"Company", 'String'>
   readonly createdAt: Prisma.FieldRef<"Company", 'DateTime'>
 }
     

@@ -29,7 +29,10 @@
     ".next/dev/types/**/*.ts",
     "**/*.mts",
     "**/*.ts",
-    "**/*.tsx"
+    "**/*.tsx",
+    "src/app/generated/prisma/enums.ts",
+    "src/app/generated/prisma/internal/class.ts",
+    "src/app/generated/prisma/internal/prismaNamespace.ts"
   ],
   "exclude": [
     "node_modules"

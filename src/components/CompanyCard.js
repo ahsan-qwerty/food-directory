@@ -18,6 +18,13 @@ export default function CompanyCard({ company }) {
           {company.profile || company.address || 'View details'}
         </p>
 
+        {company.productsToBeDisplayed && (
+          <div className="mb-3">
+            <h4 className="text-xs font-semibold text-gray-700 mb-1">Products:</h4>
+            <p className="text-xs text-gray-600 line-clamp-2">{company.productsToBeDisplayed}</p>
+          </div>
+        )}
+
         <div className="space-y-1 text-xs text-gray-600">
           {company.email && <div className="truncate"><span className="font-semibold">Email:</span> {company.email}</div>}
           {company.website && <div className="truncate"><span className="font-semibold">Website:</span> {company.website}</div>}

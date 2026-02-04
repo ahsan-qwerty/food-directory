@@ -76,6 +76,7 @@ async function main() {
                     representativeTel: cleanValue(getByHeader(row, 'Representative Tel')),
                     representativeWhatsapp: cleanValue(getByHeader(row, 'Representative Whatsapp')),
                     representativeEmail: cleanValue(getByHeader(row, 'Representative Email')),
+                    productsToBeDisplayed: cleanValue(getByHeader(row, 'Products To Be Displayed')),
                 }
             })
             .filter((c) => (c.name || '').trim() !== '')

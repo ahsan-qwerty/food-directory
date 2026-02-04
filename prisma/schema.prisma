@@ -67,6 +67,7 @@ representativeName String?
 representativeTel String?
 representativeWhatsapp String?
 representativeEmail String?
+productsToBeDisplayed String?
 
 createdAt DateTime @default(now())
 }
