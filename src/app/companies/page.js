@@ -20,6 +20,7 @@ export default function CompaniesPage() {
 
         const res = await fetch(`/api/companies?${params}`);
         const data = await res.json();
+        console.log('CompaniesPage DB companies:', data.companies[0]);
         setCompanies(data.companies);
       } catch (error) {
         console.error('Error fetching companies:', error);

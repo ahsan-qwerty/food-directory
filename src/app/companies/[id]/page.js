@@ -28,6 +28,7 @@ export default async function CompanyProfilePage({ params }) {
   if (Number.isNaN(companyId)) notFound();
 
   const company = await prisma.company.findUnique({ where: { id: companyId } });
+  console.log('CompanyProfilePage DB company:', company);
 
   if (!company) {
     notFound();

@@ -17,6 +17,7 @@ export async function GET(request) {
     const company = await prisma.company.findUnique({
       where: { id: companyId },
     });
+    console.log('CompaniesPage DB company:', company);
     if (!company) {
       return NextResponse.json(
         { error: 'Company not found' },
