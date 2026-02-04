@@ -38,3 +38,32 @@ export async function GET(request) {
     total: sectors.length,
   });
 }
+
+export async function PATCH(request) {
+  try {
+    const data = await request.json();
+    const id = Number(data.id);
+    const name = typeof data.name === 'string' ? data.name.trim() : '';
+
+    if (Number.isNaN(id)) {
+      return NextResponse.json({ error: 'Valid sector id is required' }, { status: 400 });
+    }
+
+    if (!name) {
+      return NextResponse.json({ error: 'Sector name is required' }, { status: 400 });
+    }
+
+    const updated = await prisma.sector.update({
+      where: { id },
+      data: { name },
+    });
+
+    return NextResponse.json({ sector: updated });
+  } catch (error) {
+    console.error('Error updating sector:', error);
+    return NextResponse.json(
+      { error: 'Failed to update sector' },
+      { status: 500 }
+    );
+  }
+}

@@ -35,8 +35,6 @@ export default async function CompanyProfilePage({ params }) {
     notFound();
   }
 
-  console.log('CompanyProfilePage DB company ::', company);
-
   // Fetch related sector and sub-sector using foreign keys on Company
   const [sector, subSector] = await Promise.all([
     company.sectorId

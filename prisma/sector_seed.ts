@@ -27,11 +27,14 @@ const adapter = new PrismaMariaDb({
 const prisma = new PrismaClient({ adapter })
 
 const sectorData: Prisma.SectorCreateInput[] = [
-    { name: 'Cereals', hsCode: '10' },
+    // { name: 'Cereals', hsCode: '10' },
+    // { name: 'Fruit and Vegetables', hsCode: '07' },
+    // { name: 'Processed Food, Bakery, Beverages, Juices', hsCode: '22' },
+    // { name: 'Sugar and Confectionary', hsCode: '17' },
+
     // { name: 'Poultry and Dairy', hsCode: '02' },
     // { name: 'SeaFood', hsCode: '03' },
     // { name: 'Floriculture', hsCode: '04' },
-    // { name: 'Fruit and Vegetables', hsCode: '05' },
     // { name: 'Spices', hsCode: '06' },
     // { name: 'Rice', hsCode: '07' },
     // { name: 'Maize Flour and Starches', hsCode: '08' },
@@ -39,7 +42,6 @@ const sectorData: Prisma.SectorCreateInput[] = [
     // { name: 'Sugar and Confectionary', hsCode: '10' },
     // { name: 'Processed Food', hsCode: '11' },
     // { name: 'Bakery', hsCode: '12' },
-    // { name: 'Beverages', hsCode: '13' },
     // { name: 'Juices', hsCode: '14' },
     // { name: 'Animal Feed', hsCode: '15' },
     // { name: 'Tobacco', hsCode: '16' },
