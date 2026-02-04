@@ -20,6 +20,7 @@ hsCode String?
 
 
 subSectors SubSector[]
+companies Company[]
 
 
 createdAt DateTime @default(now())
@@ -37,6 +38,7 @@ sector Sector @relation(fields: [sectorId], references: [id])
 
 
 products Product[]
+companies Company[]
 
 
 createdAt DateTime @default(now())
@@ -68,6 +70,12 @@ representativeTel String?
 representativeWhatsapp String?
 representativeEmail String?
 productsToBeDisplayed String?
+
+sectorId Int?
+sector   Sector?   @relation(fields: [sectorId], references: [id])
+
+subSectorId Int?
+subSector   SubSector? @relation(fields: [subSectorId], references: [id])
 
 createdAt DateTime @default(now())
 }

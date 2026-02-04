@@ -27,22 +27,40 @@ export async function GET(request) {
     return NextResponse.json({ company });
   }
 
-  // Apply filters (DB-backed companies currently support search only)
+  // Apply filters
   const query = searchParams.get('q');
+  const sector = searchParams.get('sector');
+  const subSector = searchParams.get('sub_sector');
 
-  const where = query
-    ? {
-      OR: [
-        { name: { contains: query } },
-        { email: { contains: query } },
-        { website: { contains: query } },
-        { representativeName: { contains: query } },
-      ],
+  const where = {};
+
+  if (query) {
+    where.OR = [
+      { name: { contains: query } },
+      { email: { contains: query } },
+      { website: { contains: query } },
+      { representativeName: { contains: query } },
+    ];
+  }
+
+  if (sector) {
+    const sectorId = Number(sector);
+    if (!Number.isNaN(sectorId)) {
+      where.sectorId = sectorId;
     }
-    : undefined;
+  }
+
+  if (subSector) {
+    const subSectorId = Number(subSector);
+    if (!Number.isNaN(subSectorId)) {
+      where.subSectorId = subSectorId;
+    }
+  }
+
+  const finalWhere = Object.keys(where).length > 0 ? where : undefined;
 
   const companies = await prisma.company.findMany({
-    where,
+    where: finalWhere,
     orderBy: { name: 'asc' },
   });
 

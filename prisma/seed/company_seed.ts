@@ -63,6 +63,16 @@ async function main() {
         const sheet = workbook.Sheets[sheetName]
         const rows = XLSX.utils.sheet_to_json<Record<string, any>>(sheet, { defval: '' })
 
+        // Look up the related sector/sub-sector once (Cereals -> Rice)
+        const riceSubSector = await prisma.subSector.findFirst({
+            where: { name: 'Rice' },
+            select: { id: true, sectorId: true },
+        })
+
+        if (!riceSubSector) {
+            throw new Error('SubSector "Rice" not found. Run sector and subsector seeds before company seed.')
+        }
+
         const companyData = rows
             .map((row) => {
                 const name = getByHeader(row, 'Company Name')
@@ -77,6 +87,8 @@ async function main() {
                     representativeWhatsapp: cleanValue(getByHeader(row, 'Representative Whatsapp')),
                     representativeEmail: cleanValue(getByHeader(row, 'Representative Email')),
                     productsToBeDisplayed: cleanValue(getByHeader(row, 'Products To Be Displayed')),
+                    sectorId: riceSubSector.sectorId,
+                    subSectorId: riceSubSector.id,
                 }
             })
             .filter((c) => (c.name || '').trim() !== '')

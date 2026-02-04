@@ -1,35 +1,52 @@
 import { NextResponse } from 'next/server';
-import { subSectors, getSubSectorById, getSubSectorsBySector } from '../../../data/subSectors';
+import { prisma } from '../../../lib/prismaClient';
+
+export const runtime = 'nodejs';
 
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
 
-  // Get single sub-sector by ID
+  // Get single sub-sector by ID from DB
   const id = searchParams.get('id');
   if (id) {
-    const subSector = getSubSectorById(parseInt(id));
+    const subSectorId = Number(id);
+    if (Number.isNaN(subSectorId)) {
+      return NextResponse.json({ error: 'Invalid sub-sector id' }, { status: 400 });
+    }
+
+    const subSector = await prisma.subSector.findUnique({
+      where: { id: subSectorId },
+    });
+
     if (!subSector) {
       return NextResponse.json(
         { error: 'Sub-sector not found' },
         { status: 404 }
       );
     }
-    return NextResponse.json(subSector);
+
+    return NextResponse.json({ subSector });
   }
 
-  // Get sub-sectors by sector
-  const sectorId = searchParams.get('sector_id');
-  if (sectorId) {
-    const sectorSubSectors = getSubSectorsBySector(sectorId);
-    return NextResponse.json({
-      subSectors: sectorSubSectors,
-      total: sectorSubSectors.length
-    });
+  // Optional: filter sub-sectors by sector
+  const sectorIdParam = searchParams.get('sector_id');
+  let where = undefined;
+
+  if (sectorIdParam) {
+    const sectorId = Number(sectorIdParam);
+    if (Number.isNaN(sectorId)) {
+      return NextResponse.json({ error: 'Invalid sector_id' }, { status: 400 });
+    }
+    where = { sectorId };
   }
 
-  // Get all sub-sectors
+  const subSectors = await prisma.subSector.findMany({
+    where,
+    orderBy: { name: 'asc' },
+  });
+
   return NextResponse.json({
     subSectors,
-    total: subSectors.length
+    total: subSectors.length,
   });
 }

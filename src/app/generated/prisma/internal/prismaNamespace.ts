@@ -754,6 +754,8 @@ export const CompanyScalarFieldEnum = {
   representativeWhatsapp: 'representativeWhatsapp',
   representativeEmail: 'representativeEmail',
   productsToBeDisplayed: 'productsToBeDisplayed',
+  sectorId: 'sectorId',
+  subSectorId: 'subSectorId',
   createdAt: 'createdAt'
 } as const
 

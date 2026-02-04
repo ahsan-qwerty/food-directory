@@ -209,6 +209,7 @@ export type SectorWhereInput = {
   hsCode?: Prisma.StringNullableFilter<"Sector"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Sector"> | Date | string
   subSectors?: Prisma.SubSectorListRelationFilter
+  companies?: Prisma.CompanyListRelationFilter
 }
 
 export type SectorOrderByWithRelationInput = {
@@ -217,6 +218,7 @@ export type SectorOrderByWithRelationInput = {
   hsCode?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   subSectors?: Prisma.SubSectorOrderByRelationAggregateInput
+  companies?: Prisma.CompanyOrderByRelationAggregateInput
   _relevance?: Prisma.SectorOrderByRelevanceInput
 }
 
@@ -229,6 +231,7 @@ export type SectorWhereUniqueInput = Prisma.AtLeast<{
   hsCode?: Prisma.StringNullableFilter<"Sector"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Sector"> | Date | string
   subSectors?: Prisma.SubSectorListRelationFilter
+  companies?: Prisma.CompanyListRelationFilter
 }, "id" | "name">
 
 export type SectorOrderByWithAggregationInput = {
@@ -258,6 +261,7 @@ export type SectorCreateInput = {
   hsCode?: string | null
   createdAt?: Date | string
   subSectors?: Prisma.SubSectorCreateNestedManyWithoutSectorInput
+  companies?: Prisma.CompanyCreateNestedManyWithoutSectorInput
 }
 
 export type SectorUncheckedCreateInput = {
@@ -266,6 +270,7 @@ export type SectorUncheckedCreateInput = {
   hsCode?: string | null
   createdAt?: Date | string
   subSectors?: Prisma.SubSectorUncheckedCreateNestedManyWithoutSectorInput
+  companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutSectorInput
 }
 
 export type SectorUpdateInput = {
@@ -273,6 +278,7 @@ export type SectorUpdateInput = {
   hsCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subSectors?: Prisma.SubSectorUpdateManyWithoutSectorNestedInput
+  companies?: Prisma.CompanyUpdateManyWithoutSectorNestedInput
 }
 
 export type SectorUncheckedUpdateInput = {
@@ -281,6 +287,7 @@ export type SectorUncheckedUpdateInput = {
   hsCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subSectors?: Prisma.SubSectorUncheckedUpdateManyWithoutSectorNestedInput
+  companies?: Prisma.CompanyUncheckedUpdateManyWithoutSectorNestedInput
 }
 
 export type SectorCreateManyInput = {
@@ -343,6 +350,11 @@ export type SectorScalarRelationFilter = {
   isNot?: Prisma.SectorWhereInput
 }
 
+export type SectorNullableScalarRelationFilter = {
+  is?: Prisma.SectorWhereInput | null
+  isNot?: Prisma.SectorWhereInput | null
+}
+
 export type StringFieldUpdateOperationsInput = {
   set?: string
 }
@@ -377,10 +389,27 @@ export type SectorUpdateOneRequiredWithoutSubSectorsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.SectorUpdateToOneWithWhereWithoutSubSectorsInput, Prisma.SectorUpdateWithoutSubSectorsInput>, Prisma.SectorUncheckedUpdateWithoutSubSectorsInput>
 }
 
+export type SectorCreateNestedOneWithoutCompaniesInput = {
+  create?: Prisma.XOR<Prisma.SectorCreateWithoutCompaniesInput, Prisma.SectorUncheckedCreateWithoutCompaniesInput>
+  connectOrCreate?: Prisma.SectorCreateOrConnectWithoutCompaniesInput
+  connect?: Prisma.SectorWhereUniqueInput
+}
+
+export type SectorUpdateOneWithoutCompaniesNestedInput = {
+  create?: Prisma.XOR<Prisma.SectorCreateWithoutCompaniesInput, Prisma.SectorUncheckedCreateWithoutCompaniesInput>
+  connectOrCreate?: Prisma.SectorCreateOrConnectWithoutCompaniesInput
+  upsert?: Prisma.SectorUpsertWithoutCompaniesInput
+  disconnect?: Prisma.SectorWhereInput | boolean
+  delete?: Prisma.SectorWhereInput | boolean
+  connect?: Prisma.SectorWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.SectorUpdateToOneWithWhereWithoutCompaniesInput, Prisma.SectorUpdateWithoutCompaniesInput>, Prisma.SectorUncheckedUpdateWithoutCompaniesInput>
+}
+
 export type SectorCreateWithoutSubSectorsInput = {
   name: string
   hsCode?: string | null
   createdAt?: Date | string
+  companies?: Prisma.CompanyCreateNestedManyWithoutSectorInput
 }
 
 export type SectorUncheckedCreateWithoutSubSectorsInput = {
@@ -388,6 +417,7 @@ export type SectorUncheckedCreateWithoutSubSectorsInput = {
   name: string
   hsCode?: string | null
   createdAt?: Date | string
+  companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutSectorInput
 }
 
 export type SectorCreateOrConnectWithoutSubSectorsInput = {
@@ -410,6 +440,7 @@ export type SectorUpdateWithoutSubSectorsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   hsCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  companies?: Prisma.CompanyUpdateManyWithoutSectorNestedInput
 }
 
 export type SectorUncheckedUpdateWithoutSubSectorsInput = {
@@ -417,6 +448,53 @@ export type SectorUncheckedUpdateWithoutSubSectorsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   hsCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  companies?: Prisma.CompanyUncheckedUpdateManyWithoutSectorNestedInput
+}
+
+export type SectorCreateWithoutCompaniesInput = {
+  name: string
+  hsCode?: string | null
+  createdAt?: Date | string
+  subSectors?: Prisma.SubSectorCreateNestedManyWithoutSectorInput
+}
+
+export type SectorUncheckedCreateWithoutCompaniesInput = {
+  id?: number
+  name: string
+  hsCode?: string | null
+  createdAt?: Date | string
+  subSectors?: Prisma.SubSectorUncheckedCreateNestedManyWithoutSectorInput
+}
+
+export type SectorCreateOrConnectWithoutCompaniesInput = {
+  where: Prisma.SectorWhereUniqueInput
+  create: Prisma.XOR<Prisma.SectorCreateWithoutCompaniesInput, Prisma.SectorUncheckedCreateWithoutCompaniesInput>
+}
+
+export type SectorUpsertWithoutCompaniesInput = {
+  update: Prisma.XOR<Prisma.SectorUpdateWithoutCompaniesInput, Prisma.SectorUncheckedUpdateWithoutCompaniesInput>
+  create: Prisma.XOR<Prisma.SectorCreateWithoutCompaniesInput, Prisma.SectorUncheckedCreateWithoutCompaniesInput>
+  where?: Prisma.SectorWhereInput
+}
+
+export type SectorUpdateToOneWithWhereWithoutCompaniesInput = {
+  where?: Prisma.SectorWhereInput
+  data: Prisma.XOR<Prisma.SectorUpdateWithoutCompaniesInput, Prisma.SectorUncheckedUpdateWithoutCompaniesInput>
+}
+
+export type SectorUpdateWithoutCompaniesInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  hsCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subSectors?: Prisma.SubSectorUpdateManyWithoutSectorNestedInput
+}
+
+export type SectorUncheckedUpdateWithoutCompaniesInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  hsCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subSectors?: Prisma.SubSectorUncheckedUpdateManyWithoutSectorNestedInput
 }
 
 
@@ -426,10 +504,12 @@ export type SectorUncheckedUpdateWithoutSubSectorsInput = {
 
 export type SectorCountOutputType = {
   subSectors: number
+  companies: number
 }
 
 export type SectorCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   subSectors?: boolean | SectorCountOutputTypeCountSubSectorsArgs
+  companies?: boolean | SectorCountOutputTypeCountCompaniesArgs
 }
 
 /**
@@ -449,6 +529,13 @@ export type SectorCountOutputTypeCountSubSectorsArgs<ExtArgs extends runtime.Typ
   where?: Prisma.SubSectorWhereInput
 }
 
+/**
+ * SectorCountOutputType without action
+ */
+export type SectorCountOutputTypeCountCompaniesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CompanyWhereInput
+}
+
 
 export type SectorSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -456,6 +543,7 @@ export type SectorSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   hsCode?: boolean
   createdAt?: boolean
   subSectors?: boolean | Prisma.Sector$subSectorsArgs<ExtArgs>
+  companies?: boolean | Prisma.Sector$companiesArgs<ExtArgs>
   _count?: boolean | Prisma.SectorCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["sector"]>
 
@@ -471,6 +559,7 @@ export type SectorSelectScalar = {
 export type SectorOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "hsCode" | "createdAt", ExtArgs["result"]["sector"]>
 export type SectorInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   subSectors?: boolean | Prisma.Sector$subSectorsArgs<ExtArgs>
+  companies?: boolean | Prisma.Sector$companiesArgs<ExtArgs>
   _count?: boolean | Prisma.SectorCountOutputTypeDefaultArgs<ExtArgs>
 }
 
@@ -478,6 +567,7 @@ export type $SectorPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
   name: "Sector"
   objects: {
     subSectors: Prisma.$SubSectorPayload<ExtArgs>[]
+    companies: Prisma.$CompanyPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -825,6 +915,7 @@ readonly fields: SectorFieldRefs;
 export interface Prisma__SectorClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   subSectors<T extends Prisma.Sector$subSectorsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Sector$subSectorsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SubSectorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  companies<T extends Prisma.Sector$companiesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Sector$companiesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1222,6 +1313,30 @@ export type Sector$subSectorsArgs<ExtArgs extends runtime.Types.Extensions.Inter
   take?: number
   skip?: number
   distinct?: Prisma.SubSectorScalarFieldEnum | Prisma.SubSectorScalarFieldEnum[]
+}
+
+/**
+ * Sector.companies
+ */
+export type Sector$companiesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Company
+   */
+  select?: Prisma.CompanySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Company
+   */
+  omit?: Prisma.CompanyOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CompanyInclude<ExtArgs> | null
+  where?: Prisma.CompanyWhereInput
+  orderBy?: Prisma.CompanyOrderByWithRelationInput | Prisma.CompanyOrderByWithRelationInput[]
+  cursor?: Prisma.CompanyWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CompanyScalarFieldEnum | Prisma.CompanyScalarFieldEnum[]
 }
 
 /**
