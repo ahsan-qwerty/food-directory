@@ -1,15 +1,15 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { getCompanyById } from '@/data/companies';
-import { getSectorName } from '@/data/sectors';
-import { getSubSectorName } from '@/data/subSectors';
-import { getProductName } from '@/data/products';
+import { prisma } from '../../../lib/prismaClient';
 
 export async function generateMetadata({ params }) {
   const { id } = await params;
-  console.log("ID: ", id);
-  const company = getCompanyById(id);
-  console.log("Company: ", company);
+  const companyId = Number(id);
+  if (Number.isNaN(companyId)) {
+    return { title: 'Company Not Found' };
+  }
+
+  const company = await prisma.company.findUnique({ where: { id: companyId } });
   if (!company) {
     return {
       title: 'Company Not Found'
@@ -17,18 +17,19 @@ export async function generateMetadata({ params }) {
   }
 
   return {
-    title: `${company.company_name} - TDAP Food Directory`,
-    description: company?.company_profile?.substring(0, 160),
-    keywords: company?.products_to_be_displayed?.join(', '),
+    title: `${company.name} - TDAP Food Directory`,
+    description: (company?.profile || '').substring(0, 160),
   };
 }
 
 export default async function CompanyProfilePage({ params }) {
   const { id } = await params;
-  const company = getCompanyById(id);
+  const companyId = Number(id);
+  if (Number.isNaN(companyId)) notFound();
+
+  const company = await prisma.company.findUnique({ where: { id: companyId } });
 
   if (!company) {
-    console.log("Company not found: ", company);
     notFound();
   }
 
@@ -43,7 +44,7 @@ export default async function CompanyProfilePage({ params }) {
             <span className="mx-2">/</span>
             <Link href="/companies" className="hover:text-green-700">Companies</Link>
             <span className="mx-2">/</span>
-            <span className="text-gray-900">{company.company_name}</span>
+            <span className="text-gray-900">{company.name}</span>
           </nav>
         </div>
 
@@ -52,32 +53,11 @@ export default async function CompanyProfilePage({ params }) {
           <div className="flex flex-col md:flex-row md:justify-between md:items-start">
             <div>
               <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
-                {company.company_name}
+                {company.name}
               </h1>
-              <div className="flex flex-wrap gap-2 mb-4">
-                <span className="inline-block bg-green-100 text-green-800 text-sm px-3 py-1 rounded-full font-medium">
-                  {getSectorName(company.sector_id)}
-                </span>
-                {company.category_id && (
-                  <>
-                    {(Array.isArray(company.category_id) ? company.category_id : [company.category_id]).map((subSectorId, idx) => (
-                      <span key={idx} className="inline-block bg-blue-100 text-blue-800 text-sm px-3 py-1 rounded-full font-medium">
-                        {getSubSectorName(subSectorId)}
-                      </span>
-                    ))}
-                  </>
-                )}
-                {company.year_of_incorporation && (
-                  <span className="inline-block bg-purple-100 text-purple-800 text-sm px-3 py-1 rounded-full font-medium">
-                    Since {company.year_of_incorporation}
-                  </span>
-                )}
-                {company.no_of_employees && (
-                  <span className="inline-block bg-orange-100 text-orange-800 text-sm px-3 py-1 rounded-full font-medium">
-                    {company.no_of_employees} Employees
-                  </span>
-                )}
-              </div>
+              {company.address && (
+                <p className="text-gray-600">{company.address}</p>
+              )}
             </div>
           </div>
         </div>
@@ -89,51 +69,9 @@ export default async function CompanyProfilePage({ params }) {
             <div className="bg-white rounded-lg shadow-md p-6">
               <h2 className="text-2xl font-bold text-gray-900 mb-4">Company Profile</h2>
               <p className="text-gray-700 leading-relaxed whitespace-pre-line">
-                {company.company_profile}
+                {company.profile || '—'}
               </p>
             </div>
-
-            {/* Products */}
-            {company.sub_category_ids && company.sub_category_ids.length > 0 && (
-              <div className="bg-white rounded-lg shadow-md p-6">
-                <h2 className="text-2xl font-bold text-gray-900 mb-4">Products</h2>
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                  {company.sub_category_ids.map((subCatId, index) => (
-                    <div
-                      key={index}
-                      className="bg-green-50 border border-green-200 rounded-lg p-4 text-center"
-                    >
-                      <p className="text-green-800 font-medium">{getProductName(subCatId)}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* Company Competence */}
-            {company.company_competence && (
-              <div className="bg-white rounded-lg shadow-md p-6">
-                <h2 className="text-2xl font-bold text-gray-900 mb-4">Core Competencies</h2>
-                <p className="text-gray-700">{company.company_competence}</p>
-              </div>
-            )}
-
-            {/* Certifications */}
-            {company.certification && (
-              <div className="bg-white rounded-lg shadow-md p-6">
-                <h2 className="text-2xl font-bold text-gray-900 mb-4">Certifications</h2>
-                <div className="flex flex-wrap gap-2">
-                  {company.certification.split(',').map((cert, index) => (
-                    <span
-                      key={index}
-                      className="bg-blue-100 text-blue-800 px-4 py-2 rounded-lg font-medium"
-                    >
-                      {cert.trim()}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            )}
           </div>
 
           {/* Sidebar */}
@@ -144,35 +82,37 @@ export default async function CompanyProfilePage({ params }) {
 
               <div className="space-y-4">
                 {/* Address */}
-                <div>
-                  <h3 className="text-sm font-semibold text-gray-700 mb-1">Address</h3>
-                  <p className="text-gray-600 text-sm">{company.company_address}</p>
-                </div>
+                {company.address && (
+                  <div>
+                    <h3 className="text-sm font-semibold text-gray-700 mb-1">Address</h3>
+                    <p className="text-gray-600 text-sm">{company.address}</p>
+                  </div>
+                )}
 
                 {/* Email */}
-                {company.company_email_address && (
+                {company.email && (
                   <div>
                     <h3 className="text-sm font-semibold text-gray-700 mb-1">Email</h3>
                     <a
-                      href={`mailto:${company.company_email_address}`}
+                      href={`mailto:${company.email}`}
                       className="text-green-600 hover:text-green-700 text-sm break-all"
                     >
-                      {company.company_email_address}
+                      {company.email}
                     </a>
                   </div>
                 )}
 
                 {/* Website */}
-                {company.web_address && (
+                {company.website && (
                   <div>
                     <h3 className="text-sm font-semibold text-gray-700 mb-1">Website</h3>
                     <a
-                      href={company.web_address}
+                      href={company.website}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-green-600 hover:text-green-700 text-sm break-all"
                     >
-                      {company.web_address}
+                      {company.website}
                     </a>
                   </div>
                 )}
@@ -181,55 +121,49 @@ export default async function CompanyProfilePage({ params }) {
 
             {/* Contact Person */}
             <div className="bg-white rounded-lg shadow-md p-6">
-              <h2 className="text-xl font-bold text-gray-900 mb-4">Contact Person</h2>
+              <h2 className="text-xl font-bold text-gray-900 mb-4">Representative</h2>
 
               <div className="space-y-3">
-                <div>
-                  <h3 className="text-sm font-semibold text-gray-700">Name</h3>
-                  <p className="text-gray-600">{company.person_name}</p>
-                </div>
-
-                {company.person_designation && (
+                {company.representativeName ? (
                   <div>
-                    <h3 className="text-sm font-semibold text-gray-700">Designation</h3>
-                    <p className="text-gray-600">{company.person_designation}</p>
+                    <h3 className="text-sm font-semibold text-gray-700">Name</h3>
+                    <p className="text-gray-600">{company.representativeName}</p>
                   </div>
+                ) : (
+                  <p className="text-gray-500 text-sm">—</p>
                 )}
 
-                {company.person_cell_no && (
+                {company.representativeTel && (
                   <div>
                     <h3 className="text-sm font-semibold text-gray-700">Phone</h3>
-                    <a
-                      href={`tel:${company.person_cell_no}`}
-                      className="text-green-600 hover:text-green-700"
-                    >
-                      {company.person_cell_no}
+                    <a href={`tel:${company.representativeTel}`} className="text-green-600 hover:text-green-700">
+                      {company.representativeTel}
                     </a>
                   </div>
                 )}
 
-                {company.person_whatsapp_no && (
+                {company.representativeWhatsapp && (
                   <div>
                     <h3 className="text-sm font-semibold text-gray-700">WhatsApp</h3>
                     <a
-                      href={`https://wa.me/${company.person_whatsapp_no.replace(/\D/g, '')}`}
+                      href={`https://wa.me/${company.representativeWhatsapp.replace(/\D/g, '')}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-green-600 hover:text-green-700"
                     >
-                      {company.person_whatsapp_no}
+                      {company.representativeWhatsapp}
                     </a>
                   </div>
                 )}
 
-                {company.person_email_address && (
+                {company.representativeEmail && (
                   <div>
                     <h3 className="text-sm font-semibold text-gray-700">Email</h3>
                     <a
-                      href={`mailto:${company.person_email_address}`}
+                      href={`mailto:${company.representativeEmail}`}
                       className="text-green-600 hover:text-green-700 text-sm break-all"
                     >
-                      {company.person_email_address}
+                      {company.representativeEmail}
                     </a>
                   </div>
                 )}

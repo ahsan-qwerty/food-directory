@@ -53,7 +53,8 @@ export const AnyNull = runtime.AnyNull
 export const ModelName = {
   Sector: 'Sector',
   SubSector: 'SubSector',
-  Product: 'Product'
+  Product: 'Product',
+  Company: 'Company'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -104,6 +105,23 @@ export const ProductScalarFieldEnum = {
 export type ProductScalarFieldEnum = (typeof ProductScalarFieldEnum)[keyof typeof ProductScalarFieldEnum]
 
 
+export const CompanyScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  profile: 'profile',
+  address: 'address',
+  email: 'email',
+  website: 'website',
+  representativeName: 'representativeName',
+  representativeTel: 'representativeTel',
+  representativeWhatsapp: 'representativeWhatsapp',
+  representativeEmail: 'representativeEmail',
+  createdAt: 'createdAt'
+} as const
+
+export type CompanyScalarFieldEnum = (typeof CompanyScalarFieldEnum)[keyof typeof CompanyScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -142,4 +160,19 @@ export const ProductOrderByRelevanceFieldEnum = {
 } as const
 
 export type ProductOrderByRelevanceFieldEnum = (typeof ProductOrderByRelevanceFieldEnum)[keyof typeof ProductOrderByRelevanceFieldEnum]
+
+
+export const CompanyOrderByRelevanceFieldEnum = {
+  name: 'name',
+  profile: 'profile',
+  address: 'address',
+  email: 'email',
+  website: 'website',
+  representativeName: 'representativeName',
+  representativeTel: 'representativeTel',
+  representativeWhatsapp: 'representativeWhatsapp',
+  representativeEmail: 'representativeEmail'
+} as const
+
+export type CompanyOrderByRelevanceFieldEnum = (typeof CompanyOrderByRelevanceFieldEnum)[keyof typeof CompanyOrderByRelevanceFieldEnum]
 

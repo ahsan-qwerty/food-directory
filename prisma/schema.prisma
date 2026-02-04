@@ -55,3 +55,18 @@ subSector SubSector @relation(fields: [subSectorId], references: [id])
 
 createdAt DateTime @default(now())
 }
+
+model Company {
+id Int @id @default(autoincrement())
+name String
+profile String?
+address String?
+email String?
+website String?
+representativeName String?
+representativeTel String?
+representativeWhatsapp String?
+representativeEmail String?
+
+createdAt DateTime @default(now())
+}

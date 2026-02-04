@@ -1,11 +1,9 @@
 import Link from 'next/link';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 
 export default function CompanyNotFound() {
   return (
     <div className="h-full bg-gray-50">
-      
+
       <main className="container mx-auto px-4 py-16 h-full">
         <div className="max-w-2xl mx-auto text-center">
           <div className="mb-8">
@@ -23,13 +21,13 @@ export default function CompanyNotFound() {
           </div>
 
           <div className="flex flex-wrap justify-center gap-4">
-            <Link 
+            <Link
               href="/companies"
               className="px-6 py-3 bg-green-700 text-white rounded-lg font-semibold hover:bg-green-800 transition-colors"
             >
               Browse All Companies
             </Link>
-            <Link 
+            <Link
               href="/"
               className="px-6 py-3 bg-white text-green-700 border-2 border-green-700 rounded-lg font-semibold hover:bg-green-50 transition-colors"
             >

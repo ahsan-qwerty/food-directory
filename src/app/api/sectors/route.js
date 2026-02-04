@@ -1,9 +1,9 @@
 import { NextResponse } from 'next/server';
-import { sectors, getSectorById } from '@/data/sectors';
+import { sectors, getSectorById } from '../../../data/sectors';
 
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
-  
+
   // Get single sector by ID
   const id = searchParams.get('id');
   if (id) {
@@ -16,7 +16,7 @@ export async function GET(request) {
     }
     return NextResponse.json(sector);
   }
-  
+
   // Get all sectors
   return NextResponse.json({
     sectors,

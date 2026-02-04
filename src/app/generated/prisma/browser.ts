@@ -32,3 +32,8 @@ export type SubSector = Prisma.SubSectorModel
  * 
  */
 export type Product = Prisma.ProductModel
+/**
+ * Model Company
+ * 
+ */
+export type Company = Prisma.CompanyModel

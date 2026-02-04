@@ -1,13 +1,7 @@
 import { NextResponse } from 'next/server';
-import {
-  companies,
-  getCompanyById,
-  getApprovedCompanies,
-  filterCompaniesBySector,
-  filterCompaniesByCategory,
-  filterCompaniesBySubCategory,
-  searchCompanies
-} from '@/data/companies';
+import { prisma } from '../../../lib/prismaClient';
+
+export const runtime = 'nodejs';
 
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
@@ -15,48 +9,44 @@ export async function GET(request) {
   // Get single company by ID
   const id = searchParams.get('id');
   if (id) {
-    const company = getCompanyById(id);
+    const companyId = Number(id);
+    if (Number.isNaN(companyId)) {
+      return NextResponse.json({ error: 'Invalid company id' }, { status: 400 });
+    }
+
+    const company = await prisma.company.findUnique({
+      where: { id: companyId },
+    });
     if (!company) {
       return NextResponse.json(
         { error: 'Company not found' },
         { status: 404 }
       );
     }
-    return NextResponse.json(company);
+    return NextResponse.json({ company });
   }
 
-  // Apply filters
-  const sector = searchParams.get('sector');
-  const category = searchParams.get('category');
-  const subCategory = searchParams.get('sub_category');
+  // Apply filters (DB-backed companies currently support search only)
   const query = searchParams.get('q');
 
-  let result = getApprovedCompanies();
+  const where = query
+    ? {
+      OR: [
+        { name: { contains: query } },
+        { email: { contains: query } },
+        { website: { contains: query } },
+        { representativeName: { contains: query } },
+      ],
+    }
+    : undefined;
 
-  if (query) {
-    result = searchCompanies(query);
-  } else {
-    if (sector) {
-      result = filterCompaniesBySector(sector);
-    }
-    if (category) {
-      result = result.filter(c => {
-        if (!c.category_id) return false;
-        // Handle both array and single value
-        return Array.isArray(c.category_id)
-          ? c.category_id.includes(parseInt(category))
-          : c.category_id === parseInt(category);
-      });
-    }
-    if (subCategory) {
-      result = result.filter(c =>
-        c.sub_category_ids && c.sub_category_ids.includes(parseInt(subCategory))
-      );
-    }
-  }
+  const companies = await prisma.company.findMany({
+    where,
+    orderBy: { name: 'asc' },
+  });
 
   return NextResponse.json({
-    companies: result,
-    total: result.length
+    companies,
+    total: companies.length,
   });
 }

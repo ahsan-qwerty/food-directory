@@ -2,8 +2,6 @@
 
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 
 const metadata = {
   title: 'TDAP Food Directory - Pakistani Food Companies',

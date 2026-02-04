@@ -11,4 +11,5 @@
 export type * from './models/Sector.js'
 export type * from './models/SubSector.js'
 export type * from './models/Product.js'
+export type * from './models/Company.js'
 export type * from './commonInputTypes.js'

@@ -1,64 +1,14 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import CompanyCard from '@/components/CompanyCard';
+import CompanyCard from '../../components/CompanyCard';
 
 export default function CompaniesPage() {
   const [companies, setCompanies] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filters, setFilters] = useState({
-    sector: '',
-    category: '',
-    sub_category: '',
     search: ''
   });
-
-  // Filter options
-  const [sectors, setSectors] = useState([]);
-  const [subSectors, setSubSectors] = useState([]);
-  const [products, setProducts] = useState([]);
-
-  // Fetch sectors on mount
-  useEffect(() => {
-    async function fetchSectors() {
-      try {
-        const res = await fetch('/api/sectors');
-        const data = await res.json();
-        setSectors(data.sectors);
-      } catch (error) {
-        console.error('Error fetching sectors:', error);
-      }
-    }
-    fetchSectors();
-  }, []);
-
-  // Fetch all sub-sectors on mount (no longer filtered by sector)
-  useEffect(() => {
-    async function fetchSubSectors() {
-      try {
-        const res = await fetch('/api/categories');
-        const data = await res.json();
-        setSubSectors(data.subSectors);
-      } catch (error) {
-        console.error('Error fetching sub-sectors:', error);
-      }
-    }
-    fetchSubSectors();
-  }, []);
-
-  // Fetch all products on mount (no longer filtered by sub-sector)
-  useEffect(() => {
-    async function fetchProducts() {
-      try {
-        const res = await fetch('/api/subcategories');
-        const data = await res.json();
-        setProducts(data.products);
-      } catch (error) {
-        console.error('Error fetching products:', error);
-      }
-    }
-    fetchProducts();
-  }, []);
 
   // Fetch companies based on filters
   useEffect(() => {
@@ -66,9 +16,6 @@ export default function CompaniesPage() {
       setLoading(true);
       try {
         const params = new URLSearchParams();
-        if (filters.sector) params.append('sector', filters.sector);
-        if (filters.category) params.append('category', filters.category);
-        if (filters.sub_category) params.append('sub_category', filters.sub_category);
         if (filters.search) params.append('q', filters.search);
 
         const res = await fetch(`/api/companies?${params}`);
@@ -92,15 +39,11 @@ export default function CompaniesPage() {
 
   const clearFilters = () => {
     setFilters({
-      sector: '',
-      category: '',
-      sub_category: '',
       search: ''
     });
-    setProducts([]);
   };
 
-  const hasActiveFilters = filters.sector || filters.category || filters.sub_category || filters.search;
+  const hasActiveFilters = filters.search;
 
   return (
     <div className="min-h-screen bg-gray-50 px-4">
@@ -137,68 +80,17 @@ export default function CompaniesPage() {
               </label>
               <input
                 type="text"
-                placeholder="Company name..."
+                placeholder="Company name, email, website..."
                 value={filters.search}
                 onChange={(e) => handleFilterChange('search', e.target.value)}
                 className="w-full px-3 py-2 border border-gray-300 text-gray-950 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
               />
             </div>
 
-            {/* Sector Filter */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Main Sector
-              </label>
-              <select
-                value={filters.sector}
-                onChange={(e) => handleFilterChange('sector', e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 text-gray-950 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
-              >
-                <option value="">All Sectors</option>
-                {sectors.map(sector => (
-                  <option key={sector.id} value={sector.id}>
-                    {sector.name}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            {/* Sub-Sector Filter */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Sub-Sector
-              </label>
-              <select
-                value={filters.category}
-                onChange={(e) => handleFilterChange('category', e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 text-gray-950 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
-              >
-                <option value="">All Sub-Sectors</option>
-                {subSectors.map(subSector => (
-                  <option key={subSector.id} value={subSector.id}>
-                    {subSector.name}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            {/* Product Filter */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Product
-              </label>
-              <select
-                value={filters.sub_category}
-                onChange={(e) => handleFilterChange('sub_category', e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 text-gray-950 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
-              >
-                <option value="">All Products</option>
-                {products.map(product => (
-                  <option key={product.id} value={product.id}>
-                    {product.name}
-                  </option>
-                ))}
-              </select>
+            <div className="md:col-span-1 lg:col-span-3 flex items-end">
+              <p className="text-sm text-gray-500">
+                Sector/Sub-sector/Product filtering will be re-enabled once company-to-sector relations are added to the database.
+              </p>
             </div>
           </div>
         </div>

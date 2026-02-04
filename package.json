@@ -10,7 +10,8 @@
     "db:cleanup": "tsx prisma/cleanup.ts",
     "db:seed:sectors": "tsx prisma/sector_seed.ts",
     "db:seed:subsectors": "tsx prisma/subsector_seed.ts",
-    "db:seed:products": "tsx prisma/product_seed.ts"
+    "db:seed:products": "tsx prisma/product_seed.ts",
+    "db:seed:companies": "tsx prisma/seed/company_seed.ts"
   },
   "dependencies": {
     "@prisma/adapter-mariadb": "^7.3.0",
@@ -18,7 +19,8 @@
     "mysql2": "^3.16.2",
     "next": "16.1.2",
     "react": "19.2.3",
-    "react-dom": "19.2.3"
+    "react-dom": "19.2.3",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

@@ -1,10 +1,10 @@
 import { NextResponse } from 'next/server';
-import { events, getEventById, getEventBySlug, getAllEvents } from '@/data/events';
-import { getCompanyById } from '@/data/companies';
+import { events, getEventById, getEventBySlug, getAllEvents } from '../../../data/events';
+import { getCompanyById } from '../../../data/companies';
 
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
-  
+
   // Get single event by ID
   const id = searchParams.get('id');
   if (id) {
@@ -15,18 +15,18 @@ export async function GET(request) {
         { status: 404 }
       );
     }
-    
+
     // Include participating companies data
-    const participants = event.participatingCompanyIds.map(companyId => 
+    const participants = event.participatingCompanyIds.map(companyId =>
       getCompanyById(companyId)
     ).filter(Boolean);
-    
+
     return NextResponse.json({
       ...event,
       participants
     });
   }
-  
+
   // Get event by slug
   const slug = searchParams.get('slug');
   if (slug) {
@@ -37,18 +37,18 @@ export async function GET(request) {
         { status: 404 }
       );
     }
-    
+
     // Include participating companies data
-    const participants = event.participatingCompanyIds.map(companyId => 
+    const participants = event.participatingCompanyIds.map(companyId =>
       getCompanyById(companyId)
     ).filter(Boolean);
-    
+
     return NextResponse.json({
       ...event,
       participants
     });
   }
-  
+
   // Get all events
   const allEvents = getAllEvents();
   return NextResponse.json({
