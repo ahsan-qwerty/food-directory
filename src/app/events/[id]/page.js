@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import CompanyCard from '../../../components/CompanyCard';
 import { prisma } from '../../../lib/prismaClient';
+import EventAdminPanel from './EventAdminPanel';
 
 function formatDateYYYYMMDD(dateValue) {
   try {
@@ -192,8 +193,16 @@ export default async function EventDetailPage({ params }) {
               </div>
             </div>
 
+            {/* Admin tools for desk officer */}
+            <EventAdminPanel
+              eventId={event.id}
+              eventName={event.name}
+              participantCompanyIds={participants.map((c) => c.id)}
+              participantEmails={participants.map((c) => c.email).filter(Boolean)}
+            />
+
             {/* Call to Action */}
-            <div className="bg-green-50 border-2 border-green-200 rounded-lg p-6">
+            {/* <div className="bg-green-50 border-2 border-green-200 rounded-lg p-6">
               <h3 className="text-lg font-bold text-green-900 mb-2">
                 Interested in Exhibiting?
               </h3>
@@ -204,7 +213,7 @@ export default async function EventDetailPage({ params }) {
                 <p><strong>Email:</strong> info@tdap.gov.pk</p>
                 <p><strong>Website:</strong> www.tdap.gov.pk</p>
               </div>
-            </div>
+            </div> */}
 
             {/* Browse More Events */}
             <div className="bg-white rounded-lg shadow-md p-6 text-center">
