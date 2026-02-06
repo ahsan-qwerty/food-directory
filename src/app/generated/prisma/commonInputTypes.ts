@@ -164,6 +164,23 @@ export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedIntNullableFilter<$PrismaModel>
 }
 
+export type EnumFeedbackSourceFilter<$PrismaModel = never> = {
+  equals?: $Enums.FeedbackSource | Prisma.EnumFeedbackSourceFieldRefInput<$PrismaModel>
+  in?: $Enums.FeedbackSource[]
+  notIn?: $Enums.FeedbackSource[]
+  not?: Prisma.NestedEnumFeedbackSourceFilter<$PrismaModel> | $Enums.FeedbackSource
+}
+
+export type EnumFeedbackSourceWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.FeedbackSource | Prisma.EnumFeedbackSourceFieldRefInput<$PrismaModel>
+  in?: $Enums.FeedbackSource[]
+  notIn?: $Enums.FeedbackSource[]
+  not?: Prisma.NestedEnumFeedbackSourceWithAggregatesFilter<$PrismaModel> | $Enums.FeedbackSource
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumFeedbackSourceFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumFeedbackSourceFilter<$PrismaModel>
+}
+
 export type NestedIntFilter<$PrismaModel = never> = {
   equals?: number | Prisma.IntFieldRefInput<$PrismaModel>
   in?: number[]
@@ -329,6 +346,23 @@ export type NestedFloatNullableFilter<$PrismaModel = never> = {
   gt?: number | Prisma.FloatFieldRefInput<$PrismaModel>
   gte?: number | Prisma.FloatFieldRefInput<$PrismaModel>
   not?: Prisma.NestedFloatNullableFilter<$PrismaModel> | number | null
+}
+
+export type NestedEnumFeedbackSourceFilter<$PrismaModel = never> = {
+  equals?: $Enums.FeedbackSource | Prisma.EnumFeedbackSourceFieldRefInput<$PrismaModel>
+  in?: $Enums.FeedbackSource[]
+  notIn?: $Enums.FeedbackSource[]
+  not?: Prisma.NestedEnumFeedbackSourceFilter<$PrismaModel> | $Enums.FeedbackSource
+}
+
+export type NestedEnumFeedbackSourceWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.FeedbackSource | Prisma.EnumFeedbackSourceFieldRefInput<$PrismaModel>
+  in?: $Enums.FeedbackSource[]
+  notIn?: $Enums.FeedbackSource[]
+  not?: Prisma.NestedEnumFeedbackSourceWithAggregatesFilter<$PrismaModel> | $Enums.FeedbackSource
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumFeedbackSourceFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumFeedbackSourceFilter<$PrismaModel>
 }
 
 

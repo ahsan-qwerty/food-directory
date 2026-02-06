@@ -77,5 +77,68 @@ sector   Sector?   @relation(fields: [sectorId], references: [id])
 subSectorId Int?
 subSector   SubSector? @relation(fields: [subSectorId], references: [id])
 
+eventParticipations EventCompany[]
+
 createdAt DateTime @default(now())
+}
+
+model Event {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String?
+  location    String?
+  eventDate   DateTime
+
+  // Feedback workflow
+  feedbackFormUrl String?
+  finalRemarks    String?
+
+  // Relations
+  participants EventCompany[]
+  feedbacks    EventFeedback[]
+
+  createdAt DateTime @default(now())
+}
+
+model EventCompany {
+  id Int @id @default(autoincrement())
+
+  eventId   Int
+  companyId Int
+
+  event   Event   @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@unique([eventId, companyId])
+}
+
+model EventFeedback {
+  id Int @id @default(autoincrement())
+
+  eventId Int
+  event   Event @relation(fields: [eventId], references: [id], onDelete: Cascade)
+
+  // Who gave feedback
+  sourceType  FeedbackSource
+  sourceName  String?
+  sourceEmail String?
+
+  rating   Int?
+  comments String?
+
+  submittedAt DateTime @default(now())
+}
+
+enum FeedbackSource {
+  COMPANY
+  MISSION
+}
+
+model Mission {
+  id     Int @id @default(autoincrement())
+  name   String
+  region String
+  email  String
 }

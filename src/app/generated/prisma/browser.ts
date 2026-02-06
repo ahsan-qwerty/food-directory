@@ -37,3 +37,23 @@ export type Product = Prisma.ProductModel
  * 
  */
 export type Company = Prisma.CompanyModel
+/**
+ * Model Event
+ * 
+ */
+export type Event = Prisma.EventModel
+/**
+ * Model EventCompany
+ * 
+ */
+export type EventCompany = Prisma.EventCompanyModel
+/**
+ * Model EventFeedback
+ * 
+ */
+export type EventFeedback = Prisma.EventFeedbackModel
+/**
+ * Model Mission
+ * 
+ */
+export type Mission = Prisma.MissionModel

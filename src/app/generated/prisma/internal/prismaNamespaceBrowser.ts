@@ -54,7 +54,11 @@ export const ModelName = {
   Sector: 'Sector',
   SubSector: 'SubSector',
   Product: 'Product',
-  Company: 'Company'
+  Company: 'Company',
+  Event: 'Event',
+  EventCompany: 'EventCompany',
+  EventFeedback: 'EventFeedback',
+  Mission: 'Mission'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -125,6 +129,54 @@ export const CompanyScalarFieldEnum = {
 export type CompanyScalarFieldEnum = (typeof CompanyScalarFieldEnum)[keyof typeof CompanyScalarFieldEnum]
 
 
+export const EventScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  location: 'location',
+  eventDate: 'eventDate',
+  feedbackFormUrl: 'feedbackFormUrl',
+  finalRemarks: 'finalRemarks',
+  createdAt: 'createdAt'
+} as const
+
+export type EventScalarFieldEnum = (typeof EventScalarFieldEnum)[keyof typeof EventScalarFieldEnum]
+
+
+export const EventCompanyScalarFieldEnum = {
+  id: 'id',
+  eventId: 'eventId',
+  companyId: 'companyId',
+  createdAt: 'createdAt'
+} as const
+
+export type EventCompanyScalarFieldEnum = (typeof EventCompanyScalarFieldEnum)[keyof typeof EventCompanyScalarFieldEnum]
+
+
+export const EventFeedbackScalarFieldEnum = {
+  id: 'id',
+  eventId: 'eventId',
+  sourceType: 'sourceType',
+  sourceName: 'sourceName',
+  sourceEmail: 'sourceEmail',
+  rating: 'rating',
+  comments: 'comments',
+  submittedAt: 'submittedAt'
+} as const
+
+export type EventFeedbackScalarFieldEnum = (typeof EventFeedbackScalarFieldEnum)[keyof typeof EventFeedbackScalarFieldEnum]
+
+
+export const MissionScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  region: 'region',
+  email: 'email'
+} as const
+
+export type MissionScalarFieldEnum = (typeof MissionScalarFieldEnum)[keyof typeof MissionScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -179,4 +231,33 @@ export const CompanyOrderByRelevanceFieldEnum = {
 } as const
 
 export type CompanyOrderByRelevanceFieldEnum = (typeof CompanyOrderByRelevanceFieldEnum)[keyof typeof CompanyOrderByRelevanceFieldEnum]
+
+
+export const EventOrderByRelevanceFieldEnum = {
+  name: 'name',
+  description: 'description',
+  location: 'location',
+  feedbackFormUrl: 'feedbackFormUrl',
+  finalRemarks: 'finalRemarks'
+} as const
+
+export type EventOrderByRelevanceFieldEnum = (typeof EventOrderByRelevanceFieldEnum)[keyof typeof EventOrderByRelevanceFieldEnum]
+
+
+export const EventFeedbackOrderByRelevanceFieldEnum = {
+  sourceName: 'sourceName',
+  sourceEmail: 'sourceEmail',
+  comments: 'comments'
+} as const
+
+export type EventFeedbackOrderByRelevanceFieldEnum = (typeof EventFeedbackOrderByRelevanceFieldEnum)[keyof typeof EventFeedbackOrderByRelevanceFieldEnum]
+
+
+export const MissionOrderByRelevanceFieldEnum = {
+  name: 'name',
+  region: 'region',
+  email: 'email'
+} as const
+
+export type MissionOrderByRelevanceFieldEnum = (typeof MissionOrderByRelevanceFieldEnum)[keyof typeof MissionOrderByRelevanceFieldEnum]
 

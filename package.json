@@ -11,7 +11,8 @@
     "db:seed:sectors": "tsx prisma/sector_seed.ts",
     "db:seed:subsectors": "tsx prisma/subsector_seed.ts",
     "db:seed:products": "tsx prisma/product_seed.ts",
-    "db:seed:companies": "tsx prisma/seed/company_seed.ts"
+    "db:seed:companies": "tsx prisma/seed/company_seed.ts",
+    "db:seed:events": "tsx prisma/seed/gulfood_event.ts"
   },
   "dependencies": {
     "@prisma/adapter-mariadb": "^7.3.0",

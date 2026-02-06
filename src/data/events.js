@@ -119,7 +119,7 @@ export function getUpcomingEvents() {
 export function getEventParticipants(eventId) {
   const event = getEventById(eventId);
   if (!event) return [];
-  
+
   // This will be replaced with a proper import when used in API routes
   return event.participatingCompanyIds;
 }

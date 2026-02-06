@@ -1,6 +1,17 @@
 import { NextResponse } from 'next/server';
-import { events, getEventById, getEventBySlug, getAllEvents } from '../../../data/events';
-import { getCompanyById } from '../../../data/companies';
+import { prisma } from '../../../lib/prismaClient';
+
+export const runtime = 'nodejs';
+
+function formatDateYYYYMMDD(dateValue) {
+  try {
+    const d = new Date(dateValue);
+    if (Number.isNaN(d.getTime())) return '';
+    return d.toISOString().slice(0, 10);
+  } catch {
+    return '';
+  }
+}
 
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
@@ -8,29 +19,41 @@ export async function GET(request) {
   // Get single event by ID
   const id = searchParams.get('id');
   if (id) {
-    const event = getEventById(id);
-    if (!event) {
-      return NextResponse.json(
-        { error: 'Event not found' },
-        { status: 404 }
-      );
+    const eventId = Number(id);
+    if (Number.isNaN(eventId)) {
+      return NextResponse.json({ error: 'Invalid event id' }, { status: 400 });
     }
 
-    // Include participating companies data
-    const participants = event.participatingCompanyIds.map(companyId =>
-      getCompanyById(companyId)
-    ).filter(Boolean);
-
-    return NextResponse.json({
-      ...event,
-      participants
+    const event = await prisma.event.findUnique({
+      where: { id: eventId },
+      select: {
+        id: true,
+        name: true,
+        description: true,
+        location: true,
+        eventDate: true,
+        feedbackFormUrl: true,
+        finalRemarks: true,
+        participants: {
+          select: {
+            companyId: true,
+            company: {
+              select: {
+                id: true,
+                name: true,
+                profile: true,
+                address: true,
+                email: true,
+                website: true,
+                representativeName: true,
+                productsToBeDisplayed: true,
+              },
+            },
+          },
+        },
+      },
     });
-  }
 
-  // Get event by slug
-  const slug = searchParams.get('slug');
-  if (slug) {
-    const event = getEventBySlug(slug);
     if (!event) {
       return NextResponse.json(
         { error: 'Event not found' },
@@ -38,21 +61,45 @@ export async function GET(request) {
       );
     }
 
-    // Include participating companies data
-    const participants = event.participatingCompanyIds.map(companyId =>
-      getCompanyById(companyId)
-    ).filter(Boolean);
-
     return NextResponse.json({
-      ...event,
-      participants
+      id: event.id,
+      name: event.name,
+      description: event.description,
+      location: event.location,
+      eventDate: event.eventDate,
+      date: formatDateYYYYMMDD(event.eventDate),
+      participatingCompanyIds: event.participants.map((p) => p.companyId),
+      participants: event.participants.map((p) => p.company).filter(Boolean),
+      feedbackFormUrl: event.feedbackFormUrl,
+      finalRemarks: event.finalRemarks,
     });
   }
 
   // Get all events
-  const allEvents = getAllEvents();
+  const allEvents = await prisma.event.findMany({
+    select: {
+      id: true,
+      name: true,
+      description: true,
+      location: true,
+      eventDate: true,
+      participants: { select: { companyId: true } },
+    },
+    orderBy: { eventDate: 'desc' },
+  });
+
+  const events = allEvents.map((e) => ({
+    id: e.id,
+    name: e.name,
+    description: e.description,
+    location: e.location,
+    eventDate: e.eventDate,
+    date: formatDateYYYYMMDD(e.eventDate),
+    participatingCompanyIds: e.participants.map((p) => p.companyId),
+  }));
+
   return NextResponse.json({
-    events: allEvents,
-    total: allEvents.length
+    events,
+    total: events.length
   });
 }

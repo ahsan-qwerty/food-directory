@@ -23,7 +23,20 @@ function createPrismaClient() {
 
 const globalForPrisma = globalThis;
 
-export const prisma = globalForPrisma.__tdapPrisma ?? createPrismaClient();
+function isStalePrismaClient(client) {
+    // When the Prisma schema changes during `next dev`, Next can keep the old
+    // global prisma instance. If a new model delegate is missing (like `event`),
+    // we recreate the client.
+    return !client || !client.event || typeof client.event.findMany !== 'function';
+}
+
+let prisma = globalForPrisma.__tdapPrisma;
+
+if (isStalePrismaClient(prisma)) {
+    prisma = createPrismaClient();
+}
+
+export { prisma };
 
 if (process.env.NODE_ENV !== 'production') {
     globalForPrisma.__tdapPrisma = prisma;
