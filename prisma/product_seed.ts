@@ -274,8 +274,8 @@ const productData: Prisma.ProductCreateInput[] = [
 export async function main() {
     try {
         console.log('Starting product seed...')
-        for (const s of productData) {
-            await prisma.product.create({ data: s })
+    for (const s of productData) {
+        await prisma.product.create({ data: s })
             console.log(`Created product: ${s.name}`)
         }
         console.log('Product seed completed successfully!')
@@ -289,5 +289,5 @@ export async function main() {
 
 main().catch((error) => {
     console.error('Seed failed:', error)
-    process.exit(1)
-})
+        process.exit(1)
+    })
