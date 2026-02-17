@@ -299,6 +299,7 @@ export type CompanyWhereInput = {
   sector?: Prisma.XOR<Prisma.SectorNullableScalarRelationFilter, Prisma.SectorWhereInput> | null
   subSector?: Prisma.XOR<Prisma.SubSectorNullableScalarRelationFilter, Prisma.SubSectorWhereInput> | null
   eventParticipations?: Prisma.EventCompanyListRelationFilter
+  delegationParticipations?: Prisma.DelegationCompanyListRelationFilter
 }
 
 export type CompanyOrderByWithRelationInput = {
@@ -319,6 +320,7 @@ export type CompanyOrderByWithRelationInput = {
   sector?: Prisma.SectorOrderByWithRelationInput
   subSector?: Prisma.SubSectorOrderByWithRelationInput
   eventParticipations?: Prisma.EventCompanyOrderByRelationAggregateInput
+  delegationParticipations?: Prisma.DelegationCompanyOrderByRelationAggregateInput
   _relevance?: Prisma.CompanyOrderByRelevanceInput
 }
 
@@ -343,6 +345,7 @@ export type CompanyWhereUniqueInput = Prisma.AtLeast<{
   sector?: Prisma.XOR<Prisma.SectorNullableScalarRelationFilter, Prisma.SectorWhereInput> | null
   subSector?: Prisma.XOR<Prisma.SubSectorNullableScalarRelationFilter, Prisma.SubSectorWhereInput> | null
   eventParticipations?: Prisma.EventCompanyListRelationFilter
+  delegationParticipations?: Prisma.DelegationCompanyListRelationFilter
 }, "id">
 
 export type CompanyOrderByWithAggregationInput = {
@@ -402,6 +405,7 @@ export type CompanyCreateInput = {
   sector?: Prisma.SectorCreateNestedOneWithoutCompaniesInput
   subSector?: Prisma.SubSectorCreateNestedOneWithoutCompaniesInput
   eventParticipations?: Prisma.EventCompanyCreateNestedManyWithoutCompanyInput
+  delegationParticipations?: Prisma.DelegationCompanyCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateInput = {
@@ -420,6 +424,7 @@ export type CompanyUncheckedCreateInput = {
   subSectorId?: number | null
   createdAt?: Date | string
   eventParticipations?: Prisma.EventCompanyUncheckedCreateNestedManyWithoutCompanyInput
+  delegationParticipations?: Prisma.DelegationCompanyUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUpdateInput = {
@@ -437,6 +442,7 @@ export type CompanyUpdateInput = {
   sector?: Prisma.SectorUpdateOneWithoutCompaniesNestedInput
   subSector?: Prisma.SubSectorUpdateOneWithoutCompaniesNestedInput
   eventParticipations?: Prisma.EventCompanyUpdateManyWithoutCompanyNestedInput
+  delegationParticipations?: Prisma.DelegationCompanyUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateInput = {
@@ -455,6 +461,7 @@ export type CompanyUncheckedUpdateInput = {
   subSectorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   eventParticipations?: Prisma.EventCompanyUncheckedUpdateManyWithoutCompanyNestedInput
+  delegationParticipations?: Prisma.DelegationCompanyUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateManyInput = {
@@ -695,6 +702,20 @@ export type CompanyUpdateOneRequiredWithoutEventParticipationsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutEventParticipationsInput, Prisma.CompanyUpdateWithoutEventParticipationsInput>, Prisma.CompanyUncheckedUpdateWithoutEventParticipationsInput>
 }
 
+export type CompanyCreateNestedOneWithoutDelegationParticipationsInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutDelegationParticipationsInput, Prisma.CompanyUncheckedCreateWithoutDelegationParticipationsInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutDelegationParticipationsInput
+  connect?: Prisma.CompanyWhereUniqueInput
+}
+
+export type CompanyUpdateOneRequiredWithoutDelegationParticipationsNestedInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutDelegationParticipationsInput, Prisma.CompanyUncheckedCreateWithoutDelegationParticipationsInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutDelegationParticipationsInput
+  upsert?: Prisma.CompanyUpsertWithoutDelegationParticipationsInput
+  connect?: Prisma.CompanyWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutDelegationParticipationsInput, Prisma.CompanyUpdateWithoutDelegationParticipationsInput>, Prisma.CompanyUncheckedUpdateWithoutDelegationParticipationsInput>
+}
+
 export type CompanyCreateWithoutSectorInput = {
   name: string
   profile?: string | null
@@ -709,6 +730,7 @@ export type CompanyCreateWithoutSectorInput = {
   createdAt?: Date | string
   subSector?: Prisma.SubSectorCreateNestedOneWithoutCompaniesInput
   eventParticipations?: Prisma.EventCompanyCreateNestedManyWithoutCompanyInput
+  delegationParticipations?: Prisma.DelegationCompanyCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutSectorInput = {
@@ -726,6 +748,7 @@ export type CompanyUncheckedCreateWithoutSectorInput = {
   subSectorId?: number | null
   createdAt?: Date | string
   eventParticipations?: Prisma.EventCompanyUncheckedCreateNestedManyWithoutCompanyInput
+  delegationParticipations?: Prisma.DelegationCompanyUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutSectorInput = {
@@ -788,6 +811,7 @@ export type CompanyCreateWithoutSubSectorInput = {
   createdAt?: Date | string
   sector?: Prisma.SectorCreateNestedOneWithoutCompaniesInput
   eventParticipations?: Prisma.EventCompanyCreateNestedManyWithoutCompanyInput
+  delegationParticipations?: Prisma.DelegationCompanyCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutSubSectorInput = {
@@ -805,6 +829,7 @@ export type CompanyUncheckedCreateWithoutSubSectorInput = {
   sectorId?: number | null
   createdAt?: Date | string
   eventParticipations?: Prisma.EventCompanyUncheckedCreateNestedManyWithoutCompanyInput
+  delegationParticipations?: Prisma.DelegationCompanyUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutSubSectorInput = {
@@ -847,6 +872,7 @@ export type CompanyCreateWithoutEventParticipationsInput = {
   createdAt?: Date | string
   sector?: Prisma.SectorCreateNestedOneWithoutCompaniesInput
   subSector?: Prisma.SubSectorCreateNestedOneWithoutCompaniesInput
+  delegationParticipations?: Prisma.DelegationCompanyCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutEventParticipationsInput = {
@@ -864,6 +890,7 @@ export type CompanyUncheckedCreateWithoutEventParticipationsInput = {
   sectorId?: number | null
   subSectorId?: number | null
   createdAt?: Date | string
+  delegationParticipations?: Prisma.DelegationCompanyUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutEventParticipationsInput = {
@@ -896,6 +923,7 @@ export type CompanyUpdateWithoutEventParticipationsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sector?: Prisma.SectorUpdateOneWithoutCompaniesNestedInput
   subSector?: Prisma.SubSectorUpdateOneWithoutCompaniesNestedInput
+  delegationParticipations?: Prisma.DelegationCompanyUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutEventParticipationsInput = {
@@ -913,6 +941,93 @@ export type CompanyUncheckedUpdateWithoutEventParticipationsInput = {
   sectorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   subSectorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  delegationParticipations?: Prisma.DelegationCompanyUncheckedUpdateManyWithoutCompanyNestedInput
+}
+
+export type CompanyCreateWithoutDelegationParticipationsInput = {
+  name: string
+  profile?: string | null
+  address?: string | null
+  email?: string | null
+  website?: string | null
+  representativeName?: string | null
+  representativeTel?: string | null
+  representativeWhatsapp?: string | null
+  representativeEmail?: string | null
+  productsToBeDisplayed?: string | null
+  createdAt?: Date | string
+  sector?: Prisma.SectorCreateNestedOneWithoutCompaniesInput
+  subSector?: Prisma.SubSectorCreateNestedOneWithoutCompaniesInput
+  eventParticipations?: Prisma.EventCompanyCreateNestedManyWithoutCompanyInput
+}
+
+export type CompanyUncheckedCreateWithoutDelegationParticipationsInput = {
+  id?: number
+  name: string
+  profile?: string | null
+  address?: string | null
+  email?: string | null
+  website?: string | null
+  representativeName?: string | null
+  representativeTel?: string | null
+  representativeWhatsapp?: string | null
+  representativeEmail?: string | null
+  productsToBeDisplayed?: string | null
+  sectorId?: number | null
+  subSectorId?: number | null
+  createdAt?: Date | string
+  eventParticipations?: Prisma.EventCompanyUncheckedCreateNestedManyWithoutCompanyInput
+}
+
+export type CompanyCreateOrConnectWithoutDelegationParticipationsInput = {
+  where: Prisma.CompanyWhereUniqueInput
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutDelegationParticipationsInput, Prisma.CompanyUncheckedCreateWithoutDelegationParticipationsInput>
+}
+
+export type CompanyUpsertWithoutDelegationParticipationsInput = {
+  update: Prisma.XOR<Prisma.CompanyUpdateWithoutDelegationParticipationsInput, Prisma.CompanyUncheckedUpdateWithoutDelegationParticipationsInput>
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutDelegationParticipationsInput, Prisma.CompanyUncheckedCreateWithoutDelegationParticipationsInput>
+  where?: Prisma.CompanyWhereInput
+}
+
+export type CompanyUpdateToOneWithWhereWithoutDelegationParticipationsInput = {
+  where?: Prisma.CompanyWhereInput
+  data: Prisma.XOR<Prisma.CompanyUpdateWithoutDelegationParticipationsInput, Prisma.CompanyUncheckedUpdateWithoutDelegationParticipationsInput>
+}
+
+export type CompanyUpdateWithoutDelegationParticipationsInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  profile?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  representativeName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  representativeTel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  representativeWhatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  representativeEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  productsToBeDisplayed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sector?: Prisma.SectorUpdateOneWithoutCompaniesNestedInput
+  subSector?: Prisma.SubSectorUpdateOneWithoutCompaniesNestedInput
+  eventParticipations?: Prisma.EventCompanyUpdateManyWithoutCompanyNestedInput
+}
+
+export type CompanyUncheckedUpdateWithoutDelegationParticipationsInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  profile?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  representativeName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  representativeTel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  representativeWhatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  representativeEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  productsToBeDisplayed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sectorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  subSectorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  eventParticipations?: Prisma.EventCompanyUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateManySectorInput = {
@@ -945,6 +1060,7 @@ export type CompanyUpdateWithoutSectorInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subSector?: Prisma.SubSectorUpdateOneWithoutCompaniesNestedInput
   eventParticipations?: Prisma.EventCompanyUpdateManyWithoutCompanyNestedInput
+  delegationParticipations?: Prisma.DelegationCompanyUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutSectorInput = {
@@ -962,6 +1078,7 @@ export type CompanyUncheckedUpdateWithoutSectorInput = {
   subSectorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   eventParticipations?: Prisma.EventCompanyUncheckedUpdateManyWithoutCompanyNestedInput
+  delegationParticipations?: Prisma.DelegationCompanyUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateManyWithoutSectorInput = {
@@ -1010,6 +1127,7 @@ export type CompanyUpdateWithoutSubSectorInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sector?: Prisma.SectorUpdateOneWithoutCompaniesNestedInput
   eventParticipations?: Prisma.EventCompanyUpdateManyWithoutCompanyNestedInput
+  delegationParticipations?: Prisma.DelegationCompanyUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutSubSectorInput = {
@@ -1027,6 +1145,7 @@ export type CompanyUncheckedUpdateWithoutSubSectorInput = {
   sectorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   eventParticipations?: Prisma.EventCompanyUncheckedUpdateManyWithoutCompanyNestedInput
+  delegationParticipations?: Prisma.DelegationCompanyUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateManyWithoutSubSectorInput = {
@@ -1052,10 +1171,12 @@ export type CompanyUncheckedUpdateManyWithoutSubSectorInput = {
 
 export type CompanyCountOutputType = {
   eventParticipations: number
+  delegationParticipations: number
 }
 
 export type CompanyCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   eventParticipations?: boolean | CompanyCountOutputTypeCountEventParticipationsArgs
+  delegationParticipations?: boolean | CompanyCountOutputTypeCountDelegationParticipationsArgs
 }
 
 /**
@@ -1073,6 +1194,13 @@ export type CompanyCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Exte
  */
 export type CompanyCountOutputTypeCountEventParticipationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.EventCompanyWhereInput
+}
+
+/**
+ * CompanyCountOutputType without action
+ */
+export type CompanyCountOutputTypeCountDelegationParticipationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DelegationCompanyWhereInput
 }
 
 
@@ -1094,6 +1222,7 @@ export type CompanySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   sector?: boolean | Prisma.Company$sectorArgs<ExtArgs>
   subSector?: boolean | Prisma.Company$subSectorArgs<ExtArgs>
   eventParticipations?: boolean | Prisma.Company$eventParticipationsArgs<ExtArgs>
+  delegationParticipations?: boolean | Prisma.Company$delegationParticipationsArgs<ExtArgs>
   _count?: boolean | Prisma.CompanyCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["company"]>
 
@@ -1121,6 +1250,7 @@ export type CompanyInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs
   sector?: boolean | Prisma.Company$sectorArgs<ExtArgs>
   subSector?: boolean | Prisma.Company$subSectorArgs<ExtArgs>
   eventParticipations?: boolean | Prisma.Company$eventParticipationsArgs<ExtArgs>
+  delegationParticipations?: boolean | Prisma.Company$delegationParticipationsArgs<ExtArgs>
   _count?: boolean | Prisma.CompanyCountOutputTypeDefaultArgs<ExtArgs>
 }
 
@@ -1130,6 +1260,7 @@ export type $CompanyPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     sector: Prisma.$SectorPayload<ExtArgs> | null
     subSector: Prisma.$SubSectorPayload<ExtArgs> | null
     eventParticipations: Prisma.$EventCompanyPayload<ExtArgs>[]
+    delegationParticipations: Prisma.$DelegationCompanyPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1489,6 +1620,7 @@ export interface Prisma__CompanyClient<T, Null = never, ExtArgs extends runtime.
   sector<T extends Prisma.Company$sectorArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$sectorArgs<ExtArgs>>): Prisma.Prisma__SectorClient<runtime.Types.Result.GetResult<Prisma.$SectorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   subSector<T extends Prisma.Company$subSectorArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$subSectorArgs<ExtArgs>>): Prisma.Prisma__SubSectorClient<runtime.Types.Result.GetResult<Prisma.$SubSectorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   eventParticipations<T extends Prisma.Company$eventParticipationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$eventParticipationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EventCompanyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  delegationParticipations<T extends Prisma.Company$delegationParticipationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$delegationParticipationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DelegationCompanyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1934,6 +2066,30 @@ export type Company$eventParticipationsArgs<ExtArgs extends runtime.Types.Extens
   take?: number
   skip?: number
   distinct?: Prisma.EventCompanyScalarFieldEnum | Prisma.EventCompanyScalarFieldEnum[]
+}
+
+/**
+ * Company.delegationParticipations
+ */
+export type Company$delegationParticipationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the DelegationCompany
+   */
+  select?: Prisma.DelegationCompanySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the DelegationCompany
+   */
+  omit?: Prisma.DelegationCompanyOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DelegationCompanyInclude<ExtArgs> | null
+  where?: Prisma.DelegationCompanyWhereInput
+  orderBy?: Prisma.DelegationCompanyOrderByWithRelationInput | Prisma.DelegationCompanyOrderByWithRelationInput[]
+  cursor?: Prisma.DelegationCompanyWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.DelegationCompanyScalarFieldEnum | Prisma.DelegationCompanyScalarFieldEnum[]
 }
 
 /**

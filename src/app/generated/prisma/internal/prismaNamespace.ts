@@ -391,7 +391,9 @@ export const ModelName = {
   Event: 'Event',
   EventCompany: 'EventCompany',
   EventFeedback: 'EventFeedback',
-  Mission: 'Mission'
+  Mission: 'Mission',
+  Delegation: 'Delegation',
+  DelegationCompany: 'DelegationCompany'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -407,7 +409,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "sector" | "subSector" | "product" | "company" | "event" | "eventCompany" | "eventFeedback" | "mission"
+    modelProps: "sector" | "subSector" | "product" | "company" | "event" | "eventCompany" | "eventFeedback" | "mission" | "delegation" | "delegationCompany"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -939,6 +941,138 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Delegation: {
+      payload: Prisma.$DelegationPayload<ExtArgs>
+      fields: Prisma.DelegationFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.DelegationFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DelegationPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.DelegationFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DelegationPayload>
+        }
+        findFirst: {
+          args: Prisma.DelegationFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DelegationPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.DelegationFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DelegationPayload>
+        }
+        findMany: {
+          args: Prisma.DelegationFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DelegationPayload>[]
+        }
+        create: {
+          args: Prisma.DelegationCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DelegationPayload>
+        }
+        createMany: {
+          args: Prisma.DelegationCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        delete: {
+          args: Prisma.DelegationDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DelegationPayload>
+        }
+        update: {
+          args: Prisma.DelegationUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DelegationPayload>
+        }
+        deleteMany: {
+          args: Prisma.DelegationDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.DelegationUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        upsert: {
+          args: Prisma.DelegationUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DelegationPayload>
+        }
+        aggregate: {
+          args: Prisma.DelegationAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateDelegation>
+        }
+        groupBy: {
+          args: Prisma.DelegationGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DelegationGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.DelegationCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DelegationCountAggregateOutputType> | number
+        }
+      }
+    }
+    DelegationCompany: {
+      payload: Prisma.$DelegationCompanyPayload<ExtArgs>
+      fields: Prisma.DelegationCompanyFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.DelegationCompanyFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DelegationCompanyPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.DelegationCompanyFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DelegationCompanyPayload>
+        }
+        findFirst: {
+          args: Prisma.DelegationCompanyFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DelegationCompanyPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.DelegationCompanyFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DelegationCompanyPayload>
+        }
+        findMany: {
+          args: Prisma.DelegationCompanyFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DelegationCompanyPayload>[]
+        }
+        create: {
+          args: Prisma.DelegationCompanyCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DelegationCompanyPayload>
+        }
+        createMany: {
+          args: Prisma.DelegationCompanyCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        delete: {
+          args: Prisma.DelegationCompanyDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DelegationCompanyPayload>
+        }
+        update: {
+          args: Prisma.DelegationCompanyUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DelegationCompanyPayload>
+        }
+        deleteMany: {
+          args: Prisma.DelegationCompanyDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.DelegationCompanyUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        upsert: {
+          args: Prisma.DelegationCompanyUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DelegationCompanyPayload>
+        }
+        aggregate: {
+          args: Prisma.DelegationCompanyAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateDelegationCompany>
+        }
+        groupBy: {
+          args: Prisma.DelegationCompanyGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DelegationCompanyGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.DelegationCompanyCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DelegationCompanyCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1078,6 +1212,38 @@ export const MissionScalarFieldEnum = {
 export type MissionScalarFieldEnum = (typeof MissionScalarFieldEnum)[keyof typeof MissionScalarFieldEnum]
 
 
+export const DelegationScalarFieldEnum = {
+  id: 'id',
+  type: 'type',
+  status: 'status',
+  division: 'division',
+  productSector: 'productSector',
+  expectedDelegates: 'expectedDelegates',
+  rationale: 'rationale',
+  fromCountry: 'fromCountry',
+  toCountry: 'toCountry',
+  dates: 'dates',
+  allocatedBudget: 'allocatedBudget',
+  utilizedBudget: 'utilizedBudget',
+  closedAt: 'closedAt',
+  closingRemarks: 'closingRemarks',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type DelegationScalarFieldEnum = (typeof DelegationScalarFieldEnum)[keyof typeof DelegationScalarFieldEnum]
+
+
+export const DelegationCompanyScalarFieldEnum = {
+  id: 'id',
+  delegationId: 'delegationId',
+  companyId: 'companyId',
+  createdAt: 'createdAt'
+} as const
+
+export type DelegationCompanyScalarFieldEnum = (typeof DelegationCompanyScalarFieldEnum)[keyof typeof DelegationCompanyScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -1163,6 +1329,20 @@ export const MissionOrderByRelevanceFieldEnum = {
 export type MissionOrderByRelevanceFieldEnum = (typeof MissionOrderByRelevanceFieldEnum)[keyof typeof MissionOrderByRelevanceFieldEnum]
 
 
+export const DelegationOrderByRelevanceFieldEnum = {
+  division: 'division',
+  productSector: 'productSector',
+  expectedDelegates: 'expectedDelegates',
+  rationale: 'rationale',
+  fromCountry: 'fromCountry',
+  toCountry: 'toCountry',
+  dates: 'dates',
+  closingRemarks: 'closingRemarks'
+} as const
+
+export type DelegationOrderByRelevanceFieldEnum = (typeof DelegationOrderByRelevanceFieldEnum)[keyof typeof DelegationOrderByRelevanceFieldEnum]
+
+
 
 /**
  * Field references
@@ -1194,6 +1374,27 @@ export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel
  * Reference to a field of type 'FeedbackSource'
  */
 export type EnumFeedbackSourceFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FeedbackSource'>
+    
+
+
+/**
+ * Reference to a field of type 'DelegationType'
+ */
+export type EnumDelegationTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DelegationType'>
+    
+
+
+/**
+ * Reference to a field of type 'DelegationStatus'
+ */
+export type EnumDelegationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DelegationStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'Decimal'
+ */
+export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal'>
     
 
 
@@ -1306,6 +1507,8 @@ export type GlobalOmitConfig = {
   eventCompany?: Prisma.EventCompanyOmit
   eventFeedback?: Prisma.EventFeedbackOmit
   mission?: Prisma.MissionOmit
+  delegation?: Prisma.DelegationOmit
+  delegationCompany?: Prisma.DelegationCompanyOmit
 }
 
 /* Types for Logging */
