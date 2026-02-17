@@ -79,3 +79,13 @@ export type EventFeedback = Prisma.EventFeedbackModel
  * 
  */
 export type Mission = Prisma.MissionModel
+/**
+ * Model Delegation
+ * 
+ */
+export type Delegation = Prisma.DelegationModel
+/**
+ * Model DelegationCompany
+ * 
+ */
+export type DelegationCompany = Prisma.DelegationCompanyModel

@@ -58,7 +58,9 @@ export const ModelName = {
   Event: 'Event',
   EventCompany: 'EventCompany',
   EventFeedback: 'EventFeedback',
-  Mission: 'Mission'
+  Mission: 'Mission',
+  Delegation: 'Delegation',
+  DelegationCompany: 'DelegationCompany'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -177,6 +179,38 @@ export const MissionScalarFieldEnum = {
 export type MissionScalarFieldEnum = (typeof MissionScalarFieldEnum)[keyof typeof MissionScalarFieldEnum]
 
 
+export const DelegationScalarFieldEnum = {
+  id: 'id',
+  type: 'type',
+  status: 'status',
+  division: 'division',
+  productSector: 'productSector',
+  expectedDelegates: 'expectedDelegates',
+  rationale: 'rationale',
+  fromCountry: 'fromCountry',
+  toCountry: 'toCountry',
+  dates: 'dates',
+  allocatedBudget: 'allocatedBudget',
+  utilizedBudget: 'utilizedBudget',
+  closedAt: 'closedAt',
+  closingRemarks: 'closingRemarks',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type DelegationScalarFieldEnum = (typeof DelegationScalarFieldEnum)[keyof typeof DelegationScalarFieldEnum]
+
+
+export const DelegationCompanyScalarFieldEnum = {
+  id: 'id',
+  delegationId: 'delegationId',
+  companyId: 'companyId',
+  createdAt: 'createdAt'
+} as const
+
+export type DelegationCompanyScalarFieldEnum = (typeof DelegationCompanyScalarFieldEnum)[keyof typeof DelegationCompanyScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -260,4 +294,18 @@ export const MissionOrderByRelevanceFieldEnum = {
 } as const
 
 export type MissionOrderByRelevanceFieldEnum = (typeof MissionOrderByRelevanceFieldEnum)[keyof typeof MissionOrderByRelevanceFieldEnum]
+
+
+export const DelegationOrderByRelevanceFieldEnum = {
+  division: 'division',
+  productSector: 'productSector',
+  expectedDelegates: 'expectedDelegates',
+  rationale: 'rationale',
+  fromCountry: 'fromCountry',
+  toCountry: 'toCountry',
+  dates: 'dates',
+  closingRemarks: 'closingRemarks'
+} as const
+
+export type DelegationOrderByRelevanceFieldEnum = (typeof DelegationOrderByRelevanceFieldEnum)[keyof typeof DelegationOrderByRelevanceFieldEnum]
 

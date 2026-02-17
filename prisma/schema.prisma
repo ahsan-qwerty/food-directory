@@ -78,6 +78,7 @@ subSectorId Int?
 subSector   SubSector? @relation(fields: [subSectorId], references: [id])
 
 eventParticipations EventCompany[]
+delegationParticipations DelegationCompany[]
 
 createdAt DateTime @default(now())
 }
@@ -141,4 +142,61 @@ model Mission {
   name   String
   region String
   email  String
+}
+
+enum DelegationType {
+  INCOMING
+  OUTGOING
+}
+
+enum DelegationStatus {
+  ACTIVE
+  CLOSED
+}
+
+model Delegation {
+  id          Int      @id @default(autoincrement())
+  type        DelegationType
+  status      DelegationStatus @default(ACTIVE)
+  
+  // Common fields
+  division    String?
+  productSector String?
+  expectedDelegates String? // e.g., "2-4 delegates", "10"
+  rationale   String? // Rationale/Objectives/Justification
+  
+  // Incoming delegation fields
+  fromCountry String?
+  
+  // Outgoing delegation fields
+  toCountry   String?
+  dates       String? // e.g., "to be decided in consultation with the mission"
+  
+  // Budget management
+  allocatedBudget Decimal? @db.Decimal(15, 2) // Tentative Expenditure / Proposed Budget
+  utilizedBudget  Decimal? @db.Decimal(15, 2) // Added when closing delegation
+  
+  // Closing information
+  closedAt    DateTime?
+  closingRemarks String?
+  
+  // Relations
+  participants DelegationCompany[]
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model DelegationCompany {
+  id Int @id @default(autoincrement())
+  
+  delegationId Int
+  companyId    Int
+  
+  delegation Delegation @relation(fields: [delegationId], references: [id], onDelete: Cascade)
+  company     Company   @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  
+  createdAt DateTime @default(now())
+  
+  @@unique([delegationId, companyId])
 }

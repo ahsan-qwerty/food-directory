@@ -15,3 +15,19 @@ export const FeedbackSource = {
 } as const
 
 export type FeedbackSource = (typeof FeedbackSource)[keyof typeof FeedbackSource]
+
+
+export const DelegationType = {
+  INCOMING: 'INCOMING',
+  OUTGOING: 'OUTGOING'
+} as const
+
+export type DelegationType = (typeof DelegationType)[keyof typeof DelegationType]
+
+
+export const DelegationStatus = {
+  ACTIVE: 'ACTIVE',
+  CLOSED: 'CLOSED'
+} as const
+
+export type DelegationStatus = (typeof DelegationStatus)[keyof typeof DelegationStatus]

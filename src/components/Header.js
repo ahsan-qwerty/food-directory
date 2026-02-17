@@ -39,6 +39,12 @@ export default function Header() {
               Events
             </Link>
             <Link
+              href="/delegations"
+              className="text-white hover:text-green-100 transition-colors font-medium"
+            >
+              Delegations
+            </Link>
+            <Link
               href="/register"
               className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-500 transition-colors font-medium"
             >
