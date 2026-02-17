@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import EventCard from '@/components/EventCard';
+import EventCard from '../../components/EventCard';
 
 export default function EventsPage() {
   const [events, setEvents] = useState([]);
@@ -12,7 +12,7 @@ export default function EventsPage() {
       try {
         const res = await fetch('/api/events');
         const data = await res.json();
-        setEvents(data.events);
+        setEvents(data.events || []);
       } catch (error) {
         console.error('Error fetching events:', error);
       } finally {
@@ -24,7 +24,6 @@ export default function EventsPage() {
 
   return (
     <div className="min-h-screen bg-gray-50 px-4">
-      
       <main className="container mx-auto px-4 py-8">
         {/* Page Header */}
         <div className="mb-8">

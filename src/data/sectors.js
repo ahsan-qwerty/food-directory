@@ -1,11 +1,11 @@
 // Main Sectors/Categories for food companies
 export const sectors = [
   { id: 1, name: 'Cereals' },
-  { id: 2, name: 'Fruits & Vegetable, Frozen, IQF' },
+  { id: 2, name: 'Fruits & Vegetables' },
   { id: 3, name: 'Beverages & Drinks' },
   { id: 4, name: 'Biscuits, Confectioneries, Bread, Pastries, Cakes & Chewing Gums' },
   { id: 5, name: 'Dry Fruits' },
-  { id: 6, name: 'Processed Food' },
+  { id: 6, name: 'Processed Foods' },
   { id: 7, name: 'Oil & Ghee/Oil Seeds' },
   { id: 8, name: 'Salt' },
   { id: 9, name: 'Sea Food & Fisheries' },

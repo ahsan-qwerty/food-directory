@@ -1,5 +1,5 @@
-// Sub-Categories (Products) - Third level
-export const subCategories = [
+// Products - Third level
+export const products = [
   { id: 0, name: 'Agri Research' },
   { id: 1, name: 'Agricultural Machinery' },
   { id: 2, name: 'Agriculture Machinery' },
@@ -100,20 +100,20 @@ export const subCategories = [
   { id: 97, name: 'Vermicelli' }
 ];
 
-export function getSubCategoryById(id) {
-  return subCategories.find(sc => sc.id === id);
+export function getProductById(id) {
+  return products.find(sc => sc.id === id);
 }
 
-export function getSubCategoryName(id) {
-  const subCategory = getSubCategoryById(id);
-  return subCategory ? subCategory.name : 'Unknown Sub-Category';
+export function getProductName(id) {
+  const product = getProductById(id);
+  return product ? product.name : 'Unknown Product';
 }
 
-export function getSubCategoriesByCategory(categoryId) {
-  // Sub-categories are no longer linked to categories, return all sub-categories
-  return subCategories;
+export function getProductsBySubSector(subSectorId) {
+  // Products are no longer linked to specific sub-sectors, return all products
+  return products;
 }
 
-export function getAllSubCategoryNames() {
-  return [...new Set(subCategories.map(sc => sc.name))].sort();
+export function getAllProductNames() {
+  return [...new Set(products.map(sc => sc.name))].sort();
 }

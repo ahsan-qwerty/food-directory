@@ -6,17 +6,29 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "db:cleanup": "tsx prisma/cleanup.ts",
+    "db:seed:sectors": "tsx prisma/sector_seed.ts",
+    "db:seed:subsectors": "tsx prisma/subsector_seed.ts",
+    "db:seed:products": "tsx prisma/product_seed.ts",
+    "db:seed:companies": "tsx prisma/seed/company_seed.ts",
+    "db:seed:events": "tsx prisma/seed/gulfood_event.ts"
   },
   "dependencies": {
+    "@prisma/adapter-mariadb": "^7.3.0",
+    "@prisma/client": "^7.3.0",
+    "mysql2": "^3.16.2",
     "next": "16.1.2",
     "react": "19.2.3",
-    "react-dom": "19.2.3"
+    "react-dom": "19.2.3",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
     "eslint": "^9",
     "eslint-config-next": "16.1.2",
-    "tailwindcss": "^4"
+    "prisma": "^7.3.0",
+    "tailwindcss": "^4",
+    "tsx": "^4.21.0"
   }
 }
