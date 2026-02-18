@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "postinstall": "prisma generate",
+    "railway:build": "prisma migrate deploy && next build",
     "db:cleanup": "tsx prisma/cleanup.ts",
     "db:seed:sectors": "tsx prisma/sector_seed.ts",
     "db:seed:subsectors": "tsx prisma/subsector_seed.ts",
