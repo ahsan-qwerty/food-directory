@@ -7,11 +7,11 @@ function createPrismaClient() {
     const dbHost =
         process.env.DB_HOST ||
         process.env.MYSQLHOST ||
-        'localhost';
+        'yamabiko.proxy.rlwy.net';
     const dbPort = parseInt(
         process.env.DB_PORT ||
         process.env.MYSQLPORT ||
-        '3306',
+        '38666',
         10
     );
     const dbUser =
@@ -21,11 +21,11 @@ function createPrismaClient() {
     const dbPassword =
         process.env.DB_PASSWORD ||
         process.env.MYSQLPASSWORD ||
-        '';
+        'SkWqshPLZhadSaMFlOjZLKlFBRqSneCC';
     const dbName =
         process.env.DB_NAME ||
         process.env.MYSQLDATABASE ||
-        'food-directory';
+        'railway';
     const connectionLimit = parseInt(process.env.DB_CONNECTION_LIMIT || '5', 10);
 
     const adapter = new PrismaMariaDb({
@@ -35,6 +35,13 @@ function createPrismaClient() {
         password: dbPassword,
         database: dbName,
         connectionLimit,
+        // Railway MySQL requires SSL for external connections
+        ssl: {
+            rejectUnauthorized: false, // Railway uses self-signed certificates
+        },
+        // Increase connection timeout for external connections
+        connectTimeout: 30000, // 30 seconds
+        socketTimeout: 30000, // 30 seconds
     });
 
     return new PrismaClient({ adapter });
