@@ -58,7 +58,7 @@ function getByHeader(row: Record<string, any>, header: string): string {
 
 async function main() {
     try {
-        console.log('Starting company seed from 5-dry_fruits.xlsx...')
+        console.log('Starting company seed from 1-rice.xlsx...')
 
         const xlsxPath = path.join(process.cwd(), 'data', '1-rice.xlsx')
         const workbook = XLSX.readFile(xlsxPath)
@@ -72,7 +72,7 @@ async function main() {
 
         // Look up the related sector/sub-sector once (Sugar and Confectionary -> Dry Fruits)
         const dryFruitsSubSector = await prisma.subSector.findFirst({
-            where: { name: 'Dry Fruits' },
+            where: { name: 'Rice' },
             select: { id: true, sectorId: true },
         })
 
