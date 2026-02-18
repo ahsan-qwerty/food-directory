@@ -8,48 +8,39 @@ export default function RegisterPage() {
     const router = useRouter();
     const [sectors, setSectors] = useState([]);
     const [subSectors, setSubSectors] = useState([]);
-    const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [success, setSuccess] = useState(false);
 
     const [formData, setFormData] = useState({
-        company_name: '',
-        // company_profile: '',
-        sector_id: '',
-        category_id: [],
-        sub_category_ids: [],
-        // company_competence: '',
-        // year_of_incorporation: '',
-        // no_of_employees: '',
-        // certification: '',
-        // company_address: '',
-        // company_email_address: '',
-        // web_address: '',
-        // person_name: '',
-        // person_designation: '',
-        // person_cell_no: '',
-        // person_whatsapp_no: '',
-        // person_email_address: ''
+        name: '',
+        profile: '',
+        address: '',
+        email: '',
+        website: '',
+        representativeName: '',
+        representativeTel: '',
+        representativeWhatsapp: '',
+        representativeEmail: '',
+        productsToBeDisplayed: '',
+        sectorId: '',
+        subSectorId: '',
     });
 
     // Fetch sectors, sub-sectors, and products on mount
     useEffect(() => {
         async function fetchData() {
             try {
-                const [sectorsRes, categoriesRes, subCategoriesRes] = await Promise.all([
+                const [sectorsRes, categoriesRes] = await Promise.all([
                     fetch('/api/sectors'),
                     fetch('/api/categories'),
-                    fetch('/api/subcategories')
                 ]);
 
                 const sectorsData = await sectorsRes.json();
                 const subSectorsData = await categoriesRes.json();
-                const productsData = await subCategoriesRes.json();
 
                 setSectors(sectorsData.sectors);
                 setSubSectors(subSectorsData.subSectors);
-                setProducts(productsData.products);
             } catch (error) {
                 console.error('Error fetching data:', error);
                 setError('Failed to load form data. Please refresh the page.');
@@ -66,19 +57,16 @@ export default function RegisterPage() {
         }));
     };
 
-    const handleMultiSelectChange = (e, fieldName) => {
-        const options = e.target.options;
-        const selected = [];
-        for (let i = 0; i < options.length; i++) {
-            if (options[i].selected) {
-                selected.push(parseInt(options[i].value));
+    // Filter sub-sectors based on selected sector
+    useEffect(() => {
+        if (formData.sectorId) {
+            // Reset subSectorId if it doesn't belong to the selected sector
+            const selectedSubSector = subSectors.find(sub => sub.id === parseInt(formData.subSectorId));
+            if (selectedSubSector && selectedSubSector.sectorId !== parseInt(formData.sectorId)) {
+                setFormData(prev => ({ ...prev, subSectorId: '' }));
             }
         }
-        setFormData(prev => ({
-            ...prev,
-            [fieldName]: selected
-        }));
-    };
+    }, [formData.sectorId, formData.subSectorId, subSectors]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -86,29 +74,11 @@ export default function RegisterPage() {
         setError('');
 
         // Validation
-        if (!formData.company_name) {
+        if (!formData.name) {
             setError('Company name is required');
             setLoading(false);
             return;
         }
-
-        if (!formData.sector_id) {
-            setError('Please select a sector');
-            setLoading(false);
-            return;
-        }
-
-        if (formData.category_id.length === 0) {
-            setError('Please select at least one category');
-            setLoading(false);
-            return;
-        }
-
-        // if (!formData.company_email_address) {
-        //     setError('Company email is required');
-        //     setLoading(false);
-        //     return;
-        // }
 
         try {
             const response = await fetch('/api/register', {
@@ -118,7 +88,8 @@ export default function RegisterPage() {
                 },
                 body: JSON.stringify({
                     ...formData,
-                    sector_id: parseInt(formData.sector_id)
+                    sectorId: formData.sectorId ? parseInt(formData.sectorId) : null,
+                    subSectorId: formData.subSectorId ? parseInt(formData.subSectorId) : null,
                 }),
             });
 
@@ -184,21 +155,21 @@ export default function RegisterPage() {
                                 </label>
                                 <input
                                     type="text"
-                                    name="company_name"
-                                    value={formData.company_name}
+                                    name="name"
+                                    value={formData.name}
                                     onChange={handleInputChange}
                                     className="w-full px-3 py-2 border border-gray-300 text-gray-950 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
                                     required
                                 />
                             </div>
 
-                            {/* <div className="md:col-span-2">
+                            <div className="md:col-span-2">
                                 <label className="block text-sm font-medium text-gray-700 mb-2">
                                     Company Profile
                                 </label>
                                 <textarea
-                                    name="company_profile"
-                                    value={formData.company_profile}
+                                    name="profile"
+                                    value={formData.profile}
                                     onChange={handleInputChange}
                                     rows="4"
                                     className="w-full px-3 py-2 border border-gray-300 text-gray-950 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
@@ -208,77 +179,75 @@ export default function RegisterPage() {
 
                             <div className="md:col-span-2">
                                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                                    Company Competence
+                                    Address
                                 </label>
-                                <input
-                                    type="text"
-                                    name="company_competence"
-                                    value={formData.company_competence}
+                                <textarea
+                                    name="address"
+                                    value={formData.address}
                                     onChange={handleInputChange}
+                                    rows="2"
                                     className="w-full px-3 py-2 border border-gray-300 text-gray-950 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
-                                    placeholder="e.g., Export, Manufacturing, Processing"
+                                    placeholder="Company address..."
                                 />
                             </div>
 
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                                    Year of Incorporation
+                                    Email
                                 </label>
                                 <input
-                                    type="number"
-                                    name="year_of_incorporation"
-                                    value={formData.year_of_incorporation}
+                                    type="email"
+                                    name="email"
+                                    value={formData.email}
                                     onChange={handleInputChange}
-                                    min="1900"
-                                    max={new Date().getFullYear()}
                                     className="w-full px-3 py-2 border border-gray-300 text-gray-950 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                                    placeholder="company@example.com"
                                 />
                             </div>
 
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                                    Number of Employees
+                                    Website
                                 </label>
                                 <input
-                                    type="number"
-                                    name="no_of_employees"
-                                    value={formData.no_of_employees}
+                                    type="url"
+                                    name="website"
+                                    value={formData.website}
                                     onChange={handleInputChange}
-                                    min="1"
                                     className="w-full px-3 py-2 border border-gray-300 text-gray-950 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                                    placeholder="https://example.com"
                                 />
                             </div>
 
                             <div className="md:col-span-2">
                                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                                    Certifications
+                                    Products to be Displayed
                                 </label>
-                                <input
-                                    type="text"
-                                    name="certification"
-                                    value={formData.certification}
+                                <textarea
+                                    name="productsToBeDisplayed"
+                                    value={formData.productsToBeDisplayed}
                                     onChange={handleInputChange}
+                                    rows="3"
                                     className="w-full px-3 py-2 border border-gray-300 text-gray-950 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
-                                    placeholder="e.g., ISO 9001, HACCP, Halal (comma separated)"
+                                    placeholder="List products your company will display (comma separated)"
                                 />
-                            </div> */}
+                            </div>
                         </div>
                     </div>
 
-                     {/* Business Categories (Sector / Sub-Sector / Products) */}
+                    {/* Business Classification */}
                     <div>
-                         <h2 className="text-xl font-bold text-gray-900 mb-4">Business Classification</h2>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <h2 className="text-xl font-bold text-gray-900 mb-4">Business Classification</h2>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                                    Main Sector <span className="text-red-500">*</span>
+                                    Main Sector
                                 </label>
                                 <select
-                                    name="sector_id"
-                                    value={formData.sector_id}
+                                    name="sectorId"
+                                    value={formData.sectorId}
                                     onChange={handleInputChange}
                                     className="w-full px-3 py-2 border border-gray-300 text-gray-950 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
-                                    required
                                 >
                                     <option value="">Select Sector</option>
                                     {sectors.map(sector => (
@@ -291,119 +260,56 @@ export default function RegisterPage() {
 
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                                     Sub-Sectors <span className="text-red-500">*</span>
-                                    <span className="text-xs text-gray-500 ml-1">(Hold Ctrl/Cmd to select multiple)</span>
+                                    Sub-Sector
                                 </label>
                                 <select
-                                    multiple
-                                    value={formData.category_id}
-                                    onChange={(e) => handleMultiSelectChange(e, 'category_id')}
-                                    className="w-full px-3 py-2 border border-gray-300 text-gray-950 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 min-h-[120px]"
-                                    required
+                                    name="subSectorId"
+                                    value={formData.subSectorId}
+                                    onChange={handleInputChange}
+                                    className="w-full px-3 py-2 border border-gray-300 text-gray-950 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
                                 >
-                                     {subSectors.map(subSector => (
-                                         <option key={subSector.id} value={subSector.id}>
-                                             {subSector.name}
-                                        </option>
-                                    ))}
-                                </select>
-                            </div>
-
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">
-                                     Products
-                                    <span className="text-xs text-gray-500 ml-1">(Hold Ctrl/Cmd to select multiple)</span>
-                                </label>
-                                <select
-                                    multiple
-                                    value={formData.sub_category_ids}
-                                    onChange={(e) => handleMultiSelectChange(e, 'sub_category_ids')}
-                                    className="w-full px-3 py-2 border border-gray-300 text-gray-950 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 min-h-[120px]"
-                                >
-                                     {products.map(product => (
-                                         <option key={product.id} value={product.id}>
-                                             {product.name}
-                                        </option>
-                                    ))}
+                                    <option value="">Select Sub-Sector</option>
+                                    {subSectors
+                                        .filter(subSector => !formData.sectorId || subSector.sectorId === parseInt(formData.sectorId))
+                                        .map(subSector => (
+                                            <option key={subSector.id} value={subSector.id}>
+                                                {subSector.name}
+                                            </option>
+                                        ))}
                                 </select>
                             </div>
                         </div>
                     </div>
 
-                    {/* Company Contact Information */}
-                    {/* <div>
-                        <h2 className="text-xl font-bold text-gray-900 mb-4">Company Contact Information</h2>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div className="md:col-span-2">
-                                <label className="block text-sm font-medium text-gray-700 mb-2">
-                                    Company Address
-                                </label>
-                                <textarea
-                                    name="company_address"
-                                    value={formData.company_address}
-                                    onChange={handleInputChange}
-                                    rows="2"
-                                    className="w-full px-3 py-2 border border-gray-300 text-gray-950 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
-                                />
-                            </div>
-
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">
-                                    Company Email <span className="text-red-500">*</span>
-                                </label>
-                                <input
-                                    type="email"
-                                    name="company_email_address"
-                                    value={formData.company_email_address}
-                                    onChange={handleInputChange}
-                                    className="w-full px-3 py-2 border border-gray-300 text-gray-950 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
-                                    required
-                                />
-                            </div>
-
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">
-                                    Website
-                                </label>
-                                <input
-                                    type="url"
-                                    name="web_address"
-                                    value={formData.web_address}
-                                    onChange={handleInputChange}
-                                    className="w-full px-3 py-2 border border-gray-300 text-gray-950 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
-                                    placeholder="https://example.com"
-                                />
-                            </div>
-                        </div>
-                    </div> */}
-
                     {/* Contact Person Information */}
-                    {/* <div>
+                    <div>
                         <h2 className="text-xl font-bold text-gray-900 mb-4">Contact Person Information</h2>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                                    Contact Person Name
+                                    Representative Name
                                 </label>
                                 <input
                                     type="text"
-                                    name="person_name"
-                                    value={formData.person_name}
+                                    name="representativeName"
+                                    value={formData.representativeName}
                                     onChange={handleInputChange}
                                     className="w-full px-3 py-2 border border-gray-300 text-gray-950 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                                    placeholder="Contact person name"
                                 />
                             </div>
 
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                                    Designation
+                                    Representative Email
                                 </label>
                                 <input
-                                    type="text"
-                                    name="person_designation"
-                                    value={formData.person_designation}
+                                    type="email"
+                                    name="representativeEmail"
+                                    value={formData.representativeEmail}
                                     onChange={handleInputChange}
                                     className="w-full px-3 py-2 border border-gray-300 text-gray-950 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                                    placeholder="representative@example.com"
                                 />
                             </div>
 
@@ -413,8 +319,8 @@ export default function RegisterPage() {
                                 </label>
                                 <input
                                     type="tel"
-                                    name="person_cell_no"
-                                    value={formData.person_cell_no}
+                                    name="representativeTel"
+                                    value={formData.representativeTel}
                                     onChange={handleInputChange}
                                     className="w-full px-3 py-2 border border-gray-300 text-gray-950 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
                                     placeholder="+92 XXX XXXXXXX"
@@ -427,28 +333,15 @@ export default function RegisterPage() {
                                 </label>
                                 <input
                                     type="tel"
-                                    name="person_whatsapp_no"
-                                    value={formData.person_whatsapp_no}
+                                    name="representativeWhatsapp"
+                                    value={formData.representativeWhatsapp}
                                     onChange={handleInputChange}
                                     className="w-full px-3 py-2 border border-gray-300 text-gray-950 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
                                     placeholder="+92 XXX XXXXXXX"
                                 />
                             </div>
-
-                            <div className="md:col-span-2">
-                                <label className="block text-sm font-medium text-gray-700 mb-2">
-                                    Contact Person Email
-                                </label>
-                                <input
-                                    type="email"
-                                    name="person_email_address"
-                                    value={formData.person_email_address}
-                                    onChange={handleInputChange}
-                                    className="w-full px-3 py-2 border border-gray-300 text-gray-950 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
-                                />
-                            </div>
                         </div>
-                    </div> */}
+                    </div>
 
                     {/* Submit Buttons */}
                     <div className="flex flex-col sm:flex-row gap-4 pt-4 border-t">

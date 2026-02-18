@@ -58,13 +58,13 @@ function getByHeader(row: Record<string, any>, header: string): string {
 
 async function main() {
     try {
-        console.log('Starting company seed from 1-rice.xlsx...')
+        console.log('Starting company seed from 5-dry_fruits.xlsx...')
 
-        const xlsxPath = path.join(process.cwd(), 'data', '1-rice.xlsx')
+        const xlsxPath = path.join(process.cwd(), 'data', '5-dry_fruits.xlsx')
         const workbook = XLSX.readFile(xlsxPath)
         const sheetName = workbook.SheetNames[0]
         if (!sheetName) {
-            throw new Error('No sheets found in 1-rice.xlsx')
+            throw new Error('No sheets found in 5-dry_fruits.xlsx')
         }
 
         const sheet = workbook.Sheets[sheetName]
@@ -72,12 +72,12 @@ async function main() {
 
         // Look up the related sector/sub-sector once (Sugar and Confectionary -> Dry Fruits)
         const dryFruitsSubSector = await prisma.subSector.findFirst({
-            where: { name: 'Rice' },
+            where: { name: 'Dry Fruits' },
             select: { id: true, sectorId: true },
         })
 
         if (!dryFruitsSubSector) {
-            throw new Error('SubSector "Dry Fruits" not found. Run sector and subsector seeds before company seed.')
+            throw new Error('SubSector "Sugar Confectionary" not found. Run sector and subsector seeds before company seed.')
         }
 
         const companyData = rows
