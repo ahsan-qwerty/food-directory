@@ -3,6 +3,23 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
+const COUNTRY_OPTIONS = [
+    'Australia',
+    'China',
+    'Japan',
+    'Lebanon',
+    'Malaysia',
+    'Morocco',
+    'Philippines',
+    'Qatar',
+    'Saudi Arabia',
+    'South Africa',
+    'Sri Lanka',
+    'United Arab Emirates',
+    'United Kingdom',
+    'United States',
+];
+
 export default function CreateEventPage() {
     const router = useRouter();
     const [loading, setLoading] = useState(false);
@@ -24,8 +41,6 @@ export default function CreateEventPage() {
         exhibitorCost: '',
         totalEstimatedBudget: '',
         recommendedByJustification: '',
-        description: '',
-        feedbackFormUrl: '',
         finalRemarks: '',
     });
 
@@ -61,8 +76,6 @@ export default function CreateEventPage() {
                 exhibitorCost: formData.exhibitorCost || null,
                 totalEstimatedBudget: formData.totalEstimatedBudget || null,
                 recommendedByJustification: formData.recommendedByJustification || null,
-                description: formData.description || null,
-                feedbackFormUrl: formData.feedbackFormUrl || null,
                 finalRemarks: formData.finalRemarks || null,
             };
 
@@ -207,14 +220,17 @@ export default function CreateEventPage() {
                                 <label className="block text-sm font-medium text-gray-700 mb-2">
                                     Country
                                 </label>
-                                <input
-                                    type="text"
+                                <select
                                     name="country"
                                     value={formData.country}
                                     onChange={handleChange}
                                     className="w-full px-3 py-2 text-gray-950 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
-                                    placeholder="e.g., Australia"
-                                />
+                                >
+                                    <option value="">Select Country</option>
+                                    {COUNTRY_OPTIONS.map((c) => (
+                                        <option key={c} value={c}>{c}</option>
+                                    ))}
+                                </select>
                             </div>
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -319,48 +335,6 @@ export default function CreateEventPage() {
                                 rows={3}
                                 className="w-full px-3 py-2 text-gray-950 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
                                 placeholder="e.g., Regular Event."
-                            />
-                        </div>
-
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">
-                                Notes / Description
-                            </label>
-                            <textarea
-                                name="description"
-                                value={formData.description}
-                                onChange={handleChange}
-                                rows={4}
-                                className="w-full px-3 py-2 text-gray-950 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
-                                placeholder="Optional extra details..."
-                            />
-                        </div>
-
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">
-                                Feedback Form URL
-                            </label>
-                            <input
-                                type="url"
-                                name="feedbackFormUrl"
-                                value={formData.feedbackFormUrl}
-                                onChange={handleChange}
-                                className="w-full px-3 py-2 text-gray-950 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
-                                placeholder="https://forms.example.com/feedback"
-                            />
-                        </div>
-
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">
-                                Final Remarks
-                            </label>
-                            <textarea
-                                name="finalRemarks"
-                                value={formData.finalRemarks}
-                                onChange={handleChange}
-                                rows={3}
-                                className="w-full px-3 py-2 text-gray-950 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
-                                placeholder="Desk officer closing remarks (optional)..."
                             />
                         </div>
 

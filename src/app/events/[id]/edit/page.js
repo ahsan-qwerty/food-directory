@@ -3,6 +3,23 @@
 import { useState, useEffect } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 
+const COUNTRY_OPTIONS = [
+    'Australia',
+    'China',
+    'Japan',
+    'Lebanon',
+    'Malaysia',
+    'Morocco',
+    'Philippines',
+    'Qatar',
+    'Saudi Arabia',
+    'South Africa',
+    'Sri Lanka',
+    'United Arab Emirates',
+    'United Kingdom',
+    'United States',
+];
+
 export default function EditEventPage() {
     const router = useRouter();
     const params = useParams();
@@ -32,6 +49,10 @@ export default function EditEventPage() {
         feedbackFormUrl: '',
         finalRemarks: '',
     });
+
+    const countryOptions = Array.from(
+        new Set([...(formData.country ? [formData.country] : []), ...COUNTRY_OPTIONS].filter(Boolean))
+    );
 
     useEffect(() => {
         async function fetchEvent() {
@@ -274,14 +295,17 @@ export default function EditEventPage() {
                                 <label className="block text-sm font-medium text-gray-700 mb-2">
                                     Country
                                 </label>
-                                <input
-                                    type="text"
+                                <select
                                     name="country"
                                     value={formData.country}
                                     onChange={handleChange}
                                     className="w-full px-3 py-2 text-gray-950 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
-                                    placeholder="e.g., Australia"
-                                />
+                                >
+                                    <option value="">Select Country</option>
+                                    {countryOptions.map((c) => (
+                                        <option key={c} value={c}>{c}</option>
+                                    ))}
+                                </select>
                             </div>
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-2">
