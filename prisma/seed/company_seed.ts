@@ -60,11 +60,11 @@ async function main() {
     try {
         console.log('Starting company seed from 5-dry_fruits.xlsx...')
 
-        const xlsxPath = path.join(process.cwd(), 'data', '5-dry_fruits.xlsx')
+        const xlsxPath = path.join(process.cwd(), 'data', '1-rice.xlsx')
         const workbook = XLSX.readFile(xlsxPath)
         const sheetName = workbook.SheetNames[0]
         if (!sheetName) {
-            throw new Error('No sheets found in 5-dry_fruits.xlsx')
+            throw new Error('No sheets found in 1-rice.xlsx')
         }
 
         const sheet = workbook.Sheets[sheetName]
