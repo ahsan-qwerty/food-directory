@@ -28,10 +28,18 @@ export type AggregateEvent = {
 
 export type EventAvgAggregateOutputType = {
   id: number | null
+  subsidyPercentage: runtime.Decimal | null
+  tdapCost: runtime.Decimal | null
+  exhibitorCost: runtime.Decimal | null
+  totalEstimatedBudget: runtime.Decimal | null
 }
 
 export type EventSumAggregateOutputType = {
   id: number | null
+  subsidyPercentage: runtime.Decimal | null
+  tdapCost: runtime.Decimal | null
+  exhibitorCost: runtime.Decimal | null
+  totalEstimatedBudget: runtime.Decimal | null
 }
 
 export type EventMinAggregateOutputType = {
@@ -40,9 +48,23 @@ export type EventMinAggregateOutputType = {
   description: string | null
   location: string | null
   eventDate: Date | null
+  division: string | null
+  region: string | null
+  country: string | null
+  city: string | null
+  sectorProducts: string | null
+  startDate: Date | null
+  endDate: Date | null
+  datesText: string | null
+  subsidyPercentage: runtime.Decimal | null
+  tdapCost: runtime.Decimal | null
+  exhibitorCost: runtime.Decimal | null
+  totalEstimatedBudget: runtime.Decimal | null
+  recommendedByJustification: string | null
   feedbackFormUrl: string | null
   finalRemarks: string | null
   createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type EventMaxAggregateOutputType = {
@@ -51,9 +73,23 @@ export type EventMaxAggregateOutputType = {
   description: string | null
   location: string | null
   eventDate: Date | null
+  division: string | null
+  region: string | null
+  country: string | null
+  city: string | null
+  sectorProducts: string | null
+  startDate: Date | null
+  endDate: Date | null
+  datesText: string | null
+  subsidyPercentage: runtime.Decimal | null
+  tdapCost: runtime.Decimal | null
+  exhibitorCost: runtime.Decimal | null
+  totalEstimatedBudget: runtime.Decimal | null
+  recommendedByJustification: string | null
   feedbackFormUrl: string | null
   finalRemarks: string | null
   createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type EventCountAggregateOutputType = {
@@ -62,19 +98,41 @@ export type EventCountAggregateOutputType = {
   description: number
   location: number
   eventDate: number
+  division: number
+  region: number
+  country: number
+  city: number
+  sectorProducts: number
+  startDate: number
+  endDate: number
+  datesText: number
+  subsidyPercentage: number
+  tdapCost: number
+  exhibitorCost: number
+  totalEstimatedBudget: number
+  recommendedByJustification: number
   feedbackFormUrl: number
   finalRemarks: number
   createdAt: number
+  updatedAt: number
   _all: number
 }
 
 
 export type EventAvgAggregateInputType = {
   id?: true
+  subsidyPercentage?: true
+  tdapCost?: true
+  exhibitorCost?: true
+  totalEstimatedBudget?: true
 }
 
 export type EventSumAggregateInputType = {
   id?: true
+  subsidyPercentage?: true
+  tdapCost?: true
+  exhibitorCost?: true
+  totalEstimatedBudget?: true
 }
 
 export type EventMinAggregateInputType = {
@@ -83,9 +141,23 @@ export type EventMinAggregateInputType = {
   description?: true
   location?: true
   eventDate?: true
+  division?: true
+  region?: true
+  country?: true
+  city?: true
+  sectorProducts?: true
+  startDate?: true
+  endDate?: true
+  datesText?: true
+  subsidyPercentage?: true
+  tdapCost?: true
+  exhibitorCost?: true
+  totalEstimatedBudget?: true
+  recommendedByJustification?: true
   feedbackFormUrl?: true
   finalRemarks?: true
   createdAt?: true
+  updatedAt?: true
 }
 
 export type EventMaxAggregateInputType = {
@@ -94,9 +166,23 @@ export type EventMaxAggregateInputType = {
   description?: true
   location?: true
   eventDate?: true
+  division?: true
+  region?: true
+  country?: true
+  city?: true
+  sectorProducts?: true
+  startDate?: true
+  endDate?: true
+  datesText?: true
+  subsidyPercentage?: true
+  tdapCost?: true
+  exhibitorCost?: true
+  totalEstimatedBudget?: true
+  recommendedByJustification?: true
   feedbackFormUrl?: true
   finalRemarks?: true
   createdAt?: true
+  updatedAt?: true
 }
 
 export type EventCountAggregateInputType = {
@@ -105,9 +191,23 @@ export type EventCountAggregateInputType = {
   description?: true
   location?: true
   eventDate?: true
+  division?: true
+  region?: true
+  country?: true
+  city?: true
+  sectorProducts?: true
+  startDate?: true
+  endDate?: true
+  datesText?: true
+  subsidyPercentage?: true
+  tdapCost?: true
+  exhibitorCost?: true
+  totalEstimatedBudget?: true
+  recommendedByJustification?: true
   feedbackFormUrl?: true
   finalRemarks?: true
   createdAt?: true
+  updatedAt?: true
   _all?: true
 }
 
@@ -203,9 +303,23 @@ export type EventGroupByOutputType = {
   description: string | null
   location: string | null
   eventDate: Date
+  division: string | null
+  region: string | null
+  country: string | null
+  city: string | null
+  sectorProducts: string | null
+  startDate: Date | null
+  endDate: Date | null
+  datesText: string | null
+  subsidyPercentage: runtime.Decimal | null
+  tdapCost: runtime.Decimal | null
+  exhibitorCost: runtime.Decimal | null
+  totalEstimatedBudget: runtime.Decimal | null
+  recommendedByJustification: string | null
   feedbackFormUrl: string | null
   finalRemarks: string | null
   createdAt: Date
+  updatedAt: Date
   _count: EventCountAggregateOutputType | null
   _avg: EventAvgAggregateOutputType | null
   _sum: EventSumAggregateOutputType | null
@@ -237,9 +351,23 @@ export type EventWhereInput = {
   description?: Prisma.StringNullableFilter<"Event"> | string | null
   location?: Prisma.StringNullableFilter<"Event"> | string | null
   eventDate?: Prisma.DateTimeFilter<"Event"> | Date | string
+  division?: Prisma.StringNullableFilter<"Event"> | string | null
+  region?: Prisma.StringNullableFilter<"Event"> | string | null
+  country?: Prisma.StringNullableFilter<"Event"> | string | null
+  city?: Prisma.StringNullableFilter<"Event"> | string | null
+  sectorProducts?: Prisma.StringNullableFilter<"Event"> | string | null
+  startDate?: Prisma.DateTimeNullableFilter<"Event"> | Date | string | null
+  endDate?: Prisma.DateTimeNullableFilter<"Event"> | Date | string | null
+  datesText?: Prisma.StringNullableFilter<"Event"> | string | null
+  subsidyPercentage?: Prisma.DecimalNullableFilter<"Event"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  tdapCost?: Prisma.DecimalNullableFilter<"Event"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  exhibitorCost?: Prisma.DecimalNullableFilter<"Event"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  totalEstimatedBudget?: Prisma.DecimalNullableFilter<"Event"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  recommendedByJustification?: Prisma.StringNullableFilter<"Event"> | string | null
   feedbackFormUrl?: Prisma.StringNullableFilter<"Event"> | string | null
   finalRemarks?: Prisma.StringNullableFilter<"Event"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Event"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Event"> | Date | string
   participants?: Prisma.EventCompanyListRelationFilter
   feedbacks?: Prisma.EventFeedbackListRelationFilter
 }
@@ -250,9 +378,23 @@ export type EventOrderByWithRelationInput = {
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   location?: Prisma.SortOrderInput | Prisma.SortOrder
   eventDate?: Prisma.SortOrder
+  division?: Prisma.SortOrderInput | Prisma.SortOrder
+  region?: Prisma.SortOrderInput | Prisma.SortOrder
+  country?: Prisma.SortOrderInput | Prisma.SortOrder
+  city?: Prisma.SortOrderInput | Prisma.SortOrder
+  sectorProducts?: Prisma.SortOrderInput | Prisma.SortOrder
+  startDate?: Prisma.SortOrderInput | Prisma.SortOrder
+  endDate?: Prisma.SortOrderInput | Prisma.SortOrder
+  datesText?: Prisma.SortOrderInput | Prisma.SortOrder
+  subsidyPercentage?: Prisma.SortOrderInput | Prisma.SortOrder
+  tdapCost?: Prisma.SortOrderInput | Prisma.SortOrder
+  exhibitorCost?: Prisma.SortOrderInput | Prisma.SortOrder
+  totalEstimatedBudget?: Prisma.SortOrderInput | Prisma.SortOrder
+  recommendedByJustification?: Prisma.SortOrderInput | Prisma.SortOrder
   feedbackFormUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   finalRemarks?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   participants?: Prisma.EventCompanyOrderByRelationAggregateInput
   feedbacks?: Prisma.EventFeedbackOrderByRelationAggregateInput
   _relevance?: Prisma.EventOrderByRelevanceInput
@@ -267,9 +409,23 @@ export type EventWhereUniqueInput = Prisma.AtLeast<{
   description?: Prisma.StringNullableFilter<"Event"> | string | null
   location?: Prisma.StringNullableFilter<"Event"> | string | null
   eventDate?: Prisma.DateTimeFilter<"Event"> | Date | string
+  division?: Prisma.StringNullableFilter<"Event"> | string | null
+  region?: Prisma.StringNullableFilter<"Event"> | string | null
+  country?: Prisma.StringNullableFilter<"Event"> | string | null
+  city?: Prisma.StringNullableFilter<"Event"> | string | null
+  sectorProducts?: Prisma.StringNullableFilter<"Event"> | string | null
+  startDate?: Prisma.DateTimeNullableFilter<"Event"> | Date | string | null
+  endDate?: Prisma.DateTimeNullableFilter<"Event"> | Date | string | null
+  datesText?: Prisma.StringNullableFilter<"Event"> | string | null
+  subsidyPercentage?: Prisma.DecimalNullableFilter<"Event"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  tdapCost?: Prisma.DecimalNullableFilter<"Event"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  exhibitorCost?: Prisma.DecimalNullableFilter<"Event"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  totalEstimatedBudget?: Prisma.DecimalNullableFilter<"Event"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  recommendedByJustification?: Prisma.StringNullableFilter<"Event"> | string | null
   feedbackFormUrl?: Prisma.StringNullableFilter<"Event"> | string | null
   finalRemarks?: Prisma.StringNullableFilter<"Event"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Event"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Event"> | Date | string
   participants?: Prisma.EventCompanyListRelationFilter
   feedbacks?: Prisma.EventFeedbackListRelationFilter
 }, "id">
@@ -280,9 +436,23 @@ export type EventOrderByWithAggregationInput = {
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   location?: Prisma.SortOrderInput | Prisma.SortOrder
   eventDate?: Prisma.SortOrder
+  division?: Prisma.SortOrderInput | Prisma.SortOrder
+  region?: Prisma.SortOrderInput | Prisma.SortOrder
+  country?: Prisma.SortOrderInput | Prisma.SortOrder
+  city?: Prisma.SortOrderInput | Prisma.SortOrder
+  sectorProducts?: Prisma.SortOrderInput | Prisma.SortOrder
+  startDate?: Prisma.SortOrderInput | Prisma.SortOrder
+  endDate?: Prisma.SortOrderInput | Prisma.SortOrder
+  datesText?: Prisma.SortOrderInput | Prisma.SortOrder
+  subsidyPercentage?: Prisma.SortOrderInput | Prisma.SortOrder
+  tdapCost?: Prisma.SortOrderInput | Prisma.SortOrder
+  exhibitorCost?: Prisma.SortOrderInput | Prisma.SortOrder
+  totalEstimatedBudget?: Prisma.SortOrderInput | Prisma.SortOrder
+  recommendedByJustification?: Prisma.SortOrderInput | Prisma.SortOrder
   feedbackFormUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   finalRemarks?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   _count?: Prisma.EventCountOrderByAggregateInput
   _avg?: Prisma.EventAvgOrderByAggregateInput
   _max?: Prisma.EventMaxOrderByAggregateInput
@@ -299,9 +469,23 @@ export type EventScalarWhereWithAggregatesInput = {
   description?: Prisma.StringNullableWithAggregatesFilter<"Event"> | string | null
   location?: Prisma.StringNullableWithAggregatesFilter<"Event"> | string | null
   eventDate?: Prisma.DateTimeWithAggregatesFilter<"Event"> | Date | string
+  division?: Prisma.StringNullableWithAggregatesFilter<"Event"> | string | null
+  region?: Prisma.StringNullableWithAggregatesFilter<"Event"> | string | null
+  country?: Prisma.StringNullableWithAggregatesFilter<"Event"> | string | null
+  city?: Prisma.StringNullableWithAggregatesFilter<"Event"> | string | null
+  sectorProducts?: Prisma.StringNullableWithAggregatesFilter<"Event"> | string | null
+  startDate?: Prisma.DateTimeNullableWithAggregatesFilter<"Event"> | Date | string | null
+  endDate?: Prisma.DateTimeNullableWithAggregatesFilter<"Event"> | Date | string | null
+  datesText?: Prisma.StringNullableWithAggregatesFilter<"Event"> | string | null
+  subsidyPercentage?: Prisma.DecimalNullableWithAggregatesFilter<"Event"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  tdapCost?: Prisma.DecimalNullableWithAggregatesFilter<"Event"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  exhibitorCost?: Prisma.DecimalNullableWithAggregatesFilter<"Event"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  totalEstimatedBudget?: Prisma.DecimalNullableWithAggregatesFilter<"Event"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  recommendedByJustification?: Prisma.StringNullableWithAggregatesFilter<"Event"> | string | null
   feedbackFormUrl?: Prisma.StringNullableWithAggregatesFilter<"Event"> | string | null
   finalRemarks?: Prisma.StringNullableWithAggregatesFilter<"Event"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Event"> | Date | string
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Event"> | Date | string
 }
 
 export type EventCreateInput = {
@@ -309,9 +493,23 @@ export type EventCreateInput = {
   description?: string | null
   location?: string | null
   eventDate: Date | string
+  division?: string | null
+  region?: string | null
+  country?: string | null
+  city?: string | null
+  sectorProducts?: string | null
+  startDate?: Date | string | null
+  endDate?: Date | string | null
+  datesText?: string | null
+  subsidyPercentage?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  tdapCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  exhibitorCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  totalEstimatedBudget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  recommendedByJustification?: string | null
   feedbackFormUrl?: string | null
   finalRemarks?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
   participants?: Prisma.EventCompanyCreateNestedManyWithoutEventInput
   feedbacks?: Prisma.EventFeedbackCreateNestedManyWithoutEventInput
 }
@@ -322,9 +520,23 @@ export type EventUncheckedCreateInput = {
   description?: string | null
   location?: string | null
   eventDate: Date | string
+  division?: string | null
+  region?: string | null
+  country?: string | null
+  city?: string | null
+  sectorProducts?: string | null
+  startDate?: Date | string | null
+  endDate?: Date | string | null
+  datesText?: string | null
+  subsidyPercentage?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  tdapCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  exhibitorCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  totalEstimatedBudget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  recommendedByJustification?: string | null
   feedbackFormUrl?: string | null
   finalRemarks?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
   participants?: Prisma.EventCompanyUncheckedCreateNestedManyWithoutEventInput
   feedbacks?: Prisma.EventFeedbackUncheckedCreateNestedManyWithoutEventInput
 }
@@ -334,9 +546,23 @@ export type EventUpdateInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   eventDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  division?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sectorProducts?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  datesText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subsidyPercentage?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  tdapCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  exhibitorCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  totalEstimatedBudget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  recommendedByJustification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   feedbackFormUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   finalRemarks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   participants?: Prisma.EventCompanyUpdateManyWithoutEventNestedInput
   feedbacks?: Prisma.EventFeedbackUpdateManyWithoutEventNestedInput
 }
@@ -347,9 +573,23 @@ export type EventUncheckedUpdateInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   eventDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  division?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sectorProducts?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  datesText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subsidyPercentage?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  tdapCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  exhibitorCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  totalEstimatedBudget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  recommendedByJustification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   feedbackFormUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   finalRemarks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   participants?: Prisma.EventCompanyUncheckedUpdateManyWithoutEventNestedInput
   feedbacks?: Prisma.EventFeedbackUncheckedUpdateManyWithoutEventNestedInput
 }
@@ -360,9 +600,23 @@ export type EventCreateManyInput = {
   description?: string | null
   location?: string | null
   eventDate: Date | string
+  division?: string | null
+  region?: string | null
+  country?: string | null
+  city?: string | null
+  sectorProducts?: string | null
+  startDate?: Date | string | null
+  endDate?: Date | string | null
+  datesText?: string | null
+  subsidyPercentage?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  tdapCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  exhibitorCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  totalEstimatedBudget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  recommendedByJustification?: string | null
   feedbackFormUrl?: string | null
   finalRemarks?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type EventUpdateManyMutationInput = {
@@ -370,9 +624,23 @@ export type EventUpdateManyMutationInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   eventDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  division?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sectorProducts?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  datesText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subsidyPercentage?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  tdapCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  exhibitorCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  totalEstimatedBudget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  recommendedByJustification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   feedbackFormUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   finalRemarks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type EventUncheckedUpdateManyInput = {
@@ -381,9 +649,23 @@ export type EventUncheckedUpdateManyInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   eventDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  division?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sectorProducts?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  datesText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subsidyPercentage?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  tdapCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  exhibitorCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  totalEstimatedBudget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  recommendedByJustification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   feedbackFormUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   finalRemarks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type EventOrderByRelevanceInput = {
@@ -398,13 +680,31 @@ export type EventCountOrderByAggregateInput = {
   description?: Prisma.SortOrder
   location?: Prisma.SortOrder
   eventDate?: Prisma.SortOrder
+  division?: Prisma.SortOrder
+  region?: Prisma.SortOrder
+  country?: Prisma.SortOrder
+  city?: Prisma.SortOrder
+  sectorProducts?: Prisma.SortOrder
+  startDate?: Prisma.SortOrder
+  endDate?: Prisma.SortOrder
+  datesText?: Prisma.SortOrder
+  subsidyPercentage?: Prisma.SortOrder
+  tdapCost?: Prisma.SortOrder
+  exhibitorCost?: Prisma.SortOrder
+  totalEstimatedBudget?: Prisma.SortOrder
+  recommendedByJustification?: Prisma.SortOrder
   feedbackFormUrl?: Prisma.SortOrder
   finalRemarks?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type EventAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  subsidyPercentage?: Prisma.SortOrder
+  tdapCost?: Prisma.SortOrder
+  exhibitorCost?: Prisma.SortOrder
+  totalEstimatedBudget?: Prisma.SortOrder
 }
 
 export type EventMaxOrderByAggregateInput = {
@@ -413,9 +713,23 @@ export type EventMaxOrderByAggregateInput = {
   description?: Prisma.SortOrder
   location?: Prisma.SortOrder
   eventDate?: Prisma.SortOrder
+  division?: Prisma.SortOrder
+  region?: Prisma.SortOrder
+  country?: Prisma.SortOrder
+  city?: Prisma.SortOrder
+  sectorProducts?: Prisma.SortOrder
+  startDate?: Prisma.SortOrder
+  endDate?: Prisma.SortOrder
+  datesText?: Prisma.SortOrder
+  subsidyPercentage?: Prisma.SortOrder
+  tdapCost?: Prisma.SortOrder
+  exhibitorCost?: Prisma.SortOrder
+  totalEstimatedBudget?: Prisma.SortOrder
+  recommendedByJustification?: Prisma.SortOrder
   feedbackFormUrl?: Prisma.SortOrder
   finalRemarks?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type EventMinOrderByAggregateInput = {
@@ -424,18 +738,48 @@ export type EventMinOrderByAggregateInput = {
   description?: Prisma.SortOrder
   location?: Prisma.SortOrder
   eventDate?: Prisma.SortOrder
+  division?: Prisma.SortOrder
+  region?: Prisma.SortOrder
+  country?: Prisma.SortOrder
+  city?: Prisma.SortOrder
+  sectorProducts?: Prisma.SortOrder
+  startDate?: Prisma.SortOrder
+  endDate?: Prisma.SortOrder
+  datesText?: Prisma.SortOrder
+  subsidyPercentage?: Prisma.SortOrder
+  tdapCost?: Prisma.SortOrder
+  exhibitorCost?: Prisma.SortOrder
+  totalEstimatedBudget?: Prisma.SortOrder
+  recommendedByJustification?: Prisma.SortOrder
   feedbackFormUrl?: Prisma.SortOrder
   finalRemarks?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type EventSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  subsidyPercentage?: Prisma.SortOrder
+  tdapCost?: Prisma.SortOrder
+  exhibitorCost?: Prisma.SortOrder
+  totalEstimatedBudget?: Prisma.SortOrder
 }
 
 export type EventScalarRelationFilter = {
   is?: Prisma.EventWhereInput
   isNot?: Prisma.EventWhereInput
+}
+
+export type NullableDateTimeFieldUpdateOperationsInput = {
+  set?: Date | string | null
+}
+
+export type NullableDecimalFieldUpdateOperationsInput = {
+  set?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  increment?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  decrement?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  multiply?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  divide?: runtime.Decimal | runtime.DecimalJsLike | number | string
 }
 
 export type EventCreateNestedOneWithoutParticipantsInput = {
@@ -471,9 +815,23 @@ export type EventCreateWithoutParticipantsInput = {
   description?: string | null
   location?: string | null
   eventDate: Date | string
+  division?: string | null
+  region?: string | null
+  country?: string | null
+  city?: string | null
+  sectorProducts?: string | null
+  startDate?: Date | string | null
+  endDate?: Date | string | null
+  datesText?: string | null
+  subsidyPercentage?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  tdapCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  exhibitorCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  totalEstimatedBudget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  recommendedByJustification?: string | null
   feedbackFormUrl?: string | null
   finalRemarks?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
   feedbacks?: Prisma.EventFeedbackCreateNestedManyWithoutEventInput
 }
 
@@ -483,9 +841,23 @@ export type EventUncheckedCreateWithoutParticipantsInput = {
   description?: string | null
   location?: string | null
   eventDate: Date | string
+  division?: string | null
+  region?: string | null
+  country?: string | null
+  city?: string | null
+  sectorProducts?: string | null
+  startDate?: Date | string | null
+  endDate?: Date | string | null
+  datesText?: string | null
+  subsidyPercentage?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  tdapCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  exhibitorCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  totalEstimatedBudget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  recommendedByJustification?: string | null
   feedbackFormUrl?: string | null
   finalRemarks?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
   feedbacks?: Prisma.EventFeedbackUncheckedCreateNestedManyWithoutEventInput
 }
 
@@ -510,9 +882,23 @@ export type EventUpdateWithoutParticipantsInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   eventDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  division?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sectorProducts?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  datesText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subsidyPercentage?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  tdapCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  exhibitorCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  totalEstimatedBudget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  recommendedByJustification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   feedbackFormUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   finalRemarks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   feedbacks?: Prisma.EventFeedbackUpdateManyWithoutEventNestedInput
 }
 
@@ -522,9 +908,23 @@ export type EventUncheckedUpdateWithoutParticipantsInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   eventDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  division?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sectorProducts?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  datesText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subsidyPercentage?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  tdapCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  exhibitorCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  totalEstimatedBudget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  recommendedByJustification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   feedbackFormUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   finalRemarks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   feedbacks?: Prisma.EventFeedbackUncheckedUpdateManyWithoutEventNestedInput
 }
 
@@ -533,9 +933,23 @@ export type EventCreateWithoutFeedbacksInput = {
   description?: string | null
   location?: string | null
   eventDate: Date | string
+  division?: string | null
+  region?: string | null
+  country?: string | null
+  city?: string | null
+  sectorProducts?: string | null
+  startDate?: Date | string | null
+  endDate?: Date | string | null
+  datesText?: string | null
+  subsidyPercentage?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  tdapCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  exhibitorCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  totalEstimatedBudget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  recommendedByJustification?: string | null
   feedbackFormUrl?: string | null
   finalRemarks?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
   participants?: Prisma.EventCompanyCreateNestedManyWithoutEventInput
 }
 
@@ -545,9 +959,23 @@ export type EventUncheckedCreateWithoutFeedbacksInput = {
   description?: string | null
   location?: string | null
   eventDate: Date | string
+  division?: string | null
+  region?: string | null
+  country?: string | null
+  city?: string | null
+  sectorProducts?: string | null
+  startDate?: Date | string | null
+  endDate?: Date | string | null
+  datesText?: string | null
+  subsidyPercentage?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  tdapCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  exhibitorCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  totalEstimatedBudget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  recommendedByJustification?: string | null
   feedbackFormUrl?: string | null
   finalRemarks?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
   participants?: Prisma.EventCompanyUncheckedCreateNestedManyWithoutEventInput
 }
 
@@ -572,9 +1000,23 @@ export type EventUpdateWithoutFeedbacksInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   eventDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  division?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sectorProducts?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  datesText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subsidyPercentage?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  tdapCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  exhibitorCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  totalEstimatedBudget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  recommendedByJustification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   feedbackFormUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   finalRemarks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   participants?: Prisma.EventCompanyUpdateManyWithoutEventNestedInput
 }
 
@@ -584,9 +1026,23 @@ export type EventUncheckedUpdateWithoutFeedbacksInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   eventDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  division?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sectorProducts?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  datesText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subsidyPercentage?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  tdapCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  exhibitorCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  totalEstimatedBudget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  recommendedByJustification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   feedbackFormUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   finalRemarks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   participants?: Prisma.EventCompanyUncheckedUpdateManyWithoutEventNestedInput
 }
 
@@ -636,9 +1092,23 @@ export type EventSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   description?: boolean
   location?: boolean
   eventDate?: boolean
+  division?: boolean
+  region?: boolean
+  country?: boolean
+  city?: boolean
+  sectorProducts?: boolean
+  startDate?: boolean
+  endDate?: boolean
+  datesText?: boolean
+  subsidyPercentage?: boolean
+  tdapCost?: boolean
+  exhibitorCost?: boolean
+  totalEstimatedBudget?: boolean
+  recommendedByJustification?: boolean
   feedbackFormUrl?: boolean
   finalRemarks?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
   participants?: boolean | Prisma.Event$participantsArgs<ExtArgs>
   feedbacks?: boolean | Prisma.Event$feedbacksArgs<ExtArgs>
   _count?: boolean | Prisma.EventCountOutputTypeDefaultArgs<ExtArgs>
@@ -652,12 +1122,26 @@ export type EventSelectScalar = {
   description?: boolean
   location?: boolean
   eventDate?: boolean
+  division?: boolean
+  region?: boolean
+  country?: boolean
+  city?: boolean
+  sectorProducts?: boolean
+  startDate?: boolean
+  endDate?: boolean
+  datesText?: boolean
+  subsidyPercentage?: boolean
+  tdapCost?: boolean
+  exhibitorCost?: boolean
+  totalEstimatedBudget?: boolean
+  recommendedByJustification?: boolean
   feedbackFormUrl?: boolean
   finalRemarks?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
 }
 
-export type EventOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "location" | "eventDate" | "feedbackFormUrl" | "finalRemarks" | "createdAt", ExtArgs["result"]["event"]>
+export type EventOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "location" | "eventDate" | "division" | "region" | "country" | "city" | "sectorProducts" | "startDate" | "endDate" | "datesText" | "subsidyPercentage" | "tdapCost" | "exhibitorCost" | "totalEstimatedBudget" | "recommendedByJustification" | "feedbackFormUrl" | "finalRemarks" | "createdAt" | "updatedAt", ExtArgs["result"]["event"]>
 export type EventInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   participants?: boolean | Prisma.Event$participantsArgs<ExtArgs>
   feedbacks?: boolean | Prisma.Event$feedbacksArgs<ExtArgs>
@@ -676,9 +1160,23 @@ export type $EventPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     description: string | null
     location: string | null
     eventDate: Date
+    division: string | null
+    region: string | null
+    country: string | null
+    city: string | null
+    sectorProducts: string | null
+    startDate: Date | null
+    endDate: Date | null
+    datesText: string | null
+    subsidyPercentage: runtime.Decimal | null
+    tdapCost: runtime.Decimal | null
+    exhibitorCost: runtime.Decimal | null
+    totalEstimatedBudget: runtime.Decimal | null
+    recommendedByJustification: string | null
     feedbackFormUrl: string | null
     finalRemarks: string | null
     createdAt: Date
+    updatedAt: Date
   }, ExtArgs["result"]["event"]>
   composites: {}
 }
@@ -1055,9 +1553,23 @@ export interface EventFieldRefs {
   readonly description: Prisma.FieldRef<"Event", 'String'>
   readonly location: Prisma.FieldRef<"Event", 'String'>
   readonly eventDate: Prisma.FieldRef<"Event", 'DateTime'>
+  readonly division: Prisma.FieldRef<"Event", 'String'>
+  readonly region: Prisma.FieldRef<"Event", 'String'>
+  readonly country: Prisma.FieldRef<"Event", 'String'>
+  readonly city: Prisma.FieldRef<"Event", 'String'>
+  readonly sectorProducts: Prisma.FieldRef<"Event", 'String'>
+  readonly startDate: Prisma.FieldRef<"Event", 'DateTime'>
+  readonly endDate: Prisma.FieldRef<"Event", 'DateTime'>
+  readonly datesText: Prisma.FieldRef<"Event", 'String'>
+  readonly subsidyPercentage: Prisma.FieldRef<"Event", 'Decimal'>
+  readonly tdapCost: Prisma.FieldRef<"Event", 'Decimal'>
+  readonly exhibitorCost: Prisma.FieldRef<"Event", 'Decimal'>
+  readonly totalEstimatedBudget: Prisma.FieldRef<"Event", 'Decimal'>
+  readonly recommendedByJustification: Prisma.FieldRef<"Event", 'String'>
   readonly feedbackFormUrl: Prisma.FieldRef<"Event", 'String'>
   readonly finalRemarks: Prisma.FieldRef<"Event", 'String'>
   readonly createdAt: Prisma.FieldRef<"Event", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"Event", 'DateTime'>
 }
     
 

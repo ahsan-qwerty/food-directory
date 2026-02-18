@@ -13,7 +13,7 @@ export default function Header() {
                 </svg>
               </div>
               <div>
-                <h1 className="text-xl md:text-2xl font-bold">TDAP Food Directory</h1>
+                <h1 className="text-xl md:text-2xl font-bold">Agro Food Division</h1>
                 <p className="text-xs text-green-100">Trade Development Authority of Pakistan</p>
               </div>
             </div>
@@ -36,7 +36,7 @@ export default function Header() {
               href="/events"
               className="text-white hover:text-green-100 transition-colors font-medium"
             >
-              Events
+              International Exhibitions
             </Link>
             <Link
               href="/delegations"

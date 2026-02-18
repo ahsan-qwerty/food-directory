@@ -48,7 +48,7 @@ export default function Home() {
           <div className="container mx-auto px-4 py-16 md:py-24">
             <div className="max-w-3xl">
               <h1 className="text-4xl md:text-5xl font-bold mb-6">
-                Pakistan Food Division Company Directory
+                Agro & Food Division Companies Directory
               </h1>
               <p className="text-xl md:text-2xl text-green-100 mb-8">
                 Your gateway to discovering quality food exporters and manufacturers from Pakistan

@@ -1170,9 +1170,23 @@ export const EventScalarFieldEnum = {
   description: 'description',
   location: 'location',
   eventDate: 'eventDate',
+  division: 'division',
+  region: 'region',
+  country: 'country',
+  city: 'city',
+  sectorProducts: 'sectorProducts',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  datesText: 'datesText',
+  subsidyPercentage: 'subsidyPercentage',
+  tdapCost: 'tdapCost',
+  exhibitorCost: 'exhibitorCost',
+  totalEstimatedBudget: 'totalEstimatedBudget',
+  recommendedByJustification: 'recommendedByJustification',
   feedbackFormUrl: 'feedbackFormUrl',
   finalRemarks: 'finalRemarks',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type EventScalarFieldEnum = (typeof EventScalarFieldEnum)[keyof typeof EventScalarFieldEnum]
@@ -1304,6 +1318,13 @@ export const EventOrderByRelevanceFieldEnum = {
   name: 'name',
   description: 'description',
   location: 'location',
+  division: 'division',
+  region: 'region',
+  country: 'country',
+  city: 'city',
+  sectorProducts: 'sectorProducts',
+  datesText: 'datesText',
+  recommendedByJustification: 'recommendedByJustification',
   feedbackFormUrl: 'feedbackFormUrl',
   finalRemarks: 'finalRemarks'
 } as const
@@ -1371,6 +1392,13 @@ export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel
 
 
 /**
+ * Reference to a field of type 'Decimal'
+ */
+export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal'>
+    
+
+
+/**
  * Reference to a field of type 'FeedbackSource'
  */
 export type EnumFeedbackSourceFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FeedbackSource'>
@@ -1388,13 +1416,6 @@ export type EnumDelegationTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$P
  * Reference to a field of type 'DelegationStatus'
  */
 export type EnumDelegationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DelegationStatus'>
-    
-
-
-/**
- * Reference to a field of type 'Decimal'
- */
-export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal'>
     
 
 

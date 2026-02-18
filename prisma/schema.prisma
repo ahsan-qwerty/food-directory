@@ -90,6 +90,26 @@ model Event {
   location    String?
   eventDate   DateTime
 
+  // Excel sheet fields (Events / Exhibitions planning)
+  division String?
+  region   String?
+  country  String?
+  city     String?
+  sectorProducts String?
+
+  // Date range (if provided)
+  startDate DateTime?
+  endDate   DateTime?
+  datesText String?
+
+  // Budget fields (Rs.)
+  subsidyPercentage   Decimal? @db.Decimal(5, 2)
+  tdapCost            Decimal? @db.Decimal(15, 2)
+  exhibitorCost       Decimal? @db.Decimal(15, 2)
+  totalEstimatedBudget Decimal? @db.Decimal(15, 2)
+
+  recommendedByJustification String?
+
   // Feedback workflow
   feedbackFormUrl String?
   finalRemarks    String?
@@ -99,6 +119,7 @@ model Event {
   feedbacks    EventFeedback[]
 
   createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model EventCompany {
