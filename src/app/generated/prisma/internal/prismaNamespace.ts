@@ -1205,9 +1205,31 @@ export type EventCompanyScalarFieldEnum = (typeof EventCompanyScalarFieldEnum)[k
 export const EventFeedbackScalarFieldEnum = {
   id: 'id',
   eventId: 'eventId',
+  companyId: 'companyId',
   sourceType: 'sourceType',
-  sourceName: 'sourceName',
+  companyName: 'companyName',
+  companyAddress: 'companyAddress',
+  contactPerson: 'contactPerson',
+  contactNumber: 'contactNumber',
   sourceEmail: 'sourceEmail',
+  productsExhibited: 'productsExhibited',
+  b2bMeetings: 'b2bMeetings',
+  existingCustomers: 'existingCustomers',
+  newContacts: 'newContacts',
+  visitorsCountries: 'visitorsCountries',
+  ordersBooked: 'ordersBooked',
+  expectedOrders: 'expectedOrders',
+  hadUnmaterializedInquiries: 'hadUnmaterializedInquiries',
+  unmaterializedReasons: 'unmaterializedReasons',
+  majorCompetitors: 'majorCompetitors',
+  competitorMarketingMethods: 'competitorMarketingMethods',
+  problemsFaced: 'problemsFaced',
+  improvementSuggestions: 'improvementSuggestions',
+  tdapRecommendations: 'tdapRecommendations',
+  continueFairParticipation: 'continueFairParticipation',
+  satisfactionLevel: 'satisfactionLevel',
+  additionalComments: 'additionalComments',
+  sourceName: 'sourceName',
   rating: 'rating',
   comments: 'comments',
   submittedAt: 'submittedAt'
@@ -1334,8 +1356,22 @@ export type EventOrderByRelevanceFieldEnum = (typeof EventOrderByRelevanceFieldE
 
 
 export const EventFeedbackOrderByRelevanceFieldEnum = {
-  sourceName: 'sourceName',
+  companyName: 'companyName',
+  companyAddress: 'companyAddress',
+  contactPerson: 'contactPerson',
+  contactNumber: 'contactNumber',
   sourceEmail: 'sourceEmail',
+  productsExhibited: 'productsExhibited',
+  visitorsCountries: 'visitorsCountries',
+  unmaterializedReasons: 'unmaterializedReasons',
+  majorCompetitors: 'majorCompetitors',
+  competitorMarketingMethods: 'competitorMarketingMethods',
+  problemsFaced: 'problemsFaced',
+  improvementSuggestions: 'improvementSuggestions',
+  tdapRecommendations: 'tdapRecommendations',
+  satisfactionLevel: 'satisfactionLevel',
+  additionalComments: 'additionalComments',
+  sourceName: 'sourceName',
   comments: 'comments'
 } as const
 
@@ -1402,6 +1438,13 @@ export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel,
  * Reference to a field of type 'FeedbackSource'
  */
 export type EnumFeedbackSourceFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FeedbackSource'>
+    
+
+
+/**
+ * Reference to a field of type 'Boolean'
+ */
+export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 

@@ -79,6 +79,7 @@ subSector   SubSector? @relation(fields: [subSectorId], references: [id])
 
 eventParticipations EventCompany[]
 delegationParticipations DelegationCompany[]
+feedbacks EventFeedback[]
 
 createdAt DateTime @default(now())
 }
@@ -142,13 +143,50 @@ model EventFeedback {
   eventId Int
   event   Event @relation(fields: [eventId], references: [id], onDelete: Cascade)
 
-  // Who gave feedback
-  sourceType  FeedbackSource
-  sourceName  String?
-  sourceEmail String?
+  // Link to the participating company
+  companyId Int?
+  company   Company? @relation(fields: [companyId], references: [id], onDelete: SetNull)
 
-  rating   Int?
-  comments String?
+  sourceType FeedbackSource
+
+  // Section 1–5: Company Info
+  companyName    String?
+  companyAddress String?
+  contactPerson  String?  // Name & Designation
+  contactNumber  String?
+  sourceEmail    String?
+
+  // Section 6: Products
+  productsExhibited String?
+
+  // Section 8–13: Business Results
+  b2bMeetings       Int?
+  existingCustomers Int?
+  newContacts       Int?
+  visitorsCountries String?
+  ordersBooked      Decimal? @db.Decimal(15, 2) // USD
+  expectedOrders    Decimal? @db.Decimal(15, 2) // USD
+
+  // Section 14–15: Unmaterialized Inquiries
+  hadUnmaterializedInquiries Boolean?
+  unmaterializedReasons      String?  // JSON array of strings
+
+  // Section 16–17: Competition
+  majorCompetitors           String?
+  competitorMarketingMethods String?  // JSON array of strings
+
+  // Section 18–23: Closing Questions
+  problemsFaced              String?
+  improvementSuggestions     String?
+  tdapRecommendations        String?
+  continueFairParticipation  Boolean?
+  satisfactionLevel          String?  // "Very satisfied" | "Satisfied" | "Neutral" | "Dissatisfied"
+  additionalComments         String?
+
+  // Legacy / kept for backward compat
+  sourceName String?
+  rating     Int?
+  comments   String?
 
   submittedAt DateTime @default(now())
 }

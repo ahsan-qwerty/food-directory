@@ -43,13 +43,11 @@ export async function POST(request) {
             return NextResponse.json({ error: 'At least one companyId is required' }, { status: 400 });
         }
 
-        await prisma.$transaction([
-            prisma.eventCompany.deleteMany({ where: { eventId } }),
-            prisma.eventCompany.createMany({
-                data: companyIds.map((companyId) => ({ eventId, companyId })),
-                skipDuplicates: true,
-            }),
-        ]);
+        await prisma.eventCompany.deleteMany({ where: { eventId } });
+        await prisma.eventCompany.createMany({
+            data: companyIds.map((companyId) => ({ eventId, companyId })),
+            skipDuplicates: true,
+        });
 
         return NextResponse.json({
             ok: true,
