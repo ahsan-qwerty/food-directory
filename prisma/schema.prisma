@@ -191,7 +191,8 @@ model Delegation {
   
   // Outgoing delegation fields
   toCountry   String?
-  dates       String? // e.g., "to be decided in consultation with the mission"
+  startDate   DateTime? // Delegation start date
+  endDate     DateTime? // Delegation end date
   
   // Budget management
   allocatedBudget Decimal? @db.Decimal(15, 2) // Tentative Expenditure / Proposed Budget

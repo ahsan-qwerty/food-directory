@@ -1,23 +1,45 @@
 'use client';
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState, Suspense } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 
-export default function CreateDelegationPage() {
+const COUNTRIES = [
+    'Afghanistan', 'Albania', 'Algeria', 'Angola', 'Argentina', 'Armenia', 'Australia',
+    'Austria', 'Azerbaijan', 'Bahrain', 'Bangladesh', 'Belarus', 'Belgium', 'Bolivia',
+    'Bosnia and Herzegovina', 'Brazil', 'Brunei', 'Bulgaria', 'Cambodia', 'Cameroon',
+    'Canada', 'Chile', 'China', 'Colombia', 'Congo', 'Croatia', 'Cuba', 'Cyprus',
+    'Czech Republic', 'Denmark', 'Ecuador', 'Egypt', 'Ethiopia', 'Finland', 'France',
+    'Georgia', 'Germany', 'Ghana', 'Greece', 'Hungary', 'India', 'Indonesia', 'Iran',
+    'Iraq', 'Ireland', 'Israel', 'Italy', 'Japan', 'Jordan', 'Kazakhstan', 'Kenya',
+    'Kuwait', 'Kyrgyzstan', 'Lebanon', 'Libya', 'Malaysia', 'Maldives', 'Mali',
+    'Mauritania', 'Mexico', 'Morocco', 'Mozambique', 'Myanmar', 'Nepal', 'Netherlands',
+    'New Zealand', 'Nigeria', 'North Korea', 'Norway', 'Oman', 'Philippines', 'Poland',
+    'Portugal', 'Qatar', 'Romania', 'Russia', 'Saudi Arabia', 'Senegal', 'Serbia',
+    'Sierra Leone', 'Singapore', 'Somalia', 'South Africa', 'South Korea', 'Spain',
+    'Sri Lanka', 'Sudan', 'Sweden', 'Switzerland', 'Syria', 'Tajikistan', 'Tanzania',
+    'Thailand', 'Tunisia', 'Turkey', 'Turkmenistan', 'UAE', 'Uganda', 'UK',
+    'Ukraine', 'USA', 'Uzbekistan', 'Venezuela', 'Vietnam', 'Yemen', 'Zambia', 'Zimbabwe',
+];
+
+function CreateDelegationForm() {
     const router = useRouter();
+    const searchParams = useSearchParams();
+
+    const initialType = searchParams.get('type') === 'OUTGOING' ? 'OUTGOING' : 'INCOMING';
+
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [success, setSuccess] = useState(null);
 
     const [formData, setFormData] = useState({
-        type: 'INCOMING',
-        division: '',
+        type: initialType,
         productSector: '',
         expectedDelegates: '',
         rationale: '',
         fromCountry: '',
         toCountry: '',
-        dates: '',
+        startDate: '',
+        endDate: '',
         allocatedBudget: '',
     });
 
@@ -38,9 +60,8 @@ export default function CreateDelegationPage() {
         try {
             const payload = {
                 type: formData.type,
-                division: formData.division || null,
                 productSector: formData.productSector || null,
-                expectedDelegates: formData.expectedDelegates || null,
+                expectedDelegates: formData.expectedDelegates ? String(formData.expectedDelegates) : null,
                 rationale: formData.rationale || null,
                 allocatedBudget: formData.allocatedBudget ? Number(formData.allocatedBudget) : null,
             };
@@ -49,7 +70,8 @@ export default function CreateDelegationPage() {
                 payload.fromCountry = formData.fromCountry || null;
             } else {
                 payload.toCountry = formData.toCountry || null;
-                payload.dates = formData.dates || null;
+                payload.startDate = formData.startDate || null;
+                payload.endDate = formData.endDate || null;
             }
 
             const res = await fetch('/api/delegations', {
@@ -85,7 +107,7 @@ export default function CreateDelegationPage() {
                         Create New Delegation
                     </h1>
                     <p className="text-gray-600">
-                        Add a new incoming or outgoing delegation
+                        Add a new {formData.type === 'INCOMING' ? 'incoming' : 'outgoing'} delegation
                     </p>
                 </div>
 
@@ -103,36 +125,6 @@ export default function CreateDelegationPage() {
                     )}
 
                     <form onSubmit={handleSubmit} className="space-y-6">
-                        {/* Delegation Type */}
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">
-                                Delegation Type <span className="text-red-500">*</span>
-                            </label>
-                            <div className="flex gap-4">
-                                <label className="flex items-center">
-                                    <input
-                                        type="radio"
-                                        name="type"
-                                        value="INCOMING"
-                                        checked={formData.type === 'INCOMING'}
-                                        onChange={handleChange}
-                                        className="mr-2"
-                                    />
-                                    <span className="text-gray-700">Incoming</span>
-                                </label>
-                                <label className="flex items-center">
-                                    <input
-                                        type="radio"
-                                        name="type"
-                                        value="OUTGOING"
-                                        checked={formData.type === 'OUTGOING'}
-                                        onChange={handleChange}
-                                        className="mr-2"
-                                    />
-                                    <span className="text-gray-700">Outgoing</span>
-                                </label>
-                            </div>
-                        </div>
 
                         {/* Country Fields */}
                         {formData.type === 'INCOMING' ? (
@@ -140,14 +132,17 @@ export default function CreateDelegationPage() {
                                 <label className="block text-sm font-medium text-gray-700 mb-2">
                                     From Country
                                 </label>
-                                <input
-                                    type="text"
+                                <select
                                     name="fromCountry"
                                     value={formData.fromCountry}
                                     onChange={handleChange}
                                     className="w-full px-3 py-2 text-gray-950 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
-                                    placeholder="e.g., Lebanon, Philippines, Malaysia"
-                                />
+                                >
+                                    <option value="">Select country</option>
+                                    {COUNTRIES.map(c => (
+                                        <option key={c} value={c}>{c}</option>
+                                    ))}
+                                </select>
                             </div>
                         ) : (
                             <>
@@ -155,46 +150,49 @@ export default function CreateDelegationPage() {
                                     <label className="block text-sm font-medium text-gray-700 mb-2">
                                         To Country
                                     </label>
-                                    <input
-                                        type="text"
+                                    <select
                                         name="toCountry"
                                         value={formData.toCountry}
                                         onChange={handleChange}
                                         className="w-full px-3 py-2 text-gray-950 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
-                                        placeholder="e.g., Qatar, Sri Lanka, Morocco"
-                                    />
+                                    >
+                                        <option value="">Select country</option>
+                                        {COUNTRIES.map(c => (
+                                            <option key={c} value={c}>{c}</option>
+                                        ))}
+                                    </select>
                                 </div>
-                                <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                                        Dates
-                                    </label>
-                                    <input
-                                        type="text"
-                                        name="dates"
-                                        value={formData.dates}
-                                        onChange={handleChange}
-                                        className="w-full px-3 py-2 text-gray-950 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
-                                        placeholder="e.g., to be decided in consultation with the mission"
-                                    />
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                                            Start Date
+                                        </label>
+                                        <input
+                                            type="date"
+                                            name="startDate"
+                                            value={formData.startDate}
+                                            onChange={handleChange}
+                                            className="w-full px-3 py-2 text-gray-950 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                                            End Date
+                                        </label>
+                                        <input
+                                            type="date"
+                                            name="endDate"
+                                            value={formData.endDate}
+                                            onChange={handleChange}
+                                            min={formData.startDate || undefined}
+                                            className="w-full px-3 py-2 text-gray-950 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                                        />
+                                    </div>
                                 </div>
                             </>
                         )}
 
-                        {/* Common Fields */}
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">
-                                Division
-                            </label>
-                            <input
-                                type="text"
-                                name="division"
-                                value={formData.division}
-                                onChange={handleChange}
-                                className="w-full px-3 py-2 text-gray-950 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
-                                placeholder="e.g., Agro & Food"
-                            />
-                        </div>
-
+                        {/* Product / Sector */}
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-2">
                                 Product / Sector
@@ -209,20 +207,24 @@ export default function CreateDelegationPage() {
                             />
                         </div>
 
+                        {/* Expected Delegates */}
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-2">
                                 Expected Number of Delegates
                             </label>
                             <input
-                                type="text"
+                                type="number"
                                 name="expectedDelegates"
                                 value={formData.expectedDelegates}
                                 onChange={handleChange}
+                                min="1"
+                                step="1"
                                 className="w-full px-3 py-2 text-gray-950 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
-                                placeholder="e.g., 2-4 delegates, 10, 26"
+                                placeholder="e.g., 10"
                             />
                         </div>
 
+                        {/* Budget */}
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-2">
                                 {formData.type === 'INCOMING' ? 'Tentative Expenditure (PKR)' : 'Proposed Budget (PKR)'}
@@ -239,6 +241,7 @@ export default function CreateDelegationPage() {
                             />
                         </div>
 
+                        {/* Rationale */}
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-2">
                                 {formData.type === 'INCOMING' ? 'Rationale / Objectives' : 'Rationale / Justification / Objective'}
@@ -274,5 +277,17 @@ export default function CreateDelegationPage() {
                 </div>
             </main>
         </div>
+    );
+}
+
+export default function CreateDelegationPage() {
+    return (
+        <Suspense fallback={
+            <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+                <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-green-700"></div>
+            </div>
+        }>
+            <CreateDelegationForm />
+        </Suspense>
     );
 }
