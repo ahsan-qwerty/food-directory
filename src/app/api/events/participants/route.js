@@ -3,6 +3,30 @@ import { prisma } from '../../../../lib/prismaClient';
 
 export const runtime = 'nodejs';
 
+export async function DELETE(request) {
+    try {
+        const body = await request.json();
+        const eventId = Number(body.eventId);
+        const companyId = Number(body.companyId);
+
+        if (Number.isNaN(eventId) || Number.isNaN(companyId)) {
+            return NextResponse.json({ error: 'Valid eventId and companyId are required' }, { status: 400 });
+        }
+
+        await prisma.eventCompany.deleteMany({
+            where: { eventId, companyId },
+        });
+
+        return NextResponse.json({ ok: true, eventId, companyId });
+    } catch (error) {
+        console.error('Error removing event participant:', error);
+        return NextResponse.json(
+            { error: 'Failed to remove participant' },
+            { status: 500 }
+        );
+    }
+}
+
 export async function POST(request) {
     try {
         const body = await request.json();

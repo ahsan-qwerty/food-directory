@@ -1,8 +1,8 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import CompanyCard from '../../../components/CompanyCard';
 import { prisma } from '../../../lib/prismaClient';
 import EventAdminPanel from './EventAdminPanel';
+import EventParticipantsList from './EventParticipantsList';
 
 function formatDateYYYYMMDD(dateValue) {
   try {
@@ -210,16 +210,7 @@ export default async function EventDetailPage({ params }) {
             {/* Participating Companies */}
             <div className="bg-white rounded-lg shadow-md p-6">
               <h2 className="text-2xl font-bold text-gray-900 mb-6">Participating Companies</h2>
-
-              {participants.length === 0 ? (
-                <p className="text-gray-600">No companies registered yet.</p>
-              ) : (
-                <div className="grid grid-cols-1 gap-4">
-                  {participants.map(company => (
-                    <CompanyCard key={company.id} company={company} />
-                  ))}
-                </div>
-              )}
+              <EventParticipantsList eventId={event.id} participants={participants} />
             </div>
           </div>
 
