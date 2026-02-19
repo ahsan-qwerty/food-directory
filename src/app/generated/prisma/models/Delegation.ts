@@ -48,7 +48,8 @@ export type DelegationMinAggregateOutputType = {
   rationale: string | null
   fromCountry: string | null
   toCountry: string | null
-  dates: string | null
+  startDate: Date | null
+  endDate: Date | null
   allocatedBudget: runtime.Decimal | null
   utilizedBudget: runtime.Decimal | null
   closedAt: Date | null
@@ -67,7 +68,8 @@ export type DelegationMaxAggregateOutputType = {
   rationale: string | null
   fromCountry: string | null
   toCountry: string | null
-  dates: string | null
+  startDate: Date | null
+  endDate: Date | null
   allocatedBudget: runtime.Decimal | null
   utilizedBudget: runtime.Decimal | null
   closedAt: Date | null
@@ -86,7 +88,8 @@ export type DelegationCountAggregateOutputType = {
   rationale: number
   fromCountry: number
   toCountry: number
-  dates: number
+  startDate: number
+  endDate: number
   allocatedBudget: number
   utilizedBudget: number
   closedAt: number
@@ -119,7 +122,8 @@ export type DelegationMinAggregateInputType = {
   rationale?: true
   fromCountry?: true
   toCountry?: true
-  dates?: true
+  startDate?: true
+  endDate?: true
   allocatedBudget?: true
   utilizedBudget?: true
   closedAt?: true
@@ -138,7 +142,8 @@ export type DelegationMaxAggregateInputType = {
   rationale?: true
   fromCountry?: true
   toCountry?: true
-  dates?: true
+  startDate?: true
+  endDate?: true
   allocatedBudget?: true
   utilizedBudget?: true
   closedAt?: true
@@ -157,7 +162,8 @@ export type DelegationCountAggregateInputType = {
   rationale?: true
   fromCountry?: true
   toCountry?: true
-  dates?: true
+  startDate?: true
+  endDate?: true
   allocatedBudget?: true
   utilizedBudget?: true
   closedAt?: true
@@ -263,7 +269,8 @@ export type DelegationGroupByOutputType = {
   rationale: string | null
   fromCountry: string | null
   toCountry: string | null
-  dates: string | null
+  startDate: Date | null
+  endDate: Date | null
   allocatedBudget: runtime.Decimal | null
   utilizedBudget: runtime.Decimal | null
   closedAt: Date | null
@@ -305,7 +312,8 @@ export type DelegationWhereInput = {
   rationale?: Prisma.StringNullableFilter<"Delegation"> | string | null
   fromCountry?: Prisma.StringNullableFilter<"Delegation"> | string | null
   toCountry?: Prisma.StringNullableFilter<"Delegation"> | string | null
-  dates?: Prisma.StringNullableFilter<"Delegation"> | string | null
+  startDate?: Prisma.DateTimeNullableFilter<"Delegation"> | Date | string | null
+  endDate?: Prisma.DateTimeNullableFilter<"Delegation"> | Date | string | null
   allocatedBudget?: Prisma.DecimalNullableFilter<"Delegation"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   utilizedBudget?: Prisma.DecimalNullableFilter<"Delegation"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   closedAt?: Prisma.DateTimeNullableFilter<"Delegation"> | Date | string | null
@@ -325,7 +333,8 @@ export type DelegationOrderByWithRelationInput = {
   rationale?: Prisma.SortOrderInput | Prisma.SortOrder
   fromCountry?: Prisma.SortOrderInput | Prisma.SortOrder
   toCountry?: Prisma.SortOrderInput | Prisma.SortOrder
-  dates?: Prisma.SortOrderInput | Prisma.SortOrder
+  startDate?: Prisma.SortOrderInput | Prisma.SortOrder
+  endDate?: Prisma.SortOrderInput | Prisma.SortOrder
   allocatedBudget?: Prisma.SortOrderInput | Prisma.SortOrder
   utilizedBudget?: Prisma.SortOrderInput | Prisma.SortOrder
   closedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -349,7 +358,8 @@ export type DelegationWhereUniqueInput = Prisma.AtLeast<{
   rationale?: Prisma.StringNullableFilter<"Delegation"> | string | null
   fromCountry?: Prisma.StringNullableFilter<"Delegation"> | string | null
   toCountry?: Prisma.StringNullableFilter<"Delegation"> | string | null
-  dates?: Prisma.StringNullableFilter<"Delegation"> | string | null
+  startDate?: Prisma.DateTimeNullableFilter<"Delegation"> | Date | string | null
+  endDate?: Prisma.DateTimeNullableFilter<"Delegation"> | Date | string | null
   allocatedBudget?: Prisma.DecimalNullableFilter<"Delegation"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   utilizedBudget?: Prisma.DecimalNullableFilter<"Delegation"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   closedAt?: Prisma.DateTimeNullableFilter<"Delegation"> | Date | string | null
@@ -369,7 +379,8 @@ export type DelegationOrderByWithAggregationInput = {
   rationale?: Prisma.SortOrderInput | Prisma.SortOrder
   fromCountry?: Prisma.SortOrderInput | Prisma.SortOrder
   toCountry?: Prisma.SortOrderInput | Prisma.SortOrder
-  dates?: Prisma.SortOrderInput | Prisma.SortOrder
+  startDate?: Prisma.SortOrderInput | Prisma.SortOrder
+  endDate?: Prisma.SortOrderInput | Prisma.SortOrder
   allocatedBudget?: Prisma.SortOrderInput | Prisma.SortOrder
   utilizedBudget?: Prisma.SortOrderInput | Prisma.SortOrder
   closedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -396,7 +407,8 @@ export type DelegationScalarWhereWithAggregatesInput = {
   rationale?: Prisma.StringNullableWithAggregatesFilter<"Delegation"> | string | null
   fromCountry?: Prisma.StringNullableWithAggregatesFilter<"Delegation"> | string | null
   toCountry?: Prisma.StringNullableWithAggregatesFilter<"Delegation"> | string | null
-  dates?: Prisma.StringNullableWithAggregatesFilter<"Delegation"> | string | null
+  startDate?: Prisma.DateTimeNullableWithAggregatesFilter<"Delegation"> | Date | string | null
+  endDate?: Prisma.DateTimeNullableWithAggregatesFilter<"Delegation"> | Date | string | null
   allocatedBudget?: Prisma.DecimalNullableWithAggregatesFilter<"Delegation"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   utilizedBudget?: Prisma.DecimalNullableWithAggregatesFilter<"Delegation"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   closedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Delegation"> | Date | string | null
@@ -414,7 +426,8 @@ export type DelegationCreateInput = {
   rationale?: string | null
   fromCountry?: string | null
   toCountry?: string | null
-  dates?: string | null
+  startDate?: Date | string | null
+  endDate?: Date | string | null
   allocatedBudget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   utilizedBudget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   closedAt?: Date | string | null
@@ -434,7 +447,8 @@ export type DelegationUncheckedCreateInput = {
   rationale?: string | null
   fromCountry?: string | null
   toCountry?: string | null
-  dates?: string | null
+  startDate?: Date | string | null
+  endDate?: Date | string | null
   allocatedBudget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   utilizedBudget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   closedAt?: Date | string | null
@@ -453,7 +467,8 @@ export type DelegationUpdateInput = {
   rationale?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fromCountry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   toCountry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  dates?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   allocatedBudget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   utilizedBudget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -473,7 +488,8 @@ export type DelegationUncheckedUpdateInput = {
   rationale?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fromCountry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   toCountry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  dates?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   allocatedBudget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   utilizedBudget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -493,7 +509,8 @@ export type DelegationCreateManyInput = {
   rationale?: string | null
   fromCountry?: string | null
   toCountry?: string | null
-  dates?: string | null
+  startDate?: Date | string | null
+  endDate?: Date | string | null
   allocatedBudget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   utilizedBudget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   closedAt?: Date | string | null
@@ -511,7 +528,8 @@ export type DelegationUpdateManyMutationInput = {
   rationale?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fromCountry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   toCountry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  dates?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   allocatedBudget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   utilizedBudget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -530,7 +548,8 @@ export type DelegationUncheckedUpdateManyInput = {
   rationale?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fromCountry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   toCountry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  dates?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   allocatedBudget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   utilizedBudget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -555,7 +574,8 @@ export type DelegationCountOrderByAggregateInput = {
   rationale?: Prisma.SortOrder
   fromCountry?: Prisma.SortOrder
   toCountry?: Prisma.SortOrder
-  dates?: Prisma.SortOrder
+  startDate?: Prisma.SortOrder
+  endDate?: Prisma.SortOrder
   allocatedBudget?: Prisma.SortOrder
   utilizedBudget?: Prisma.SortOrder
   closedAt?: Prisma.SortOrder
@@ -580,7 +600,8 @@ export type DelegationMaxOrderByAggregateInput = {
   rationale?: Prisma.SortOrder
   fromCountry?: Prisma.SortOrder
   toCountry?: Prisma.SortOrder
-  dates?: Prisma.SortOrder
+  startDate?: Prisma.SortOrder
+  endDate?: Prisma.SortOrder
   allocatedBudget?: Prisma.SortOrder
   utilizedBudget?: Prisma.SortOrder
   closedAt?: Prisma.SortOrder
@@ -599,7 +620,8 @@ export type DelegationMinOrderByAggregateInput = {
   rationale?: Prisma.SortOrder
   fromCountry?: Prisma.SortOrder
   toCountry?: Prisma.SortOrder
-  dates?: Prisma.SortOrder
+  startDate?: Prisma.SortOrder
+  endDate?: Prisma.SortOrder
   allocatedBudget?: Prisma.SortOrder
   utilizedBudget?: Prisma.SortOrder
   closedAt?: Prisma.SortOrder
@@ -650,7 +672,8 @@ export type DelegationCreateWithoutParticipantsInput = {
   rationale?: string | null
   fromCountry?: string | null
   toCountry?: string | null
-  dates?: string | null
+  startDate?: Date | string | null
+  endDate?: Date | string | null
   allocatedBudget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   utilizedBudget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   closedAt?: Date | string | null
@@ -669,7 +692,8 @@ export type DelegationUncheckedCreateWithoutParticipantsInput = {
   rationale?: string | null
   fromCountry?: string | null
   toCountry?: string | null
-  dates?: string | null
+  startDate?: Date | string | null
+  endDate?: Date | string | null
   allocatedBudget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   utilizedBudget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   closedAt?: Date | string | null
@@ -703,7 +727,8 @@ export type DelegationUpdateWithoutParticipantsInput = {
   rationale?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fromCountry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   toCountry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  dates?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   allocatedBudget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   utilizedBudget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -722,7 +747,8 @@ export type DelegationUncheckedUpdateWithoutParticipantsInput = {
   rationale?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fromCountry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   toCountry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  dates?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   allocatedBudget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   utilizedBudget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -772,7 +798,8 @@ export type DelegationSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   rationale?: boolean
   fromCountry?: boolean
   toCountry?: boolean
-  dates?: boolean
+  startDate?: boolean
+  endDate?: boolean
   allocatedBudget?: boolean
   utilizedBudget?: boolean
   closedAt?: boolean
@@ -795,7 +822,8 @@ export type DelegationSelectScalar = {
   rationale?: boolean
   fromCountry?: boolean
   toCountry?: boolean
-  dates?: boolean
+  startDate?: boolean
+  endDate?: boolean
   allocatedBudget?: boolean
   utilizedBudget?: boolean
   closedAt?: boolean
@@ -804,7 +832,7 @@ export type DelegationSelectScalar = {
   updatedAt?: boolean
 }
 
-export type DelegationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "type" | "status" | "division" | "productSector" | "expectedDelegates" | "rationale" | "fromCountry" | "toCountry" | "dates" | "allocatedBudget" | "utilizedBudget" | "closedAt" | "closingRemarks" | "createdAt" | "updatedAt", ExtArgs["result"]["delegation"]>
+export type DelegationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "type" | "status" | "division" | "productSector" | "expectedDelegates" | "rationale" | "fromCountry" | "toCountry" | "startDate" | "endDate" | "allocatedBudget" | "utilizedBudget" | "closedAt" | "closingRemarks" | "createdAt" | "updatedAt", ExtArgs["result"]["delegation"]>
 export type DelegationInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   participants?: boolean | Prisma.Delegation$participantsArgs<ExtArgs>
   _count?: boolean | Prisma.DelegationCountOutputTypeDefaultArgs<ExtArgs>
@@ -825,7 +853,8 @@ export type $DelegationPayload<ExtArgs extends runtime.Types.Extensions.Internal
     rationale: string | null
     fromCountry: string | null
     toCountry: string | null
-    dates: string | null
+    startDate: Date | null
+    endDate: Date | null
     allocatedBudget: runtime.Decimal | null
     utilizedBudget: runtime.Decimal | null
     closedAt: Date | null
@@ -1211,7 +1240,8 @@ export interface DelegationFieldRefs {
   readonly rationale: Prisma.FieldRef<"Delegation", 'String'>
   readonly fromCountry: Prisma.FieldRef<"Delegation", 'String'>
   readonly toCountry: Prisma.FieldRef<"Delegation", 'String'>
-  readonly dates: Prisma.FieldRef<"Delegation", 'String'>
+  readonly startDate: Prisma.FieldRef<"Delegation", 'DateTime'>
+  readonly endDate: Prisma.FieldRef<"Delegation", 'DateTime'>
   readonly allocatedBudget: Prisma.FieldRef<"Delegation", 'Decimal'>
   readonly utilizedBudget: Prisma.FieldRef<"Delegation", 'Decimal'>
   readonly closedAt: Prisma.FieldRef<"Delegation", 'DateTime'>
