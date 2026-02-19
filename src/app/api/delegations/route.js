@@ -26,7 +26,8 @@ export async function GET(request) {
                 rationale: true,
                 fromCountry: true,
                 toCountry: true,
-                dates: true,
+                startDate: true,
+                endDate: true,
                 allocatedBudget: true,
                 utilizedBudget: true,
                 closedAt: true,
@@ -70,7 +71,8 @@ export async function GET(request) {
             rationale: delegation.rationale,
             fromCountry: delegation.fromCountry,
             toCountry: delegation.toCountry,
-            dates: delegation.dates,
+            startDate: delegation.startDate,
+            endDate: delegation.endDate,
             allocatedBudget: delegation.allocatedBudget ? Number(delegation.allocatedBudget) : null,
             utilizedBudget: delegation.utilizedBudget ? Number(delegation.utilizedBudget) : null,
             closedAt: delegation.closedAt,
@@ -106,7 +108,8 @@ export async function GET(request) {
             rationale: true,
             fromCountry: true,
             toCountry: true,
-            dates: true,
+            startDate: true,
+            endDate: true,
             allocatedBudget: true,
             utilizedBudget: true,
             closedAt: true,
@@ -126,7 +129,8 @@ export async function GET(request) {
         rationale: d.rationale,
         fromCountry: d.fromCountry,
         toCountry: d.toCountry,
-        dates: d.dates,
+        startDate: d.startDate,
+        endDate: d.endDate,
         allocatedBudget: d.allocatedBudget ? Number(d.allocatedBudget) : null,
         utilizedBudget: d.utilizedBudget ? Number(d.utilizedBudget) : null,
         closedAt: d.closedAt,
@@ -163,7 +167,8 @@ export async function POST(request) {
             data.fromCountry = body.fromCountry ? String(body.fromCountry).trim() : null;
         } else if (type === 'OUTGOING') {
             data.toCountry = body.toCountry ? String(body.toCountry).trim() : null;
-            data.dates = body.dates ? String(body.dates).trim() : null;
+            data.startDate = body.startDate ? new Date(body.startDate) : null;
+            data.endDate = body.endDate ? new Date(body.endDate) : null;
         }
 
         const delegation = await prisma.delegation.create({
@@ -178,7 +183,8 @@ export async function POST(request) {
                 rationale: true,
                 fromCountry: true,
                 toCountry: true,
-                dates: true,
+                startDate: true,
+                endDate: true,
                 allocatedBudget: true,
                 createdAt: true,
             },
@@ -194,7 +200,8 @@ export async function POST(request) {
             rationale: delegation.rationale,
             fromCountry: delegation.fromCountry,
             toCountry: delegation.toCountry,
-            dates: delegation.dates,
+            startDate: delegation.startDate,
+            endDate: delegation.endDate,
             allocatedBudget: delegation.allocatedBudget ? Number(delegation.allocatedBudget) : null,
             createdAt: delegation.createdAt,
         }, { status: 201 });
@@ -224,7 +231,8 @@ export async function PUT(request) {
         if (body.allocatedBudget !== undefined) data.allocatedBudget = body.allocatedBudget != null ? Number(body.allocatedBudget) : null;
         if (body.fromCountry !== undefined) data.fromCountry = body.fromCountry ? String(body.fromCountry).trim() : null;
         if (body.toCountry !== undefined) data.toCountry = body.toCountry ? String(body.toCountry).trim() : null;
-        if (body.dates !== undefined) data.dates = body.dates ? String(body.dates).trim() : null;
+        if (body.startDate !== undefined) data.startDate = body.startDate ? new Date(body.startDate) : null;
+        if (body.endDate !== undefined) data.endDate = body.endDate ? new Date(body.endDate) : null;
 
         const delegation = await prisma.delegation.update({
             where: { id: delegationId },
@@ -239,7 +247,8 @@ export async function PUT(request) {
                 rationale: true,
                 fromCountry: true,
                 toCountry: true,
-                dates: true,
+                startDate: true,
+                endDate: true,
                 allocatedBudget: true,
                 utilizedBudget: true,
                 updatedAt: true,
@@ -256,7 +265,8 @@ export async function PUT(request) {
             rationale: delegation.rationale,
             fromCountry: delegation.fromCountry,
             toCountry: delegation.toCountry,
-            dates: delegation.dates,
+            startDate: delegation.startDate,
+            endDate: delegation.endDate,
             allocatedBudget: delegation.allocatedBudget ? Number(delegation.allocatedBudget) : null,
             utilizedBudget: delegation.utilizedBudget ? Number(delegation.utilizedBudget) : null,
             updatedAt: delegation.updatedAt,

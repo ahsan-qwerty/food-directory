@@ -39,10 +39,16 @@ export default function Header() {
               International Exhibitions
             </Link>
             <Link
-              href="/delegations"
+              href="/delegations?tab=incoming"
               className="text-white hover:text-green-100 transition-colors font-medium"
             >
-              Delegations
+              Incoming Delegations
+            </Link>
+            <Link
+              href="/delegations?tab=outgoing"
+              className="text-white hover:text-green-100 transition-colors font-medium"
+            >
+              Outgoing Delegations
             </Link>
             <Link
               href="/register"

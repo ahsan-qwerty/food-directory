@@ -5,15 +5,23 @@ import { useRouter } from 'next/navigation';
 
 const COUNTRY_OPTIONS = [
     'Australia',
+    'Brazil',
+    'Bangladesh',
+    'Canada',
     'China',
+    'Egypt',
+    'France',
+    'Germany',
     'Japan',
     'Lebanon',
     'Malaysia',
     'Morocco',
+    'Oman',
     'Philippines',
     'Qatar',
     'Saudi Arabia',
     'South Africa',
+    'South Korea',
     'Sri Lanka',
     'United Arab Emirates',
     'United Kingdom',
@@ -27,16 +35,13 @@ export default function CreateEventPage() {
     const [success, setSuccess] = useState(null);
 
     const [formData, setFormData] = useState({
-        division: '',
         name: '',
         startDate: '',
         endDate: '',
-        datesText: '',
         region: '',
         country: '',
         city: '',
         sectorProducts: '',
-        subsidyPercentage: '',
         tdapCost: '',
         exhibitorCost: '',
         totalEstimatedBudget: '',
@@ -60,18 +65,15 @@ export default function CreateEventPage() {
 
         try {
             const payload = {
-                division: formData.division || null,
                 name: formData.name,
                 // Event schema still requires eventDate; we use startDate as the canonical date
                 eventDate: formData.startDate || null,
                 startDate: formData.startDate || null,
                 endDate: formData.endDate || null,
-                datesText: formData.datesText || null,
                 region: formData.region || null,
                 country: formData.country || null,
                 city: formData.city || null,
                 sectorProducts: formData.sectorProducts || null,
-                subsidyPercentage: formData.subsidyPercentage || null,
                 tdapCost: formData.tdapCost || null,
                 exhibitorCost: formData.exhibitorCost || null,
                 totalEstimatedBudget: formData.totalEstimatedBudget || null,
@@ -131,20 +133,6 @@ export default function CreateEventPage() {
                     <form onSubmit={handleSubmit} className="space-y-6">
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-2">
-                                Division
-                            </label>
-                            <input
-                                type="text"
-                                name="division"
-                                value={formData.division}
-                                onChange={handleChange}
-                                className="w-full px-3 py-2 text-gray-950 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
-                                placeholder="e.g., Agro & Food"
-                            />
-                        </div>
-
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">
                                 Exhibition Name <span className="text-red-500">*</span>
                             </label>
                             <input
@@ -189,17 +177,6 @@ export default function CreateEventPage() {
                                     />
                                 </div>
                             </div>
-                            <p className="text-xs text-gray-500 mt-2">
-                                Optional: keep the exact Excel date string.
-                            </p>
-                            <input
-                                type="text"
-                                name="datesText"
-                                value={formData.datesText}
-                                onChange={handleChange}
-                                className="w-full mt-2 px-3 py-2 text-gray-950 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
-                                placeholder="e.g., 08-11 September 2025"
-                            />
                         </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -264,21 +241,6 @@ export default function CreateEventPage() {
                         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                                    Subsidy %age
-                                </label>
-                                <input
-                                    type="number"
-                                    step="0.01"
-                                    min="0"
-                                    name="subsidyPercentage"
-                                    value={formData.subsidyPercentage}
-                                    onChange={handleChange}
-                                    className="w-full px-3 py-2 text-gray-950 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
-                                    placeholder="e.g., 60"
-                                />
-                            </div>
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">
                                     TDAP Cost (Rs.)
                                 </label>
                                 <input
@@ -294,7 +256,7 @@ export default function CreateEventPage() {
                             </div>
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                                    Exhibitor Cost (Rs.)
+                                    Participation Fee
                                 </label>
                                 <input
                                     type="number"

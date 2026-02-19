@@ -1236,7 +1236,8 @@ export const DelegationScalarFieldEnum = {
   rationale: 'rationale',
   fromCountry: 'fromCountry',
   toCountry: 'toCountry',
-  dates: 'dates',
+  startDate: 'startDate',
+  endDate: 'endDate',
   allocatedBudget: 'allocatedBudget',
   utilizedBudget: 'utilizedBudget',
   closedAt: 'closedAt',
@@ -1357,7 +1358,6 @@ export const DelegationOrderByRelevanceFieldEnum = {
   rationale: 'rationale',
   fromCountry: 'fromCountry',
   toCountry: 'toCountry',
-  dates: 'dates',
   closingRemarks: 'closingRemarks'
 } as const
 
