@@ -110,6 +110,15 @@ export default async function EventDetailPage({ params }) {
     .map((p) => p.company)
     .filter(Boolean);
 
+  // Collect companyIds that already have feedback for this event
+  const existingFeedbacks = await prisma.eventFeedback.findMany({
+    where: { eventId },
+    select: { companyId: true },
+  });
+  const feedbackCompanyIds = new Set(
+    existingFeedbacks.map((f) => f.companyId).filter(Boolean)
+  );
+
   const dateLabel = event.datesText || formatDateRange(event.startDate, event.endDate, event.eventDate);
   const locationLabel =
     event.city && event.country
@@ -210,7 +219,7 @@ export default async function EventDetailPage({ params }) {
             {/* Participating Companies */}
             <div className="bg-white rounded-lg shadow-md p-6">
               <h2 className="text-2xl font-bold text-gray-900 mb-6">Participating Companies</h2>
-              <EventParticipantsList eventId={event.id} participants={participants} />
+              <EventParticipantsList eventId={event.id} participants={participants} feedbackCompanyIds={[...feedbackCompanyIds]} />
             </div>
           </div>
 
@@ -243,7 +252,7 @@ export default async function EventDetailPage({ params }) {
                 {(event.country || event.city) && (
                   <div>
                     <h3 className="text-sm font-semibold text-gray-700 mb-1">Country / City</h3>
-                    <p className="text-gray-600">{locationLabel}</p>
+                    <p className="text-gray-600">{event.country} / {event.city}</p>
                   </div>
                 )}
 
@@ -313,12 +322,20 @@ export default async function EventDetailPage({ params }) {
               <h3 className="text-lg font-bold text-gray-900 mb-3">
                 Manage Event
               </h3>
-              <Link
-                href={`/events/${event.id}/edit`}
-                className="inline-flex items-center px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-md hover:bg-blue-700 transition-colors"
-              >
-                Edit Event Details
-              </Link>
+              <div className="flex flex-col gap-2">
+                <Link
+                  href={`/events/${event.id}/edit`}
+                  className="inline-flex items-center px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-md hover:bg-blue-700 transition-colors"
+                >
+                  Edit Event Details
+                </Link>
+                <Link
+                  href={`/events/${event.id}/feedback`}
+                  className="inline-flex items-center px-4 py-2 bg-green-700 text-white text-sm font-medium rounded-md hover:bg-green-800 transition-colors"
+                >
+                  View All Feedback
+                </Link>
+              </div>
             </div>
 
             {/* Call to Action */}

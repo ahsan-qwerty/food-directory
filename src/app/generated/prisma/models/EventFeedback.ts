@@ -29,21 +29,55 @@ export type AggregateEventFeedback = {
 export type EventFeedbackAvgAggregateOutputType = {
   id: number | null
   eventId: number | null
+  companyId: number | null
+  b2bMeetings: number | null
+  existingCustomers: number | null
+  newContacts: number | null
+  ordersBooked: runtime.Decimal | null
+  expectedOrders: runtime.Decimal | null
   rating: number | null
 }
 
 export type EventFeedbackSumAggregateOutputType = {
   id: number | null
   eventId: number | null
+  companyId: number | null
+  b2bMeetings: number | null
+  existingCustomers: number | null
+  newContacts: number | null
+  ordersBooked: runtime.Decimal | null
+  expectedOrders: runtime.Decimal | null
   rating: number | null
 }
 
 export type EventFeedbackMinAggregateOutputType = {
   id: number | null
   eventId: number | null
+  companyId: number | null
   sourceType: $Enums.FeedbackSource | null
-  sourceName: string | null
+  companyName: string | null
+  companyAddress: string | null
+  contactPerson: string | null
+  contactNumber: string | null
   sourceEmail: string | null
+  productsExhibited: string | null
+  b2bMeetings: number | null
+  existingCustomers: number | null
+  newContacts: number | null
+  visitorsCountries: string | null
+  ordersBooked: runtime.Decimal | null
+  expectedOrders: runtime.Decimal | null
+  hadUnmaterializedInquiries: boolean | null
+  unmaterializedReasons: string | null
+  majorCompetitors: string | null
+  competitorMarketingMethods: string | null
+  problemsFaced: string | null
+  improvementSuggestions: string | null
+  tdapRecommendations: string | null
+  continueFairParticipation: boolean | null
+  satisfactionLevel: string | null
+  additionalComments: string | null
+  sourceName: string | null
   rating: number | null
   comments: string | null
   submittedAt: Date | null
@@ -52,9 +86,31 @@ export type EventFeedbackMinAggregateOutputType = {
 export type EventFeedbackMaxAggregateOutputType = {
   id: number | null
   eventId: number | null
+  companyId: number | null
   sourceType: $Enums.FeedbackSource | null
-  sourceName: string | null
+  companyName: string | null
+  companyAddress: string | null
+  contactPerson: string | null
+  contactNumber: string | null
   sourceEmail: string | null
+  productsExhibited: string | null
+  b2bMeetings: number | null
+  existingCustomers: number | null
+  newContacts: number | null
+  visitorsCountries: string | null
+  ordersBooked: runtime.Decimal | null
+  expectedOrders: runtime.Decimal | null
+  hadUnmaterializedInquiries: boolean | null
+  unmaterializedReasons: string | null
+  majorCompetitors: string | null
+  competitorMarketingMethods: string | null
+  problemsFaced: string | null
+  improvementSuggestions: string | null
+  tdapRecommendations: string | null
+  continueFairParticipation: boolean | null
+  satisfactionLevel: string | null
+  additionalComments: string | null
+  sourceName: string | null
   rating: number | null
   comments: string | null
   submittedAt: Date | null
@@ -63,9 +119,31 @@ export type EventFeedbackMaxAggregateOutputType = {
 export type EventFeedbackCountAggregateOutputType = {
   id: number
   eventId: number
+  companyId: number
   sourceType: number
-  sourceName: number
+  companyName: number
+  companyAddress: number
+  contactPerson: number
+  contactNumber: number
   sourceEmail: number
+  productsExhibited: number
+  b2bMeetings: number
+  existingCustomers: number
+  newContacts: number
+  visitorsCountries: number
+  ordersBooked: number
+  expectedOrders: number
+  hadUnmaterializedInquiries: number
+  unmaterializedReasons: number
+  majorCompetitors: number
+  competitorMarketingMethods: number
+  problemsFaced: number
+  improvementSuggestions: number
+  tdapRecommendations: number
+  continueFairParticipation: number
+  satisfactionLevel: number
+  additionalComments: number
+  sourceName: number
   rating: number
   comments: number
   submittedAt: number
@@ -76,21 +154,55 @@ export type EventFeedbackCountAggregateOutputType = {
 export type EventFeedbackAvgAggregateInputType = {
   id?: true
   eventId?: true
+  companyId?: true
+  b2bMeetings?: true
+  existingCustomers?: true
+  newContacts?: true
+  ordersBooked?: true
+  expectedOrders?: true
   rating?: true
 }
 
 export type EventFeedbackSumAggregateInputType = {
   id?: true
   eventId?: true
+  companyId?: true
+  b2bMeetings?: true
+  existingCustomers?: true
+  newContacts?: true
+  ordersBooked?: true
+  expectedOrders?: true
   rating?: true
 }
 
 export type EventFeedbackMinAggregateInputType = {
   id?: true
   eventId?: true
+  companyId?: true
   sourceType?: true
-  sourceName?: true
+  companyName?: true
+  companyAddress?: true
+  contactPerson?: true
+  contactNumber?: true
   sourceEmail?: true
+  productsExhibited?: true
+  b2bMeetings?: true
+  existingCustomers?: true
+  newContacts?: true
+  visitorsCountries?: true
+  ordersBooked?: true
+  expectedOrders?: true
+  hadUnmaterializedInquiries?: true
+  unmaterializedReasons?: true
+  majorCompetitors?: true
+  competitorMarketingMethods?: true
+  problemsFaced?: true
+  improvementSuggestions?: true
+  tdapRecommendations?: true
+  continueFairParticipation?: true
+  satisfactionLevel?: true
+  additionalComments?: true
+  sourceName?: true
   rating?: true
   comments?: true
   submittedAt?: true
@@ -99,9 +211,31 @@ export type EventFeedbackMinAggregateInputType = {
 export type EventFeedbackMaxAggregateInputType = {
   id?: true
   eventId?: true
+  companyId?: true
   sourceType?: true
-  sourceName?: true
+  companyName?: true
+  companyAddress?: true
+  contactPerson?: true
+  contactNumber?: true
   sourceEmail?: true
+  productsExhibited?: true
+  b2bMeetings?: true
+  existingCustomers?: true
+  newContacts?: true
+  visitorsCountries?: true
+  ordersBooked?: true
+  expectedOrders?: true
+  hadUnmaterializedInquiries?: true
+  unmaterializedReasons?: true
+  majorCompetitors?: true
+  competitorMarketingMethods?: true
+  problemsFaced?: true
+  improvementSuggestions?: true
+  tdapRecommendations?: true
+  continueFairParticipation?: true
+  satisfactionLevel?: true
+  additionalComments?: true
+  sourceName?: true
   rating?: true
   comments?: true
   submittedAt?: true
@@ -110,9 +244,31 @@ export type EventFeedbackMaxAggregateInputType = {
 export type EventFeedbackCountAggregateInputType = {
   id?: true
   eventId?: true
+  companyId?: true
   sourceType?: true
-  sourceName?: true
+  companyName?: true
+  companyAddress?: true
+  contactPerson?: true
+  contactNumber?: true
   sourceEmail?: true
+  productsExhibited?: true
+  b2bMeetings?: true
+  existingCustomers?: true
+  newContacts?: true
+  visitorsCountries?: true
+  ordersBooked?: true
+  expectedOrders?: true
+  hadUnmaterializedInquiries?: true
+  unmaterializedReasons?: true
+  majorCompetitors?: true
+  competitorMarketingMethods?: true
+  problemsFaced?: true
+  improvementSuggestions?: true
+  tdapRecommendations?: true
+  continueFairParticipation?: true
+  satisfactionLevel?: true
+  additionalComments?: true
+  sourceName?: true
   rating?: true
   comments?: true
   submittedAt?: true
@@ -208,9 +364,31 @@ export type EventFeedbackGroupByArgs<ExtArgs extends runtime.Types.Extensions.In
 export type EventFeedbackGroupByOutputType = {
   id: number
   eventId: number
+  companyId: number | null
   sourceType: $Enums.FeedbackSource
-  sourceName: string | null
+  companyName: string | null
+  companyAddress: string | null
+  contactPerson: string | null
+  contactNumber: string | null
   sourceEmail: string | null
+  productsExhibited: string | null
+  b2bMeetings: number | null
+  existingCustomers: number | null
+  newContacts: number | null
+  visitorsCountries: string | null
+  ordersBooked: runtime.Decimal | null
+  expectedOrders: runtime.Decimal | null
+  hadUnmaterializedInquiries: boolean | null
+  unmaterializedReasons: string | null
+  majorCompetitors: string | null
+  competitorMarketingMethods: string | null
+  problemsFaced: string | null
+  improvementSuggestions: string | null
+  tdapRecommendations: string | null
+  continueFairParticipation: boolean | null
+  satisfactionLevel: string | null
+  additionalComments: string | null
+  sourceName: string | null
   rating: number | null
   comments: string | null
   submittedAt: Date
@@ -242,25 +420,71 @@ export type EventFeedbackWhereInput = {
   NOT?: Prisma.EventFeedbackWhereInput | Prisma.EventFeedbackWhereInput[]
   id?: Prisma.IntFilter<"EventFeedback"> | number
   eventId?: Prisma.IntFilter<"EventFeedback"> | number
+  companyId?: Prisma.IntNullableFilter<"EventFeedback"> | number | null
   sourceType?: Prisma.EnumFeedbackSourceFilter<"EventFeedback"> | $Enums.FeedbackSource
-  sourceName?: Prisma.StringNullableFilter<"EventFeedback"> | string | null
+  companyName?: Prisma.StringNullableFilter<"EventFeedback"> | string | null
+  companyAddress?: Prisma.StringNullableFilter<"EventFeedback"> | string | null
+  contactPerson?: Prisma.StringNullableFilter<"EventFeedback"> | string | null
+  contactNumber?: Prisma.StringNullableFilter<"EventFeedback"> | string | null
   sourceEmail?: Prisma.StringNullableFilter<"EventFeedback"> | string | null
+  productsExhibited?: Prisma.StringNullableFilter<"EventFeedback"> | string | null
+  b2bMeetings?: Prisma.IntNullableFilter<"EventFeedback"> | number | null
+  existingCustomers?: Prisma.IntNullableFilter<"EventFeedback"> | number | null
+  newContacts?: Prisma.IntNullableFilter<"EventFeedback"> | number | null
+  visitorsCountries?: Prisma.StringNullableFilter<"EventFeedback"> | string | null
+  ordersBooked?: Prisma.DecimalNullableFilter<"EventFeedback"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  expectedOrders?: Prisma.DecimalNullableFilter<"EventFeedback"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  hadUnmaterializedInquiries?: Prisma.BoolNullableFilter<"EventFeedback"> | boolean | null
+  unmaterializedReasons?: Prisma.StringNullableFilter<"EventFeedback"> | string | null
+  majorCompetitors?: Prisma.StringNullableFilter<"EventFeedback"> | string | null
+  competitorMarketingMethods?: Prisma.StringNullableFilter<"EventFeedback"> | string | null
+  problemsFaced?: Prisma.StringNullableFilter<"EventFeedback"> | string | null
+  improvementSuggestions?: Prisma.StringNullableFilter<"EventFeedback"> | string | null
+  tdapRecommendations?: Prisma.StringNullableFilter<"EventFeedback"> | string | null
+  continueFairParticipation?: Prisma.BoolNullableFilter<"EventFeedback"> | boolean | null
+  satisfactionLevel?: Prisma.StringNullableFilter<"EventFeedback"> | string | null
+  additionalComments?: Prisma.StringNullableFilter<"EventFeedback"> | string | null
+  sourceName?: Prisma.StringNullableFilter<"EventFeedback"> | string | null
   rating?: Prisma.IntNullableFilter<"EventFeedback"> | number | null
   comments?: Prisma.StringNullableFilter<"EventFeedback"> | string | null
   submittedAt?: Prisma.DateTimeFilter<"EventFeedback"> | Date | string
   event?: Prisma.XOR<Prisma.EventScalarRelationFilter, Prisma.EventWhereInput>
+  company?: Prisma.XOR<Prisma.CompanyNullableScalarRelationFilter, Prisma.CompanyWhereInput> | null
 }
 
 export type EventFeedbackOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   eventId?: Prisma.SortOrder
+  companyId?: Prisma.SortOrderInput | Prisma.SortOrder
   sourceType?: Prisma.SortOrder
-  sourceName?: Prisma.SortOrderInput | Prisma.SortOrder
+  companyName?: Prisma.SortOrderInput | Prisma.SortOrder
+  companyAddress?: Prisma.SortOrderInput | Prisma.SortOrder
+  contactPerson?: Prisma.SortOrderInput | Prisma.SortOrder
+  contactNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   sourceEmail?: Prisma.SortOrderInput | Prisma.SortOrder
+  productsExhibited?: Prisma.SortOrderInput | Prisma.SortOrder
+  b2bMeetings?: Prisma.SortOrderInput | Prisma.SortOrder
+  existingCustomers?: Prisma.SortOrderInput | Prisma.SortOrder
+  newContacts?: Prisma.SortOrderInput | Prisma.SortOrder
+  visitorsCountries?: Prisma.SortOrderInput | Prisma.SortOrder
+  ordersBooked?: Prisma.SortOrderInput | Prisma.SortOrder
+  expectedOrders?: Prisma.SortOrderInput | Prisma.SortOrder
+  hadUnmaterializedInquiries?: Prisma.SortOrderInput | Prisma.SortOrder
+  unmaterializedReasons?: Prisma.SortOrderInput | Prisma.SortOrder
+  majorCompetitors?: Prisma.SortOrderInput | Prisma.SortOrder
+  competitorMarketingMethods?: Prisma.SortOrderInput | Prisma.SortOrder
+  problemsFaced?: Prisma.SortOrderInput | Prisma.SortOrder
+  improvementSuggestions?: Prisma.SortOrderInput | Prisma.SortOrder
+  tdapRecommendations?: Prisma.SortOrderInput | Prisma.SortOrder
+  continueFairParticipation?: Prisma.SortOrderInput | Prisma.SortOrder
+  satisfactionLevel?: Prisma.SortOrderInput | Prisma.SortOrder
+  additionalComments?: Prisma.SortOrderInput | Prisma.SortOrder
+  sourceName?: Prisma.SortOrderInput | Prisma.SortOrder
   rating?: Prisma.SortOrderInput | Prisma.SortOrder
   comments?: Prisma.SortOrderInput | Prisma.SortOrder
   submittedAt?: Prisma.SortOrder
   event?: Prisma.EventOrderByWithRelationInput
+  company?: Prisma.CompanyOrderByWithRelationInput
   _relevance?: Prisma.EventFeedbackOrderByRelevanceInput
 }
 
@@ -270,21 +494,66 @@ export type EventFeedbackWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.EventFeedbackWhereInput[]
   NOT?: Prisma.EventFeedbackWhereInput | Prisma.EventFeedbackWhereInput[]
   eventId?: Prisma.IntFilter<"EventFeedback"> | number
+  companyId?: Prisma.IntNullableFilter<"EventFeedback"> | number | null
   sourceType?: Prisma.EnumFeedbackSourceFilter<"EventFeedback"> | $Enums.FeedbackSource
-  sourceName?: Prisma.StringNullableFilter<"EventFeedback"> | string | null
+  companyName?: Prisma.StringNullableFilter<"EventFeedback"> | string | null
+  companyAddress?: Prisma.StringNullableFilter<"EventFeedback"> | string | null
+  contactPerson?: Prisma.StringNullableFilter<"EventFeedback"> | string | null
+  contactNumber?: Prisma.StringNullableFilter<"EventFeedback"> | string | null
   sourceEmail?: Prisma.StringNullableFilter<"EventFeedback"> | string | null
+  productsExhibited?: Prisma.StringNullableFilter<"EventFeedback"> | string | null
+  b2bMeetings?: Prisma.IntNullableFilter<"EventFeedback"> | number | null
+  existingCustomers?: Prisma.IntNullableFilter<"EventFeedback"> | number | null
+  newContacts?: Prisma.IntNullableFilter<"EventFeedback"> | number | null
+  visitorsCountries?: Prisma.StringNullableFilter<"EventFeedback"> | string | null
+  ordersBooked?: Prisma.DecimalNullableFilter<"EventFeedback"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  expectedOrders?: Prisma.DecimalNullableFilter<"EventFeedback"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  hadUnmaterializedInquiries?: Prisma.BoolNullableFilter<"EventFeedback"> | boolean | null
+  unmaterializedReasons?: Prisma.StringNullableFilter<"EventFeedback"> | string | null
+  majorCompetitors?: Prisma.StringNullableFilter<"EventFeedback"> | string | null
+  competitorMarketingMethods?: Prisma.StringNullableFilter<"EventFeedback"> | string | null
+  problemsFaced?: Prisma.StringNullableFilter<"EventFeedback"> | string | null
+  improvementSuggestions?: Prisma.StringNullableFilter<"EventFeedback"> | string | null
+  tdapRecommendations?: Prisma.StringNullableFilter<"EventFeedback"> | string | null
+  continueFairParticipation?: Prisma.BoolNullableFilter<"EventFeedback"> | boolean | null
+  satisfactionLevel?: Prisma.StringNullableFilter<"EventFeedback"> | string | null
+  additionalComments?: Prisma.StringNullableFilter<"EventFeedback"> | string | null
+  sourceName?: Prisma.StringNullableFilter<"EventFeedback"> | string | null
   rating?: Prisma.IntNullableFilter<"EventFeedback"> | number | null
   comments?: Prisma.StringNullableFilter<"EventFeedback"> | string | null
   submittedAt?: Prisma.DateTimeFilter<"EventFeedback"> | Date | string
   event?: Prisma.XOR<Prisma.EventScalarRelationFilter, Prisma.EventWhereInput>
+  company?: Prisma.XOR<Prisma.CompanyNullableScalarRelationFilter, Prisma.CompanyWhereInput> | null
 }, "id">
 
 export type EventFeedbackOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   eventId?: Prisma.SortOrder
+  companyId?: Prisma.SortOrderInput | Prisma.SortOrder
   sourceType?: Prisma.SortOrder
-  sourceName?: Prisma.SortOrderInput | Prisma.SortOrder
+  companyName?: Prisma.SortOrderInput | Prisma.SortOrder
+  companyAddress?: Prisma.SortOrderInput | Prisma.SortOrder
+  contactPerson?: Prisma.SortOrderInput | Prisma.SortOrder
+  contactNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   sourceEmail?: Prisma.SortOrderInput | Prisma.SortOrder
+  productsExhibited?: Prisma.SortOrderInput | Prisma.SortOrder
+  b2bMeetings?: Prisma.SortOrderInput | Prisma.SortOrder
+  existingCustomers?: Prisma.SortOrderInput | Prisma.SortOrder
+  newContacts?: Prisma.SortOrderInput | Prisma.SortOrder
+  visitorsCountries?: Prisma.SortOrderInput | Prisma.SortOrder
+  ordersBooked?: Prisma.SortOrderInput | Prisma.SortOrder
+  expectedOrders?: Prisma.SortOrderInput | Prisma.SortOrder
+  hadUnmaterializedInquiries?: Prisma.SortOrderInput | Prisma.SortOrder
+  unmaterializedReasons?: Prisma.SortOrderInput | Prisma.SortOrder
+  majorCompetitors?: Prisma.SortOrderInput | Prisma.SortOrder
+  competitorMarketingMethods?: Prisma.SortOrderInput | Prisma.SortOrder
+  problemsFaced?: Prisma.SortOrderInput | Prisma.SortOrder
+  improvementSuggestions?: Prisma.SortOrderInput | Prisma.SortOrder
+  tdapRecommendations?: Prisma.SortOrderInput | Prisma.SortOrder
+  continueFairParticipation?: Prisma.SortOrderInput | Prisma.SortOrder
+  satisfactionLevel?: Prisma.SortOrderInput | Prisma.SortOrder
+  additionalComments?: Prisma.SortOrderInput | Prisma.SortOrder
+  sourceName?: Prisma.SortOrderInput | Prisma.SortOrder
   rating?: Prisma.SortOrderInput | Prisma.SortOrder
   comments?: Prisma.SortOrderInput | Prisma.SortOrder
   submittedAt?: Prisma.SortOrder
@@ -301,9 +570,31 @@ export type EventFeedbackScalarWhereWithAggregatesInput = {
   NOT?: Prisma.EventFeedbackScalarWhereWithAggregatesInput | Prisma.EventFeedbackScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"EventFeedback"> | number
   eventId?: Prisma.IntWithAggregatesFilter<"EventFeedback"> | number
+  companyId?: Prisma.IntNullableWithAggregatesFilter<"EventFeedback"> | number | null
   sourceType?: Prisma.EnumFeedbackSourceWithAggregatesFilter<"EventFeedback"> | $Enums.FeedbackSource
-  sourceName?: Prisma.StringNullableWithAggregatesFilter<"EventFeedback"> | string | null
+  companyName?: Prisma.StringNullableWithAggregatesFilter<"EventFeedback"> | string | null
+  companyAddress?: Prisma.StringNullableWithAggregatesFilter<"EventFeedback"> | string | null
+  contactPerson?: Prisma.StringNullableWithAggregatesFilter<"EventFeedback"> | string | null
+  contactNumber?: Prisma.StringNullableWithAggregatesFilter<"EventFeedback"> | string | null
   sourceEmail?: Prisma.StringNullableWithAggregatesFilter<"EventFeedback"> | string | null
+  productsExhibited?: Prisma.StringNullableWithAggregatesFilter<"EventFeedback"> | string | null
+  b2bMeetings?: Prisma.IntNullableWithAggregatesFilter<"EventFeedback"> | number | null
+  existingCustomers?: Prisma.IntNullableWithAggregatesFilter<"EventFeedback"> | number | null
+  newContacts?: Prisma.IntNullableWithAggregatesFilter<"EventFeedback"> | number | null
+  visitorsCountries?: Prisma.StringNullableWithAggregatesFilter<"EventFeedback"> | string | null
+  ordersBooked?: Prisma.DecimalNullableWithAggregatesFilter<"EventFeedback"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  expectedOrders?: Prisma.DecimalNullableWithAggregatesFilter<"EventFeedback"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  hadUnmaterializedInquiries?: Prisma.BoolNullableWithAggregatesFilter<"EventFeedback"> | boolean | null
+  unmaterializedReasons?: Prisma.StringNullableWithAggregatesFilter<"EventFeedback"> | string | null
+  majorCompetitors?: Prisma.StringNullableWithAggregatesFilter<"EventFeedback"> | string | null
+  competitorMarketingMethods?: Prisma.StringNullableWithAggregatesFilter<"EventFeedback"> | string | null
+  problemsFaced?: Prisma.StringNullableWithAggregatesFilter<"EventFeedback"> | string | null
+  improvementSuggestions?: Prisma.StringNullableWithAggregatesFilter<"EventFeedback"> | string | null
+  tdapRecommendations?: Prisma.StringNullableWithAggregatesFilter<"EventFeedback"> | string | null
+  continueFairParticipation?: Prisma.BoolNullableWithAggregatesFilter<"EventFeedback"> | boolean | null
+  satisfactionLevel?: Prisma.StringNullableWithAggregatesFilter<"EventFeedback"> | string | null
+  additionalComments?: Prisma.StringNullableWithAggregatesFilter<"EventFeedback"> | string | null
+  sourceName?: Prisma.StringNullableWithAggregatesFilter<"EventFeedback"> | string | null
   rating?: Prisma.IntNullableWithAggregatesFilter<"EventFeedback"> | number | null
   comments?: Prisma.StringNullableWithAggregatesFilter<"EventFeedback"> | string | null
   submittedAt?: Prisma.DateTimeWithAggregatesFilter<"EventFeedback"> | Date | string
@@ -311,20 +602,64 @@ export type EventFeedbackScalarWhereWithAggregatesInput = {
 
 export type EventFeedbackCreateInput = {
   sourceType: $Enums.FeedbackSource
-  sourceName?: string | null
+  companyName?: string | null
+  companyAddress?: string | null
+  contactPerson?: string | null
+  contactNumber?: string | null
   sourceEmail?: string | null
+  productsExhibited?: string | null
+  b2bMeetings?: number | null
+  existingCustomers?: number | null
+  newContacts?: number | null
+  visitorsCountries?: string | null
+  ordersBooked?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  expectedOrders?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  hadUnmaterializedInquiries?: boolean | null
+  unmaterializedReasons?: string | null
+  majorCompetitors?: string | null
+  competitorMarketingMethods?: string | null
+  problemsFaced?: string | null
+  improvementSuggestions?: string | null
+  tdapRecommendations?: string | null
+  continueFairParticipation?: boolean | null
+  satisfactionLevel?: string | null
+  additionalComments?: string | null
+  sourceName?: string | null
   rating?: number | null
   comments?: string | null
   submittedAt?: Date | string
   event: Prisma.EventCreateNestedOneWithoutFeedbacksInput
+  company?: Prisma.CompanyCreateNestedOneWithoutFeedbacksInput
 }
 
 export type EventFeedbackUncheckedCreateInput = {
   id?: number
   eventId: number
+  companyId?: number | null
   sourceType: $Enums.FeedbackSource
-  sourceName?: string | null
+  companyName?: string | null
+  companyAddress?: string | null
+  contactPerson?: string | null
+  contactNumber?: string | null
   sourceEmail?: string | null
+  productsExhibited?: string | null
+  b2bMeetings?: number | null
+  existingCustomers?: number | null
+  newContacts?: number | null
+  visitorsCountries?: string | null
+  ordersBooked?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  expectedOrders?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  hadUnmaterializedInquiries?: boolean | null
+  unmaterializedReasons?: string | null
+  majorCompetitors?: string | null
+  competitorMarketingMethods?: string | null
+  problemsFaced?: string | null
+  improvementSuggestions?: string | null
+  tdapRecommendations?: string | null
+  continueFairParticipation?: boolean | null
+  satisfactionLevel?: string | null
+  additionalComments?: string | null
+  sourceName?: string | null
   rating?: number | null
   comments?: string | null
   submittedAt?: Date | string
@@ -332,20 +667,64 @@ export type EventFeedbackUncheckedCreateInput = {
 
 export type EventFeedbackUpdateInput = {
   sourceType?: Prisma.EnumFeedbackSourceFieldUpdateOperationsInput | $Enums.FeedbackSource
-  sourceName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sourceEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  productsExhibited?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  b2bMeetings?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  existingCustomers?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  newContacts?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  visitorsCountries?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ordersBooked?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  expectedOrders?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  hadUnmaterializedInquiries?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  unmaterializedReasons?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  majorCompetitors?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitorMarketingMethods?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  problemsFaced?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  improvementSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tdapRecommendations?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  continueFairParticipation?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  satisfactionLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  additionalComments?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sourceName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   comments?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   event?: Prisma.EventUpdateOneRequiredWithoutFeedbacksNestedInput
+  company?: Prisma.CompanyUpdateOneWithoutFeedbacksNestedInput
 }
 
 export type EventFeedbackUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   eventId?: Prisma.IntFieldUpdateOperationsInput | number
+  companyId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   sourceType?: Prisma.EnumFeedbackSourceFieldUpdateOperationsInput | $Enums.FeedbackSource
-  sourceName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sourceEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  productsExhibited?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  b2bMeetings?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  existingCustomers?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  newContacts?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  visitorsCountries?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ordersBooked?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  expectedOrders?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  hadUnmaterializedInquiries?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  unmaterializedReasons?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  majorCompetitors?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitorMarketingMethods?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  problemsFaced?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  improvementSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tdapRecommendations?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  continueFairParticipation?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  satisfactionLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  additionalComments?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sourceName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   comments?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -354,9 +733,31 @@ export type EventFeedbackUncheckedUpdateInput = {
 export type EventFeedbackCreateManyInput = {
   id?: number
   eventId: number
+  companyId?: number | null
   sourceType: $Enums.FeedbackSource
-  sourceName?: string | null
+  companyName?: string | null
+  companyAddress?: string | null
+  contactPerson?: string | null
+  contactNumber?: string | null
   sourceEmail?: string | null
+  productsExhibited?: string | null
+  b2bMeetings?: number | null
+  existingCustomers?: number | null
+  newContacts?: number | null
+  visitorsCountries?: string | null
+  ordersBooked?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  expectedOrders?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  hadUnmaterializedInquiries?: boolean | null
+  unmaterializedReasons?: string | null
+  majorCompetitors?: string | null
+  competitorMarketingMethods?: string | null
+  problemsFaced?: string | null
+  improvementSuggestions?: string | null
+  tdapRecommendations?: string | null
+  continueFairParticipation?: boolean | null
+  satisfactionLevel?: string | null
+  additionalComments?: string | null
+  sourceName?: string | null
   rating?: number | null
   comments?: string | null
   submittedAt?: Date | string
@@ -364,8 +765,29 @@ export type EventFeedbackCreateManyInput = {
 
 export type EventFeedbackUpdateManyMutationInput = {
   sourceType?: Prisma.EnumFeedbackSourceFieldUpdateOperationsInput | $Enums.FeedbackSource
-  sourceName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sourceEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  productsExhibited?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  b2bMeetings?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  existingCustomers?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  newContacts?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  visitorsCountries?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ordersBooked?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  expectedOrders?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  hadUnmaterializedInquiries?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  unmaterializedReasons?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  majorCompetitors?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitorMarketingMethods?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  problemsFaced?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  improvementSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tdapRecommendations?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  continueFairParticipation?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  satisfactionLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  additionalComments?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sourceName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   comments?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -374,9 +796,31 @@ export type EventFeedbackUpdateManyMutationInput = {
 export type EventFeedbackUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   eventId?: Prisma.IntFieldUpdateOperationsInput | number
+  companyId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   sourceType?: Prisma.EnumFeedbackSourceFieldUpdateOperationsInput | $Enums.FeedbackSource
-  sourceName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sourceEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  productsExhibited?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  b2bMeetings?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  existingCustomers?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  newContacts?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  visitorsCountries?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ordersBooked?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  expectedOrders?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  hadUnmaterializedInquiries?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  unmaterializedReasons?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  majorCompetitors?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitorMarketingMethods?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  problemsFaced?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  improvementSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tdapRecommendations?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  continueFairParticipation?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  satisfactionLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  additionalComments?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sourceName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   comments?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -401,9 +845,31 @@ export type EventFeedbackOrderByRelevanceInput = {
 export type EventFeedbackCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   eventId?: Prisma.SortOrder
+  companyId?: Prisma.SortOrder
   sourceType?: Prisma.SortOrder
-  sourceName?: Prisma.SortOrder
+  companyName?: Prisma.SortOrder
+  companyAddress?: Prisma.SortOrder
+  contactPerson?: Prisma.SortOrder
+  contactNumber?: Prisma.SortOrder
   sourceEmail?: Prisma.SortOrder
+  productsExhibited?: Prisma.SortOrder
+  b2bMeetings?: Prisma.SortOrder
+  existingCustomers?: Prisma.SortOrder
+  newContacts?: Prisma.SortOrder
+  visitorsCountries?: Prisma.SortOrder
+  ordersBooked?: Prisma.SortOrder
+  expectedOrders?: Prisma.SortOrder
+  hadUnmaterializedInquiries?: Prisma.SortOrder
+  unmaterializedReasons?: Prisma.SortOrder
+  majorCompetitors?: Prisma.SortOrder
+  competitorMarketingMethods?: Prisma.SortOrder
+  problemsFaced?: Prisma.SortOrder
+  improvementSuggestions?: Prisma.SortOrder
+  tdapRecommendations?: Prisma.SortOrder
+  continueFairParticipation?: Prisma.SortOrder
+  satisfactionLevel?: Prisma.SortOrder
+  additionalComments?: Prisma.SortOrder
+  sourceName?: Prisma.SortOrder
   rating?: Prisma.SortOrder
   comments?: Prisma.SortOrder
   submittedAt?: Prisma.SortOrder
@@ -412,15 +878,43 @@ export type EventFeedbackCountOrderByAggregateInput = {
 export type EventFeedbackAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
   eventId?: Prisma.SortOrder
+  companyId?: Prisma.SortOrder
+  b2bMeetings?: Prisma.SortOrder
+  existingCustomers?: Prisma.SortOrder
+  newContacts?: Prisma.SortOrder
+  ordersBooked?: Prisma.SortOrder
+  expectedOrders?: Prisma.SortOrder
   rating?: Prisma.SortOrder
 }
 
 export type EventFeedbackMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   eventId?: Prisma.SortOrder
+  companyId?: Prisma.SortOrder
   sourceType?: Prisma.SortOrder
-  sourceName?: Prisma.SortOrder
+  companyName?: Prisma.SortOrder
+  companyAddress?: Prisma.SortOrder
+  contactPerson?: Prisma.SortOrder
+  contactNumber?: Prisma.SortOrder
   sourceEmail?: Prisma.SortOrder
+  productsExhibited?: Prisma.SortOrder
+  b2bMeetings?: Prisma.SortOrder
+  existingCustomers?: Prisma.SortOrder
+  newContacts?: Prisma.SortOrder
+  visitorsCountries?: Prisma.SortOrder
+  ordersBooked?: Prisma.SortOrder
+  expectedOrders?: Prisma.SortOrder
+  hadUnmaterializedInquiries?: Prisma.SortOrder
+  unmaterializedReasons?: Prisma.SortOrder
+  majorCompetitors?: Prisma.SortOrder
+  competitorMarketingMethods?: Prisma.SortOrder
+  problemsFaced?: Prisma.SortOrder
+  improvementSuggestions?: Prisma.SortOrder
+  tdapRecommendations?: Prisma.SortOrder
+  continueFairParticipation?: Prisma.SortOrder
+  satisfactionLevel?: Prisma.SortOrder
+  additionalComments?: Prisma.SortOrder
+  sourceName?: Prisma.SortOrder
   rating?: Prisma.SortOrder
   comments?: Prisma.SortOrder
   submittedAt?: Prisma.SortOrder
@@ -429,9 +923,31 @@ export type EventFeedbackMaxOrderByAggregateInput = {
 export type EventFeedbackMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   eventId?: Prisma.SortOrder
+  companyId?: Prisma.SortOrder
   sourceType?: Prisma.SortOrder
-  sourceName?: Prisma.SortOrder
+  companyName?: Prisma.SortOrder
+  companyAddress?: Prisma.SortOrder
+  contactPerson?: Prisma.SortOrder
+  contactNumber?: Prisma.SortOrder
   sourceEmail?: Prisma.SortOrder
+  productsExhibited?: Prisma.SortOrder
+  b2bMeetings?: Prisma.SortOrder
+  existingCustomers?: Prisma.SortOrder
+  newContacts?: Prisma.SortOrder
+  visitorsCountries?: Prisma.SortOrder
+  ordersBooked?: Prisma.SortOrder
+  expectedOrders?: Prisma.SortOrder
+  hadUnmaterializedInquiries?: Prisma.SortOrder
+  unmaterializedReasons?: Prisma.SortOrder
+  majorCompetitors?: Prisma.SortOrder
+  competitorMarketingMethods?: Prisma.SortOrder
+  problemsFaced?: Prisma.SortOrder
+  improvementSuggestions?: Prisma.SortOrder
+  tdapRecommendations?: Prisma.SortOrder
+  continueFairParticipation?: Prisma.SortOrder
+  satisfactionLevel?: Prisma.SortOrder
+  additionalComments?: Prisma.SortOrder
+  sourceName?: Prisma.SortOrder
   rating?: Prisma.SortOrder
   comments?: Prisma.SortOrder
   submittedAt?: Prisma.SortOrder
@@ -440,7 +956,55 @@ export type EventFeedbackMinOrderByAggregateInput = {
 export type EventFeedbackSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
   eventId?: Prisma.SortOrder
+  companyId?: Prisma.SortOrder
+  b2bMeetings?: Prisma.SortOrder
+  existingCustomers?: Prisma.SortOrder
+  newContacts?: Prisma.SortOrder
+  ordersBooked?: Prisma.SortOrder
+  expectedOrders?: Prisma.SortOrder
   rating?: Prisma.SortOrder
+}
+
+export type EventFeedbackCreateNestedManyWithoutCompanyInput = {
+  create?: Prisma.XOR<Prisma.EventFeedbackCreateWithoutCompanyInput, Prisma.EventFeedbackUncheckedCreateWithoutCompanyInput> | Prisma.EventFeedbackCreateWithoutCompanyInput[] | Prisma.EventFeedbackUncheckedCreateWithoutCompanyInput[]
+  connectOrCreate?: Prisma.EventFeedbackCreateOrConnectWithoutCompanyInput | Prisma.EventFeedbackCreateOrConnectWithoutCompanyInput[]
+  createMany?: Prisma.EventFeedbackCreateManyCompanyInputEnvelope
+  connect?: Prisma.EventFeedbackWhereUniqueInput | Prisma.EventFeedbackWhereUniqueInput[]
+}
+
+export type EventFeedbackUncheckedCreateNestedManyWithoutCompanyInput = {
+  create?: Prisma.XOR<Prisma.EventFeedbackCreateWithoutCompanyInput, Prisma.EventFeedbackUncheckedCreateWithoutCompanyInput> | Prisma.EventFeedbackCreateWithoutCompanyInput[] | Prisma.EventFeedbackUncheckedCreateWithoutCompanyInput[]
+  connectOrCreate?: Prisma.EventFeedbackCreateOrConnectWithoutCompanyInput | Prisma.EventFeedbackCreateOrConnectWithoutCompanyInput[]
+  createMany?: Prisma.EventFeedbackCreateManyCompanyInputEnvelope
+  connect?: Prisma.EventFeedbackWhereUniqueInput | Prisma.EventFeedbackWhereUniqueInput[]
+}
+
+export type EventFeedbackUpdateManyWithoutCompanyNestedInput = {
+  create?: Prisma.XOR<Prisma.EventFeedbackCreateWithoutCompanyInput, Prisma.EventFeedbackUncheckedCreateWithoutCompanyInput> | Prisma.EventFeedbackCreateWithoutCompanyInput[] | Prisma.EventFeedbackUncheckedCreateWithoutCompanyInput[]
+  connectOrCreate?: Prisma.EventFeedbackCreateOrConnectWithoutCompanyInput | Prisma.EventFeedbackCreateOrConnectWithoutCompanyInput[]
+  upsert?: Prisma.EventFeedbackUpsertWithWhereUniqueWithoutCompanyInput | Prisma.EventFeedbackUpsertWithWhereUniqueWithoutCompanyInput[]
+  createMany?: Prisma.EventFeedbackCreateManyCompanyInputEnvelope
+  set?: Prisma.EventFeedbackWhereUniqueInput | Prisma.EventFeedbackWhereUniqueInput[]
+  disconnect?: Prisma.EventFeedbackWhereUniqueInput | Prisma.EventFeedbackWhereUniqueInput[]
+  delete?: Prisma.EventFeedbackWhereUniqueInput | Prisma.EventFeedbackWhereUniqueInput[]
+  connect?: Prisma.EventFeedbackWhereUniqueInput | Prisma.EventFeedbackWhereUniqueInput[]
+  update?: Prisma.EventFeedbackUpdateWithWhereUniqueWithoutCompanyInput | Prisma.EventFeedbackUpdateWithWhereUniqueWithoutCompanyInput[]
+  updateMany?: Prisma.EventFeedbackUpdateManyWithWhereWithoutCompanyInput | Prisma.EventFeedbackUpdateManyWithWhereWithoutCompanyInput[]
+  deleteMany?: Prisma.EventFeedbackScalarWhereInput | Prisma.EventFeedbackScalarWhereInput[]
+}
+
+export type EventFeedbackUncheckedUpdateManyWithoutCompanyNestedInput = {
+  create?: Prisma.XOR<Prisma.EventFeedbackCreateWithoutCompanyInput, Prisma.EventFeedbackUncheckedCreateWithoutCompanyInput> | Prisma.EventFeedbackCreateWithoutCompanyInput[] | Prisma.EventFeedbackUncheckedCreateWithoutCompanyInput[]
+  connectOrCreate?: Prisma.EventFeedbackCreateOrConnectWithoutCompanyInput | Prisma.EventFeedbackCreateOrConnectWithoutCompanyInput[]
+  upsert?: Prisma.EventFeedbackUpsertWithWhereUniqueWithoutCompanyInput | Prisma.EventFeedbackUpsertWithWhereUniqueWithoutCompanyInput[]
+  createMany?: Prisma.EventFeedbackCreateManyCompanyInputEnvelope
+  set?: Prisma.EventFeedbackWhereUniqueInput | Prisma.EventFeedbackWhereUniqueInput[]
+  disconnect?: Prisma.EventFeedbackWhereUniqueInput | Prisma.EventFeedbackWhereUniqueInput[]
+  delete?: Prisma.EventFeedbackWhereUniqueInput | Prisma.EventFeedbackWhereUniqueInput[]
+  connect?: Prisma.EventFeedbackWhereUniqueInput | Prisma.EventFeedbackWhereUniqueInput[]
+  update?: Prisma.EventFeedbackUpdateWithWhereUniqueWithoutCompanyInput | Prisma.EventFeedbackUpdateWithWhereUniqueWithoutCompanyInput[]
+  updateMany?: Prisma.EventFeedbackUpdateManyWithWhereWithoutCompanyInput | Prisma.EventFeedbackUpdateManyWithWhereWithoutCompanyInput[]
+  deleteMany?: Prisma.EventFeedbackScalarWhereInput | Prisma.EventFeedbackScalarWhereInput[]
 }
 
 export type EventFeedbackCreateNestedManyWithoutEventInput = {
@@ -489,20 +1053,193 @@ export type EnumFeedbackSourceFieldUpdateOperationsInput = {
   set?: $Enums.FeedbackSource
 }
 
-export type EventFeedbackCreateWithoutEventInput = {
+export type NullableBoolFieldUpdateOperationsInput = {
+  set?: boolean | null
+}
+
+export type EventFeedbackCreateWithoutCompanyInput = {
   sourceType: $Enums.FeedbackSource
-  sourceName?: string | null
+  companyName?: string | null
+  companyAddress?: string | null
+  contactPerson?: string | null
+  contactNumber?: string | null
   sourceEmail?: string | null
+  productsExhibited?: string | null
+  b2bMeetings?: number | null
+  existingCustomers?: number | null
+  newContacts?: number | null
+  visitorsCountries?: string | null
+  ordersBooked?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  expectedOrders?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  hadUnmaterializedInquiries?: boolean | null
+  unmaterializedReasons?: string | null
+  majorCompetitors?: string | null
+  competitorMarketingMethods?: string | null
+  problemsFaced?: string | null
+  improvementSuggestions?: string | null
+  tdapRecommendations?: string | null
+  continueFairParticipation?: boolean | null
+  satisfactionLevel?: string | null
+  additionalComments?: string | null
+  sourceName?: string | null
+  rating?: number | null
+  comments?: string | null
+  submittedAt?: Date | string
+  event: Prisma.EventCreateNestedOneWithoutFeedbacksInput
+}
+
+export type EventFeedbackUncheckedCreateWithoutCompanyInput = {
+  id?: number
+  eventId: number
+  sourceType: $Enums.FeedbackSource
+  companyName?: string | null
+  companyAddress?: string | null
+  contactPerson?: string | null
+  contactNumber?: string | null
+  sourceEmail?: string | null
+  productsExhibited?: string | null
+  b2bMeetings?: number | null
+  existingCustomers?: number | null
+  newContacts?: number | null
+  visitorsCountries?: string | null
+  ordersBooked?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  expectedOrders?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  hadUnmaterializedInquiries?: boolean | null
+  unmaterializedReasons?: string | null
+  majorCompetitors?: string | null
+  competitorMarketingMethods?: string | null
+  problemsFaced?: string | null
+  improvementSuggestions?: string | null
+  tdapRecommendations?: string | null
+  continueFairParticipation?: boolean | null
+  satisfactionLevel?: string | null
+  additionalComments?: string | null
+  sourceName?: string | null
   rating?: number | null
   comments?: string | null
   submittedAt?: Date | string
 }
 
+export type EventFeedbackCreateOrConnectWithoutCompanyInput = {
+  where: Prisma.EventFeedbackWhereUniqueInput
+  create: Prisma.XOR<Prisma.EventFeedbackCreateWithoutCompanyInput, Prisma.EventFeedbackUncheckedCreateWithoutCompanyInput>
+}
+
+export type EventFeedbackCreateManyCompanyInputEnvelope = {
+  data: Prisma.EventFeedbackCreateManyCompanyInput | Prisma.EventFeedbackCreateManyCompanyInput[]
+  skipDuplicates?: boolean
+}
+
+export type EventFeedbackUpsertWithWhereUniqueWithoutCompanyInput = {
+  where: Prisma.EventFeedbackWhereUniqueInput
+  update: Prisma.XOR<Prisma.EventFeedbackUpdateWithoutCompanyInput, Prisma.EventFeedbackUncheckedUpdateWithoutCompanyInput>
+  create: Prisma.XOR<Prisma.EventFeedbackCreateWithoutCompanyInput, Prisma.EventFeedbackUncheckedCreateWithoutCompanyInput>
+}
+
+export type EventFeedbackUpdateWithWhereUniqueWithoutCompanyInput = {
+  where: Prisma.EventFeedbackWhereUniqueInput
+  data: Prisma.XOR<Prisma.EventFeedbackUpdateWithoutCompanyInput, Prisma.EventFeedbackUncheckedUpdateWithoutCompanyInput>
+}
+
+export type EventFeedbackUpdateManyWithWhereWithoutCompanyInput = {
+  where: Prisma.EventFeedbackScalarWhereInput
+  data: Prisma.XOR<Prisma.EventFeedbackUpdateManyMutationInput, Prisma.EventFeedbackUncheckedUpdateManyWithoutCompanyInput>
+}
+
+export type EventFeedbackScalarWhereInput = {
+  AND?: Prisma.EventFeedbackScalarWhereInput | Prisma.EventFeedbackScalarWhereInput[]
+  OR?: Prisma.EventFeedbackScalarWhereInput[]
+  NOT?: Prisma.EventFeedbackScalarWhereInput | Prisma.EventFeedbackScalarWhereInput[]
+  id?: Prisma.IntFilter<"EventFeedback"> | number
+  eventId?: Prisma.IntFilter<"EventFeedback"> | number
+  companyId?: Prisma.IntNullableFilter<"EventFeedback"> | number | null
+  sourceType?: Prisma.EnumFeedbackSourceFilter<"EventFeedback"> | $Enums.FeedbackSource
+  companyName?: Prisma.StringNullableFilter<"EventFeedback"> | string | null
+  companyAddress?: Prisma.StringNullableFilter<"EventFeedback"> | string | null
+  contactPerson?: Prisma.StringNullableFilter<"EventFeedback"> | string | null
+  contactNumber?: Prisma.StringNullableFilter<"EventFeedback"> | string | null
+  sourceEmail?: Prisma.StringNullableFilter<"EventFeedback"> | string | null
+  productsExhibited?: Prisma.StringNullableFilter<"EventFeedback"> | string | null
+  b2bMeetings?: Prisma.IntNullableFilter<"EventFeedback"> | number | null
+  existingCustomers?: Prisma.IntNullableFilter<"EventFeedback"> | number | null
+  newContacts?: Prisma.IntNullableFilter<"EventFeedback"> | number | null
+  visitorsCountries?: Prisma.StringNullableFilter<"EventFeedback"> | string | null
+  ordersBooked?: Prisma.DecimalNullableFilter<"EventFeedback"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  expectedOrders?: Prisma.DecimalNullableFilter<"EventFeedback"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  hadUnmaterializedInquiries?: Prisma.BoolNullableFilter<"EventFeedback"> | boolean | null
+  unmaterializedReasons?: Prisma.StringNullableFilter<"EventFeedback"> | string | null
+  majorCompetitors?: Prisma.StringNullableFilter<"EventFeedback"> | string | null
+  competitorMarketingMethods?: Prisma.StringNullableFilter<"EventFeedback"> | string | null
+  problemsFaced?: Prisma.StringNullableFilter<"EventFeedback"> | string | null
+  improvementSuggestions?: Prisma.StringNullableFilter<"EventFeedback"> | string | null
+  tdapRecommendations?: Prisma.StringNullableFilter<"EventFeedback"> | string | null
+  continueFairParticipation?: Prisma.BoolNullableFilter<"EventFeedback"> | boolean | null
+  satisfactionLevel?: Prisma.StringNullableFilter<"EventFeedback"> | string | null
+  additionalComments?: Prisma.StringNullableFilter<"EventFeedback"> | string | null
+  sourceName?: Prisma.StringNullableFilter<"EventFeedback"> | string | null
+  rating?: Prisma.IntNullableFilter<"EventFeedback"> | number | null
+  comments?: Prisma.StringNullableFilter<"EventFeedback"> | string | null
+  submittedAt?: Prisma.DateTimeFilter<"EventFeedback"> | Date | string
+}
+
+export type EventFeedbackCreateWithoutEventInput = {
+  sourceType: $Enums.FeedbackSource
+  companyName?: string | null
+  companyAddress?: string | null
+  contactPerson?: string | null
+  contactNumber?: string | null
+  sourceEmail?: string | null
+  productsExhibited?: string | null
+  b2bMeetings?: number | null
+  existingCustomers?: number | null
+  newContacts?: number | null
+  visitorsCountries?: string | null
+  ordersBooked?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  expectedOrders?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  hadUnmaterializedInquiries?: boolean | null
+  unmaterializedReasons?: string | null
+  majorCompetitors?: string | null
+  competitorMarketingMethods?: string | null
+  problemsFaced?: string | null
+  improvementSuggestions?: string | null
+  tdapRecommendations?: string | null
+  continueFairParticipation?: boolean | null
+  satisfactionLevel?: string | null
+  additionalComments?: string | null
+  sourceName?: string | null
+  rating?: number | null
+  comments?: string | null
+  submittedAt?: Date | string
+  company?: Prisma.CompanyCreateNestedOneWithoutFeedbacksInput
+}
+
 export type EventFeedbackUncheckedCreateWithoutEventInput = {
   id?: number
+  companyId?: number | null
   sourceType: $Enums.FeedbackSource
-  sourceName?: string | null
+  companyName?: string | null
+  companyAddress?: string | null
+  contactPerson?: string | null
+  contactNumber?: string | null
   sourceEmail?: string | null
+  productsExhibited?: string | null
+  b2bMeetings?: number | null
+  existingCustomers?: number | null
+  newContacts?: number | null
+  visitorsCountries?: string | null
+  ordersBooked?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  expectedOrders?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  hadUnmaterializedInquiries?: boolean | null
+  unmaterializedReasons?: string | null
+  majorCompetitors?: string | null
+  competitorMarketingMethods?: string | null
+  problemsFaced?: string | null
+  improvementSuggestions?: string | null
+  tdapRecommendations?: string | null
+  continueFairParticipation?: boolean | null
+  satisfactionLevel?: string | null
+  additionalComments?: string | null
+  sourceName?: string | null
   rating?: number | null
   comments?: string | null
   submittedAt?: Date | string
@@ -534,25 +1271,160 @@ export type EventFeedbackUpdateManyWithWhereWithoutEventInput = {
   data: Prisma.XOR<Prisma.EventFeedbackUpdateManyMutationInput, Prisma.EventFeedbackUncheckedUpdateManyWithoutEventInput>
 }
 
-export type EventFeedbackScalarWhereInput = {
-  AND?: Prisma.EventFeedbackScalarWhereInput | Prisma.EventFeedbackScalarWhereInput[]
-  OR?: Prisma.EventFeedbackScalarWhereInput[]
-  NOT?: Prisma.EventFeedbackScalarWhereInput | Prisma.EventFeedbackScalarWhereInput[]
-  id?: Prisma.IntFilter<"EventFeedback"> | number
-  eventId?: Prisma.IntFilter<"EventFeedback"> | number
-  sourceType?: Prisma.EnumFeedbackSourceFilter<"EventFeedback"> | $Enums.FeedbackSource
-  sourceName?: Prisma.StringNullableFilter<"EventFeedback"> | string | null
-  sourceEmail?: Prisma.StringNullableFilter<"EventFeedback"> | string | null
-  rating?: Prisma.IntNullableFilter<"EventFeedback"> | number | null
-  comments?: Prisma.StringNullableFilter<"EventFeedback"> | string | null
-  submittedAt?: Prisma.DateTimeFilter<"EventFeedback"> | Date | string
+export type EventFeedbackCreateManyCompanyInput = {
+  id?: number
+  eventId: number
+  sourceType: $Enums.FeedbackSource
+  companyName?: string | null
+  companyAddress?: string | null
+  contactPerson?: string | null
+  contactNumber?: string | null
+  sourceEmail?: string | null
+  productsExhibited?: string | null
+  b2bMeetings?: number | null
+  existingCustomers?: number | null
+  newContacts?: number | null
+  visitorsCountries?: string | null
+  ordersBooked?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  expectedOrders?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  hadUnmaterializedInquiries?: boolean | null
+  unmaterializedReasons?: string | null
+  majorCompetitors?: string | null
+  competitorMarketingMethods?: string | null
+  problemsFaced?: string | null
+  improvementSuggestions?: string | null
+  tdapRecommendations?: string | null
+  continueFairParticipation?: boolean | null
+  satisfactionLevel?: string | null
+  additionalComments?: string | null
+  sourceName?: string | null
+  rating?: number | null
+  comments?: string | null
+  submittedAt?: Date | string
+}
+
+export type EventFeedbackUpdateWithoutCompanyInput = {
+  sourceType?: Prisma.EnumFeedbackSourceFieldUpdateOperationsInput | $Enums.FeedbackSource
+  companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sourceEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  productsExhibited?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  b2bMeetings?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  existingCustomers?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  newContacts?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  visitorsCountries?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ordersBooked?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  expectedOrders?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  hadUnmaterializedInquiries?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  unmaterializedReasons?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  majorCompetitors?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitorMarketingMethods?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  problemsFaced?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  improvementSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tdapRecommendations?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  continueFairParticipation?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  satisfactionLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  additionalComments?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sourceName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rating?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  comments?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  event?: Prisma.EventUpdateOneRequiredWithoutFeedbacksNestedInput
+}
+
+export type EventFeedbackUncheckedUpdateWithoutCompanyInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  eventId?: Prisma.IntFieldUpdateOperationsInput | number
+  sourceType?: Prisma.EnumFeedbackSourceFieldUpdateOperationsInput | $Enums.FeedbackSource
+  companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sourceEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  productsExhibited?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  b2bMeetings?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  existingCustomers?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  newContacts?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  visitorsCountries?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ordersBooked?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  expectedOrders?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  hadUnmaterializedInquiries?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  unmaterializedReasons?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  majorCompetitors?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitorMarketingMethods?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  problemsFaced?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  improvementSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tdapRecommendations?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  continueFairParticipation?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  satisfactionLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  additionalComments?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sourceName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rating?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  comments?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type EventFeedbackUncheckedUpdateManyWithoutCompanyInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  eventId?: Prisma.IntFieldUpdateOperationsInput | number
+  sourceType?: Prisma.EnumFeedbackSourceFieldUpdateOperationsInput | $Enums.FeedbackSource
+  companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sourceEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  productsExhibited?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  b2bMeetings?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  existingCustomers?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  newContacts?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  visitorsCountries?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ordersBooked?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  expectedOrders?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  hadUnmaterializedInquiries?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  unmaterializedReasons?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  majorCompetitors?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitorMarketingMethods?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  problemsFaced?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  improvementSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tdapRecommendations?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  continueFairParticipation?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  satisfactionLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  additionalComments?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sourceName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rating?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  comments?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type EventFeedbackCreateManyEventInput = {
   id?: number
+  companyId?: number | null
   sourceType: $Enums.FeedbackSource
-  sourceName?: string | null
+  companyName?: string | null
+  companyAddress?: string | null
+  contactPerson?: string | null
+  contactNumber?: string | null
   sourceEmail?: string | null
+  productsExhibited?: string | null
+  b2bMeetings?: number | null
+  existingCustomers?: number | null
+  newContacts?: number | null
+  visitorsCountries?: string | null
+  ordersBooked?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  expectedOrders?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  hadUnmaterializedInquiries?: boolean | null
+  unmaterializedReasons?: string | null
+  majorCompetitors?: string | null
+  competitorMarketingMethods?: string | null
+  problemsFaced?: string | null
+  improvementSuggestions?: string | null
+  tdapRecommendations?: string | null
+  continueFairParticipation?: boolean | null
+  satisfactionLevel?: string | null
+  additionalComments?: string | null
+  sourceName?: string | null
   rating?: number | null
   comments?: string | null
   submittedAt?: Date | string
@@ -560,18 +1432,62 @@ export type EventFeedbackCreateManyEventInput = {
 
 export type EventFeedbackUpdateWithoutEventInput = {
   sourceType?: Prisma.EnumFeedbackSourceFieldUpdateOperationsInput | $Enums.FeedbackSource
-  sourceName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sourceEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  productsExhibited?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  b2bMeetings?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  existingCustomers?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  newContacts?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  visitorsCountries?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ordersBooked?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  expectedOrders?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  hadUnmaterializedInquiries?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  unmaterializedReasons?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  majorCompetitors?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitorMarketingMethods?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  problemsFaced?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  improvementSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tdapRecommendations?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  continueFairParticipation?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  satisfactionLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  additionalComments?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sourceName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   comments?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  company?: Prisma.CompanyUpdateOneWithoutFeedbacksNestedInput
 }
 
 export type EventFeedbackUncheckedUpdateWithoutEventInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  companyId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   sourceType?: Prisma.EnumFeedbackSourceFieldUpdateOperationsInput | $Enums.FeedbackSource
-  sourceName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sourceEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  productsExhibited?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  b2bMeetings?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  existingCustomers?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  newContacts?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  visitorsCountries?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ordersBooked?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  expectedOrders?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  hadUnmaterializedInquiries?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  unmaterializedReasons?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  majorCompetitors?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitorMarketingMethods?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  problemsFaced?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  improvementSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tdapRecommendations?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  continueFairParticipation?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  satisfactionLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  additionalComments?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sourceName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   comments?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -579,9 +1495,31 @@ export type EventFeedbackUncheckedUpdateWithoutEventInput = {
 
 export type EventFeedbackUncheckedUpdateManyWithoutEventInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  companyId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   sourceType?: Prisma.EnumFeedbackSourceFieldUpdateOperationsInput | $Enums.FeedbackSource
-  sourceName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sourceEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  productsExhibited?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  b2bMeetings?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  existingCustomers?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  newContacts?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  visitorsCountries?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ordersBooked?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  expectedOrders?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  hadUnmaterializedInquiries?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  unmaterializedReasons?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  majorCompetitors?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitorMarketingMethods?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  problemsFaced?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  improvementSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tdapRecommendations?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  continueFairParticipation?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  satisfactionLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  additionalComments?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sourceName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   comments?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -592,13 +1530,36 @@ export type EventFeedbackUncheckedUpdateManyWithoutEventInput = {
 export type EventFeedbackSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   eventId?: boolean
+  companyId?: boolean
   sourceType?: boolean
-  sourceName?: boolean
+  companyName?: boolean
+  companyAddress?: boolean
+  contactPerson?: boolean
+  contactNumber?: boolean
   sourceEmail?: boolean
+  productsExhibited?: boolean
+  b2bMeetings?: boolean
+  existingCustomers?: boolean
+  newContacts?: boolean
+  visitorsCountries?: boolean
+  ordersBooked?: boolean
+  expectedOrders?: boolean
+  hadUnmaterializedInquiries?: boolean
+  unmaterializedReasons?: boolean
+  majorCompetitors?: boolean
+  competitorMarketingMethods?: boolean
+  problemsFaced?: boolean
+  improvementSuggestions?: boolean
+  tdapRecommendations?: boolean
+  continueFairParticipation?: boolean
+  satisfactionLevel?: boolean
+  additionalComments?: boolean
+  sourceName?: boolean
   rating?: boolean
   comments?: boolean
   submittedAt?: boolean
   event?: boolean | Prisma.EventDefaultArgs<ExtArgs>
+  company?: boolean | Prisma.EventFeedback$companyArgs<ExtArgs>
 }, ExtArgs["result"]["eventFeedback"]>
 
 
@@ -606,30 +1567,76 @@ export type EventFeedbackSelect<ExtArgs extends runtime.Types.Extensions.Interna
 export type EventFeedbackSelectScalar = {
   id?: boolean
   eventId?: boolean
+  companyId?: boolean
   sourceType?: boolean
-  sourceName?: boolean
+  companyName?: boolean
+  companyAddress?: boolean
+  contactPerson?: boolean
+  contactNumber?: boolean
   sourceEmail?: boolean
+  productsExhibited?: boolean
+  b2bMeetings?: boolean
+  existingCustomers?: boolean
+  newContacts?: boolean
+  visitorsCountries?: boolean
+  ordersBooked?: boolean
+  expectedOrders?: boolean
+  hadUnmaterializedInquiries?: boolean
+  unmaterializedReasons?: boolean
+  majorCompetitors?: boolean
+  competitorMarketingMethods?: boolean
+  problemsFaced?: boolean
+  improvementSuggestions?: boolean
+  tdapRecommendations?: boolean
+  continueFairParticipation?: boolean
+  satisfactionLevel?: boolean
+  additionalComments?: boolean
+  sourceName?: boolean
   rating?: boolean
   comments?: boolean
   submittedAt?: boolean
 }
 
-export type EventFeedbackOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "eventId" | "sourceType" | "sourceName" | "sourceEmail" | "rating" | "comments" | "submittedAt", ExtArgs["result"]["eventFeedback"]>
+export type EventFeedbackOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "eventId" | "companyId" | "sourceType" | "companyName" | "companyAddress" | "contactPerson" | "contactNumber" | "sourceEmail" | "productsExhibited" | "b2bMeetings" | "existingCustomers" | "newContacts" | "visitorsCountries" | "ordersBooked" | "expectedOrders" | "hadUnmaterializedInquiries" | "unmaterializedReasons" | "majorCompetitors" | "competitorMarketingMethods" | "problemsFaced" | "improvementSuggestions" | "tdapRecommendations" | "continueFairParticipation" | "satisfactionLevel" | "additionalComments" | "sourceName" | "rating" | "comments" | "submittedAt", ExtArgs["result"]["eventFeedback"]>
 export type EventFeedbackInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   event?: boolean | Prisma.EventDefaultArgs<ExtArgs>
+  company?: boolean | Prisma.EventFeedback$companyArgs<ExtArgs>
 }
 
 export type $EventFeedbackPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "EventFeedback"
   objects: {
     event: Prisma.$EventPayload<ExtArgs>
+    company: Prisma.$CompanyPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     eventId: number
+    companyId: number | null
     sourceType: $Enums.FeedbackSource
-    sourceName: string | null
+    companyName: string | null
+    companyAddress: string | null
+    contactPerson: string | null
+    contactNumber: string | null
     sourceEmail: string | null
+    productsExhibited: string | null
+    b2bMeetings: number | null
+    existingCustomers: number | null
+    newContacts: number | null
+    visitorsCountries: string | null
+    ordersBooked: runtime.Decimal | null
+    expectedOrders: runtime.Decimal | null
+    hadUnmaterializedInquiries: boolean | null
+    unmaterializedReasons: string | null
+    majorCompetitors: string | null
+    competitorMarketingMethods: string | null
+    problemsFaced: string | null
+    improvementSuggestions: string | null
+    tdapRecommendations: string | null
+    continueFairParticipation: boolean | null
+    satisfactionLevel: string | null
+    additionalComments: string | null
+    sourceName: string | null
     rating: number | null
     comments: string | null
     submittedAt: Date
@@ -974,6 +1981,7 @@ readonly fields: EventFeedbackFieldRefs;
 export interface Prisma__EventFeedbackClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   event<T extends Prisma.EventDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.EventDefaultArgs<ExtArgs>>): Prisma.Prisma__EventClient<runtime.Types.Result.GetResult<Prisma.$EventPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  company<T extends Prisma.EventFeedback$companyArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.EventFeedback$companyArgs<ExtArgs>>): Prisma.Prisma__CompanyClient<runtime.Types.Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1005,9 +2013,31 @@ export interface Prisma__EventFeedbackClient<T, Null = never, ExtArgs extends ru
 export interface EventFeedbackFieldRefs {
   readonly id: Prisma.FieldRef<"EventFeedback", 'Int'>
   readonly eventId: Prisma.FieldRef<"EventFeedback", 'Int'>
+  readonly companyId: Prisma.FieldRef<"EventFeedback", 'Int'>
   readonly sourceType: Prisma.FieldRef<"EventFeedback", 'FeedbackSource'>
-  readonly sourceName: Prisma.FieldRef<"EventFeedback", 'String'>
+  readonly companyName: Prisma.FieldRef<"EventFeedback", 'String'>
+  readonly companyAddress: Prisma.FieldRef<"EventFeedback", 'String'>
+  readonly contactPerson: Prisma.FieldRef<"EventFeedback", 'String'>
+  readonly contactNumber: Prisma.FieldRef<"EventFeedback", 'String'>
   readonly sourceEmail: Prisma.FieldRef<"EventFeedback", 'String'>
+  readonly productsExhibited: Prisma.FieldRef<"EventFeedback", 'String'>
+  readonly b2bMeetings: Prisma.FieldRef<"EventFeedback", 'Int'>
+  readonly existingCustomers: Prisma.FieldRef<"EventFeedback", 'Int'>
+  readonly newContacts: Prisma.FieldRef<"EventFeedback", 'Int'>
+  readonly visitorsCountries: Prisma.FieldRef<"EventFeedback", 'String'>
+  readonly ordersBooked: Prisma.FieldRef<"EventFeedback", 'Decimal'>
+  readonly expectedOrders: Prisma.FieldRef<"EventFeedback", 'Decimal'>
+  readonly hadUnmaterializedInquiries: Prisma.FieldRef<"EventFeedback", 'Boolean'>
+  readonly unmaterializedReasons: Prisma.FieldRef<"EventFeedback", 'String'>
+  readonly majorCompetitors: Prisma.FieldRef<"EventFeedback", 'String'>
+  readonly competitorMarketingMethods: Prisma.FieldRef<"EventFeedback", 'String'>
+  readonly problemsFaced: Prisma.FieldRef<"EventFeedback", 'String'>
+  readonly improvementSuggestions: Prisma.FieldRef<"EventFeedback", 'String'>
+  readonly tdapRecommendations: Prisma.FieldRef<"EventFeedback", 'String'>
+  readonly continueFairParticipation: Prisma.FieldRef<"EventFeedback", 'Boolean'>
+  readonly satisfactionLevel: Prisma.FieldRef<"EventFeedback", 'String'>
+  readonly additionalComments: Prisma.FieldRef<"EventFeedback", 'String'>
+  readonly sourceName: Prisma.FieldRef<"EventFeedback", 'String'>
   readonly rating: Prisma.FieldRef<"EventFeedback", 'Int'>
   readonly comments: Prisma.FieldRef<"EventFeedback", 'String'>
   readonly submittedAt: Prisma.FieldRef<"EventFeedback", 'DateTime'>
@@ -1351,6 +2381,25 @@ export type EventFeedbackDeleteManyArgs<ExtArgs extends runtime.Types.Extensions
    * Limit how many EventFeedbacks to delete.
    */
   limit?: number
+}
+
+/**
+ * EventFeedback.company
+ */
+export type EventFeedback$companyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Company
+   */
+  select?: Prisma.CompanySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Company
+   */
+  omit?: Prisma.CompanyOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CompanyInclude<ExtArgs> | null
+  where?: Prisma.CompanyWhereInput
 }
 
 /**
