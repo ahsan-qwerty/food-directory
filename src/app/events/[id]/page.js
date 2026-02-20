@@ -71,6 +71,7 @@ export default async function EventDetailPage({ params }) {
       location: true,
       eventDate: true,
       division: true,
+      deskOfficer: true,
       region: true,
       country: true,
       city: true,
@@ -78,7 +79,6 @@ export default async function EventDetailPage({ params }) {
       startDate: true,
       endDate: true,
       datesText: true,
-      subsidyPercentage: true,
       tdapCost: true,
       exhibitorCost: true,
       totalEstimatedBudget: true,
@@ -145,7 +145,7 @@ export default async function EventDetailPage({ params }) {
           <div className="flex items-center justify-between mb-3">
             <div className="space-y-2">
               {event.division && (
-                <span className="inline-flex items-center px-3 py-1 text-xs font-semibold uppercase tracking-wide bg-white bg-opacity-15 rounded-full">
+                <span className="inline-flex items-center px-3 py-1 text-xs font-semibold uppercase tracking-wide bg-gray-400 bg-opacity-15 rounded-full">
                   {event.division}
                 </span>
               )}
@@ -184,6 +184,13 @@ export default async function EventDetailPage({ params }) {
                 <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z" />
               </svg>
               <span className="font-medium">{participants.length} Companies Participating</span>
+            </div>
+
+            <div className="flex items-center">
+              <svg className="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
+              </svg>
+              <span className="font-medium">{event.deskOfficer}</span>
             </div>
           </div>
         </div>
@@ -242,6 +249,13 @@ export default async function EventDetailPage({ params }) {
                   </div>
                 )}
 
+                {event.deskOfficer && (
+                  <div>
+                    <h3 className="text-sm font-semibold text-gray-700 mb-1">Desk Officer</h3>
+                    <p className="text-gray-600">{event.deskOfficer}</p>
+                  </div>
+                )}
+
                 {event.region && (
                   <div>
                     <h3 className="text-sm font-semibold text-gray-700 mb-1">Region</h3>
@@ -263,19 +277,13 @@ export default async function EventDetailPage({ params }) {
                   </div>
                 )}
 
-                {(event.subsidyPercentage != null ||
+                {(
                   event.tdapCost != null ||
                   event.exhibitorCost != null ||
                   event.totalEstimatedBudget != null) && (
                     <div className="pt-2 border-t border-gray-100 space-y-2">
                       <h3 className="text-sm font-semibold text-gray-700 mb-1">Budget (Rs.)</h3>
                       <dl className="space-y-1 text-sm text-gray-600">
-                        {event.subsidyPercentage != null && (
-                          <div className="flex justify-between">
-                            <dt>Subsidy %age</dt>
-                            <dd className="font-medium">{Number(event.subsidyPercentage).toFixed(2)}%</dd>
-                          </div>
-                        )}
                         {event.tdapCost != null && (
                           <div className="flex justify-between">
                             <dt>TDAP Cost</dt>
@@ -284,7 +292,7 @@ export default async function EventDetailPage({ params }) {
                         )}
                         {event.exhibitorCost != null && (
                           <div className="flex justify-between">
-                            <dt>Exhibitor Cost</dt>
+                            <dt>Participating Fee</dt>
                             <dd className="font-medium">{formatCurrencyPKR(event.exhibitorCost)}</dd>
                           </div>
                         )}

@@ -37,6 +37,7 @@ export async function GET(request) {
         id: true,
         name: true,
         division: true,
+        deskOfficer: true,
         description: true,
         location: true,
         eventDate: true,
@@ -85,6 +86,7 @@ export async function GET(request) {
       id: event.id,
       name: event.name,
       division: event.division,
+      deskOfficer: event.deskOfficer,
       description: event.description,
       location: event.location,
       eventDate: event.eventDate,
@@ -114,6 +116,7 @@ export async function GET(request) {
       id: true,
       name: true,
       division: true,
+      deskOfficer: true,
       description: true,
       location: true,
       eventDate: true,
@@ -131,6 +134,7 @@ export async function GET(request) {
     id: e.id,
     name: e.name,
     division: e.division,
+    deskOfficer: e.deskOfficer,
     description: e.description,
     location: e.location,
     eventDate: e.eventDate,
@@ -170,6 +174,7 @@ export async function POST(request) {
     const eventData = {
       name: body.name.trim(),
       division: body.division?.trim() || null,
+      deskOfficer: body.deskOfficer?.trim() || null,
       description: body.description?.trim() || null,
       location: body.location?.trim() || null,
       eventDate: new Date(body.eventDate),
@@ -195,6 +200,7 @@ export async function POST(request) {
         id: true,
         name: true,
         division: true,
+        deskOfficer: true,
         description: true,
         location: true,
         eventDate: true,
@@ -220,6 +226,7 @@ export async function POST(request) {
       id: event.id,
       name: event.name,
       division: event.division,
+      deskOfficer: event.deskOfficer,
       description: event.description,
       location: event.location,
       eventDate: event.eventDate,
@@ -278,6 +285,7 @@ export async function PUT(request) {
     const eventData = {};
     if (body.name !== undefined) eventData.name = body.name.trim();
     if (body.division !== undefined) eventData.division = body.division?.trim() || null;
+    if (body.deskOfficer !== undefined) eventData.deskOfficer = body.deskOfficer?.trim() || null;
     if (body.description !== undefined) eventData.description = body.description?.trim() || null;
     if (body.location !== undefined) eventData.location = body.location?.trim() || null;
     if (body.eventDate !== undefined) eventData.eventDate = new Date(body.eventDate);
@@ -303,6 +311,7 @@ export async function PUT(request) {
         id: true,
         name: true,
         division: true,
+        deskOfficer: true,
         description: true,
         location: true,
         eventDate: true,
@@ -328,6 +337,7 @@ export async function PUT(request) {
       id: event.id,
       name: event.name,
       division: event.division,
+      deskOfficer: event.deskOfficer,
       description: event.description,
       location: event.location,
       eventDate: event.eventDate,
