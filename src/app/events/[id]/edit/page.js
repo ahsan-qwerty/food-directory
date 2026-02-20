@@ -33,6 +33,7 @@ export default function EditEventPage() {
     const [formData, setFormData] = useState({
         division: '',
         name: '',
+        deskOfficer: '',
         startDate: '',
         endDate: '',
         datesText: '',
@@ -75,6 +76,7 @@ export default function EditEventPage() {
                 setFormData({
                     division: data.division || '',
                     name: data.name || '',
+                    deskOfficer: data.deskOfficer || '',
                     startDate: toDateInput(data.startDate || data.eventDate),
                     endDate: toDateInput(data.endDate),
                     datesText: data.datesText || '',
@@ -119,6 +121,7 @@ export default function EditEventPage() {
                 id: parseInt(eventId),
                 name: formData.name,
                 division: formData.division || null,
+                deskOfficer: formData.deskOfficer || null,
                 // eventDate is required by schema; use startDate as canonical
                 eventDate: formData.startDate || null,
                 startDate: formData.startDate || null,
@@ -224,6 +227,20 @@ export default function EditEventPage() {
                                 className="w-full px-3 py-2 text-gray-950 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
                                 placeholder="e.g., Gulfood 2024, Food & Hospitality Expo"
                                 required
+                            />
+                        </div>
+
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                                Desk Officer
+                            </label>
+                            <input
+                                type="text"
+                                name="deskOfficer"
+                                value={formData.deskOfficer}
+                                onChange={handleChange}
+                                className="w-full px-3 py-2 text-gray-950 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                                placeholder="e.g., Mr. Ahmed"
                             />
                         </div>
 

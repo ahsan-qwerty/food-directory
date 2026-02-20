@@ -14,6 +14,7 @@ export default function EventsPage() {
       try {
         const res = await fetch('/api/events');
         const data = await res.json();
+        console.log("EventsPage DB events: ", data.events);
         setEvents(data.events || []);
       } catch (error) {
         console.error('Error fetching events:', error);

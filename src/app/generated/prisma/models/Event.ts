@@ -48,6 +48,7 @@ export type EventMinAggregateOutputType = {
   description: string | null
   location: string | null
   eventDate: Date | null
+  deskOfficer: string | null
   division: string | null
   region: string | null
   country: string | null
@@ -73,6 +74,7 @@ export type EventMaxAggregateOutputType = {
   description: string | null
   location: string | null
   eventDate: Date | null
+  deskOfficer: string | null
   division: string | null
   region: string | null
   country: string | null
@@ -98,6 +100,7 @@ export type EventCountAggregateOutputType = {
   description: number
   location: number
   eventDate: number
+  deskOfficer: number
   division: number
   region: number
   country: number
@@ -141,6 +144,7 @@ export type EventMinAggregateInputType = {
   description?: true
   location?: true
   eventDate?: true
+  deskOfficer?: true
   division?: true
   region?: true
   country?: true
@@ -166,6 +170,7 @@ export type EventMaxAggregateInputType = {
   description?: true
   location?: true
   eventDate?: true
+  deskOfficer?: true
   division?: true
   region?: true
   country?: true
@@ -191,6 +196,7 @@ export type EventCountAggregateInputType = {
   description?: true
   location?: true
   eventDate?: true
+  deskOfficer?: true
   division?: true
   region?: true
   country?: true
@@ -303,6 +309,7 @@ export type EventGroupByOutputType = {
   description: string | null
   location: string | null
   eventDate: Date
+  deskOfficer: string | null
   division: string | null
   region: string | null
   country: string | null
@@ -351,6 +358,7 @@ export type EventWhereInput = {
   description?: Prisma.StringNullableFilter<"Event"> | string | null
   location?: Prisma.StringNullableFilter<"Event"> | string | null
   eventDate?: Prisma.DateTimeFilter<"Event"> | Date | string
+  deskOfficer?: Prisma.StringNullableFilter<"Event"> | string | null
   division?: Prisma.StringNullableFilter<"Event"> | string | null
   region?: Prisma.StringNullableFilter<"Event"> | string | null
   country?: Prisma.StringNullableFilter<"Event"> | string | null
@@ -378,6 +386,7 @@ export type EventOrderByWithRelationInput = {
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   location?: Prisma.SortOrderInput | Prisma.SortOrder
   eventDate?: Prisma.SortOrder
+  deskOfficer?: Prisma.SortOrderInput | Prisma.SortOrder
   division?: Prisma.SortOrderInput | Prisma.SortOrder
   region?: Prisma.SortOrderInput | Prisma.SortOrder
   country?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -409,6 +418,7 @@ export type EventWhereUniqueInput = Prisma.AtLeast<{
   description?: Prisma.StringNullableFilter<"Event"> | string | null
   location?: Prisma.StringNullableFilter<"Event"> | string | null
   eventDate?: Prisma.DateTimeFilter<"Event"> | Date | string
+  deskOfficer?: Prisma.StringNullableFilter<"Event"> | string | null
   division?: Prisma.StringNullableFilter<"Event"> | string | null
   region?: Prisma.StringNullableFilter<"Event"> | string | null
   country?: Prisma.StringNullableFilter<"Event"> | string | null
@@ -436,6 +446,7 @@ export type EventOrderByWithAggregationInput = {
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   location?: Prisma.SortOrderInput | Prisma.SortOrder
   eventDate?: Prisma.SortOrder
+  deskOfficer?: Prisma.SortOrderInput | Prisma.SortOrder
   division?: Prisma.SortOrderInput | Prisma.SortOrder
   region?: Prisma.SortOrderInput | Prisma.SortOrder
   country?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -469,6 +480,7 @@ export type EventScalarWhereWithAggregatesInput = {
   description?: Prisma.StringNullableWithAggregatesFilter<"Event"> | string | null
   location?: Prisma.StringNullableWithAggregatesFilter<"Event"> | string | null
   eventDate?: Prisma.DateTimeWithAggregatesFilter<"Event"> | Date | string
+  deskOfficer?: Prisma.StringNullableWithAggregatesFilter<"Event"> | string | null
   division?: Prisma.StringNullableWithAggregatesFilter<"Event"> | string | null
   region?: Prisma.StringNullableWithAggregatesFilter<"Event"> | string | null
   country?: Prisma.StringNullableWithAggregatesFilter<"Event"> | string | null
@@ -493,6 +505,7 @@ export type EventCreateInput = {
   description?: string | null
   location?: string | null
   eventDate: Date | string
+  deskOfficer?: string | null
   division?: string | null
   region?: string | null
   country?: string | null
@@ -520,6 +533,7 @@ export type EventUncheckedCreateInput = {
   description?: string | null
   location?: string | null
   eventDate: Date | string
+  deskOfficer?: string | null
   division?: string | null
   region?: string | null
   country?: string | null
@@ -546,6 +560,7 @@ export type EventUpdateInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   eventDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deskOfficer?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   division?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -573,6 +588,7 @@ export type EventUncheckedUpdateInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   eventDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deskOfficer?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   division?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -600,6 +616,7 @@ export type EventCreateManyInput = {
   description?: string | null
   location?: string | null
   eventDate: Date | string
+  deskOfficer?: string | null
   division?: string | null
   region?: string | null
   country?: string | null
@@ -624,6 +641,7 @@ export type EventUpdateManyMutationInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   eventDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deskOfficer?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   division?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -649,6 +667,7 @@ export type EventUncheckedUpdateManyInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   eventDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deskOfficer?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   division?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -680,6 +699,7 @@ export type EventCountOrderByAggregateInput = {
   description?: Prisma.SortOrder
   location?: Prisma.SortOrder
   eventDate?: Prisma.SortOrder
+  deskOfficer?: Prisma.SortOrder
   division?: Prisma.SortOrder
   region?: Prisma.SortOrder
   country?: Prisma.SortOrder
@@ -713,6 +733,7 @@ export type EventMaxOrderByAggregateInput = {
   description?: Prisma.SortOrder
   location?: Prisma.SortOrder
   eventDate?: Prisma.SortOrder
+  deskOfficer?: Prisma.SortOrder
   division?: Prisma.SortOrder
   region?: Prisma.SortOrder
   country?: Prisma.SortOrder
@@ -738,6 +759,7 @@ export type EventMinOrderByAggregateInput = {
   description?: Prisma.SortOrder
   location?: Prisma.SortOrder
   eventDate?: Prisma.SortOrder
+  deskOfficer?: Prisma.SortOrder
   division?: Prisma.SortOrder
   region?: Prisma.SortOrder
   country?: Prisma.SortOrder
@@ -815,6 +837,7 @@ export type EventCreateWithoutParticipantsInput = {
   description?: string | null
   location?: string | null
   eventDate: Date | string
+  deskOfficer?: string | null
   division?: string | null
   region?: string | null
   country?: string | null
@@ -841,6 +864,7 @@ export type EventUncheckedCreateWithoutParticipantsInput = {
   description?: string | null
   location?: string | null
   eventDate: Date | string
+  deskOfficer?: string | null
   division?: string | null
   region?: string | null
   country?: string | null
@@ -882,6 +906,7 @@ export type EventUpdateWithoutParticipantsInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   eventDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deskOfficer?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   division?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -908,6 +933,7 @@ export type EventUncheckedUpdateWithoutParticipantsInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   eventDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deskOfficer?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   division?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -933,6 +959,7 @@ export type EventCreateWithoutFeedbacksInput = {
   description?: string | null
   location?: string | null
   eventDate: Date | string
+  deskOfficer?: string | null
   division?: string | null
   region?: string | null
   country?: string | null
@@ -959,6 +986,7 @@ export type EventUncheckedCreateWithoutFeedbacksInput = {
   description?: string | null
   location?: string | null
   eventDate: Date | string
+  deskOfficer?: string | null
   division?: string | null
   region?: string | null
   country?: string | null
@@ -1000,6 +1028,7 @@ export type EventUpdateWithoutFeedbacksInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   eventDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deskOfficer?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   division?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1026,6 +1055,7 @@ export type EventUncheckedUpdateWithoutFeedbacksInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   eventDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deskOfficer?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   division?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1092,6 +1122,7 @@ export type EventSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   description?: boolean
   location?: boolean
   eventDate?: boolean
+  deskOfficer?: boolean
   division?: boolean
   region?: boolean
   country?: boolean
@@ -1122,6 +1153,7 @@ export type EventSelectScalar = {
   description?: boolean
   location?: boolean
   eventDate?: boolean
+  deskOfficer?: boolean
   division?: boolean
   region?: boolean
   country?: boolean
@@ -1141,7 +1173,7 @@ export type EventSelectScalar = {
   updatedAt?: boolean
 }
 
-export type EventOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "location" | "eventDate" | "division" | "region" | "country" | "city" | "sectorProducts" | "startDate" | "endDate" | "datesText" | "subsidyPercentage" | "tdapCost" | "exhibitorCost" | "totalEstimatedBudget" | "recommendedByJustification" | "feedbackFormUrl" | "finalRemarks" | "createdAt" | "updatedAt", ExtArgs["result"]["event"]>
+export type EventOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "location" | "eventDate" | "deskOfficer" | "division" | "region" | "country" | "city" | "sectorProducts" | "startDate" | "endDate" | "datesText" | "subsidyPercentage" | "tdapCost" | "exhibitorCost" | "totalEstimatedBudget" | "recommendedByJustification" | "feedbackFormUrl" | "finalRemarks" | "createdAt" | "updatedAt", ExtArgs["result"]["event"]>
 export type EventInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   participants?: boolean | Prisma.Event$participantsArgs<ExtArgs>
   feedbacks?: boolean | Prisma.Event$feedbacksArgs<ExtArgs>
@@ -1160,6 +1192,7 @@ export type $EventPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     description: string | null
     location: string | null
     eventDate: Date
+    deskOfficer: string | null
     division: string | null
     region: string | null
     country: string | null
@@ -1553,6 +1586,7 @@ export interface EventFieldRefs {
   readonly description: Prisma.FieldRef<"Event", 'String'>
   readonly location: Prisma.FieldRef<"Event", 'String'>
   readonly eventDate: Prisma.FieldRef<"Event", 'DateTime'>
+  readonly deskOfficer: Prisma.FieldRef<"Event", 'String'>
   readonly division: Prisma.FieldRef<"Event", 'String'>
   readonly region: Prisma.FieldRef<"Event", 'String'>
   readonly country: Prisma.FieldRef<"Event", 'String'>

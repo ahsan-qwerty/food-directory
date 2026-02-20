@@ -36,6 +36,7 @@ export default function CreateEventPage() {
 
     const [formData, setFormData] = useState({
         name: '',
+        deskOfficer: '',
         startDate: '',
         endDate: '',
         region: '',
@@ -66,6 +67,7 @@ export default function CreateEventPage() {
         try {
             const payload = {
                 name: formData.name,
+                deskOfficer: formData.deskOfficer || null,
                 // Event schema still requires eventDate; we use startDate as the canonical date
                 eventDate: formData.startDate || null,
                 startDate: formData.startDate || null,
@@ -143,6 +145,20 @@ export default function CreateEventPage() {
                                 className="w-full px-3 py-2 text-gray-950 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
                                 placeholder="e.g., Fine Food, Australia"
                                 required
+                            />
+                        </div>
+
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                                Desk Officer
+                            </label>
+                            <input
+                                type="text"
+                                name="deskOfficer"
+                                value={formData.deskOfficer}
+                                onChange={handleChange}
+                                className="w-full px-3 py-2 text-gray-950 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                                placeholder="e.g., Mr. Ahmed"
                             />
                         </div>
 

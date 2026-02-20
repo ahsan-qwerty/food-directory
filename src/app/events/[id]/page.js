@@ -71,6 +71,7 @@ export default async function EventDetailPage({ params }) {
       location: true,
       eventDate: true,
       division: true,
+      deskOfficer: true,
       region: true,
       country: true,
       city: true,
@@ -184,6 +185,13 @@ export default async function EventDetailPage({ params }) {
               </svg>
               <span className="font-medium">{participants.length} Companies Participating</span>
             </div>
+
+            <div className="flex items-center">
+              <svg className="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
+              </svg>
+              <span className="font-medium">{event.deskOfficer}</span>
+            </div>
           </div>
         </div>
 
@@ -238,6 +246,13 @@ export default async function EventDetailPage({ params }) {
                   <div>
                     <h3 className="text-sm font-semibold text-gray-700 mb-1">Division</h3>
                     <p className="text-gray-600">{event.division}</p>
+                  </div>
+                )}
+
+                {event.deskOfficer && (
+                  <div>
+                    <h3 className="text-sm font-semibold text-gray-700 mb-1">Desk Officer</h3>
+                    <p className="text-gray-600">{event.deskOfficer}</p>
                   </div>
                 )}
 
