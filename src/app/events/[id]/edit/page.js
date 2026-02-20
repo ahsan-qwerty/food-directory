@@ -3,22 +3,32 @@
 import { useState, useEffect } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 
-const COUNTRY_OPTIONS = [
-    'Australia',
-    'China',
-    'Japan',
-    'Lebanon',
-    'Malaysia',
-    'Morocco',
-    'Philippines',
-    'Qatar',
-    'Saudi Arabia',
-    'South Africa',
-    'Sri Lanka',
-    'United Arab Emirates',
-    'United Kingdom',
-    'United States',
-];
+const COUNTRY_CITIES = {
+    Australia: ['Adelaide', 'Brisbane', 'Melbourne', 'Perth', 'Sydney'],
+    Bangladesh: ['Chittagong', 'Dhaka'],
+    Brazil: ['Brasília', 'Rio de Janeiro', 'São Paulo'],
+    Canada: ['Calgary', 'Montreal', 'Ottawa', 'Toronto', 'Vancouver'],
+    China: ['Beijing', 'Chengdu', 'Guangzhou', 'Shanghai', 'Shenzhen'],
+    Egypt: ['Alexandria', 'Cairo'],
+    France: ['Lyon', 'Marseille', 'Nice', 'Paris'],
+    Germany: ['Berlin', 'Cologne', 'Düsseldorf', 'Frankfurt', 'Hamburg', 'Munich'],
+    Japan: ['Nagoya', 'Osaka', 'Tokyo', 'Yokohama'],
+    Lebanon: ['Beirut', 'Tripoli'],
+    Malaysia: ['Johor Bahru', 'Kuala Lumpur', 'Penang'],
+    Morocco: ['Casablanca', 'Marrakech', 'Rabat'],
+    Oman: ['Muscat', 'Salalah'],
+    Philippines: ['Cebu', 'Davao', 'Manila'],
+    Qatar: ['Al Wakrah', 'Doha'],
+    'Saudi Arabia': ['Dammam', 'Jeddah', 'Mecca', 'Medina', 'Riyadh'],
+    'South Africa': ['Cape Town', 'Durban', 'Johannesburg', 'Pretoria'],
+    'South Korea': ['Busan', 'Incheon', 'Seoul'],
+    'Sri Lanka': ['Colombo', 'Kandy'],
+    'United Arab Emirates': ['Abu Dhabi', 'Dubai', 'Sharjah'],
+    'United Kingdom': ['Birmingham', 'Edinburgh', 'London', 'Manchester'],
+    'United States': ['Chicago', 'Dallas', 'Houston', 'Los Angeles', 'New York', 'San Francisco'],
+};
+
+const COUNTRY_OPTIONS = Object.keys(COUNTRY_CITIES).sort();
 
 export default function EditEventPage() {
     const router = useRouter();
@@ -48,7 +58,15 @@ export default function EditEventPage() {
 
     const countryOptions = Array.from(
         new Set([...(formData.country ? [formData.country] : []), ...COUNTRY_OPTIONS].filter(Boolean))
-    );
+    ).sort();
+
+    // Cities for selected country; if country has no mapped cities keep existing value selectable
+    const cityOptions = formData.country
+        ? Array.from(new Set([
+            ...(COUNTRY_CITIES[formData.country] || []),
+            ...(formData.city ? [formData.city] : []),
+        ]))
+        : [];
 
     useEffect(() => {
         async function fetchEvent() {
@@ -100,7 +118,9 @@ export default function EditEventPage() {
         const { name, value } = e.target;
         setFormData(prev => ({
             ...prev,
-            [name]: value
+            [name]: value,
+            // Reset city when country changes
+            ...(name === 'country' ? { city: '' } : {}),
         }));
     };
 
@@ -287,14 +307,18 @@ export default function EditEventPage() {
                                 <label className="block text-sm font-medium text-gray-700 mb-2">
                                     City
                                 </label>
-                                <input
-                                    type="text"
+                                <select
                                     name="city"
                                     value={formData.city}
                                     onChange={handleChange}
-                                    className="w-full px-3 py-2 text-gray-950 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
-                                    placeholder="e.g., Sydney"
-                                />
+                                    disabled={!formData.country}
+                                    className="w-full px-3 py-2 text-gray-950 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 disabled:bg-gray-50 disabled:text-gray-400"
+                                >
+                                    <option value="">{formData.country ? 'Select City' : 'Select country first'}</option>
+                                    {cityOptions.map((city) => (
+                                        <option key={city} value={city}>{city}</option>
+                                    ))}
+                                </select>
                             </div>
                         </div>
 
