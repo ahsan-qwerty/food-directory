@@ -292,7 +292,7 @@ export default async function EventDetailPage({ params }) {
                         )}
                         {event.exhibitorCost != null && (
                           <div className="flex justify-between">
-                            <dt>Participating Fee</dt>
+                            <dt>Participation Fee</dt>
                             <dd className="font-medium">{formatCurrencyPKR(event.exhibitorCost)}</dd>
                           </div>
                         )}
