@@ -78,7 +78,6 @@ export default async function EventDetailPage({ params }) {
       startDate: true,
       endDate: true,
       datesText: true,
-      subsidyPercentage: true,
       tdapCost: true,
       exhibitorCost: true,
       totalEstimatedBudget: true,
@@ -145,7 +144,7 @@ export default async function EventDetailPage({ params }) {
           <div className="flex items-center justify-between mb-3">
             <div className="space-y-2">
               {event.division && (
-                <span className="inline-flex items-center px-3 py-1 text-xs font-semibold uppercase tracking-wide bg-white bg-opacity-15 rounded-full">
+                <span className="inline-flex items-center px-3 py-1 text-xs font-semibold uppercase tracking-wide bg-gray-400 bg-opacity-15 rounded-full">
                   {event.division}
                 </span>
               )}
@@ -263,19 +262,13 @@ export default async function EventDetailPage({ params }) {
                   </div>
                 )}
 
-                {(event.subsidyPercentage != null ||
+                {(
                   event.tdapCost != null ||
                   event.exhibitorCost != null ||
                   event.totalEstimatedBudget != null) && (
                     <div className="pt-2 border-t border-gray-100 space-y-2">
                       <h3 className="text-sm font-semibold text-gray-700 mb-1">Budget (Rs.)</h3>
                       <dl className="space-y-1 text-sm text-gray-600">
-                        {event.subsidyPercentage != null && (
-                          <div className="flex justify-between">
-                            <dt>Subsidy %age</dt>
-                            <dd className="font-medium">{Number(event.subsidyPercentage).toFixed(2)}%</dd>
-                          </div>
-                        )}
                         {event.tdapCost != null && (
                           <div className="flex justify-between">
                             <dt>TDAP Cost</dt>
@@ -284,7 +277,7 @@ export default async function EventDetailPage({ params }) {
                         )}
                         {event.exhibitorCost != null && (
                           <div className="flex justify-between">
-                            <dt>Exhibitor Cost</dt>
+                            <dt>Participating Fee</dt>
                             <dd className="font-medium">{formatCurrencyPKR(event.exhibitorCost)}</dd>
                           </div>
                         )}

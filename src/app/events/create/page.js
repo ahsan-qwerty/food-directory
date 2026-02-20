@@ -238,7 +238,7 @@ export default function CreateEventPage() {
                             />
                         </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-2">
                                     TDAP Cost (Rs.)
@@ -271,7 +271,7 @@ export default function CreateEventPage() {
                             </div>
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                                    Total Estimated Budget (Rs.)
+                                    Estimated Budget (Rs.)
                                 </label>
                                 <input
                                     type="number"
