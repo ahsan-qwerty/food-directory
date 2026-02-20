@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
 const COUNTRY_CITIES = {
@@ -35,6 +35,14 @@ export default function CreateEventPage() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [success, setSuccess] = useState(null);
+    const [sectors, setSectors] = useState([]);
+
+    useEffect(() => {
+        fetch('/api/sectors')
+            .then((r) => r.json())
+            .then((data) => setSectors(data.sectors || []))
+            .catch(() => { });
+    }, []);
 
     const [formData, setFormData] = useState({
         name: '',
@@ -67,6 +75,12 @@ export default function CreateEventPage() {
         setLoading(true);
         setError(null);
         setSuccess(null);
+
+        if (formData.startDate && formData.endDate && formData.endDate < formData.startDate) {
+            setError('End date cannot be before start date.');
+            setLoading(false);
+            return;
+        }
 
         try {
             const payload = {
@@ -193,6 +207,7 @@ export default function CreateEventPage() {
                                         name="endDate"
                                         value={formData.endDate}
                                         onChange={handleChange}
+                                        min={formData.startDate || undefined}
                                         className="w-full px-3 py-2 text-gray-950 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
                                     />
                                 </div>
@@ -252,14 +267,17 @@ export default function CreateEventPage() {
                             <label className="block text-sm font-medium text-gray-700 mb-2">
                                 Sector / Products
                             </label>
-                            <input
-                                type="text"
+                            <select
                                 name="sectorProducts"
                                 value={formData.sectorProducts}
                                 onChange={handleChange}
                                 className="w-full px-3 py-2 text-gray-950 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
-                                placeholder="e.g., Agro & Food Products"
-                            />
+                            >
+                                <option value="">Select Sector</option>
+                                {sectors.map((s) => (
+                                    <option key={s.id} value={s.name}>{s.name}</option>
+                                ))}
+                            </select>
                         </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

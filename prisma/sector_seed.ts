@@ -35,10 +35,19 @@ const prisma = new PrismaClient({ adapter })
 
 const sectorData: Prisma.SectorCreateInput[] = [
     // { name: 'Cereals', hsCode: '10' },
-    { name: 'Fruit and Vegetables', hsCode: '07' },
-    { name: 'Processed Food, Bakery, Beverages, Juices', hsCode: '22' },
-    { name: 'Sugar and Confectionary', hsCode: '17' },
-
+    // { name: 'Fruit and Vegetables', hsCode: '07' },
+    // { name: 'Processed Food, Bakery, Beverages, Juices', hsCode: '22' },
+    // { name: 'Sugar and Confectionary', hsCode: '17' },
+    // { name: 'FMCG', hsCode: '00' },
+    // { name: 'Meat, Poultry & Diary', hsCode: '00' },
+    // { name: 'Salt', hsCode: '00' },
+    // { name: 'Sea Food & Fisheries', hsCode: '00' },
+    // { name: 'Nuts & Dry Fruits', hsCode: '00' },
+    // { name: 'Honey', hsCode: '00' },
+    // { name: 'Oil & Ghee/Oil', hsCode: '00' },
+    // { name: 'Tobacco', hsCode: '00' },
+    // { name: 'Floriculture', hsCode: '00' },
+    // { name: 'Machinery/Technology (Food & Agri)', hsCode: '00' },
     // { name: 'Poultry and Dairy', hsCode: '02' },
     // { name: 'SeaFood', hsCode: '03' },
     // { name: 'Floriculture', hsCode: '04' },
