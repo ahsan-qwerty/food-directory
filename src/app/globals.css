@@ -1,26 +1,528 @@
 @import "tailwindcss";
 
+/* ==========================================================================
+ * TDAP AGRO FOOD DIVISION — GLASSMORPHISM DESIGN SYSTEM
+ * ==========================================================================
+ * All visual design tokens live here. To retheme the entire application,
+ * only change the values inside :root below — no other file needs editing.
+ * ========================================================================== */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* ------------------------------------------------------------------
+   * 1. BRAND PALETTE  (TDAP emblem: deep green + royal blue)
+   * ------------------------------------------------------------------ */
+  --brand-green: #16a34a;
+  /* primary green  */
+  --brand-green-light: #22c55e;
+  /* hover / accent  */
+  --brand-green-dark: #15803d;
+  /* pressed / dark  */
+  --brand-green-glow: rgba(34, 197, 94, 0.30);
+
+  --brand-blue: #2563eb;
+  /* primary blue   */
+  --brand-blue-light: #3b82f6;
+  /* hover / accent  */
+  --brand-blue-dark: #1d4ed8;
+  /* pressed / dark  */
+  --brand-blue-glow: rgba(59, 130, 246, 0.30);
+
+  /* ------------------------------------------------------------------
+   * 2. PAGE BACKGROUND (rich dark gradient — provides the "glass" depth)
+   * ------------------------------------------------------------------ */
+  --bg-start: #070f1a;
+  /* deep navy     */
+  --bg-mid: #0a2018;
+  /* deep forest   */
+  --bg-end: #0c1535;
+  /* deep indigo   */
+
+  /* Decorative radial blobs rendered by body::before */
+  --blob-green: rgba(34, 197, 94, 0.07);
+  --blob-blue: rgba(59, 130, 246, 0.07);
+
+  /* ------------------------------------------------------------------
+   * 3. GLASS SURFACE
+   * ------------------------------------------------------------------ */
+  --glass-bg: rgba(255, 255, 255, 0.07);
+  --glass-bg-hover: rgba(255, 255, 255, 0.12);
+  --glass-bg-strong: rgba(255, 255, 255, 0.13);
+  --glass-border: rgba(255, 255, 255, 0.14);
+  --glass-border-hover: rgba(255, 255, 255, 0.24);
+  --glass-border-strong: rgba(255, 255, 255, 0.22);
+  --glass-blur: 16px;
+  --glass-blur-strong: 24px;
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.40), 0 2px 8px rgba(0, 0, 0, 0.20);
+  --glass-shadow-hover: 0 16px 48px rgba(0, 0, 0, 0.50), 0 4px 12px rgba(0, 0, 0, 0.25);
+
+  /* ------------------------------------------------------------------
+   * 4. HEADER / NAVIGATION
+   * ------------------------------------------------------------------ */
+  --header-bg: rgba(7, 15, 26, 0.75);
+  --header-border: rgba(255, 255, 255, 0.10);
+
+  /* ------------------------------------------------------------------
+   * 5. TEXT
+   * ------------------------------------------------------------------ */
+  --text-primary: rgba(255, 255, 255, 0.95);
+  --text-secondary: rgba(255, 255, 255, 0.72);
+  --text-muted: rgba(255, 255, 255, 0.45);
+  --text-accent-green: #4ade80;
+  /* green-400  */
+  --text-accent-blue: #60a5fa;
+  /* blue-400   */
+
+  /* ------------------------------------------------------------------
+   * 6. BUTTONS
+   * ------------------------------------------------------------------ */
+  --btn-primary-from: var(--brand-green);
+  --btn-primary-to: var(--brand-blue);
+  --btn-primary-shadow: 0 4px 18px rgba(34, 197, 94, 0.32);
+  --btn-primary-hover-shadow: 0 6px 24px rgba(34, 197, 94, 0.50);
+
+  --btn-outline-bg: rgba(255, 255, 255, 0.08);
+  --btn-outline-border: rgba(255, 255, 255, 0.28);
+  --btn-outline-hover: rgba(255, 255, 255, 0.16);
+
+  /* ------------------------------------------------------------------
+   * 7. FORM INPUTS
+   * ------------------------------------------------------------------ */
+  --input-bg: rgba(255, 255, 255, 0.07);
+  --input-border: rgba(255, 255, 255, 0.18);
+  --input-border-focus: var(--brand-green-light);
+  --input-ring: rgba(34, 197, 94, 0.22);
+  --input-text: rgba(255, 255, 255, 0.90);
+  --input-placeholder: rgba(255, 255, 255, 0.38);
+  --input-option-bg: #0a2018;
+
+  /* ------------------------------------------------------------------
+   * 8. BADGES / STATUS
+   * ------------------------------------------------------------------ */
+  --badge-green-bg: rgba(34, 197, 94, 0.18);
+  --badge-green-border: rgba(34, 197, 94, 0.36);
+  --badge-green-text: #4ade80;
+
+  --badge-blue-bg: rgba(59, 130, 246, 0.18);
+  --badge-blue-border: rgba(59, 130, 246, 0.36);
+  --badge-blue-text: #60a5fa;
+
+  --badge-purple-bg: rgba(147, 51, 234, 0.18);
+  --badge-purple-border: rgba(147, 51, 234, 0.36);
+  --badge-purple-text: #c084fc;
+
+  --badge-gray-bg: rgba(107, 114, 128, 0.18);
+  --badge-gray-border: rgba(107, 114, 128, 0.36);
+  --badge-gray-text: #9ca3af;
+
+  /* Delegation card header tints */
+  --status-incoming-bg: rgba(37, 99, 235, 0.55);
+  --status-outgoing-bg: rgba(124, 58, 237, 0.55);
+  --status-closed-bg: rgba(75, 85, 99, 0.55);
+
+  /* ------------------------------------------------------------------
+   * 9. BORDER RADIUS
+   * ------------------------------------------------------------------ */
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.25rem;
+
+  /* ------------------------------------------------------------------
+   * 10. PROGRESS BAR
+   * ------------------------------------------------------------------ */
+  --progress-track: rgba(255, 255, 255, 0.12);
+  --progress-fill: var(--brand-green-light);
+  --progress-over: #f87171;
+  /* red-400 */
 }
 
+/* --------------------------------------------------------------------------
+ * Tailwind v4 theme bridge
+ * -------------------------------------------------------------------------- */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-background: var(--bg-start);
+  --color-foreground: var(--text-primary);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ==========================================================================
+ * BASE STYLES
+ * ========================================================================== */
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: linear-gradient(135deg,
+      var(--bg-start) 0%,
+      var(--bg-mid) 50%,
+      var(--bg-end) 100%);
+  background-attachment: fixed;
+  color: var(--text-primary);
   font-family: Arial, Helvetica, sans-serif;
+  min-height: 100vh;
+}
+
+/* Subtle depth-blobs behind the glass layers */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 50% at 15% 15%, var(--blob-green) 0%, transparent 55%),
+    radial-gradient(ellipse 55% 45% at 85% 80%, var(--blob-blue) 0%, transparent 55%),
+    radial-gradient(ellipse 40% 35% at 60% 30%, rgba(22, 163, 74, 0.04) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Everything above the blobs */
+header,
+main,
+footer,
+#__next>* {
+  position: relative;
+  z-index: 1;
+}
+
+/* ==========================================================================
+ * GLASSMORPHISM UTILITY CLASSES
+ * (Referenced throughout all pages — change vars above to retheme everything)
+ * ========================================================================== */
+
+@layer utilities {
+
+  /* ── Page wrapper ──────────────────────────────────────────────────────── */
+  .page-wrapper {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+  }
+
+  /* ── Glass card — standard ─────────────────────────────────────────────── */
+  .glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+    border-radius: var(--radius-lg);
+    transition: background 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  }
+
+  .glass-card:hover {
+    background: var(--glass-bg-hover);
+    border-color: var(--glass-border-hover);
+    box-shadow: var(--glass-shadow-hover);
+  }
+
+  /* ── Glass card — strong (hero panels, section headers) ───────────────── */
+  .glass-card-strong {
+    background: var(--glass-bg-strong);
+    backdrop-filter: blur(var(--glass-blur-strong));
+    -webkit-backdrop-filter: blur(var(--glass-blur-strong));
+    border: 1px solid var(--glass-border-strong);
+    box-shadow: var(--glass-shadow);
+    border-radius: var(--radius-xl);
+  }
+
+  /* ── Glass hero banner (large gradient + blur) ─────────────────────────── */
+  .glass-hero {
+    background: linear-gradient(135deg,
+        rgba(22, 163, 74, 0.45) 0%,
+        rgba(37, 99, 235, 0.35) 100%);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border-strong);
+    box-shadow: var(--glass-shadow);
+    border-radius: var(--radius-xl);
+  }
+
+  /* ── Sticky glass header ───────────────────────────────────────────────── */
+  .glass-header {
+    background: var(--header-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--header-border);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.32);
+  }
+
+  /* ── Glass footer ──────────────────────────────────────────────────────── */
+  .glass-footer {
+    background: rgba(7, 15, 26, 0.80);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-top: 1px solid var(--glass-border);
+  }
+
+  /* ── PRIMARY button — green→blue gradient ──────────────────────────────── */
+  .btn-primary {
+    background: linear-gradient(135deg, var(--btn-primary-from), var(--btn-primary-to));
+    color: #ffffff;
+    border: none;
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    box-shadow: var(--btn-primary-shadow);
+    transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
+    cursor: pointer;
+  }
+
+  .btn-primary:hover {
+    background: linear-gradient(135deg, var(--brand-green-light), var(--brand-blue-light));
+    box-shadow: var(--btn-primary-hover-shadow);
+    transform: translateY(-1px);
+  }
+
+  .btn-primary:active {
+    transform: translateY(0);
+  }
+
+  .btn-primary:disabled {
+    background: rgba(255, 255, 255, 0.14);
+    box-shadow: none;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  /* ── OUTLINE button — ghost glass ──────────────────────────────────────── */
+  .btn-outline {
+    background: var(--btn-outline-bg);
+    color: var(--text-primary);
+    border: 1px solid var(--btn-outline-border);
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: background 0.2s, border-color 0.2s, transform 0.15s;
+    cursor: pointer;
+  }
+
+  .btn-outline:hover {
+    background: var(--btn-outline-hover);
+    border-color: rgba(255, 255, 255, 0.45);
+    transform: translateY(-1px);
+  }
+
+  /* ── Form inputs & selects ─────────────────────────────────────────────── */
+  .glass-input {
+    background: var(--input-bg);
+    border: 1px solid var(--input-border);
+    color: var(--input-text);
+    border-radius: var(--radius-sm);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .glass-input::placeholder {
+    color: var(--input-placeholder);
+  }
+
+  .glass-input:focus {
+    outline: none;
+    border-color: var(--input-border-focus);
+    box-shadow: 0 0 0 3px var(--input-ring);
+  }
+
+  .glass-input option {
+    background: var(--input-option-bg);
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  .glass-input:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  /* ── Text colour helpers ───────────────────────────────────────────────── */
+  .text-primary {
+    color: var(--text-primary);
+  }
+
+  .text-secondary {
+    color: var(--text-secondary);
+  }
+
+  .text-muted {
+    color: var(--text-muted);
+  }
+
+  .text-accent-green {
+    color: var(--text-accent-green);
+  }
+
+  .text-accent-blue {
+    color: var(--text-accent-blue);
+  }
+
+  /* ── Badges ────────────────────────────────────────────────────────────── */
+  .badge-green {
+    background: var(--badge-green-bg);
+    color: var(--badge-green-text);
+    border: 1px solid var(--badge-green-border);
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.2rem 0.7rem;
+    display: inline-block;
+  }
+
+  .badge-blue {
+    background: var(--badge-blue-bg);
+    color: var(--badge-blue-text);
+    border: 1px solid var(--badge-blue-border);
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.2rem 0.7rem;
+    display: inline-block;
+  }
+
+  .badge-purple {
+    background: var(--badge-purple-bg);
+    color: var(--badge-purple-text);
+    border: 1px solid var(--badge-purple-border);
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.2rem 0.7rem;
+    display: inline-block;
+  }
+
+  .badge-gray {
+    background: var(--badge-gray-bg);
+    color: var(--badge-gray-text);
+    border: 1px solid var(--badge-gray-border);
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.2rem 0.7rem;
+    display: inline-block;
+  }
+
+  /* ── Divider ───────────────────────────────────────────────────────────── */
+  .glass-divider {
+    border-color: rgba(255, 255, 255, 0.10);
+  }
+
+  /* ── Loading spinner ───────────────────────────────────────────────────── */
+  .glass-spinner {
+    border-color: rgba(255, 255, 255, 0.15);
+    border-bottom-color: var(--text-accent-green);
+  }
+
+  /* ── Progress bar ──────────────────────────────────────────────────────── */
+  .progress-track {
+    background: var(--progress-track);
+    border-radius: 9999px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    background: var(--progress-fill);
+    border-radius: 9999px;
+    transition: width 0.5s ease;
+  }
+
+  .progress-over {
+    background: var(--progress-over);
+  }
+
+  /* ── Sector / feature icon circle ─────────────────────────────────────── */
+  .icon-circle-green {
+    background: rgba(34, 197, 94, 0.18);
+    border: 1px solid rgba(34, 197, 94, 0.30);
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-accent-green);
+  }
+
+  .icon-circle-blue {
+    background: rgba(59, 130, 246, 0.18);
+    border: 1px solid rgba(59, 130, 246, 0.30);
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-accent-blue);
+  }
+
+  /* ── Breadcrumb ─────────────────────────────────────────────────────────── */
+  .breadcrumb-link {
+    color: var(--text-secondary);
+    transition: color 0.15s;
+  }
+
+  .breadcrumb-link:hover {
+    color: var(--text-accent-green);
+  }
+
+  /* ── Tab bar ───────────────────────────────────────────────────────────── */
+  .glass-tab-bar {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  .glass-tab-active-incoming {
+    border-bottom: 2px solid var(--text-accent-blue);
+    color: var(--text-accent-blue);
+    background: rgba(59, 130, 246, 0.10);
+    border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  }
+
+  .glass-tab-active-outgoing {
+    border-bottom: 2px solid var(--badge-purple-text);
+    color: var(--badge-purple-text);
+    background: rgba(147, 51, 234, 0.10);
+    border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  }
+
+  .glass-tab-inactive {
+    border-bottom: 2px solid transparent;
+    color: var(--text-muted);
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  .glass-tab-inactive:hover {
+    color: var(--text-secondary);
+    border-color: rgba(255, 255, 255, 0.20);
+  }
+
+  /* ── Error / success alerts ────────────────────────────────────────────── */
+  .alert-error {
+    background: rgba(239, 68, 68, 0.14);
+    border: 1px solid rgba(239, 68, 68, 0.36);
+    color: #fca5a5;
+    border-radius: var(--radius-md);
+  }
+
+  .alert-success {
+    background: rgba(34, 197, 94, 0.14);
+    border: 1px solid rgba(34, 197, 94, 0.36);
+    color: var(--text-accent-green);
+    border-radius: var(--radius-md);
+  }
+
+  /* ── Sector grid item ──────────────────────────────────────────────────── */
+  .sector-chip {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    color: var(--text-secondary);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: background 0.2s, border-color 0.2s, color 0.2s;
+    text-align: center;
+    padding: 1rem;
+    display: block;
+  }
+
+  .sector-chip:hover {
+    background: rgba(34, 197, 94, 0.14);
+    border-color: rgba(34, 197, 94, 0.36);
+    color: var(--text-accent-green);
+  }
 }

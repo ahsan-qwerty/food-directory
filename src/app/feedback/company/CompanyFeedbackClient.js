@@ -30,8 +30,8 @@ const SATISFACTION_OPTIONS = [
 
 function SectionHeading({ title }) {
     return (
-        <div className="pt-6 pb-2 border-t border-gray-200">
-            <h2 className="text-base font-semibold text-green-800 uppercase tracking-wide">{title}</h2>
+        <div className="pt-6 pb-2 border-t glass-divider">
+            <h2 className="text-base font-semibold text-accent-green uppercase tracking-wide">{title}</h2>
         </div>
     );
 }
@@ -39,16 +39,16 @@ function SectionHeading({ title }) {
 function Field({ label, required, hint, children }) {
     return (
         <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-                {label}{required && <span className="text-red-500 ml-0.5">*</span>}
+            <label className="block text-sm font-medium text-secondary mb-1">
+                {label}{required && <span className="text-red-400 ml-0.5">*</span>}
             </label>
-            {hint && <p className="text-xs text-gray-500 mb-1">{hint}</p>}
+            {hint && <p className="text-xs text-muted mb-1">{hint}</p>}
             {children}
         </div>
     );
 }
 
-const inputCls = 'w-full px-3 py-2 border border-gray-300 rounded-md text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-green-600';
+const inputCls = 'glass-input w-full px-3 py-2 text-sm';
 
 export default function CompanyFeedbackClient() {
     const searchParams = useSearchParams();
@@ -170,61 +170,53 @@ export default function CompanyFeedbackClient() {
 
     if (submitted) {
         return (
-            <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
-                <div className="max-w-lg w-full bg-white rounded-lg shadow-md p-8 text-center">
-                    <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <svg className="w-8 h-8 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+            <div className="page-wrapper flex items-center justify-center px-4 py-16">
+                <div className="glass-card max-w-lg w-full p-8 text-center">
+                    <div className="w-16 h-16 icon-circle-green mx-auto mb-4">
+                        <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
                             <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                         </svg>
                     </div>
-                    <h2 className="text-2xl font-bold text-gray-900 mb-2">Thank You!</h2>
-                    <p className="text-gray-600">Your feedback has been submitted successfully.</p>
+                    <h2 className="text-2xl font-bold text-primary mb-2">Thank You!</h2>
+                    <p className="text-secondary">Your feedback has been submitted successfully.</p>
                 </div>
             </div>
         );
     }
 
     return (
-        <div className="min-h-screen bg-gray-50 py-8 px-4">
+        <div className="page-wrapper py-8 px-4">
             <main className="container mx-auto max-w-2xl">
                 <div className="mb-6">
-                    <h1 className="text-3xl font-bold text-gray-900">Exhibitor Feedback Form</h1>
-                    <p className="text-gray-500 mt-1 text-sm">Post-Exhibition — TDAP Agro Food Division</p>
+                    <h1 className="text-3xl font-bold text-primary">Exhibitor Feedback Form</h1>
+                    <p className="text-muted mt-1 text-sm">Post-Exhibition — TDAP Agro Food Division</p>
                 </div>
 
-                {/* Company Info Card (read-only, sourced from Company model) */}
+                {/* Company Info Card */}
                 {companyLoading ? (
-                    <div className="mb-5 bg-white rounded-lg shadow-sm border border-gray-200 p-4 animate-pulse">
-                        <div className="h-4 bg-gray-200 rounded w-1/3 mb-2" />
-                        <div className="h-3 bg-gray-100 rounded w-2/3" />
+                    <div className="mb-5 glass-card p-4 animate-pulse">
+                        <div className="h-4 rounded w-1/3 mb-2" style={{background: 'var(--glass-bg-hover)'}} />
+                        <div className="h-3 rounded w-2/3" style={{background: 'var(--glass-bg)'}} />
                     </div>
                 ) : company ? (
-                    <div className="mb-5 bg-green-50 border border-green-200 rounded-lg p-4">
-                        <p className="text-xs font-semibold text-green-700 uppercase tracking-wide mb-2">Company</p>
-                        <p className="text-gray-900 font-semibold text-base">{company.name}</p>
+                    <div className="mb-5 glass-card p-4" style={{borderColor: 'rgba(34,197,94,0.30)'}}>
+                        <p className="text-xs font-semibold text-accent-green uppercase tracking-wide mb-2">Company</p>
+                        <p className="text-primary font-semibold text-base">{company.name}</p>
                         {company.address && (
-                            <p className="text-gray-600 text-sm mt-0.5">{company.address}</p>
+                            <p className="text-secondary text-sm mt-0.5">{company.address}</p>
                         )}
-                        <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-xs text-gray-500">
-                            {company.representativeName && (
-                                <span>👤 {company.representativeName}</span>
-                            )}
-                            {company.representativeTel && (
-                                <span>📞 {company.representativeTel}</span>
-                            )}
-                            {company.representativeWhatsapp && (
-                                <span>💬 {company.representativeWhatsapp}</span>
-                            )}
-                            {company.representativeEmail && (
-                                <span>✉️ {company.representativeEmail}</span>
-                            )}
+                        <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted">
+                            {company.representativeName && <span>👤 {company.representativeName}</span>}
+                            {company.representativeTel && <span>📞 {company.representativeTel}</span>}
+                            {company.representativeWhatsapp && <span>💬 {company.representativeWhatsapp}</span>}
+                            {company.representativeEmail && <span>✉️ {company.representativeEmail}</span>}
                         </div>
                     </div>
                 ) : null}
 
-                <form onSubmit={onSubmit} className="bg-white rounded-lg shadow-md p-6 md:p-8 space-y-5">
+                <form onSubmit={onSubmit} className="glass-card p-6 md:p-8 space-y-5">
                     {error && (
-                        <div className="text-sm text-red-700 bg-red-50 border border-red-200 rounded-md px-4 py-3">
+                        <div className="alert-error px-4 py-3 text-sm">
                             {error}
                         </div>
                     )}
@@ -266,8 +258,8 @@ export default function CompanyFeedbackClient() {
                     <Field label="Did you receive inquiries that did not materialize into actual business?" required>
                         <div className="flex gap-6 mt-1">
                             {['yes', 'no'].map((v) => (
-                                <label key={v} className="flex items-center gap-2 text-sm text-gray-700 cursor-pointer">
-                                    <input type="radio" name="hadUnmaterializedInquiries" value={v} checked={form.hadUnmaterializedInquiries === v} onChange={onChange} className="accent-green-700" />
+                                <label key={v} className="flex items-center gap-2 text-sm text-secondary cursor-pointer">
+                                    <input type="radio" name="hadUnmaterializedInquiries" value={v} checked={form.hadUnmaterializedInquiries === v} onChange={onChange} className="accent-green-400" />
                                     {v === 'yes' ? 'Yes' : 'No'}
                                 </label>
                             ))}
@@ -278,8 +270,8 @@ export default function CompanyFeedbackClient() {
                         <Field label="If yes, what were the main reasons?">
                             <div className="space-y-2 mt-1">
                                 {UNMATERIALIZED_REASONS.map((r) => (
-                                    <label key={r} className="flex items-center gap-2 text-sm text-gray-700 cursor-pointer">
-                                        <input type="checkbox" checked={form.unmaterializedReasons.includes(r)} onChange={() => toggleCheckbox('unmaterializedReasons', r)} className="accent-green-700" />
+                                    <label key={r} className="flex items-center gap-2 text-sm text-secondary cursor-pointer">
+                                        <input type="checkbox" checked={form.unmaterializedReasons.includes(r)} onChange={() => toggleCheckbox('unmaterializedReasons', r)} className="accent-green-400" />
                                         {r}
                                     </label>
                                 ))}
@@ -297,8 +289,8 @@ export default function CompanyFeedbackClient() {
                     <Field label="What marketing methods were used by competitors?">
                         <div className="space-y-2 mt-1">
                             {COMPETITOR_METHODS.map((m) => (
-                                <label key={m} className="flex items-center gap-2 text-sm text-gray-700 cursor-pointer">
-                                    <input type="checkbox" checked={form.competitorMarketingMethods.includes(m)} onChange={() => toggleCheckbox('competitorMarketingMethods', m)} className="accent-green-700" />
+                                <label key={m} className="flex items-center gap-2 text-sm text-secondary cursor-pointer">
+                                    <input type="checkbox" checked={form.competitorMarketingMethods.includes(m)} onChange={() => toggleCheckbox('competitorMarketingMethods', m)} className="accent-green-400" />
                                     {m}
                                 </label>
                             ))}
@@ -326,8 +318,8 @@ export default function CompanyFeedbackClient() {
                     <Field label="Should TDAP continue participation in this fair in future?" required>
                         <div className="flex gap-6 mt-1">
                             {['yes', 'no'].map((v) => (
-                                <label key={v} className="flex items-center gap-2 text-sm text-gray-700 cursor-pointer">
-                                    <input type="radio" name="continueFairParticipation" value={v} checked={form.continueFairParticipation === v} onChange={onChange} className="accent-green-700" />
+                                <label key={v} className="flex items-center gap-2 text-sm text-secondary cursor-pointer">
+                                    <input type="radio" name="continueFairParticipation" value={v} checked={form.continueFairParticipation === v} onChange={onChange} className="accent-green-400" />
                                     {v === 'yes' ? 'Yes' : 'No'}
                                 </label>
                             ))}
@@ -337,8 +329,8 @@ export default function CompanyFeedbackClient() {
                     <Field label="Are you satisfied with the overall arrangements at the fair?">
                         <div className="grid grid-cols-2 gap-2 mt-1">
                             {SATISFACTION_OPTIONS.map((opt) => (
-                                <label key={opt} className="flex items-center gap-2 text-sm text-gray-700 cursor-pointer">
-                                    <input type="radio" name="satisfactionLevel" value={opt} checked={form.satisfactionLevel === opt} onChange={onChange} className="accent-green-700" />
+                                <label key={opt} className="flex items-center gap-2 text-sm text-secondary cursor-pointer">
+                                    <input type="radio" name="satisfactionLevel" value={opt} checked={form.satisfactionLevel === opt} onChange={onChange} className="accent-green-400" />
                                     {opt}
                                 </label>
                             ))}
@@ -349,11 +341,11 @@ export default function CompanyFeedbackClient() {
                         <textarea name="additionalComments" value={form.additionalComments} onChange={onChange} rows={3} className={inputCls} />
                     </Field>
 
-                    <div className="pt-4 border-t border-gray-200">
+                    <div className="pt-4 border-t glass-divider">
                         <button
                             type="submit"
                             disabled={submitting}
-                            className="w-full px-6 py-3 bg-green-700 text-white rounded-md font-medium hover:bg-green-800 disabled:opacity-60 transition-colors"
+                            className="btn-primary w-full px-6 py-3 text-sm font-semibold disabled:opacity-60"
                         >
                             {submitting ? 'Submitting…' : 'Submit Feedback'}
                         </button>

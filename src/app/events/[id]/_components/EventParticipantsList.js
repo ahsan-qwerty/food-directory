@@ -37,13 +37,13 @@ export default function EventParticipantsList({ eventId, participants, feedbackC
     };
 
     if (participants.length === 0) {
-        return <p className="text-gray-600">No companies registered yet.</p>;
+        return <p className="text-secondary">No companies registered yet.</p>;
     }
 
     return (
         <div className="space-y-4">
             {error && (
-                <div className="text-sm text-red-700 bg-red-50 border border-red-200 rounded-md px-3 py-2">
+                <div className="alert-error px-3 py-2 text-sm">
                     {error}
                 </div>
             )}
@@ -58,10 +58,10 @@ export default function EventParticipantsList({ eventId, participants, feedbackC
                             {/* Add / View Feedback */}
                             {hasFeedback ? (
                                 <span
-                                    className="flex items-center gap-1 px-2.5 py-1 text-xs font-medium bg-gray-200 text-gray-500 rounded-md cursor-not-allowed shadow-sm"
+                                    className="flex items-center gap-1 px-2.5 py-1 text-xs font-medium badge-green rounded-md cursor-not-allowed"
                                     title="Feedback already submitted"
                                 >
-                                    <svg className="w-3 h-3 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                                    <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
                                         <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                                     </svg>
                                     Feedback Added
@@ -69,7 +69,7 @@ export default function EventParticipantsList({ eventId, participants, feedbackC
                             ) : (
                                 <Link
                                     href={`/feedback/company?eventId=${eventId}&companyId=${company.id}`}
-                                    className="flex items-center gap-1 px-2.5 py-1 text-xs font-medium bg-green-700 text-white rounded-md hover:bg-green-800 shadow-sm"
+                                    className="btn-primary flex items-center gap-1 px-2.5 py-1 text-xs"
                                     title="Add feedback for this company"
                                 >
                                     <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">

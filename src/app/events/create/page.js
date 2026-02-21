@@ -30,6 +30,10 @@ const COUNTRY_CITIES = {
 
 const COUNTRY_OPTIONS = Object.keys(COUNTRY_CITIES).sort();
 
+const labelCls = 'block text-sm font-medium text-secondary mb-2';
+const subLabelCls = 'block text-xs font-medium text-muted mb-1';
+const inputCls = 'glass-input w-full px-3 py-2';
+
 export default function CreateEventPage() {
     const router = useRouter();
     const [loading, setLoading] = useState(false);
@@ -86,7 +90,6 @@ export default function CreateEventPage() {
             const payload = {
                 name: formData.name,
                 deskOfficer: formData.deskOfficer || null,
-                // Event schema still requires eventDate; we use startDate as the canonical date
                 eventDate: formData.startDate || null,
                 startDate: formData.startDate || null,
                 endDate: formData.endDate || null,
@@ -126,48 +129,48 @@ export default function CreateEventPage() {
     };
 
     return (
-        <div className="min-h-screen bg-gray-50 px-4">
+        <div className="page-wrapper px-4">
             <main className="container mx-auto px-4 py-8 max-w-3xl">
                 <div className="mb-8">
-                    <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
+                    <h1 className="text-3xl md:text-4xl font-bold text-primary mb-2">
                         Create New Exhibition / Event
                     </h1>
-                    <p className="text-gray-600">
+                    <p className="text-secondary">
                         Add an event using the same fields as the Excel planning sheet
                     </p>
                 </div>
 
-                <div className="bg-white rounded-lg shadow-md p-6 md:p-8">
+                <div className="glass-card p-6 md:p-8">
                     {error && (
-                        <div className="mb-6 text-sm text-red-700 bg-red-50 border border-red-200 rounded-md px-4 py-3">
+                        <div className="mb-6 alert-error px-4 py-3 text-sm">
                             {error}
                         </div>
                     )}
 
                     {success && (
-                        <div className="mb-6 text-sm text-green-700 bg-green-50 border border-green-200 rounded-md px-4 py-3">
+                        <div className="mb-6 alert-success px-4 py-3 text-sm">
                             {success}
                         </div>
                     )}
 
                     <form onSubmit={handleSubmit} className="space-y-6">
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">
-                                Exhibition Name <span className="text-red-500">*</span>
+                            <label className={labelCls}>
+                                Exhibition Name <span className="text-red-400">*</span>
                             </label>
                             <input
                                 type="text"
                                 name="name"
                                 value={formData.name}
                                 onChange={handleChange}
-                                className="w-full px-3 py-2 text-gray-950 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                                className={inputCls}
                                 placeholder="e.g., Fine Food, Australia"
                                 required
                             />
                         </div>
 
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                            <label className={labelCls}>
                                 Desk Officer
                             </label>
                             <input
@@ -175,40 +178,36 @@ export default function CreateEventPage() {
                                 name="deskOfficer"
                                 value={formData.deskOfficer}
                                 onChange={handleChange}
-                                className="w-full px-3 py-2 text-gray-950 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                                className={inputCls}
                                 placeholder="e.g., Mr. Ahmed"
                             />
                         </div>
 
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">
-                                Dates <span className="text-red-500">*</span>
+                            <label className={labelCls}>
+                                Dates <span className="text-red-400">*</span>
                             </label>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
-                                    <label className="block text-xs font-medium text-gray-600 mb-1">
-                                        Start Date
-                                    </label>
+                                    <label className={subLabelCls}>Start Date</label>
                                     <input
                                         type="date"
                                         name="startDate"
                                         value={formData.startDate}
                                         onChange={handleChange}
-                                        className="w-full px-3 py-2 text-gray-950 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                                        className={inputCls}
                                         required
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-xs font-medium text-gray-600 mb-1">
-                                        End Date
-                                    </label>
+                                    <label className={subLabelCls}>End Date</label>
                                     <input
                                         type="date"
                                         name="endDate"
                                         value={formData.endDate}
                                         onChange={handleChange}
                                         min={formData.startDate || undefined}
-                                        className="w-full px-3 py-2 text-gray-950 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                                        className={inputCls}
                                     />
                                 </div>
                             </div>
@@ -216,27 +215,23 @@ export default function CreateEventPage() {
 
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">
-                                    Region
-                                </label>
+                                <label className={labelCls}>Region</label>
                                 <input
                                     type="text"
                                     name="region"
                                     value={formData.region}
                                     onChange={handleChange}
-                                    className="w-full px-3 py-2 text-gray-950 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                                    className={inputCls}
                                     placeholder="e.g., Oceania"
                                 />
                             </div>
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">
-                                    Country
-                                </label>
+                                <label className={labelCls}>Country</label>
                                 <select
                                     name="country"
                                     value={formData.country}
                                     onChange={handleChange}
-                                    className="w-full px-3 py-2 text-gray-950 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                                    className={inputCls}
                                 >
                                     <option value="">Select Country</option>
                                     {COUNTRY_OPTIONS.map((c) => (
@@ -245,15 +240,13 @@ export default function CreateEventPage() {
                                 </select>
                             </div>
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">
-                                    City
-                                </label>
+                                <label className={labelCls}>City</label>
                                 <select
                                     name="city"
                                     value={formData.city}
                                     onChange={handleChange}
                                     disabled={!formData.country}
-                                    className="w-full px-3 py-2 text-gray-950 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 disabled:bg-gray-50 disabled:text-gray-400"
+                                    className={inputCls}
                                 >
                                     <option value="">{formData.country ? 'Select City' : 'Select country first'}</option>
                                     {(COUNTRY_CITIES[formData.country] || []).map((city) => (
@@ -264,14 +257,12 @@ export default function CreateEventPage() {
                         </div>
 
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">
-                                Sector / Products
-                            </label>
+                            <label className={labelCls}>Sector / Products</label>
                             <select
                                 name="sectorProducts"
                                 value={formData.sectorProducts}
                                 onChange={handleChange}
-                                className="w-full px-3 py-2 text-gray-950 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                                className={inputCls}
                             >
                                 <option value="">Select Sector</option>
                                 {sectors.map((s) => (
@@ -282,9 +273,7 @@ export default function CreateEventPage() {
 
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">
-                                    TDAP Cost (Rs.)
-                                </label>
+                                <label className={labelCls}>TDAP Cost (Rs.)</label>
                                 <input
                                     type="number"
                                     step="0.01"
@@ -292,14 +281,12 @@ export default function CreateEventPage() {
                                     name="tdapCost"
                                     value={formData.tdapCost}
                                     onChange={handleChange}
-                                    className="w-full px-3 py-2 text-gray-950 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                                    className={inputCls}
                                     placeholder="e.g., 12600000"
                                 />
                             </div>
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">
-                                    Participation Fee
-                                </label>
+                                <label className={labelCls}>Participation Fee</label>
                                 <input
                                     type="number"
                                     step="0.01"
@@ -307,14 +294,12 @@ export default function CreateEventPage() {
                                     name="exhibitorCost"
                                     value={formData.exhibitorCost}
                                     onChange={handleChange}
-                                    className="w-full px-3 py-2 text-gray-950 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                                    className={inputCls}
                                     placeholder="e.g., 8400000"
                                 />
                             </div>
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">
-                                    Estimated Budget (Rs.)
-                                </label>
+                                <label className={labelCls}>Estimated Budget (Rs.)</label>
                                 <input
                                     type="number"
                                     step="0.01"
@@ -322,22 +307,20 @@ export default function CreateEventPage() {
                                     name="totalEstimatedBudget"
                                     value={formData.totalEstimatedBudget}
                                     onChange={handleChange}
-                                    className="w-full px-3 py-2 text-gray-950 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                                    className={inputCls}
                                     placeholder="e.g., 21000000"
                                 />
                             </div>
                         </div>
 
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">
-                                Recommended by / Justification
-                            </label>
+                            <label className={labelCls}>Recommended by / Justification</label>
                             <textarea
                                 name="recommendedByJustification"
                                 value={formData.recommendedByJustification}
                                 onChange={handleChange}
                                 rows={3}
-                                className="w-full px-3 py-2 text-gray-950 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                                className={inputCls}
                                 placeholder="e.g., Regular Event."
                             />
                         </div>
@@ -346,14 +329,14 @@ export default function CreateEventPage() {
                             <button
                                 type="button"
                                 onClick={() => router.back()}
-                                className="px-6 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50"
+                                className="btn-outline px-6 py-2 text-sm font-semibold"
                                 disabled={loading}
                             >
                                 Cancel
                             </button>
                             <button
                                 type="submit"
-                                className="px-6 py-2 bg-green-700 text-white rounded-md hover:bg-green-800 disabled:opacity-60"
+                                className="btn-primary px-6 py-2 text-sm font-semibold disabled:opacity-60"
                                 disabled={loading}
                             >
                                 {loading ? 'Creating...' : 'Create Event'}

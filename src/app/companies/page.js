@@ -6,15 +6,10 @@ import CompanyCard from '../../components/CompanyCard';
 export default function CompaniesPage() {
   const [companies, setCompanies] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [filters, setFilters] = useState({
-    search: '',
-    sector: '',
-    subSector: '',
-  });
+  const [filters, setFilters] = useState({ search: '', sector: '', subSector: '' });
   const [sectors, setSectors] = useState([]);
   const [subSectors, setSubSectors] = useState([]);
 
-  // Fetch companies based on filters
   useEffect(() => {
     async function fetchCompanies() {
       setLoading(true);
@@ -23,10 +18,8 @@ export default function CompaniesPage() {
         if (filters.search) params.append('q', filters.search);
         if (filters.sector) params.append('sector', filters.sector);
         if (filters.subSector) params.append('sub_sector', filters.subSector);
-
         const res = await fetch(`/api/companies?${params}`);
         const data = await res.json();
-        console.log('CompaniesPage DB companies:', data.companies[0]);
         setCompanies(data.companies);
       } catch (error) {
         console.error('Error fetching companies:', error);
@@ -36,139 +29,101 @@ export default function CompaniesPage() {
     }
     fetchCompanies();
   }, [filters]);
-  // Load sectors once (from DB)
+
   useEffect(() => {
-    async function fetchSectors() {
-      try {
-        const res = await fetch('/api/sectors');
-        const data = await res.json();
-        setSectors(data.sectors || []);
-      } catch (error) {
-        console.error('Error fetching sectors:', error);
-      }
-    }
-    fetchSectors();
+    fetch('/api/sectors')
+      .then(r => r.json())
+      .then(d => setSectors(d.sectors || []))
+      .catch(console.error);
   }, []);
 
-  // Load sub-sectors when sector changes (from DB)
   useEffect(() => {
-    async function fetchSubSectors() {
-      try {
-        const params = new URLSearchParams();
-        if (filters.sector) params.append('sector_id', filters.sector);
-        const res = await fetch(`/api/categories?${params.toString()}`);
-        const data = await res.json();
-        setSubSectors(data.subSectors || []);
-      } catch (error) {
-        console.error('Error fetching sub-sectors:', error);
-      }
-    }
-    fetchSubSectors();
+    const params = new URLSearchParams();
+    if (filters.sector) params.append('sector_id', filters.sector);
+    fetch(`/api/categories?${params}`)
+      .then(r => r.json())
+      .then(d => setSubSectors(d.subSectors || []))
+      .catch(console.error);
   }, [filters.sector]);
 
-  const handleFilterChange = (filterName, value) => {
-    setFilters(prev => {
-      const next = {
-        ...prev,
-        [filterName]: value,
-      };
-      // Reset dependent filter when sector changes
-      if (filterName === 'sector') {
-        next.subSector = '';
-      }
-      return next;
-    });
+  const handleFilterChange = (name, value) => {
+    setFilters(prev => ({
+      ...prev,
+      [name]: value,
+      ...(name === 'sector' ? { subSector: '' } : {}),
+    }));
   };
 
-  const clearFilters = () => {
-    setFilters({
-      search: '',
-      sector: '',
-      subSector: '',
-    });
-  };
-
+  const clearFilters = () => setFilters({ search: '', sector: '', subSector: '' });
   const hasActiveFilters = filters.search || filters.sector || filters.subSector;
 
   return (
-    <div className="min-h-screen bg-gray-50 px-4">
+    <div className="page-wrapper px-4">
       <main className="container mx-auto px-4 py-8">
+
         {/* Page Header */}
         <div className="mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
+          <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">
             Company Directory
           </h1>
-          <p className="text-gray-600">
+          <p className="text-secondary">
             Browse and discover food companies registered with TDAP
           </p>
         </div>
 
-        {/* Filters Section */}
-        <div className="bg-white rounded-lg shadow-md p-6 mb-8">
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-lg font-semibold text-gray-900">Filter Companies</h2>
+        {/* Filters */}
+        <div className="glass-card p-6 mb-8">
+          <div className="flex justify-between items-center mb-5">
+            <h2 className="text-lg font-semibold text-white">Filter Companies</h2>
             {hasActiveFilters && (
               <button
                 onClick={clearFilters}
-                className="text-sm text-red-600 hover:text-red-700 font-medium"
+                className="text-sm text-red-400 hover:text-red-300 font-medium transition-colors"
               >
                 Clear All Filters
               </button>
             )}
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-4">
-            {/* Search */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Search
-              </label>
+              <label className="block text-sm font-medium text-secondary mb-2">Search</label>
               <input
                 type="text"
-                placeholder="Company name, email, website..."
+                placeholder="Company name, email, website…"
                 value={filters.search}
-                onChange={(e) => handleFilterChange('search', e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 text-gray-950 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                onChange={e => handleFilterChange('search', e.target.value)}
+                className="glass-input w-full px-3 py-2"
               />
             </div>
 
-            {/* Sector Filter */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Sector
-              </label>
+              <label className="block text-sm font-medium text-secondary mb-2">Sector</label>
               <select
                 value={filters.sector}
-                onChange={(e) => handleFilterChange('sector', e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 text-gray-950 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                onChange={e => handleFilterChange('sector', e.target.value)}
+                className="glass-input w-full px-3 py-2"
               >
                 <option value="">All Sectors</option>
-                {sectors.map((sector) => (
-                  <option key={sector.id} value={sector.id}>
-                    {sector.name}
-                  </option>
+                {sectors.map(s => (
+                  <option key={s.id} value={s.id}>{s.name}</option>
                 ))}
               </select>
             </div>
 
-            {/* Sub-Sector Filter */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Sub-Sector
-              </label>
+              <label className="block text-sm font-medium text-secondary mb-2">Sub-Sector</label>
               <select
                 value={filters.subSector}
-                onChange={(e) => handleFilterChange('subSector', e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 text-gray-950 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                onChange={e => handleFilterChange('subSector', e.target.value)}
+                className="glass-input w-full px-3 py-2"
                 disabled={!filters.sector}
               >
                 <option value="">
                   {filters.sector ? 'All Sub-Sectors' : 'Select a sector first'}
                 </option>
-                {subSectors.map((ss) => (
-                  <option key={ss.id} value={ss.id}>
-                    {ss.name}
-                  </option>
+                {subSectors.map(ss => (
+                  <option key={ss.id} value={ss.id}>{ss.name}</option>
                 ))}
               </select>
             </div>
@@ -177,24 +132,24 @@ export default function CompaniesPage() {
 
         {/* Results */}
         {loading ? (
-          <div className="text-center py-12">
-            <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-green-700"></div>
-            <p className="mt-4 text-gray-600">Loading companies...</p>
+          <div className="text-center py-16">
+            <div className="inline-block animate-spin rounded-full h-12 w-12 border-4 glass-spinner"></div>
+            <p className="mt-4 text-secondary">Loading companies…</p>
           </div>
         ) : (
           <>
             <div className="mb-4">
-              <p className="text-gray-600">
-                Showing <span className="font-semibold">{companies.length}</span> companies
+              <p className="text-secondary">
+                Showing <span className="font-semibold text-white">{companies.length}</span> companies
               </p>
             </div>
 
             {companies.length === 0 ? (
-              <div className="bg-white rounded-lg shadow-md p-12 text-center">
-                <p className="text-gray-600 text-lg">No companies found matching your filters.</p>
+              <div className="glass-card p-12 text-center">
+                <p className="text-secondary text-lg mb-4">No companies found matching your filters.</p>
                 <button
                   onClick={clearFilters}
-                  className="mt-4 px-6 py-2 bg-green-700 text-white rounded-md hover:bg-green-800 transition-colors"
+                  className="btn-primary px-6 py-2"
                 >
                   Clear Filters
                 </button>
