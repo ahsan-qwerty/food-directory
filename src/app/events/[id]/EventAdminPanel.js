@@ -154,6 +154,14 @@ export default function EventAdminPanel({
             <div className="space-y-3">
                 <button
                     type="button"
+                    onClick={() => router.push(`/events/${eventId}/edit`)}
+                    className="w-full px-4 py-2 text-sm font-medium bg-blue-600 text-white rounded-md hover:bg-blue-700"
+                >
+                    Edit Event Details
+                </button>
+
+                <button
+                    type="button"
                     onClick={openModal}
                     className="w-full px-4 py-2 text-sm font-medium bg-white border border-gray-300 text-gray-800 rounded-md hover:bg-gray-50"
                 >

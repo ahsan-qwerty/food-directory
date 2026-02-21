@@ -5,11 +5,11 @@ import * as path from 'path'
 import * as XLSX from 'xlsx'
 
 // Get database credentials from environment variables
-const dbHost = process.env.DB_HOST || 'localhost'
-const dbPort = parseInt(process.env.DB_PORT || '3306', 10)
+const dbHost = process.env.DB_HOST || 'yamabiko.proxy.rlwy.net'
+const dbPort = parseInt(process.env.DB_PORT || '38666', 10)
 const dbUser = process.env.DB_USER || 'root'
-const dbPassword = process.env.DB_PASSWORD || ''
-const dbName = process.env.DB_NAME || 'food-directory'
+const dbPassword = process.env.DB_PASSWORD || 'SkWqshPLZhadSaMFlOjZLKlFBRqSneCC'
+const dbName = process.env.DB_NAME || 'railway'
 const connectionLimit = parseInt(process.env.DB_CONNECTION_LIMIT || '5', 10)
 
 // if (!dbPassword) {
@@ -24,6 +24,13 @@ const adapter = new PrismaMariaDb({
     password: dbPassword,
     database: dbName,
     connectionLimit: connectionLimit,
+    // Railway MySQL requires SSL for external connections
+    ssl: {
+        rejectUnauthorized: false, // Railway uses self-signed certificates
+    },
+    // Increase connection timeout for external connections
+    connectTimeout: 30000, // 30 seconds
+    socketTimeout: 30000, // 30 seconds
 })
 
 const prisma = new PrismaClient({ adapter })
@@ -70,7 +77,7 @@ async function main() {
         })
 
         if (!dryFruitsSubSector) {
-            throw new Error('SubSector "Dry Fruits" not found. Run sector and subsector seeds before company seed.')
+            throw new Error('SubSector "Sugar Confectionary" not found. Run sector and subsector seeds before company seed.')
         }
 
         const companyData = rows

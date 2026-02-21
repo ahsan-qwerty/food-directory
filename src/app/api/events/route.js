@@ -13,6 +13,13 @@ function formatDateYYYYMMDD(dateValue) {
   }
 }
 
+function toNumberOrNull(value) {
+  if (value == null) return null;
+  if (typeof value === 'number') return Number.isFinite(value) ? value : null;
+  const n = Number(value);
+  return Number.isFinite(n) ? n : null;
+}
+
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
 
@@ -29,9 +36,23 @@ export async function GET(request) {
       select: {
         id: true,
         name: true,
+        division: true,
+        deskOfficer: true,
         description: true,
         location: true,
         eventDate: true,
+        startDate: true,
+        endDate: true,
+        datesText: true,
+        region: true,
+        country: true,
+        city: true,
+        sectorProducts: true,
+        subsidyPercentage: true,
+        tdapCost: true,
+        exhibitorCost: true,
+        totalEstimatedBudget: true,
+        recommendedByJustification: true,
         feedbackFormUrl: true,
         finalRemarks: true,
         participants: {
@@ -64,10 +85,24 @@ export async function GET(request) {
     return NextResponse.json({
       id: event.id,
       name: event.name,
+      division: event.division,
+      deskOfficer: event.deskOfficer,
       description: event.description,
       location: event.location,
       eventDate: event.eventDate,
       date: formatDateYYYYMMDD(event.eventDate),
+      startDate: event.startDate,
+      endDate: event.endDate,
+      datesText: event.datesText,
+      region: event.region,
+      country: event.country,
+      city: event.city,
+      sectorProducts: event.sectorProducts,
+      subsidyPercentage: event.subsidyPercentage ? Number(event.subsidyPercentage) : null,
+      tdapCost: event.tdapCost ? Number(event.tdapCost) : null,
+      exhibitorCost: event.exhibitorCost ? Number(event.exhibitorCost) : null,
+      totalEstimatedBudget: event.totalEstimatedBudget ? Number(event.totalEstimatedBudget) : null,
+      recommendedByJustification: event.recommendedByJustification,
       participatingCompanyIds: event.participants.map((p) => p.companyId),
       participants: event.participants.map((p) => p.company).filter(Boolean),
       feedbackFormUrl: event.feedbackFormUrl,
@@ -80,9 +115,16 @@ export async function GET(request) {
     select: {
       id: true,
       name: true,
+      division: true,
+      deskOfficer: true,
       description: true,
       location: true,
       eventDate: true,
+      startDate: true,
+      endDate: true,
+      datesText: true,
+      country: true,
+      city: true,
       participants: { select: { companyId: true } },
     },
     orderBy: { eventDate: 'desc' },
@@ -91,10 +133,17 @@ export async function GET(request) {
   const events = allEvents.map((e) => ({
     id: e.id,
     name: e.name,
+    division: e.division,
+    deskOfficer: e.deskOfficer,
     description: e.description,
     location: e.location,
     eventDate: e.eventDate,
     date: formatDateYYYYMMDD(e.eventDate),
+    startDate: e.startDate,
+    endDate: e.endDate,
+    datesText: e.datesText,
+    country: e.country,
+    city: e.city,
     participatingCompanyIds: e.participants.map((p) => p.companyId),
   }));
 
@@ -102,4 +151,259 @@ export async function GET(request) {
     events,
     total: events.length
   });
+}
+
+export async function POST(request) {
+  try {
+    const body = await request.json();
+
+    if (!body.name || !body.name.trim()) {
+      return NextResponse.json(
+        { error: 'Event name is required' },
+        { status: 400 }
+      );
+    }
+
+    if (!body.eventDate) {
+      return NextResponse.json(
+        { error: 'Event date is required' },
+        { status: 400 }
+      );
+    }
+
+    const eventData = {
+      name: body.name.trim(),
+      division: body.division?.trim() || null,
+      deskOfficer: body.deskOfficer?.trim() || null,
+      description: body.description?.trim() || null,
+      location: body.location?.trim() || null,
+      eventDate: new Date(body.eventDate),
+      startDate: body.startDate ? new Date(body.startDate) : null,
+      endDate: body.endDate ? new Date(body.endDate) : null,
+      datesText: body.datesText?.trim() || null,
+      region: body.region?.trim() || null,
+      country: body.country?.trim() || null,
+      city: body.city?.trim() || null,
+      sectorProducts: body.sectorProducts?.trim() || null,
+      subsidyPercentage: toNumberOrNull(body.subsidyPercentage),
+      tdapCost: toNumberOrNull(body.tdapCost),
+      exhibitorCost: toNumberOrNull(body.exhibitorCost),
+      totalEstimatedBudget: toNumberOrNull(body.totalEstimatedBudget),
+      recommendedByJustification: body.recommendedByJustification?.trim() || null,
+      feedbackFormUrl: body.feedbackFormUrl?.trim() || null,
+      finalRemarks: body.finalRemarks?.trim() || null,
+    };
+
+    const event = await prisma.event.create({
+      data: eventData,
+      select: {
+        id: true,
+        name: true,
+        division: true,
+        deskOfficer: true,
+        description: true,
+        location: true,
+        eventDate: true,
+        startDate: true,
+        endDate: true,
+        datesText: true,
+        region: true,
+        country: true,
+        city: true,
+        sectorProducts: true,
+        subsidyPercentage: true,
+        tdapCost: true,
+        exhibitorCost: true,
+        totalEstimatedBudget: true,
+        recommendedByJustification: true,
+        feedbackFormUrl: true,
+        finalRemarks: true,
+        createdAt: true,
+      },
+    });
+
+    return NextResponse.json({
+      id: event.id,
+      name: event.name,
+      division: event.division,
+      deskOfficer: event.deskOfficer,
+      description: event.description,
+      location: event.location,
+      eventDate: event.eventDate,
+      date: formatDateYYYYMMDD(event.eventDate),
+      startDate: event.startDate,
+      endDate: event.endDate,
+      datesText: event.datesText,
+      region: event.region,
+      country: event.country,
+      city: event.city,
+      sectorProducts: event.sectorProducts,
+      subsidyPercentage: event.subsidyPercentage ? Number(event.subsidyPercentage) : null,
+      tdapCost: event.tdapCost ? Number(event.tdapCost) : null,
+      exhibitorCost: event.exhibitorCost ? Number(event.exhibitorCost) : null,
+      totalEstimatedBudget: event.totalEstimatedBudget ? Number(event.totalEstimatedBudget) : null,
+      recommendedByJustification: event.recommendedByJustification,
+      feedbackFormUrl: event.feedbackFormUrl,
+      finalRemarks: event.finalRemarks,
+      createdAt: event.createdAt,
+    }, { status: 201 });
+  } catch (error) {
+    console.error('Error creating event:', error);
+    return NextResponse.json(
+      { error: 'Failed to create event' },
+      { status: 500 }
+    );
+  }
+}
+
+export async function PUT(request) {
+  try {
+    const body = await request.json();
+    const eventId = Number(body.id);
+
+    if (Number.isNaN(eventId)) {
+      return NextResponse.json(
+        { error: 'Valid event id is required' },
+        { status: 400 }
+      );
+    }
+
+    if (!body.name || !body.name.trim()) {
+      return NextResponse.json(
+        { error: 'Event name is required' },
+        { status: 400 }
+      );
+    }
+
+    if (!body.eventDate) {
+      return NextResponse.json(
+        { error: 'Event date is required' },
+        { status: 400 }
+      );
+    }
+
+    const eventData = {};
+    if (body.name !== undefined) eventData.name = body.name.trim();
+    if (body.division !== undefined) eventData.division = body.division?.trim() || null;
+    if (body.deskOfficer !== undefined) eventData.deskOfficer = body.deskOfficer?.trim() || null;
+    if (body.description !== undefined) eventData.description = body.description?.trim() || null;
+    if (body.location !== undefined) eventData.location = body.location?.trim() || null;
+    if (body.eventDate !== undefined) eventData.eventDate = new Date(body.eventDate);
+    if (body.startDate !== undefined) eventData.startDate = body.startDate ? new Date(body.startDate) : null;
+    if (body.endDate !== undefined) eventData.endDate = body.endDate ? new Date(body.endDate) : null;
+    if (body.datesText !== undefined) eventData.datesText = body.datesText?.trim() || null;
+    if (body.region !== undefined) eventData.region = body.region?.trim() || null;
+    if (body.country !== undefined) eventData.country = body.country?.trim() || null;
+    if (body.city !== undefined) eventData.city = body.city?.trim() || null;
+    if (body.sectorProducts !== undefined) eventData.sectorProducts = body.sectorProducts?.trim() || null;
+    if (body.subsidyPercentage !== undefined) eventData.subsidyPercentage = toNumberOrNull(body.subsidyPercentage);
+    if (body.tdapCost !== undefined) eventData.tdapCost = toNumberOrNull(body.tdapCost);
+    if (body.exhibitorCost !== undefined) eventData.exhibitorCost = toNumberOrNull(body.exhibitorCost);
+    if (body.totalEstimatedBudget !== undefined) eventData.totalEstimatedBudget = toNumberOrNull(body.totalEstimatedBudget);
+    if (body.recommendedByJustification !== undefined) eventData.recommendedByJustification = body.recommendedByJustification?.trim() || null;
+    if (body.feedbackFormUrl !== undefined) eventData.feedbackFormUrl = body.feedbackFormUrl?.trim() || null;
+    if (body.finalRemarks !== undefined) eventData.finalRemarks = body.finalRemarks?.trim() || null;
+
+    const event = await prisma.event.update({
+      where: { id: eventId },
+      data: eventData,
+      select: {
+        id: true,
+        name: true,
+        division: true,
+        deskOfficer: true,
+        description: true,
+        location: true,
+        eventDate: true,
+        startDate: true,
+        endDate: true,
+        datesText: true,
+        region: true,
+        country: true,
+        city: true,
+        sectorProducts: true,
+        subsidyPercentage: true,
+        tdapCost: true,
+        exhibitorCost: true,
+        totalEstimatedBudget: true,
+        recommendedByJustification: true,
+        feedbackFormUrl: true,
+        finalRemarks: true,
+        updatedAt: true,
+      },
+    });
+
+    return NextResponse.json({
+      id: event.id,
+      name: event.name,
+      division: event.division,
+      deskOfficer: event.deskOfficer,
+      description: event.description,
+      location: event.location,
+      eventDate: event.eventDate,
+      date: formatDateYYYYMMDD(event.eventDate),
+      startDate: event.startDate,
+      endDate: event.endDate,
+      datesText: event.datesText,
+      region: event.region,
+      country: event.country,
+      city: event.city,
+      sectorProducts: event.sectorProducts,
+      subsidyPercentage: event.subsidyPercentage ? Number(event.subsidyPercentage) : null,
+      tdapCost: event.tdapCost ? Number(event.tdapCost) : null,
+      exhibitorCost: event.exhibitorCost ? Number(event.exhibitorCost) : null,
+      totalEstimatedBudget: event.totalEstimatedBudget ? Number(event.totalEstimatedBudget) : null,
+      recommendedByJustification: event.recommendedByJustification,
+      feedbackFormUrl: event.feedbackFormUrl,
+      finalRemarks: event.finalRemarks,
+    });
+  } catch (error) {
+    console.error('Error updating event:', error);
+
+    if (error.code === 'P2025') {
+      return NextResponse.json(
+        { error: 'Event not found' },
+        { status: 404 }
+      );
+    }
+
+    return NextResponse.json(
+      { error: 'Failed to update event' },
+      { status: 500 }
+    );
+  }
+}
+
+export async function DELETE(request) {
+  try {
+    const { searchParams } = new URL(request.url);
+    const eventId = Number(searchParams.get('id'));
+
+    if (Number.isNaN(eventId)) {
+      return NextResponse.json(
+        { error: 'Valid event id is required' },
+        { status: 400 }
+      );
+    }
+
+    await prisma.event.delete({
+      where: { id: eventId },
+    });
+
+    return NextResponse.json({ ok: true, deletedId: eventId });
+  } catch (error) {
+    console.error('Error deleting event:', error);
+
+    if (error.code === 'P2025') {
+      return NextResponse.json(
+        { error: 'Event not found' },
+        { status: 404 }
+      );
+    }
+
+    return NextResponse.json(
+      { error: 'Failed to delete event' },
+      { status: 500 }
+    );
+  }
 }

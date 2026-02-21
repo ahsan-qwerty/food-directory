@@ -3,11 +3,11 @@ import { PrismaMariaDb } from '@prisma/adapter-mariadb'
 import { PrismaClient, Prisma } from '../src/app/generated/prisma/client'
 
 // Get database credentials from environment variables
-const dbHost = process.env.DB_HOST || 'localhost'
-const dbPort = parseInt(process.env.DB_PORT || '3306', 10)
+const dbHost = process.env.DB_HOST || 'yamabiko.proxy.rlwy.net'
+const dbPort = parseInt(process.env.DB_PORT || '38666', 10)
 const dbUser = process.env.DB_USER || 'root'
-const dbPassword = process.env.DB_PASSWORD || ''
-const dbName = process.env.DB_NAME || 'food-directory'
+const dbPassword = process.env.DB_PASSWORD || 'SkWqshPLZhadSaMFlOjZLKlFBRqSneCC'
+const dbName = process.env.DB_NAME || 'railway'
 const connectionLimit = parseInt(process.env.DB_CONNECTION_LIMIT || '5', 10)
 
 // if (!dbPassword) {
@@ -22,15 +22,22 @@ const adapter = new PrismaMariaDb({
     password: dbPassword,
     database: dbName,
     connectionLimit: connectionLimit,
+    // Railway MySQL requires SSL for external connections
+    ssl: {
+        rejectUnauthorized: false, // Railway uses self-signed certificates
+    },
+    // Increase connection timeout for external connections
+    connectTimeout: 30000, // 30 seconds
+    socketTimeout: 30000, // 30 seconds
 })
 
 const prisma = new PrismaClient({ adapter })
 
 const subsectorData: Prisma.SubSectorCreateInput[] = [
-    // { name: 'Rice', hsCode: '1006', sector: { connect: { name: 'Cereals' } } },
-    // { name: 'Fruits', hsCode: '0811', sector: { connect: { name: 'Fruit and Vegetables' } } },
-    // { name: 'Beverages', hsCode: '2206', sector: { connect: { name: 'Processed Food, Bakery, Beverages, Juices' } } },
-    // { name: 'Sugar Confectionary', hsCode: '1704', sector: { connect: { name: 'Sugar and Confectionary' } } },
+    { name: 'Rice', hsCode: '1006', sector: { connect: { name: 'Cereals' } } },
+    { name: 'Fruits', hsCode: '0811', sector: { connect: { name: 'Fruit and Vegetables' } } },
+    { name: 'Beverages', hsCode: '2206', sector: { connect: { name: 'Processed Food, Bakery, Beverages, Juices' } } },
+    { name: 'Sugar Confectionary', hsCode: '1704', sector: { connect: { name: 'Sugar and Confectionary' } } },
     { name: 'Dry Fruits', hsCode: '1703', sector: { connect: { name: 'Sugar and Confectionary' } } },
 ]
 

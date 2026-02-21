@@ -64,7 +64,8 @@ export default async function DelegationDetailPage({ params }) {
             rationale: true,
             fromCountry: true,
             toCountry: true,
-            dates: true,
+            startDate: true,
+            endDate: true,
             allocatedBudget: true,
             utilizedBudget: true,
             closedAt: true,
@@ -186,10 +187,18 @@ export default async function DelegationDetailPage({ params }) {
                                     </div>
                                 )}
 
-                                {delegation.dates && (
+                                {(delegation.startDate || delegation.endDate) && (
                                     <div>
                                         <h3 className="text-sm font-semibold text-gray-700 mb-1">Dates</h3>
-                                        <p className="text-gray-600">{delegation.dates}</p>
+                                        <p className="text-gray-600">
+                                            {delegation.startDate
+                                                ? new Date(delegation.startDate).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })
+                                                : '—'}
+                                            {' '}&rarr;{' '}
+                                            {delegation.endDate
+                                                ? new Date(delegation.endDate).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })
+                                                : '—'}
+                                        </p>
                                     </div>
                                 )}
 

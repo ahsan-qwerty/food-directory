@@ -19,49 +19,30 @@ function parseDatabaseUrl(connectionString) {
 }
 
 function createPrismaClient() {
-    // Railway typically provides DATABASE_URL plus MYSQL* vars.
-    // Prefer explicit DB_* overrides, then fall back to Railway's vars, then DATABASE_URL parsing.
-    const parsedUrl =
-        parseDatabaseUrl(process.env.DATABASE_URL) ||
-        parseDatabaseUrl(process.env.MYSQL_URL) ||
-        parseDatabaseUrl(process.env.MARIADB_URL);
-
+    // Railway provides MYSQL* variables when MySQL service is linked
+    // Prefer explicit DB_* overrides, then Railway's MYSQL* vars, then defaults
     const dbHost =
         process.env.DB_HOST ||
         process.env.MYSQLHOST ||
-        process.env.MARIADBHOST ||
-        parsedUrl?.host ||
-        'localhost';
-
+        'yamabiko.proxy.rlwy.net';
     const dbPort = parseInt(
         process.env.DB_PORT ||
         process.env.MYSQLPORT ||
-        process.env.MARIADBPORT ||
-        String(parsedUrl?.port || '3306'),
+        '38666',
         10
     );
-
     const dbUser =
         process.env.DB_USER ||
         process.env.MYSQLUSER ||
-        process.env.MARIADBUSER ||
-        parsedUrl?.user ||
         'root';
-
     const dbPassword =
         process.env.DB_PASSWORD ||
         process.env.MYSQLPASSWORD ||
-        process.env.MARIADBPASSWORD ||
-        parsedUrl?.password ||
-        '';
-
+        'SkWqshPLZhadSaMFlOjZLKlFBRqSneCC';
     const dbName =
         process.env.DB_NAME ||
         process.env.MYSQLDATABASE ||
-        process.env.MARIADBDATABASE ||
-        parsedUrl?.database ||
-        'food-directory';
-
+        'railway';
     const connectionLimit = parseInt(process.env.DB_CONNECTION_LIMIT || '5', 10);
 
     const adapter = new PrismaMariaDb({
@@ -71,6 +52,13 @@ function createPrismaClient() {
         password: dbPassword,
         database: dbName,
         connectionLimit,
+        // Railway MySQL requires SSL for external connections
+        ssl: {
+            rejectUnauthorized: false, // Railway uses self-signed certificates
+        },
+        // Increase connection timeout for external connections
+        connectTimeout: 30000, // 30 seconds
+        socketTimeout: 30000, // 30 seconds
     });
 
     return new PrismaClient({ adapter });
@@ -80,7 +68,7 @@ const globalForPrisma = globalThis;
 
 function isStalePrismaClient(client) {
     // When the Prisma schema changes during `next dev`, Next can keep the old
-    // global prisma instance. If a new model delegate is missing (like `event`),
+    // global prisma instance. If a new model delegate is missing (like `event` or `delegation`),
     // we recreate the client.
     return (
         !client ||
