@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import CompanyCard from '../../../components/CompanyCard';
 import { prisma } from '../../../lib/prismaClient';
-import DelegationAdminPanel from './DelegationAdminPanel';
+import DelegationAdminPanel from '../_components/DelegationAdminPanel';
 
 function formatDate(dateValue) {
     try {

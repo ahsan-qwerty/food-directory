@@ -1,8 +1,8 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { prisma } from '../../../lib/prismaClient';
-import EventAdminPanel from './EventAdminPanel';
-import EventParticipantsList from './EventParticipantsList';
+import EventAdminPanel from './_components/EventAdminPanel';
+import EventParticipantsList from './_components/EventParticipantsList';
 
 function formatDateYYYYMMDD(dateValue) {
   try {

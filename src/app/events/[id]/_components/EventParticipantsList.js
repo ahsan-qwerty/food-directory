@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import CompanyCard from '../../../components/CompanyCard';
+import CompanyCard from '../../../../components/CompanyCard';
 
 export default function EventParticipantsList({ eventId, participants, feedbackCompanyIds = [] }) {
     const feedbackDone = new Set(feedbackCompanyIds);
