@@ -1,6 +1,11 @@
+'use client';
+
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 export default function Header() {
+  const router = useRouter();
+
   return (
     <header className="glass-header sticky top-0 z-50 px-4">
       <div className="container mx-auto px-4 py-4">
@@ -41,18 +46,15 @@ export default function Header() {
             >
               Exhibitions
             </Link>
-            <Link
-              href="/delegations?tab=incoming"
-              className="px-3 py-1.5 rounded-md text-secondary hover:text-white hover:bg-white/10 transition-all font-medium text-sm"
+            <select
+              defaultValue=""
+              onChange={(e) => { if (e.target.value) { router.push(e.target.value); e.target.value = ''; } }}
+              className="glass-input px-3 py-1.5 text-sm font-medium cursor-pointer"
             >
-              Incoming
-            </Link>
-            <Link
-              href="/delegations?tab=outgoing"
-              className="px-3 py-1.5 rounded-md text-secondary hover:text-white hover:bg-white/10 transition-all font-medium text-sm"
-            >
-              Outgoing
-            </Link>
+              <option value="" disabled>Delegations</option>
+              <option value="/delegations?tab=incoming">Incoming</option>
+              <option value="/delegations?tab=outgoing">Outgoing</option>
+            </select>
             <Link
               href="/register"
               className="btn-primary px-4 py-2 text-sm ml-2"
