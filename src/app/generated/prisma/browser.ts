@@ -53,6 +53,11 @@ export type CompanySubSector = Prisma.CompanySubSectorModel
  */
 export type Event = Prisma.EventModel
 /**
+ * Model EventSector
+ * 
+ */
+export type EventSector = Prisma.EventSectorModel
+/**
  * Model EventCompany
  * 
  */

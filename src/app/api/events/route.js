@@ -55,6 +55,12 @@ export async function GET(request) {
         recommendedByJustification: true,
         feedbackFormUrl: true,
         finalRemarks: true,
+        eventSectors: {
+          select: {
+            sectorId: true,
+            sector: { select: { id: true, name: true } },
+          },
+        },
         participants: {
           select: {
             companyId: true,
@@ -103,6 +109,9 @@ export async function GET(request) {
       exhibitorCost: event.exhibitorCost ? Number(event.exhibitorCost) : null,
       totalEstimatedBudget: event.totalEstimatedBudget ? Number(event.totalEstimatedBudget) : null,
       recommendedByJustification: event.recommendedByJustification,
+      // Multi-sector: array of sector objects + convenience array of IDs
+      sectors: event.eventSectors.map((es) => es.sector),
+      sectorIds: event.eventSectors.map((es) => es.sectorId),
       participatingCompanyIds: event.participants.map((p) => p.companyId),
       participants: event.participants.map((p) => p.company).filter(Boolean),
       feedbackFormUrl: event.feedbackFormUrl,
@@ -171,6 +180,35 @@ export async function POST(request) {
       );
     }
 
+    // Validate sectorIds
+    const rawSectorIds = Array.isArray(body.sectorIds) ? body.sectorIds : [];
+    const sectorIds = rawSectorIds.map(Number).filter((n) => Number.isFinite(n) && n > 0);
+
+    if (sectorIds.length > 0) {
+      const found = await prisma.sector.findMany({
+        where: { id: { in: sectorIds } },
+        select: { id: true },
+      });
+      const foundIds = new Set(found.map((s) => s.id));
+      const invalid = sectorIds.filter((id) => !foundIds.has(id));
+      if (invalid.length > 0) {
+        return NextResponse.json(
+          { error: `Invalid sector IDs: ${invalid.join(', ')}` },
+          { status: 400 }
+        );
+      }
+    }
+
+    // Derive legacy sectorProducts from the first selected sector name (backward compat)
+    let sectorProductsValue = body.sectorProducts?.trim() || null;
+    if (!sectorProductsValue && sectorIds.length > 0) {
+      const firstSector = await prisma.sector.findUnique({
+        where: { id: sectorIds[0] },
+        select: { name: true },
+      });
+      sectorProductsValue = firstSector?.name || null;
+    }
+
     const eventData = {
       name: body.name.trim(),
       division: body.division?.trim() || null,
@@ -184,7 +222,7 @@ export async function POST(request) {
       region: body.region?.trim() || null,
       country: body.country?.trim() || null,
       city: body.city?.trim() || null,
-      sectorProducts: body.sectorProducts?.trim() || null,
+      sectorProducts: sectorProductsValue,
       subsidyPercentage: toNumberOrNull(body.subsidyPercentage),
       tdapCost: toNumberOrNull(body.tdapCost),
       exhibitorCost: toNumberOrNull(body.exhibitorCost),
@@ -222,6 +260,13 @@ export async function POST(request) {
       },
     });
 
+    if (sectorIds.length > 0) {
+      await prisma.eventSector.createMany({
+        data: sectorIds.map((sectorId) => ({ eventId: event.id, sectorId })),
+        skipDuplicates: true,
+      });
+    }
+
     return NextResponse.json({
       id: event.id,
       name: event.name,
@@ -243,6 +288,7 @@ export async function POST(request) {
       exhibitorCost: event.exhibitorCost ? Number(event.exhibitorCost) : null,
       totalEstimatedBudget: event.totalEstimatedBudget ? Number(event.totalEstimatedBudget) : null,
       recommendedByJustification: event.recommendedByJustification,
+      sectorIds,
       feedbackFormUrl: event.feedbackFormUrl,
       finalRemarks: event.finalRemarks,
       createdAt: event.createdAt,
@@ -282,6 +328,26 @@ export async function PUT(request) {
       );
     }
 
+    // Validate sectorIds if provided
+    const hasSectorIds = Array.isArray(body.sectorIds);
+    const rawSectorIds = hasSectorIds ? body.sectorIds : [];
+    const sectorIds = rawSectorIds.map(Number).filter((n) => Number.isFinite(n) && n > 0);
+
+    if (sectorIds.length > 0) {
+      const found = await prisma.sector.findMany({
+        where: { id: { in: sectorIds } },
+        select: { id: true },
+      });
+      const foundIds = new Set(found.map((s) => s.id));
+      const invalid = sectorIds.filter((id) => !foundIds.has(id));
+      if (invalid.length > 0) {
+        return NextResponse.json(
+          { error: `Invalid sector IDs: ${invalid.join(', ')}` },
+          { status: 400 }
+        );
+      }
+    }
+
     const eventData = {};
     if (body.name !== undefined) eventData.name = body.name.trim();
     if (body.division !== undefined) eventData.division = body.division?.trim() || null;
@@ -295,7 +361,6 @@ export async function PUT(request) {
     if (body.region !== undefined) eventData.region = body.region?.trim() || null;
     if (body.country !== undefined) eventData.country = body.country?.trim() || null;
     if (body.city !== undefined) eventData.city = body.city?.trim() || null;
-    if (body.sectorProducts !== undefined) eventData.sectorProducts = body.sectorProducts?.trim() || null;
     if (body.subsidyPercentage !== undefined) eventData.subsidyPercentage = toNumberOrNull(body.subsidyPercentage);
     if (body.tdapCost !== undefined) eventData.tdapCost = toNumberOrNull(body.tdapCost);
     if (body.exhibitorCost !== undefined) eventData.exhibitorCost = toNumberOrNull(body.exhibitorCost);
@@ -303,6 +368,21 @@ export async function PUT(request) {
     if (body.recommendedByJustification !== undefined) eventData.recommendedByJustification = body.recommendedByJustification?.trim() || null;
     if (body.feedbackFormUrl !== undefined) eventData.feedbackFormUrl = body.feedbackFormUrl?.trim() || null;
     if (body.finalRemarks !== undefined) eventData.finalRemarks = body.finalRemarks?.trim() || null;
+
+    // Sync sectorProducts legacy field from the selected sectors
+    if (hasSectorIds) {
+      if (sectorIds.length > 0) {
+        const firstSector = await prisma.sector.findUnique({
+          where: { id: sectorIds[0] },
+          select: { name: true },
+        });
+        eventData.sectorProducts = firstSector?.name || null;
+      } else {
+        eventData.sectorProducts = null;
+      }
+    } else if (body.sectorProducts !== undefined) {
+      eventData.sectorProducts = body.sectorProducts?.trim() || null;
+    }
 
     const event = await prisma.event.update({
       where: { id: eventId },
@@ -333,6 +413,17 @@ export async function PUT(request) {
       },
     });
 
+    // If sectorIds were sent, replace all junction rows
+    if (hasSectorIds) {
+      await prisma.eventSector.deleteMany({ where: { eventId } });
+      if (sectorIds.length > 0) {
+        await prisma.eventSector.createMany({
+          data: sectorIds.map((sectorId) => ({ eventId, sectorId })),
+          skipDuplicates: true,
+        });
+      }
+    }
+
     return NextResponse.json({
       id: event.id,
       name: event.name,
@@ -354,6 +445,7 @@ export async function PUT(request) {
       exhibitorCost: event.exhibitorCost ? Number(event.exhibitorCost) : null,
       totalEstimatedBudget: event.totalEstimatedBudget ? Number(event.totalEstimatedBudget) : null,
       recommendedByJustification: event.recommendedByJustification,
+      sectorIds,
       feedbackFormUrl: event.feedbackFormUrl,
       finalRemarks: event.finalRemarks,
     });

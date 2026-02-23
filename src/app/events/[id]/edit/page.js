@@ -39,6 +39,7 @@ export default function EditEventPage() {
     const [saving, setSaving] = useState(false);
     const [error, setError] = useState(null);
     const [success, setSuccess] = useState(null);
+    const [sectors, setSectors] = useState([]);
 
     const [formData, setFormData] = useState({
         name: '',
@@ -48,7 +49,7 @@ export default function EditEventPage() {
         region: '',
         country: '',
         city: '',
-        sectorProducts: '',
+        sectorIds: [],
         tdapCost: '',
         exhibitorCost: '',
         totalEstimatedBudget: '',
@@ -68,6 +69,15 @@ export default function EditEventPage() {
         ]))
         : [];
 
+    // Load sectors list
+    useEffect(() => {
+        fetch('/api/sectors')
+            .then((r) => r.json())
+            .then((data) => setSectors(data.sectors || []))
+            .catch(() => { });
+    }, []);
+
+    // Load existing event data
     useEffect(() => {
         async function fetchEvent() {
             if (!eventId) return;
@@ -96,7 +106,8 @@ export default function EditEventPage() {
                     region: data.region || '',
                     country: data.country || '',
                     city: data.city || '',
-                    sectorProducts: data.sectorProducts || '',
+                    // Prefer junction-table IDs; fall back to empty
+                    sectorIds: Array.isArray(data.sectorIds) ? data.sectorIds : [],
                     tdapCost: data.tdapCost != null ? String(data.tdapCost) : '',
                     exhibitorCost: data.exhibitorCost != null ? String(data.exhibitorCost) : '',
                     totalEstimatedBudget: data.totalEstimatedBudget != null ? String(data.totalEstimatedBudget) : '',
@@ -124,6 +135,15 @@ export default function EditEventPage() {
         }));
     };
 
+    const toggleSector = (id) => {
+        setFormData((prev) => ({
+            ...prev,
+            sectorIds: prev.sectorIds.includes(id)
+                ? prev.sectorIds.filter((s) => s !== id)
+                : [...prev.sectorIds, id],
+        }));
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setSaving(true);
@@ -141,7 +161,7 @@ export default function EditEventPage() {
                 region: formData.region || null,
                 country: formData.country || null,
                 city: formData.city || null,
-                sectorProducts: formData.sectorProducts || null,
+                sectorIds: formData.sectorIds,
                 tdapCost: formData.tdapCost || null,
                 exhibitorCost: formData.exhibitorCost || null,
                 totalEstimatedBudget: formData.totalEstimatedBudget || null,
@@ -322,18 +342,39 @@ export default function EditEventPage() {
                             </div>
                         </div>
 
+                        {/* Sector / Products – multi-select pills */}
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-2">
                                 Sector / Products
+                                {formData.sectorIds.length > 0 && (
+                                    <span className="ml-2 text-xs font-normal text-green-700">
+                                        ({formData.sectorIds.length} selected)
+                                    </span>
+                                )}
                             </label>
-                            <input
-                                type="text"
-                                name="sectorProducts"
-                                value={formData.sectorProducts}
-                                onChange={handleChange}
-                                className="w-full px-3 py-2 text-gray-950 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
-                                placeholder="e.g., Agro & Food Products"
-                            />
+                            {sectors.length === 0 ? (
+                                <p className="text-sm text-gray-400">Loading sectors…</p>
+                            ) : (
+                                <div className="flex flex-wrap gap-2">
+                                    {sectors.map((s) => {
+                                        const selected = formData.sectorIds.includes(s.id);
+                                        return (
+                                            <button
+                                                key={s.id}
+                                                type="button"
+                                                onClick={() => toggleSector(s.id)}
+                                                className={`px-3 py-1.5 rounded-full text-sm font-medium border transition-colors ${selected
+                                                        ? 'bg-green-700 text-white border-green-700'
+                                                        : 'bg-white text-gray-700 border-gray-300 hover:border-green-500 hover:text-green-700'
+                                                    }`}
+                                            >
+                                                {selected && <span className="mr-1">✓</span>}
+                                                {s.name}
+                                            </button>
+                                        );
+                                    })}
+                                </div>
+                            )}
                         </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

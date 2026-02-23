@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { prisma } from '../../../lib/prismaClient';
 import EventAdminPanel from './_components/EventAdminPanel';
 import EventParticipantsList from './_components/EventParticipantsList';
+import DeleteEventButton from './_components/DeleteEventButton';
 
 function formatDateYYYYMMDD(dateValue) {
   try {
@@ -55,8 +56,10 @@ export async function generateMetadata({ params }) {
   };
 }
 
-export default async function EventDetailPage({ params }) {
+export default async function EventDetailPage({ params, searchParams }) {
   const { id } = await params;
+  const { dev } = await searchParams;
+  const isDev = dev === '1';
   const eventId = Number(id);
   if (Number.isNaN(eventId)) {
     notFound();
@@ -83,6 +86,11 @@ export default async function EventDetailPage({ params }) {
       exhibitorCost: true,
       totalEstimatedBudget: true,
       recommendedByJustification: true,
+      eventSectors: {
+        select: {
+          sector: { select: { id: true, name: true } },
+        },
+      },
       participants: {
         select: {
           company: {
@@ -270,10 +278,23 @@ export default async function EventDetailPage({ params }) {
                   </div>
                 )}
 
-                {event.sectorProducts && (
+                {(event.eventSectors?.length > 0 || event.sectorProducts) && (
                   <div>
-                    <h3 className="text-sm font-semibold text-gray-700 mb-1">Sector / Products</h3>
-                    <p className="text-gray-600">{event.sectorProducts}</p>
+                    <h3 className="text-sm font-semibold text-gray-700 mb-2">Sector / Products</h3>
+                    {event.eventSectors?.length > 0 ? (
+                      <div className="flex flex-wrap gap-1.5">
+                        {event.eventSectors.map(({ sector }) => (
+                          <span
+                            key={sector.id}
+                            className="inline-block bg-green-100 text-green-800 text-xs px-2.5 py-1 rounded-full font-medium"
+                          >
+                            {sector.name}
+                          </span>
+                        ))}
+                      </div>
+                    ) : (
+                      <p className="text-gray-600">{event.sectorProducts}</p>
+                    )}
                   </div>
                 )}
 
@@ -354,6 +375,11 @@ export default async function EventDetailPage({ params }) {
                     </svg>
                     Download Company Directory
                   </a>
+                )}
+                {isDev && (
+                  <div className="pt-2 mt-1 border-t border-red-100">
+                    <DeleteEventButton eventId={event.id} eventName={event.name} />
+                  </div>
                 )}
               </div>
             </div>

@@ -22,6 +22,7 @@ hsCode String?
 subSectors SubSector[]
 companies Company[]
 companySectors CompanySector[]
+eventSectors   EventSector[]
 
 
 createdAt DateTime @default(now())
@@ -150,9 +151,22 @@ model Event {
   // Relations
   participants EventCompany[]
   feedbacks    EventFeedback[]
+  eventSectors EventSector[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+// ── Junction: Event ↔ Sector (many-to-many) ────────────────────────────────
+model EventSector {
+  id       Int @id @default(autoincrement())
+  eventId  Int
+  sectorId Int
+
+  event  Event  @relation(fields: [eventId],  references: [id], onDelete: Cascade)
+  sector Sector @relation(fields: [sectorId], references: [id], onDelete: Cascade)
+
+  @@unique([eventId, sectorId])
 }
 
 model EventCompany {

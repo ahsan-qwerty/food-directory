@@ -58,6 +58,7 @@ export const ModelName = {
   CompanySector: 'CompanySector',
   CompanySubSector: 'CompanySubSector',
   Event: 'Event',
+  EventSector: 'EventSector',
   EventCompany: 'EventCompany',
   EventFeedback: 'EventFeedback',
   Mission: 'Mission',
@@ -179,6 +180,15 @@ export const EventScalarFieldEnum = {
 } as const
 
 export type EventScalarFieldEnum = (typeof EventScalarFieldEnum)[keyof typeof EventScalarFieldEnum]
+
+
+export const EventSectorScalarFieldEnum = {
+  id: 'id',
+  eventId: 'eventId',
+  sectorId: 'sectorId'
+} as const
+
+export type EventSectorScalarFieldEnum = (typeof EventSectorScalarFieldEnum)[keyof typeof EventSectorScalarFieldEnum]
 
 
 export const EventCompanyScalarFieldEnum = {
