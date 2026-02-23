@@ -31,3 +31,12 @@ export const DelegationStatus = {
 } as const
 
 export type DelegationStatus = (typeof DelegationStatus)[keyof typeof DelegationStatus]
+
+
+export const SeminarStatus = {
+  PLANNED: 'PLANNED',
+  COMPLETED: 'COMPLETED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type SeminarStatus = (typeof SeminarStatus)[keyof typeof SeminarStatus]

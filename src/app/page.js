@@ -14,6 +14,7 @@ export default function Home() {
   const [companies, setCompanies] = useState([]);
   const [sectors, setSectors] = useState([]);
   const [events, setEvents] = useState([]);
+  const [seminars, setSeminars] = useState([]);
   useEffect(() => {
     const fetchEvents = async () => {
       const res = await fetch('/api/events');
@@ -21,6 +22,14 @@ export default function Home() {
       setEvents(data.events);
     }
     fetchEvents();
+  }, []);
+  useEffect(() => {
+    const fetchSeminars = async () => {
+      const res = await fetch('/api/seminars');
+      const data = await res.json();
+      setSeminars(data.seminars || []);
+    }
+    fetchSeminars();
   }, []);
   useEffect(() => {
     const fetchCompanies = async () => {
@@ -66,6 +75,12 @@ export default function Home() {
                 >
                   View Events
                 </Link>
+                <Link
+                  href="/seminars"
+                  className="px-8 py-3 bg-orange-500 text-white rounded-lg font-semibold hover:bg-orange-600 transition-colors"
+                >
+                  Seminars
+                </Link>
               </div>
             </div>
           </div>
@@ -74,7 +89,7 @@ export default function Home() {
         {/* Stats Section */}
         <section className="py-12 bg-white border-b">
           <div className="container mx-auto px-4">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
               <div>
                 <div className="text-4xl font-bold text-green-700 mb-2">{companies.length}</div>
                 <div className="text-gray-600">Registered Companies</div>
@@ -85,7 +100,11 @@ export default function Home() {
               </div>
               <div>
                 <div className="text-4xl font-bold text-green-700 mb-2">{events.length}</div>
-                <div className="text-gray-600">Upcoming Events</div>
+                <div className="text-gray-600">Int'l Exhibitions</div>
+              </div>
+              <div>
+                <div className="text-4xl font-bold text-orange-600 mb-2">{seminars.length}</div>
+                <div className="text-gray-600">Seminars &amp; Webinars</div>
               </div>
             </div>
           </div>

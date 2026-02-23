@@ -261,3 +261,32 @@ model DelegationCompany {
   
   @@unique([delegationId, companyId])
 }
+
+enum SeminarStatus {
+  PLANNED
+  COMPLETED
+  CANCELLED
+}
+
+model Seminar {
+  id                    Int           @id @default(autoincrement())
+  
+  // Core planning fields (from Excel sheet)
+  productSector         String?       // Product / Sector column
+  title                 String        // Event Details column
+  cityVenue             String?       // City / Venue column
+  tentativeDate         String?       // Tentative Date (e.g. "Aug-25", "Mar-26")
+  proposedBudget        Decimal?      @db.Decimal(15, 2) // Proposed Budget (PKR)
+  division              String?       // Division column
+  regionalCollaboration String?       // Regional Collaboration column
+  rationaleObjective    String?       @db.Text // Rationale/Objective column
+  
+  status                SeminarStatus @default(PLANNED)
+  
+  // Additional admin fields
+  deskOfficer           String?
+  finalRemarks          String?
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

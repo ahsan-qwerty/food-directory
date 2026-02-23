@@ -67,3 +67,8 @@ export type Delegation = Prisma.DelegationModel
  * 
  */
 export type DelegationCompany = Prisma.DelegationCompanyModel
+/**
+ * Model Seminar
+ * 
+ */
+export type Seminar = Prisma.SeminarModel

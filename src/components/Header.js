@@ -51,6 +51,12 @@ export default function Header() {
               Outgoing Delegations
             </Link>
             <Link
+              href="/seminars"
+              className="text-white hover:text-green-100 transition-colors font-medium"
+            >
+              Seminars
+            </Link>
+            <Link
               href="/register"
               className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-500 transition-colors font-medium"
             >
