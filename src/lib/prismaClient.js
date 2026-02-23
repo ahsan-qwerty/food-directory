@@ -68,14 +68,16 @@ const globalForPrisma = globalThis;
 
 function isStalePrismaClient(client) {
     // When the Prisma schema changes during `next dev`, Next can keep the old
-    // global prisma instance. If a new model delegate is missing (like `event` or `delegation`),
-    // we recreate the client.
+    // global prisma instance. If a new model delegate is missing (like `event`,
+    // `delegation`, or `seminar`), we recreate the client.
     return (
         !client ||
         !client.event ||
         typeof client.event.findMany !== 'function' ||
         !client.delegation ||
-        typeof client.delegation.findMany !== 'function'
+        typeof client.delegation.findMany !== 'function' ||
+        !client.seminar ||
+        typeof client.seminar.findMany !== 'function'
     );
 }
 

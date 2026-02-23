@@ -393,7 +393,8 @@ export const ModelName = {
   EventFeedback: 'EventFeedback',
   Mission: 'Mission',
   Delegation: 'Delegation',
-  DelegationCompany: 'DelegationCompany'
+  DelegationCompany: 'DelegationCompany',
+  Seminar: 'Seminar'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -409,7 +410,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "sector" | "subSector" | "product" | "company" | "event" | "eventCompany" | "eventFeedback" | "mission" | "delegation" | "delegationCompany"
+    modelProps: "sector" | "subSector" | "product" | "company" | "event" | "eventCompany" | "eventFeedback" | "mission" | "delegation" | "delegationCompany" | "seminar"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1073,6 +1074,72 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Seminar: {
+      payload: Prisma.$SeminarPayload<ExtArgs>
+      fields: Prisma.SeminarFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.SeminarFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SeminarPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.SeminarFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SeminarPayload>
+        }
+        findFirst: {
+          args: Prisma.SeminarFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SeminarPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.SeminarFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SeminarPayload>
+        }
+        findMany: {
+          args: Prisma.SeminarFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SeminarPayload>[]
+        }
+        create: {
+          args: Prisma.SeminarCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SeminarPayload>
+        }
+        createMany: {
+          args: Prisma.SeminarCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        delete: {
+          args: Prisma.SeminarDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SeminarPayload>
+        }
+        update: {
+          args: Prisma.SeminarUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SeminarPayload>
+        }
+        deleteMany: {
+          args: Prisma.SeminarDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.SeminarUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        upsert: {
+          args: Prisma.SeminarUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SeminarPayload>
+        }
+        aggregate: {
+          args: Prisma.SeminarAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateSeminar>
+        }
+        groupBy: {
+          args: Prisma.SeminarGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SeminarGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.SeminarCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SeminarCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1282,6 +1349,26 @@ export const DelegationCompanyScalarFieldEnum = {
 export type DelegationCompanyScalarFieldEnum = (typeof DelegationCompanyScalarFieldEnum)[keyof typeof DelegationCompanyScalarFieldEnum]
 
 
+export const SeminarScalarFieldEnum = {
+  id: 'id',
+  productSector: 'productSector',
+  title: 'title',
+  cityVenue: 'cityVenue',
+  tentativeDate: 'tentativeDate',
+  proposedBudget: 'proposedBudget',
+  division: 'division',
+  regionalCollaboration: 'regionalCollaboration',
+  rationaleObjective: 'rationaleObjective',
+  status: 'status',
+  deskOfficer: 'deskOfficer',
+  finalRemarks: 'finalRemarks',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SeminarScalarFieldEnum = (typeof SeminarScalarFieldEnum)[keyof typeof SeminarScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -1402,6 +1489,21 @@ export const DelegationOrderByRelevanceFieldEnum = {
 export type DelegationOrderByRelevanceFieldEnum = (typeof DelegationOrderByRelevanceFieldEnum)[keyof typeof DelegationOrderByRelevanceFieldEnum]
 
 
+export const SeminarOrderByRelevanceFieldEnum = {
+  productSector: 'productSector',
+  title: 'title',
+  cityVenue: 'cityVenue',
+  tentativeDate: 'tentativeDate',
+  division: 'division',
+  regionalCollaboration: 'regionalCollaboration',
+  rationaleObjective: 'rationaleObjective',
+  deskOfficer: 'deskOfficer',
+  finalRemarks: 'finalRemarks'
+} as const
+
+export type SeminarOrderByRelevanceFieldEnum = (typeof SeminarOrderByRelevanceFieldEnum)[keyof typeof SeminarOrderByRelevanceFieldEnum]
+
+
 
 /**
  * Field references
@@ -1461,6 +1563,13 @@ export type EnumDelegationTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$P
  * Reference to a field of type 'DelegationStatus'
  */
 export type EnumDelegationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DelegationStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'SeminarStatus'
+ */
+export type EnumSeminarStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SeminarStatus'>
     
 
 
@@ -1575,6 +1684,7 @@ export type GlobalOmitConfig = {
   mission?: Prisma.MissionOmit
   delegation?: Prisma.DelegationOmit
   delegationCompany?: Prisma.DelegationCompanyOmit
+  seminar?: Prisma.SeminarOmit
 }
 
 /* Types for Logging */

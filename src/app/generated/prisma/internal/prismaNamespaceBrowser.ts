@@ -60,7 +60,8 @@ export const ModelName = {
   EventFeedback: 'EventFeedback',
   Mission: 'Mission',
   Delegation: 'Delegation',
-  DelegationCompany: 'DelegationCompany'
+  DelegationCompany: 'DelegationCompany',
+  Seminar: 'Seminar'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -249,6 +250,26 @@ export const DelegationCompanyScalarFieldEnum = {
 export type DelegationCompanyScalarFieldEnum = (typeof DelegationCompanyScalarFieldEnum)[keyof typeof DelegationCompanyScalarFieldEnum]
 
 
+export const SeminarScalarFieldEnum = {
+  id: 'id',
+  productSector: 'productSector',
+  title: 'title',
+  cityVenue: 'cityVenue',
+  tentativeDate: 'tentativeDate',
+  proposedBudget: 'proposedBudget',
+  division: 'division',
+  regionalCollaboration: 'regionalCollaboration',
+  rationaleObjective: 'rationaleObjective',
+  status: 'status',
+  deskOfficer: 'deskOfficer',
+  finalRemarks: 'finalRemarks',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SeminarScalarFieldEnum = (typeof SeminarScalarFieldEnum)[keyof typeof SeminarScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -367,4 +388,19 @@ export const DelegationOrderByRelevanceFieldEnum = {
 } as const
 
 export type DelegationOrderByRelevanceFieldEnum = (typeof DelegationOrderByRelevanceFieldEnum)[keyof typeof DelegationOrderByRelevanceFieldEnum]
+
+
+export const SeminarOrderByRelevanceFieldEnum = {
+  productSector: 'productSector',
+  title: 'title',
+  cityVenue: 'cityVenue',
+  tentativeDate: 'tentativeDate',
+  division: 'division',
+  regionalCollaboration: 'regionalCollaboration',
+  rationaleObjective: 'rationaleObjective',
+  deskOfficer: 'deskOfficer',
+  finalRemarks: 'finalRemarks'
+} as const
+
+export type SeminarOrderByRelevanceFieldEnum = (typeof SeminarOrderByRelevanceFieldEnum)[keyof typeof SeminarOrderByRelevanceFieldEnum]
 

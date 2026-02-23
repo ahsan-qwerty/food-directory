@@ -280,6 +280,23 @@ export type EnumDelegationStatusWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumDelegationStatusFilter<$PrismaModel>
 }
 
+export type EnumSeminarStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.SeminarStatus | Prisma.EnumSeminarStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.SeminarStatus[]
+  notIn?: $Enums.SeminarStatus[]
+  not?: Prisma.NestedEnumSeminarStatusFilter<$PrismaModel> | $Enums.SeminarStatus
+}
+
+export type EnumSeminarStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.SeminarStatus | Prisma.EnumSeminarStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.SeminarStatus[]
+  notIn?: $Enums.SeminarStatus[]
+  not?: Prisma.NestedEnumSeminarStatusWithAggregatesFilter<$PrismaModel> | $Enums.SeminarStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumSeminarStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumSeminarStatusFilter<$PrismaModel>
+}
+
 export type NestedIntFilter<$PrismaModel = never> = {
   equals?: number | Prisma.IntFieldRefInput<$PrismaModel>
   in?: number[]
@@ -561,6 +578,23 @@ export type NestedEnumDelegationStatusWithAggregatesFilter<$PrismaModel = never>
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumDelegationStatusFilter<$PrismaModel>
   _max?: Prisma.NestedEnumDelegationStatusFilter<$PrismaModel>
+}
+
+export type NestedEnumSeminarStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.SeminarStatus | Prisma.EnumSeminarStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.SeminarStatus[]
+  notIn?: $Enums.SeminarStatus[]
+  not?: Prisma.NestedEnumSeminarStatusFilter<$PrismaModel> | $Enums.SeminarStatus
+}
+
+export type NestedEnumSeminarStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.SeminarStatus | Prisma.EnumSeminarStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.SeminarStatus[]
+  notIn?: $Enums.SeminarStatus[]
+  not?: Prisma.NestedEnumSeminarStatusWithAggregatesFilter<$PrismaModel> | $Enums.SeminarStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumSeminarStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumSeminarStatusFilter<$PrismaModel>
 }
 
 
