@@ -15,7 +15,43 @@ export async function POST(request) {
             );
         }
 
-        // Prepare company data matching the Prisma schema
+        // Normalise the multi-select arrays coming from the form
+        const sectorIds = Array.isArray(data.sectorIds) ? data.sectorIds.map(Number).filter(Boolean) : [];
+        const subSectorIds = Array.isArray(data.subSectorIds) ? data.subSectorIds.map(Number).filter(Boolean) : [];
+
+        // Primary (legacy) FK values — first item in each array
+        const primarySectorId = sectorIds[0] ?? null;
+        const primarySubSectorId = subSectorIds[0] ?? null;
+
+        // Validate that every supplied sectorId actually exists
+        if (sectorIds.length > 0) {
+            const found = await prisma.sector.findMany({
+                where: { id: { in: sectorIds } },
+                select: { id: true },
+            });
+            if (found.length !== sectorIds.length) {
+                return NextResponse.json(
+                    { error: 'One or more selected sectors are invalid' },
+                    { status: 400 }
+                );
+            }
+        }
+
+        // Validate that every supplied subSectorId actually exists
+        if (subSectorIds.length > 0) {
+            const found = await prisma.subSector.findMany({
+                where: { id: { in: subSectorIds } },
+                select: { id: true },
+            });
+            if (found.length !== subSectorIds.length) {
+                return NextResponse.json(
+                    { error: 'One or more selected sub-sectors are invalid' },
+                    { status: 400 }
+                );
+            }
+        }
+
+        // Prepare company data
         const companyData = {
             name: data.name.trim(),
             profile: data.profile?.trim() || null,
@@ -27,41 +63,29 @@ export async function POST(request) {
             representativeWhatsapp: data.representativeWhatsapp?.trim() || null,
             representativeEmail: data.representativeEmail?.trim() || null,
             productsToBeDisplayed: data.productsToBeDisplayed?.trim() || null,
-            sectorId: data.sectorId ? parseInt(data.sectorId) : null,
-            subSectorId: data.subSectorId ? parseInt(data.subSectorId) : null,
+            // Legacy single-FK fields (primary selection)
+            sectorId: primarySectorId,
+            subSectorId: primarySubSectorId,
+            // Many-to-many: create junction records for every selected ID
+            sectors: sectorIds.length > 0
+                ? { create: sectorIds.map(id => ({ sectorId: id })) }
+                : undefined,
+            subSectors: subSectorIds.length > 0
+                ? { create: subSectorIds.map(id => ({ subSectorId: id })) }
+                : undefined,
         };
 
-        // Validate sector/subSector relationship if both are provided
-        if (companyData.sectorId && companyData.subSectorId) {
-            const subSector = await prisma.subSector.findUnique({
-                where: { id: companyData.subSectorId },
-                select: { sectorId: true },
-            });
-
-            if (!subSector) {
-                return NextResponse.json(
-                    { error: 'Invalid sub-sector selected' },
-                    { status: 400 }
-                );
-            }
-
-            if (subSector.sectorId !== companyData.sectorId) {
-                return NextResponse.json(
-                    { error: 'Selected sub-sector does not belong to the selected sector' },
-                    { status: 400 }
-                );
-            }
-        }
-
-        // Create company in database
+        // Create company + junction records in one transaction
         const newCompany = await prisma.company.create({
             data: companyData,
             include: {
-                sector: {
-                    select: { id: true, name: true },
+                sector: { select: { id: true, name: true } },
+                subSector: { select: { id: true, name: true } },
+                sectors: {
+                    include: { sector: { select: { id: true, name: true } } },
                 },
-                subSector: {
-                    select: { id: true, name: true },
+                subSectors: {
+                    include: { subSector: { select: { id: true, name: true } } },
                 },
             },
         });
@@ -81,8 +105,12 @@ export async function POST(request) {
                 representativeWhatsapp: newCompany.representativeWhatsapp,
                 representativeEmail: newCompany.representativeEmail,
                 productsToBeDisplayed: newCompany.productsToBeDisplayed,
+                // Primary FK (backward compat)
                 sector: newCompany.sector,
                 subSector: newCompany.subSector,
+                // Full many-to-many lists
+                sectors: newCompany.sectors.map(cs => cs.sector),
+                subSectors: newCompany.subSectors.map(css => css.subSector),
                 createdAt: newCompany.createdAt,
             },
         }, { status: 201 });
@@ -90,7 +118,6 @@ export async function POST(request) {
     } catch (error) {
         console.error('Registration error:', error);
 
-        // Handle Prisma unique constraint errors
         if (error.code === 'P2002') {
             return NextResponse.json(
                 { error: 'A company with this name already exists' },
@@ -98,7 +125,6 @@ export async function POST(request) {
             );
         }
 
-        // Handle foreign key constraint errors
         if (error.code === 'P2003') {
             return NextResponse.json(
                 { error: 'Invalid sector or sub-sector selected' },

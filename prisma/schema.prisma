@@ -21,6 +21,7 @@ hsCode String?
 
 subSectors SubSector[]
 companies Company[]
+companySectors CompanySector[]
 
 
 createdAt DateTime @default(now())
@@ -39,6 +40,7 @@ sector Sector @relation(fields: [sectorId], references: [id])
 
 products Product[]
 companies Company[]
+companySubSectors CompanySubSector[]
 
 
 createdAt DateTime @default(now())
@@ -71,17 +73,46 @@ representativeWhatsapp String?
 representativeEmail String?
 productsToBeDisplayed String?
 
+// Primary / legacy single-FK (kept for backward-compat with existing data & filters)
 sectorId Int?
 sector   Sector?   @relation(fields: [sectorId], references: [id])
 
 subSectorId Int?
 subSector   SubSector? @relation(fields: [subSectorId], references: [id])
 
+// Many-to-many: all selected sectors / sub-sectors
+sectors    CompanySector[]
+subSectors CompanySubSector[]
+
 eventParticipations EventCompany[]
 delegationParticipations DelegationCompany[]
 feedbacks EventFeedback[]
 
 createdAt DateTime @default(now())
+}
+
+// ── Junction: Company ↔ Sector (many-to-many) ──────────────────────────────
+model CompanySector {
+  id        Int     @id @default(autoincrement())
+  companyId Int
+  sectorId  Int
+
+  company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  sector  Sector  @relation(fields: [sectorId],  references: [id], onDelete: Cascade)
+
+  @@unique([companyId, sectorId])
+}
+
+// ── Junction: Company ↔ SubSector (many-to-many) ───────────────────────────
+model CompanySubSector {
+  id          Int @id @default(autoincrement())
+  companyId   Int
+  subSectorId Int
+
+  company   Company   @relation(fields: [companyId],   references: [id], onDelete: Cascade)
+  subSector SubSector @relation(fields: [subSectorId], references: [id], onDelete: Cascade)
+
+  @@unique([companyId, subSectorId])
 }
 
 model Event {

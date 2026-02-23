@@ -35,15 +35,30 @@ export default async function CompanyProfilePage({ params }) {
     notFound();
   }
 
-  // Fetch related sector and sub-sector using foreign keys on Company
-  const [sector, subSector] = await Promise.all([
-    company.sectorId
-      ? prisma.sector.findUnique({ where: { id: company.sectorId } })
-      : Promise.resolve(null),
-    company.subSectorId
-      ? prisma.subSector.findUnique({ where: { id: company.subSectorId } })
-      : Promise.resolve(null),
+  // Fetch all sectors/sub-sectors from junction tables (multi-select)
+  const [companySectors, companySubSectors] = await Promise.all([
+    prisma.companySector.findMany({
+      where: { companyId },
+      include: { sector: { select: { id: true, name: true } } },
+    }),
+    prisma.companySubSector.findMany({
+      where: { companyId },
+      include: { subSector: { select: { id: true, name: true } } },
+    }),
   ]);
+
+  // Fall back to the legacy single-FK fields for older records that predate the junction tables
+  const allSectors = companySectors.length > 0
+    ? companySectors.map(cs => cs.sector)
+    : company.sectorId
+      ? [await prisma.sector.findUnique({ where: { id: company.sectorId }, select: { id: true, name: true } })]
+      : [];
+
+  const allSubSectors = companySubSectors.length > 0
+    ? companySubSectors.map(css => css.subSector)
+    : company.subSectorId
+      ? [await prisma.subSector.findUnique({ where: { id: company.subSectorId }, select: { id: true, name: true } })]
+      : [];
 
   // console.log('CompanyProfilePage DB company:', { ...company, sector, subSector });
 
@@ -70,16 +85,16 @@ export default async function CompanyProfilePage({ params }) {
                 {company.name}
               </h1>
               <div className="flex flex-wrap gap-2 mb-3">
-                {sector && (
-                  <span className="inline-block bg-green-100 text-green-800 text-sm px-3 py-1 rounded-full font-medium">
-                    {sector.name}
+                {allSectors.filter(Boolean).map(s => (
+                  <span key={s.id} className="inline-block bg-green-100 text-green-800 text-sm px-3 py-1 rounded-full font-medium">
+                    {s.name}
                   </span>
-                )}
-                {subSector && (
-                  <span className="inline-block bg-blue-100 text-blue-800 text-sm px-3 py-1 rounded-full font-medium">
-                    {subSector.name}
+                ))}
+                {allSubSectors.filter(Boolean).map(ss => (
+                  <span key={ss.id} className="inline-block bg-blue-100 text-blue-800 text-sm px-3 py-1 rounded-full font-medium">
+                    {ss.name}
                   </span>
-                )}
+                ))}
               </div>
               {company.address && (
                 <p className="text-gray-600">{company.address}</p>

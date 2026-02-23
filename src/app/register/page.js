@@ -23,8 +23,8 @@ export default function RegisterPage() {
         representativeWhatsapp: '',
         representativeEmail: '',
         productsToBeDisplayed: '',
-        sectorId: '',
-        subSectorId: '',
+        sectorIds: [],
+        subSectorIds: [],
     });
 
     // Fetch sectors, sub-sectors, and products on mount
@@ -57,16 +57,35 @@ export default function RegisterPage() {
         }));
     };
 
-    // Filter sub-sectors based on selected sector
+    // When sectors change, drop any sub-sectors that no longer belong to a selected sector
     useEffect(() => {
-        if (formData.sectorId) {
-            // Reset subSectorId if it doesn't belong to the selected sector
-            const selectedSubSector = subSectors.find(sub => sub.id === parseInt(formData.subSectorId));
-            if (selectedSubSector && selectedSubSector.sectorId !== parseInt(formData.sectorId)) {
-                setFormData(prev => ({ ...prev, subSectorId: '' }));
-            }
-        }
-    }, [formData.sectorId, formData.subSectorId, subSectors]);
+        if (formData.sectorIds.length === 0) return;
+        setFormData(prev => ({
+            ...prev,
+            subSectorIds: prev.subSectorIds.filter(ssId =>
+                subSectors.some(ss => ss.id === ssId && prev.sectorIds.includes(ss.sectorId))
+            ),
+        }));
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [formData.sectorIds]);
+
+    const toggleSector = (id) => {
+        setFormData(prev => ({
+            ...prev,
+            sectorIds: prev.sectorIds.includes(id)
+                ? prev.sectorIds.filter(s => s !== id)
+                : [...prev.sectorIds, id],
+        }));
+    };
+
+    const toggleSubSector = (id) => {
+        setFormData(prev => ({
+            ...prev,
+            subSectorIds: prev.subSectorIds.includes(id)
+                ? prev.subSectorIds.filter(s => s !== id)
+                : [...prev.subSectorIds, id],
+        }));
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -88,8 +107,9 @@ export default function RegisterPage() {
                 },
                 body: JSON.stringify({
                     ...formData,
-                    sectorId: formData.sectorId ? parseInt(formData.sectorId) : null,
-                    subSectorId: formData.subSectorId ? parseInt(formData.subSectorId) : null,
+                    // Send primary (first selected) IDs to the single-FK fields
+                    sectorId: formData.sectorIds[0] ?? null,
+                    subSectorId: formData.subSectorIds[0] ?? null,
                 }),
             });
 
@@ -238,46 +258,99 @@ export default function RegisterPage() {
                     {/* Business Classification */}
                     <div>
                         <h2 className="text-xl font-bold text-gray-900 mb-4">Business Classification</h2>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">
-                                    Main Sector
-                                </label>
-                                <select
-                                    name="sectorId"
-                                    value={formData.sectorId}
-                                    onChange={handleInputChange}
-                                    className="w-full px-3 py-2 border border-gray-300 text-gray-950 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
-                                >
-                                    <option value="">Select Sector</option>
-                                    {sectors.map(sector => (
-                                        <option key={sector.id} value={sector.id}>
-                                            {sector.name}
-                                        </option>
-                                    ))}
-                                </select>
-                            </div>
 
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">
-                                    Sub-Sector
-                                </label>
-                                <select
-                                    name="subSectorId"
-                                    value={formData.subSectorId}
-                                    onChange={handleInputChange}
-                                    className="w-full px-3 py-2 border border-gray-300 text-gray-950 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
-                                >
-                                    <option value="">Select Sub-Sector</option>
-                                    {subSectors
-                                        .filter(subSector => !formData.sectorId || subSector.sectorId === parseInt(formData.sectorId))
-                                        .map(subSector => (
-                                            <option key={subSector.id} value={subSector.id}>
-                                                {subSector.name}
-                                            </option>
-                                        ))}
-                                </select>
-                            </div>
+                        {/* Sectors — multi-select pills */}
+                        <div className="mb-5">
+                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                                Sectors
+                                <span className="ml-1 text-xs font-normal text-gray-500">(select one or more)</span>
+                            </label>
+
+                            {sectors.length === 0 ? (
+                                <p className="text-sm text-gray-400 italic">Loading sectors…</p>
+                            ) : (
+                                <div className="flex flex-wrap gap-2 mt-2">
+                                    {sectors.map(sector => {
+                                        const selected = formData.sectorIds.includes(sector.id);
+                                        return (
+                                            <button
+                                                key={sector.id}
+                                                type="button"
+                                                onClick={() => toggleSector(sector.id)}
+                                                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium border transition-colors focus:outline-none focus:ring-2 focus:ring-green-500 ${selected
+                                                    ? 'bg-green-700 text-white border-green-700'
+                                                    : 'bg-white text-gray-700 border-gray-300 hover:border-green-500 hover:text-green-700'
+                                                    }`}
+                                            >
+                                                {selected && (
+                                                    <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
+                                                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                                                    </svg>
+                                                )}
+                                                {sector.name}
+                                            </button>
+                                        );
+                                    })}
+                                </div>
+                            )}
+
+                            {formData.sectorIds.length > 0 && (
+                                <p className="mt-2 text-xs text-green-700 font-medium">
+                                    {formData.sectorIds.length} sector{formData.sectorIds.length > 1 ? 's' : ''} selected
+                                    {formData.sectorIds.length > 1 && (
+                                        <span className="text-gray-500 font-normal"> — first selected is used as primary</span>
+                                    )}
+                                </p>
+                            )}
+                        </div>
+
+                        {/* Sub-Sectors — filtered by all selected sectors */}
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                                Sub-Sectors
+                                <span className="ml-1 text-xs font-normal text-gray-500">(select one or more)</span>
+                            </label>
+
+                            {formData.sectorIds.length === 0 ? (
+                                <p className="text-sm text-gray-400 italic mt-2">Select at least one sector above to see sub-sectors.</p>
+                            ) : (
+                                (() => {
+                                    const filtered = subSectors.filter(ss => formData.sectorIds.includes(ss.sectorId));
+                                    return filtered.length === 0 ? (
+                                        <p className="text-sm text-gray-400 italic mt-2">No sub-sectors available for the selected sector(s).</p>
+                                    ) : (
+                                        <div className="flex flex-wrap gap-2 mt-2">
+                                            {filtered.map(ss => {
+                                                const selected = formData.subSectorIds.includes(ss.id);
+                                                return (
+                                                    <button
+                                                        key={ss.id}
+                                                        type="button"
+                                                        onClick={() => toggleSubSector(ss.id)}
+                                                        className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium border transition-colors focus:outline-none focus:ring-2 focus:ring-green-500 ${selected
+                                                            ? 'bg-green-600 text-white border-green-600'
+                                                            : 'bg-white text-gray-700 border-gray-300 hover:border-green-500 hover:text-green-700'
+                                                            }`}
+                                                    >
+                                                        {selected && (
+                                                            <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
+                                                                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                                                            </svg>
+                                                        )}
+                                                        {ss.name}
+                                                    </button>
+                                                );
+                                            })}
+                                        </div>
+                                    );
+                                })()
+                            )}
+
+                            {formData.subSectorIds.length > 0 && (
+                                <p className="mt-2 text-xs text-green-700 font-medium">
+                                    {formData.subSectorIds.length} sub-sector{formData.subSectorIds.length > 1 ? 's' : ''} selected
+                                </p>
+                            )}
                         </div>
                     </div>
 
