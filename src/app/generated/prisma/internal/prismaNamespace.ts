@@ -388,7 +388,10 @@ export const ModelName = {
   SubSector: 'SubSector',
   Product: 'Product',
   Company: 'Company',
+  CompanySector: 'CompanySector',
+  CompanySubSector: 'CompanySubSector',
   Event: 'Event',
+  EventSector: 'EventSector',
   EventCompany: 'EventCompany',
   EventFeedback: 'EventFeedback',
   Mission: 'Mission',
@@ -410,7 +413,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "sector" | "subSector" | "product" | "company" | "event" | "eventCompany" | "eventFeedback" | "mission" | "delegation" | "delegationCompany" | "seminar"
+    modelProps: "sector" | "subSector" | "product" | "company" | "companySector" | "companySubSector" | "event" | "eventSector" | "eventCompany" | "eventFeedback" | "mission" | "delegation" | "delegationCompany" | "seminar"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -678,6 +681,138 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    CompanySector: {
+      payload: Prisma.$CompanySectorPayload<ExtArgs>
+      fields: Prisma.CompanySectorFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CompanySectorFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanySectorPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CompanySectorFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanySectorPayload>
+        }
+        findFirst: {
+          args: Prisma.CompanySectorFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanySectorPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CompanySectorFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanySectorPayload>
+        }
+        findMany: {
+          args: Prisma.CompanySectorFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanySectorPayload>[]
+        }
+        create: {
+          args: Prisma.CompanySectorCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanySectorPayload>
+        }
+        createMany: {
+          args: Prisma.CompanySectorCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        delete: {
+          args: Prisma.CompanySectorDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanySectorPayload>
+        }
+        update: {
+          args: Prisma.CompanySectorUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanySectorPayload>
+        }
+        deleteMany: {
+          args: Prisma.CompanySectorDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CompanySectorUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        upsert: {
+          args: Prisma.CompanySectorUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanySectorPayload>
+        }
+        aggregate: {
+          args: Prisma.CompanySectorAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCompanySector>
+        }
+        groupBy: {
+          args: Prisma.CompanySectorGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CompanySectorGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CompanySectorCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CompanySectorCountAggregateOutputType> | number
+        }
+      }
+    }
+    CompanySubSector: {
+      payload: Prisma.$CompanySubSectorPayload<ExtArgs>
+      fields: Prisma.CompanySubSectorFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CompanySubSectorFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanySubSectorPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CompanySubSectorFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanySubSectorPayload>
+        }
+        findFirst: {
+          args: Prisma.CompanySubSectorFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanySubSectorPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CompanySubSectorFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanySubSectorPayload>
+        }
+        findMany: {
+          args: Prisma.CompanySubSectorFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanySubSectorPayload>[]
+        }
+        create: {
+          args: Prisma.CompanySubSectorCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanySubSectorPayload>
+        }
+        createMany: {
+          args: Prisma.CompanySubSectorCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        delete: {
+          args: Prisma.CompanySubSectorDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanySubSectorPayload>
+        }
+        update: {
+          args: Prisma.CompanySubSectorUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanySubSectorPayload>
+        }
+        deleteMany: {
+          args: Prisma.CompanySubSectorDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CompanySubSectorUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        upsert: {
+          args: Prisma.CompanySubSectorUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanySubSectorPayload>
+        }
+        aggregate: {
+          args: Prisma.CompanySubSectorAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCompanySubSector>
+        }
+        groupBy: {
+          args: Prisma.CompanySubSectorGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CompanySubSectorGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CompanySubSectorCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CompanySubSectorCountAggregateOutputType> | number
+        }
+      }
+    }
     Event: {
       payload: Prisma.$EventPayload<ExtArgs>
       fields: Prisma.EventFieldRefs
@@ -741,6 +876,72 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.EventCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.EventCountAggregateOutputType> | number
+        }
+      }
+    }
+    EventSector: {
+      payload: Prisma.$EventSectorPayload<ExtArgs>
+      fields: Prisma.EventSectorFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.EventSectorFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EventSectorPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.EventSectorFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EventSectorPayload>
+        }
+        findFirst: {
+          args: Prisma.EventSectorFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EventSectorPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.EventSectorFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EventSectorPayload>
+        }
+        findMany: {
+          args: Prisma.EventSectorFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EventSectorPayload>[]
+        }
+        create: {
+          args: Prisma.EventSectorCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EventSectorPayload>
+        }
+        createMany: {
+          args: Prisma.EventSectorCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        delete: {
+          args: Prisma.EventSectorDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EventSectorPayload>
+        }
+        update: {
+          args: Prisma.EventSectorUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EventSectorPayload>
+        }
+        deleteMany: {
+          args: Prisma.EventSectorDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.EventSectorUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        upsert: {
+          args: Prisma.EventSectorUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EventSectorPayload>
+        }
+        aggregate: {
+          args: Prisma.EventSectorAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateEventSector>
+        }
+        groupBy: {
+          args: Prisma.EventSectorGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.EventSectorGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.EventSectorCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.EventSectorCountAggregateOutputType> | number
         }
       }
     }
@@ -1231,6 +1432,24 @@ export const CompanyScalarFieldEnum = {
 export type CompanyScalarFieldEnum = (typeof CompanyScalarFieldEnum)[keyof typeof CompanyScalarFieldEnum]
 
 
+export const CompanySectorScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  sectorId: 'sectorId'
+} as const
+
+export type CompanySectorScalarFieldEnum = (typeof CompanySectorScalarFieldEnum)[keyof typeof CompanySectorScalarFieldEnum]
+
+
+export const CompanySubSectorScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  subSectorId: 'subSectorId'
+} as const
+
+export type CompanySubSectorScalarFieldEnum = (typeof CompanySubSectorScalarFieldEnum)[keyof typeof CompanySubSectorScalarFieldEnum]
+
+
 export const EventScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -1258,6 +1477,15 @@ export const EventScalarFieldEnum = {
 } as const
 
 export type EventScalarFieldEnum = (typeof EventScalarFieldEnum)[keyof typeof EventScalarFieldEnum]
+
+
+export const EventSectorScalarFieldEnum = {
+  id: 'id',
+  eventId: 'eventId',
+  sectorId: 'sectorId'
+} as const
+
+export type EventSectorScalarFieldEnum = (typeof EventSectorScalarFieldEnum)[keyof typeof EventSectorScalarFieldEnum]
 
 
 export const EventCompanyScalarFieldEnum = {
@@ -1678,7 +1906,10 @@ export type GlobalOmitConfig = {
   subSector?: Prisma.SubSectorOmit
   product?: Prisma.ProductOmit
   company?: Prisma.CompanyOmit
+  companySector?: Prisma.CompanySectorOmit
+  companySubSector?: Prisma.CompanySubSectorOmit
   event?: Prisma.EventOmit
+  eventSector?: Prisma.EventSectorOmit
   eventCompany?: Prisma.EventCompanyOmit
   eventFeedback?: Prisma.EventFeedbackOmit
   mission?: Prisma.MissionOmit
