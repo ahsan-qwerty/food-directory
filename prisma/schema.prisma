@@ -64,7 +64,7 @@ createdAt DateTime @default(now())
 model Company {
 id Int @id @default(autoincrement())
 name String
-profile String?
+profile String? @db.Text
 address String?
 email String?
 website String?
