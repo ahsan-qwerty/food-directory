@@ -1,8 +1,30 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState, useEffect, Suspense } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
+
+// Map URL ?type= param → { DB enum, display labels }
+const TYPE_CONFIG = {
+    seminar: {
+        dbType: 'SEMINAR',
+        title: 'Seminars',
+        subtitle: 'Local seminars and workshops by the Agro & Food Division',
+        addLabel: '+ Add Seminar',
+    },
+    webinar: {
+        dbType: 'WEBINAR',
+        title: 'Webinars',
+        subtitle: 'Online webinars and virtual workshops by the Agro & Food Division',
+        addLabel: '+ Add Webinar',
+    },
+    'virtual-b2b': {
+        dbType: 'VIRTUAL_B2B',
+        title: 'Virtual B2Bs',
+        subtitle: 'Virtual business-to-business meetings facilitated by the Agro & Food Division',
+        addLabel: '+ Add Virtual B2B',
+    },
+};
 
 const STATUS_CONFIG = {
     PLANNED: {
@@ -123,8 +145,12 @@ function SeminarCard({ seminar, onDelete }) {
     );
 }
 
-export default function SeminarsPage() {
+function SeminarsContent() {
     const router = useRouter();
+    const searchParams = useSearchParams();
+    const typeParam = searchParams.get('type') || 'seminar';
+    const typeConf = TYPE_CONFIG[typeParam] || TYPE_CONFIG.seminar;
+
     const [seminars, setSeminars] = useState([]);
     const [loading, setLoading] = useState(true);
     const [filterStatus, setFilterStatus] = useState('ALL');
@@ -134,8 +160,9 @@ export default function SeminarsPage() {
     const fetchSeminars = async (status) => {
         setLoading(true);
         try {
-            const params = status && status !== 'ALL' ? `?status=${status}` : '';
-            const res = await fetch(`/api/seminars${params}`);
+            const params = new URLSearchParams({ type: typeParam });
+            if (status && status !== 'ALL') params.set('status', status);
+            const res = await fetch(`/api/seminars?${params.toString()}`);
             const data = await res.json();
             setSeminars(data.seminars || []);
         } catch (err) {
@@ -145,9 +172,14 @@ export default function SeminarsPage() {
         }
     };
 
+    // Re-fetch when type or status changes
+    useEffect(() => {
+        setFilterStatus('ALL');
+    }, [typeParam]);
+
     useEffect(() => {
         fetchSeminars(filterStatus);
-    }, [filterStatus]);
+    }, [filterStatus, typeParam]);
 
     const handleDelete = async () => {
         if (!deleteTarget) return;
@@ -179,17 +211,15 @@ export default function SeminarsPage() {
                 <div className="mb-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                     <div>
                         <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">
-                            Seminars &amp; Webinars
+                            {typeConf.title}
                         </h1>
-                        <p className="text-secondary">
-                            Local exhibitions, seminars, and workshops by the Agro &amp; Food Division
-                        </p>
+                        <p className="text-secondary">{typeConf.subtitle}</p>
                     </div>
                     <button
-                        onClick={() => router.push('/seminars/create')}
+                        onClick={() => router.push(`/seminars/create?type=${typeParam}`)}
                         className="btn-primary px-6 py-2 whitespace-nowrap"
                     >
-                        + Add Seminar
+                        {typeConf.addLabel}
                     </button>
                 </div>
 
@@ -243,9 +273,9 @@ export default function SeminarsPage() {
                                 <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z" />
                             </svg>
                         </div>
-                        <p className="text-white text-lg font-medium">No seminars found.</p>
+                        <p className="text-white text-lg font-medium">No {typeConf.title.toLowerCase()} found.</p>
                         <p className="text-muted text-sm mt-1">
-                            {filterStatus !== 'ALL' ? 'Try changing the status filter.' : 'Click "+ Add Seminar" to create one.'}
+                            {filterStatus !== 'ALL' ? 'Try changing the status filter.' : `Click "${typeConf.addLabel}" to create one.`}
                         </p>
                     </div>
                 ) : (
@@ -261,7 +291,7 @@ export default function SeminarsPage() {
             {deleteTarget && (
                 <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 px-4">
                     <div className="glass-card-strong p-6 max-w-md w-full">
-                        <h3 className="text-lg font-bold text-white mb-2">Delete Seminar</h3>
+                        <h3 className="text-lg font-bold text-white mb-2">Delete {typeConf.title.replace(/s$/, '')}</h3>
                         <p className="text-secondary mb-6">
                             Are you sure you want to delete{' '}
                             <span className="font-semibold text-white">&ldquo;{deleteTarget.title}&rdquo;</span>? This action cannot be undone.
@@ -286,5 +316,17 @@ export default function SeminarsPage() {
                 </div>
             )}
         </div>
+    );
+}
+
+export default function SeminarsPage() {
+    return (
+        <Suspense fallback={
+            <div className="page-wrapper flex items-center justify-center">
+                <div className="inline-block animate-spin rounded-full h-12 w-12 border-4 glass-spinner" />
+            </div>
+        }>
+            <SeminarsContent />
+        </Suspense>
     );
 }

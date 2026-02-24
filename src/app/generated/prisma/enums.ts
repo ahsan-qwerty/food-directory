@@ -40,3 +40,12 @@ export const SeminarStatus = {
 } as const
 
 export type SeminarStatus = (typeof SeminarStatus)[keyof typeof SeminarStatus]
+
+
+export const SeminarType = {
+  SEMINAR: 'SEMINAR',
+  WEBINAR: 'WEBINAR',
+  VIRTUAL_B2B: 'VIRTUAL_B2B'
+} as const
+
+export type SeminarType = (typeof SeminarType)[keyof typeof SeminarType]

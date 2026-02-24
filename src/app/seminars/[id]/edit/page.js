@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import Link from 'next/link';
 
+const VALID_TYPES = ['SEMINAR', 'WEBINAR', 'VIRTUAL_B2B'];
+
 const PAKISTAN_CITIES = [
     'Bahawalpur', 'Faisalabad', 'Gujranwala', 'Hyderabad', 'Islamabad',
     'Karachi', 'Lahore', 'Multan', 'Peshawar', 'Quetta', 'Rawalpindi',
@@ -43,6 +45,7 @@ export default function EditSeminarPage() {
     const [sectors, setSectors] = useState([]);
 
     const [formData, setFormData] = useState({
+        type: 'SEMINAR',
         title: '',
         productSector: '',
         cityVenue: '',
@@ -70,6 +73,7 @@ export default function EditSeminarPage() {
             .then((data) => {
                 if (data.error) { setError(data.error); return; }
                 setFormData({
+                    type: VALID_TYPES.includes(data.type) ? data.type : 'SEMINAR',
                     title: data.title || '',
                     productSector: data.productSector || '',
                     cityVenue: data.cityVenue || '',
@@ -101,6 +105,7 @@ export default function EditSeminarPage() {
         try {
             const payload = {
                 id: seminarId,
+                type: formData.type,
                 title: formData.title.trim(),
                 productSector: formData.productSector || null,
                 cityVenue: formData.cityVenue || null,
@@ -175,6 +180,14 @@ export default function EditSeminarPage() {
                     )}
 
                     <form onSubmit={handleSubmit} className="space-y-6">
+
+                        <FormField label="Type">
+                            <select name="type" value={formData.type} onChange={handleChange} className={inputCls}>
+                                <option value="SEMINAR">Seminar</option>
+                                <option value="WEBINAR">Webinar</option>
+                                <option value="VIRTUAL_B2B">Virtual B2B</option>
+                            </select>
+                        </FormField>
 
                         <FormField label="Event Title / Details" required>
                             <input

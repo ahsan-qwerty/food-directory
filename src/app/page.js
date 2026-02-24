@@ -39,7 +39,7 @@ export default function Home() {
                   Browse Companies
                 </Link>
                 <Link href="/events" className="btn-outline px-8 py-3 inline-block">
-                  View Events
+                  View Exhibitions
                 </Link>
                 <Link
                   href="/seminars"

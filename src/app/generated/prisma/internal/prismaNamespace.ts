@@ -1579,6 +1579,7 @@ export type DelegationCompanyScalarFieldEnum = (typeof DelegationCompanyScalarFi
 
 export const SeminarScalarFieldEnum = {
   id: 'id',
+  type: 'type',
   productSector: 'productSector',
   title: 'title',
   cityVenue: 'cityVenue',
@@ -1791,6 +1792,13 @@ export type EnumDelegationTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$P
  * Reference to a field of type 'DelegationStatus'
  */
 export type EnumDelegationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DelegationStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'SeminarType'
+ */
+export type EnumSeminarTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SeminarType'>
     
 
 
