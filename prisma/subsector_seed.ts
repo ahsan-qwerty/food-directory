@@ -34,11 +34,20 @@ const adapter = new PrismaMariaDb({
 const prisma = new PrismaClient({ adapter })
 
 const subsectorData: Prisma.SubSectorCreateInput[] = [
-    { name: 'Rice', hsCode: '1006', sector: { connect: { name: 'Cereals' } } },
-    { name: 'Fruits', hsCode: '0811', sector: { connect: { name: 'Fruit and Vegetables' } } },
-    { name: 'Beverages', hsCode: '2206', sector: { connect: { name: 'Processed Food, Bakery, Beverages, Juices' } } },
-    { name: 'Sugar Confectionary', hsCode: '1704', sector: { connect: { name: 'Sugar and Confectionary' } } },
-    { name: 'Dry Fruits', hsCode: '1703', sector: { connect: { name: 'Sugar and Confectionary' } } },
+    // { name: 'Rice', hsCode: '1006', sector: { connect: { name: 'Cereals' } } },
+    // { name: 'Fruits', hsCode: '0811', sector: { connect: { name: 'Fruit and Vegetables' } } },
+    // { name: 'Beverages', hsCode: '2206', sector: { connect: { name: 'Processed Food, Bakery, Beverages, Juices' } } },
+    // { name: 'Sugar Confectionary', hsCode: '1704', sector: { connect: { name: 'Sugar and Confectionary' } } },
+    // { name: 'Dry Fruits', hsCode: '1703', sector: { connect: { name: 'Sugar and Confectionary' } } },
+    // { name: 'Oil & Ghee', hsCode: '1703', sector: { connect: { name: 'Oil & Ghee/Oil' } } },
+    // { name: 'Salt', hsCode: '1703', sector: { connect: { name: 'Salt' } } },
+    // { name: 'fisheries', hsCode: '1703', sector: { connect: { name: 'Sea Food & Fisheries' } } },
+    // { name: 'Spices', hsCode: '1703', sector: { connect: { name: 'FMCG' } } },
+    // { name: 'Poultry', hsCode: '1703', sector: { connect: { name: 'Meat, Poultry & Diary' } } },
+    // { name: 'Honey', hsCode: '1703', sector: { connect: { name: 'Honey' } } },
+    // { name: 'Floriculture', hsCode: '1703', sector: { connect: { name: 'Floriculture' } } },
+    // { name: 'Agritech', hsCode: '1703', sector: { connect: { name: 'Machinery/Technology (Food & Agri)' } } },
+    { name: 'Tobacco', hsCode: '1703', sector: { connect: { name: 'Tobacco' } } },
 ]
 
 // const subsectorData: Prisma.SubSectorCreateInput[] = [
