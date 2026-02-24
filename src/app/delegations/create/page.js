@@ -21,6 +21,9 @@ const COUNTRIES = [
     'Ukraine', 'USA', 'Uzbekistan', 'Venezuela', 'Vietnam', 'Yemen', 'Zambia', 'Zimbabwe',
 ];
 
+const labelCls = 'block text-sm font-medium text-secondary mb-2';
+const inputCls = 'glass-input w-full px-3 py-2';
+
 function CreateDelegationForm() {
     const router = useRouter();
     const searchParams = useSearchParams();
@@ -100,26 +103,26 @@ function CreateDelegationForm() {
     };
 
     return (
-        <div className="min-h-screen bg-gray-50 px-4">
+        <div className="page-wrapper px-4">
             <main className="container mx-auto px-4 py-8 max-w-3xl">
                 <div className="mb-8">
-                    <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
+                    <h1 className="text-3xl md:text-4xl font-bold text-primary mb-2">
                         Create New Delegation
                     </h1>
-                    <p className="text-gray-600">
+                    <p className="text-secondary">
                         Add a new {formData.type === 'INCOMING' ? 'incoming' : 'outgoing'} delegation
                     </p>
                 </div>
 
-                <div className="bg-white rounded-lg shadow-md p-6 md:p-8">
+                <div className="glass-card p-6 md:p-8">
                     {error && (
-                        <div className="mb-6 text-sm text-red-700 bg-red-50 border border-red-200 rounded-md px-4 py-3">
+                        <div className="mb-6 alert-error px-4 py-3 text-sm">
                             {error}
                         </div>
                     )}
 
                     {success && (
-                        <div className="mb-6 text-sm text-green-700 bg-green-50 border border-green-200 rounded-md px-4 py-3">
+                        <div className="mb-6 alert-success px-4 py-3 text-sm">
                             {success}
                         </div>
                     )}
@@ -129,14 +132,12 @@ function CreateDelegationForm() {
                         {/* Country Fields */}
                         {formData.type === 'INCOMING' ? (
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">
-                                    From Country
-                                </label>
+                                <label className={labelCls}>From Country</label>
                                 <select
                                     name="fromCountry"
                                     value={formData.fromCountry}
                                     onChange={handleChange}
-                                    className="w-full px-3 py-2 text-gray-950 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                                    className={inputCls}
                                 >
                                     <option value="">Select country</option>
                                     {COUNTRIES.map(c => (
@@ -147,14 +148,12 @@ function CreateDelegationForm() {
                         ) : (
                             <>
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                                        To Country
-                                    </label>
+                                    <label className={labelCls}>To Country</label>
                                     <select
                                         name="toCountry"
                                         value={formData.toCountry}
                                         onChange={handleChange}
-                                        className="w-full px-3 py-2 text-gray-950 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                                        className={inputCls}
                                     >
                                         <option value="">Select country</option>
                                         {COUNTRIES.map(c => (
@@ -164,28 +163,24 @@ function CreateDelegationForm() {
                                 </div>
                                 <div className="grid grid-cols-2 gap-4">
                                     <div>
-                                        <label className="block text-sm font-medium text-gray-700 mb-2">
-                                            Start Date
-                                        </label>
+                                        <label className={labelCls}>Start Date</label>
                                         <input
                                             type="date"
                                             name="startDate"
                                             value={formData.startDate}
                                             onChange={handleChange}
-                                            className="w-full px-3 py-2 text-gray-950 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                                            className={inputCls}
                                         />
                                     </div>
                                     <div>
-                                        <label className="block text-sm font-medium text-gray-700 mb-2">
-                                            End Date
-                                        </label>
+                                        <label className={labelCls}>End Date</label>
                                         <input
                                             type="date"
                                             name="endDate"
                                             value={formData.endDate}
                                             onChange={handleChange}
                                             min={formData.startDate || undefined}
-                                            className="w-full px-3 py-2 text-gray-950 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                                            className={inputCls}
                                         />
                                     </div>
                                 </div>
@@ -194,24 +189,20 @@ function CreateDelegationForm() {
 
                         {/* Product / Sector */}
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">
-                                Product / Sector
-                            </label>
+                            <label className={labelCls}>Product / Sector</label>
                             <input
                                 type="text"
                                 name="productSector"
                                 value={formData.productSector}
                                 onChange={handleChange}
-                                className="w-full px-3 py-2 text-gray-950 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                                className={inputCls}
                                 placeholder="e.g., Meat, Agro and Livestock Sector, Rice, Sesame Seed"
                             />
                         </div>
 
                         {/* Expected Delegates */}
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">
-                                Expected Number of Delegates
-                            </label>
+                            <label className={labelCls}>Expected Number of Delegates</label>
                             <input
                                 type="number"
                                 name="expectedDelegates"
@@ -219,14 +210,14 @@ function CreateDelegationForm() {
                                 onChange={handleChange}
                                 min="1"
                                 step="1"
-                                className="w-full px-3 py-2 text-gray-950 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                                className={inputCls}
                                 placeholder="e.g., 10"
                             />
                         </div>
 
                         {/* Budget */}
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                            <label className={labelCls}>
                                 {formData.type === 'INCOMING' ? 'Tentative Expenditure (PKR)' : 'Proposed Budget (PKR)'}
                             </label>
                             <input
@@ -236,14 +227,14 @@ function CreateDelegationForm() {
                                 onChange={handleChange}
                                 step="0.01"
                                 min="0"
-                                className="w-full px-3 py-2 text-gray-950 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                                className={inputCls}
                                 placeholder="e.g., 500000, 2500000"
                             />
                         </div>
 
                         {/* Rationale */}
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                            <label className={labelCls}>
                                 {formData.type === 'INCOMING' ? 'Rationale / Objectives' : 'Rationale / Justification / Objective'}
                             </label>
                             <textarea
@@ -251,7 +242,7 @@ function CreateDelegationForm() {
                                 value={formData.rationale}
                                 onChange={handleChange}
                                 rows={4}
-                                className="w-full px-3 py-2 text-gray-950 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                                className={inputCls}
                                 placeholder="Enter the rationale, objectives, or justification for this delegation..."
                             />
                         </div>
@@ -260,14 +251,14 @@ function CreateDelegationForm() {
                             <button
                                 type="button"
                                 onClick={() => router.back()}
-                                className="px-6 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50"
+                                className="btn-outline px-6 py-2 text-sm font-semibold"
                                 disabled={loading}
                             >
                                 Cancel
                             </button>
                             <button
                                 type="submit"
-                                className="px-6 py-2 bg-green-700 text-white rounded-md hover:bg-green-800 disabled:opacity-60"
+                                className="btn-primary px-6 py-2 text-sm font-semibold disabled:opacity-60"
                                 disabled={loading}
                             >
                                 {loading ? 'Creating...' : 'Create Delegation'}
@@ -283,8 +274,8 @@ function CreateDelegationForm() {
 export default function CreateDelegationPage() {
     return (
         <Suspense fallback={
-            <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-                <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-green-700"></div>
+            <div className="page-wrapper flex items-center justify-center">
+                <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 glass-spinner"></div>
             </div>
         }>
             <CreateDelegationForm />

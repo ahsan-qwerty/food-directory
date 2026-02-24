@@ -1,64 +1,69 @@
+'use client';
+
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 export default function Header() {
+  const router = useRouter();
+
   return (
-    <header className="bg-green-700 text-white shadow-md px-4 sticky top-0 z-50">
+    <header className="glass-header sticky top-0 z-50 px-4">
       <div className="container mx-auto px-4 py-4">
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between">
-          <Link href="/" className="mb-4 md:mb-0">
-            <div className="flex items-center space-x-3">
-              <div className="bg-white text-green-700 p-2 rounded-lg">
-                <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M10 3.5a1.5 1.5 0 013 0V4a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-.5a1.5 1.5 0 000 3h.5a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-.5a1.5 1.5 0 00-3 0v.5a1 1 0 01-1 1H6a1 1 0 01-1-1v-3a1 1 0 00-1-1h-.5a1.5 1.5 0 010-3H4a1 1 0 001-1V6a1 1 0 011-1h3a1 1 0 001-1v-.5z" />
-                </svg>
-              </div>
-              <div>
-                <h1 className="text-xl md:text-2xl font-bold">Agro Food Division</h1>
-                <p className="text-xs text-green-100">Trade Development Authority of Pakistan</p>
-              </div>
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+
+          {/* Logo */}
+          <Link href="/" className="flex items-center space-x-3 group">
+            <div className="btn-primary p-2 rounded-lg">
+              <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10 3.5a1.5 1.5 0 013 0V4a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-.5a1.5 1.5 0 000 3h.5a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-.5a1.5 1.5 0 00-3 0v.5a1 1 0 01-1 1H6a1 1 0 01-1-1v-3a1 1 0 00-1-1h-.5a1.5 1.5 0 010-3H4a1 1 0 001-1V6a1 1 0 011-1h3a1 1 0 001-1v-.5z" />
+              </svg>
+            </div>
+            <div>
+              <h1 className="text-xl md:text-2xl font-bold text-white leading-tight">
+                Agro Food Division
+              </h1>
+              <p className="text-xs text-muted">Trade Development Authority of Pakistan</p>
             </div>
           </Link>
 
-          <nav className="flex flex-wrap gap-2 md:gap-6 items-center">
+          {/* Navigation */}
+          <nav className="flex flex-wrap gap-1 md:gap-2 items-center">
             <Link
               href="/"
-              className="text-white hover:text-green-100 transition-colors font-medium"
+              className="px-3 py-1.5 rounded-md text-secondary hover:text-white hover:bg-white/10 transition-all font-medium text-sm"
             >
               Home
             </Link>
             <Link
               href="/companies"
-              className="text-white hover:text-green-100 transition-colors font-medium"
+              className="px-3 py-1.5 rounded-md text-secondary hover:text-white hover:bg-white/10 transition-all font-medium text-sm"
             >
               Companies
             </Link>
             <Link
               href="/events"
-              className="text-white hover:text-green-100 transition-colors font-medium"
+              className="px-3 py-1.5 rounded-md text-secondary hover:text-white hover:bg-white/10 transition-all font-medium text-sm"
             >
-              International Exhibitions
+              Exhibitions
             </Link>
-            <Link
-              href="/delegations?tab=incoming"
-              className="text-white hover:text-green-100 transition-colors font-medium"
+            <select
+              defaultValue=""
+              onChange={(e) => { if (e.target.value) { router.push(e.target.value); e.target.value = ''; } }}
+              className="glass-input px-3 py-1.5 text-sm font-medium cursor-pointer"
             >
-              Incoming Delegations
-            </Link>
-            <Link
-              href="/delegations?tab=outgoing"
-              className="text-white hover:text-green-100 transition-colors font-medium"
-            >
-              Outgoing Delegations
-            </Link>
+              <option value="" disabled>Delegations</option>
+              <option value="/delegations?tab=incoming">Incoming</option>
+              <option value="/delegations?tab=outgoing">Outgoing</option>
+            </select>
             <Link
               href="/seminars"
               className="text-white hover:text-green-100 transition-colors font-medium"
             >
-              Seminars
+              Seminars & Webinars
             </Link>
             <Link
               href="/register"
-              className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-500 transition-colors font-medium"
+              className="btn-primary px-4 py-2 text-sm ml-2"
             >
               Register Company
             </Link>

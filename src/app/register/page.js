@@ -6,11 +6,11 @@ import Link from 'next/link';
 
 export default function RegisterPage() {
     const router = useRouter();
-    const [sectors, setSectors] = useState([]);
+    const [sectors, setSectors]       = useState([]);
     const [subSectors, setSubSectors] = useState([]);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState('');
-    const [success, setSuccess] = useState(false);
+    const [loading, setLoading]       = useState(false);
+    const [error, setError]           = useState('');
+    const [success, setSuccess]       = useState(false);
 
     const [formData, setFormData] = useState({
         name: '',
@@ -27,34 +27,20 @@ export default function RegisterPage() {
         subSectorIds: [],
     });
 
-    // Fetch sectors, sub-sectors, and products on mount
     useEffect(() => {
-        async function fetchData() {
-            try {
-                const [sectorsRes, categoriesRes] = await Promise.all([
-                    fetch('/api/sectors'),
-                    fetch('/api/categories'),
-                ]);
-
-                const sectorsData = await sectorsRes.json();
-                const subSectorsData = await categoriesRes.json();
-
-                setSectors(sectorsData.sectors);
-                setSubSectors(subSectorsData.subSectors);
-            } catch (error) {
-                console.error('Error fetching data:', error);
-                setError('Failed to load form data. Please refresh the page.');
-            }
-        }
-        fetchData();
+        Promise.all([fetch('/api/sectors'), fetch('/api/categories')])
+            .then(async ([sRes, cRes]) => {
+                const sData = await sRes.json();
+                const cData = await cRes.json();
+                setSectors(sData.sectors || []);
+                setSubSectors(cData.subSectors || []);
+            })
+            .catch(() => setError('Failed to load form data. Please refresh the page.'));
     }, []);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        setFormData(prev => ({
-            ...prev,
-            [name]: value
-        }));
+        setFormData(prev => ({ ...prev, [name]: value }));
     };
 
     // When sectors change, drop any sub-sectors that no longer belong to a selected sector
@@ -92,7 +78,6 @@ export default function RegisterPage() {
         setLoading(true);
         setError('');
 
-        // Validation
         if (!formData.name) {
             setError('Company name is required');
             setLoading(false);
@@ -102,9 +87,7 @@ export default function RegisterPage() {
         try {
             const response = await fetch('/api/register', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     ...formData,
                     // Send primary (first selected) IDs to the single-FK fields
@@ -114,17 +97,13 @@ export default function RegisterPage() {
             });
 
             const data = await response.json();
-
             if (response.ok) {
                 setSuccess(true);
-                setTimeout(() => {
-                    router.push('/companies');
-                }, 2000);
+                setTimeout(() => router.push('/companies'), 2000);
             } else {
                 setError(data.error || 'Registration failed. Please try again.');
             }
-        } catch (error) {
-            console.error('Error submitting form:', error);
+        } catch {
             setError('Failed to submit registration. Please try again.');
         } finally {
             setLoading(false);
@@ -133,12 +112,12 @@ export default function RegisterPage() {
 
     if (success) {
         return (
-            <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
-                <div className="bg-white rounded-lg shadow-md p-8 max-w-md w-full text-center">
-                    <div className="text-green-600 text-6xl mb-4">✓</div>
-                    <h2 className="text-2xl font-bold text-gray-900 mb-2">Registration Successful!</h2>
-                    <p className="text-gray-600 mb-4">
-                        Your company has been registered successfully. Redirecting to companies page...
+            <div className="page-wrapper flex items-center justify-center px-4">
+                <div className="glass-card-strong p-10 max-w-md w-full text-center">
+                    <div className="text-accent-green text-6xl mb-4">✓</div>
+                    <h2 className="text-2xl font-bold text-white mb-2">Registration Successful!</h2>
+                    <p className="text-secondary">
+                        Your company has been registered. Redirecting to the companies page…
                     </p>
                 </div>
             </div>
@@ -146,128 +125,95 @@ export default function RegisterPage() {
     }
 
     return (
-        <div className="min-h-screen bg-gray-50 py-8 px-4">
+        <div className="page-wrapper py-8 px-4">
             <div className="container mx-auto max-w-4xl">
+
                 {/* Header */}
-                <div className="bg-white rounded-lg shadow-md p-6 mb-6">
-                    <h1 className="text-3xl font-bold text-gray-900 mb-2">Company Registration</h1>
-                    <p className="text-gray-600">
+                <div className="glass-card p-6 mb-6">
+                    <h1 className="text-3xl font-bold text-white mb-2">Company Registration</h1>
+                    <p className="text-secondary">
                         Register your company in the TDAP Food Division Directory
                     </p>
                 </div>
 
-                {/* Error Message */}
+                {/* Error */}
                 {error && (
-                    <div className="bg-red-50 border border-red-200 text-red-800 rounded-lg p-4 mb-6">
-                        {error}
-                    </div>
+                    <div className="alert-error p-4 mb-6">{error}</div>
                 )}
 
-                {/* Registration Form */}
-                <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow-md p-6 space-y-6">
+                {/* Form */}
+                <form onSubmit={handleSubmit} className="glass-card p-6 space-y-8">
+
                     {/* Basic Information */}
-                    <div>
-                        <h2 className="text-xl font-bold text-gray-900 mb-4">Basic Information</h2>
+                    <Section title="Basic Information">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div className="md:col-span-2">
-                                <label className="block text-sm font-medium text-gray-700 mb-2">
-                                    Company Name <span className="text-red-500">*</span>
-                                </label>
+                                <FormLabel required>Company Name</FormLabel>
                                 <input
-                                    type="text"
-                                    name="name"
-                                    value={formData.name}
-                                    onChange={handleInputChange}
-                                    className="w-full px-3 py-2 border border-gray-300 text-gray-950 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
-                                    required
+                                    type="text" name="name"
+                                    value={formData.name} onChange={handleInputChange}
+                                    className="glass-input w-full px-3 py-2" required
                                 />
                             </div>
-
                             <div className="md:col-span-2">
-                                <label className="block text-sm font-medium text-gray-700 mb-2">
-                                    Company Profile
-                                </label>
+                                <FormLabel>Company Profile</FormLabel>
                                 <textarea
-                                    name="profile"
-                                    value={formData.profile}
-                                    onChange={handleInputChange}
-                                    rows="4"
-                                    className="w-full px-3 py-2 border border-gray-300 text-gray-950 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
-                                    placeholder="Describe your company's background, mission, and activities..."
+                                    name="profile" rows="4"
+                                    value={formData.profile} onChange={handleInputChange}
+                                    placeholder="Describe your company's background, mission, and activities…"
+                                    className="glass-input w-full px-3 py-2"
                                 />
                             </div>
-
                             <div className="md:col-span-2">
-                                <label className="block text-sm font-medium text-gray-700 mb-2">
-                                    Address
-                                </label>
+                                <FormLabel>Address</FormLabel>
                                 <textarea
-                                    name="address"
-                                    value={formData.address}
-                                    onChange={handleInputChange}
-                                    rows="2"
-                                    className="w-full px-3 py-2 border border-gray-300 text-gray-950 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
-                                    placeholder="Company address..."
+                                    name="address" rows="2"
+                                    value={formData.address} onChange={handleInputChange}
+                                    placeholder="Company address…"
+                                    className="glass-input w-full px-3 py-2"
                                 />
                             </div>
-
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">
-                                    Email
-                                </label>
+                                <FormLabel>Email</FormLabel>
                                 <input
-                                    type="email"
-                                    name="email"
-                                    value={formData.email}
-                                    onChange={handleInputChange}
-                                    className="w-full px-3 py-2 border border-gray-300 text-gray-950 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                                    type="email" name="email"
+                                    value={formData.email} onChange={handleInputChange}
                                     placeholder="company@example.com"
+                                    className="glass-input w-full px-3 py-2"
                                 />
                             </div>
-
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">
-                                    Website
-                                </label>
+                                <FormLabel>Website</FormLabel>
                                 <input
-                                    type="url"
-                                    name="website"
-                                    value={formData.website}
-                                    onChange={handleInputChange}
-                                    className="w-full px-3 py-2 border border-gray-300 text-gray-950 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                                    type="url" name="website"
+                                    value={formData.website} onChange={handleInputChange}
                                     placeholder="https://example.com"
+                                    className="glass-input w-full px-3 py-2"
                                 />
                             </div>
-
                             <div className="md:col-span-2">
-                                <label className="block text-sm font-medium text-gray-700 mb-2">
-                                    Products to be Displayed
-                                </label>
+                                <FormLabel>Products to be Displayed</FormLabel>
                                 <textarea
-                                    name="productsToBeDisplayed"
-                                    value={formData.productsToBeDisplayed}
-                                    onChange={handleInputChange}
-                                    rows="3"
-                                    className="w-full px-3 py-2 border border-gray-300 text-gray-950 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                                    name="productsToBeDisplayed" rows="3"
+                                    value={formData.productsToBeDisplayed} onChange={handleInputChange}
                                     placeholder="List products your company will display (comma separated)"
+                                    className="glass-input w-full px-3 py-2"
                                 />
                             </div>
                         </div>
-                    </div>
+                    </Section>
 
                     {/* Business Classification */}
-                    <div>
-                        <h2 className="text-xl font-bold text-gray-900 mb-4">Business Classification</h2>
-
+                    <Section title="Business Classification">
                         {/* Sectors — multi-select pills */}
                         <div className="mb-5">
-                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                            <label className="block text-sm font-medium text-secondary mb-1">
                                 Sectors
-                                <span className="ml-1 text-xs font-normal text-gray-500">(select one or more)</span>
+                                <span className="ml-1 text-xs font-normal text-muted">(select one or more)</span>
                             </label>
 
                             {sectors.length === 0 ? (
-                                <p className="text-sm text-gray-400 italic">Loading sectors…</p>
+                                <p className="text-sm text-muted italic">Loading sectors…</p>
                             ) : (
                                 <div className="flex flex-wrap gap-2 mt-2">
                                     {sectors.map(sector => {
@@ -279,7 +225,7 @@ export default function RegisterPage() {
                                                 onClick={() => toggleSector(sector.id)}
                                                 className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium border transition-colors focus:outline-none focus:ring-2 focus:ring-green-500 ${selected
                                                     ? 'bg-green-700 text-white border-green-700'
-                                                    : 'bg-white text-gray-700 border-gray-300 hover:border-green-500 hover:text-green-700'
+                                                    : 'bg-white/10 text-secondary border-white/20 hover:border-green-500 hover:text-white'
                                                     }`}
                                             >
                                                 {selected && (
@@ -295,10 +241,10 @@ export default function RegisterPage() {
                             )}
 
                             {formData.sectorIds.length > 0 && (
-                                <p className="mt-2 text-xs text-green-700 font-medium">
+                                <p className="mt-2 text-xs text-accent-green font-medium">
                                     {formData.sectorIds.length} sector{formData.sectorIds.length > 1 ? 's' : ''} selected
                                     {formData.sectorIds.length > 1 && (
-                                        <span className="text-gray-500 font-normal"> — first selected is used as primary</span>
+                                        <span className="text-muted font-normal"> — first selected is used as primary</span>
                                     )}
                                 </p>
                             )}
@@ -306,18 +252,18 @@ export default function RegisterPage() {
 
                         {/* Sub-Sectors — filtered by all selected sectors */}
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                            <label className="block text-sm font-medium text-secondary mb-1">
                                 Sub-Sectors
-                                <span className="ml-1 text-xs font-normal text-gray-500">(select one or more)</span>
+                                <span className="ml-1 text-xs font-normal text-muted">(select one or more)</span>
                             </label>
 
                             {formData.sectorIds.length === 0 ? (
-                                <p className="text-sm text-gray-400 italic mt-2">Select at least one sector above to see sub-sectors.</p>
+                                <p className="text-sm text-muted italic mt-2">Select at least one sector above to see sub-sectors.</p>
                             ) : (
                                 (() => {
                                     const filtered = subSectors.filter(ss => formData.sectorIds.includes(ss.sectorId));
                                     return filtered.length === 0 ? (
-                                        <p className="text-sm text-gray-400 italic mt-2">No sub-sectors available for the selected sector(s).</p>
+                                        <p className="text-sm text-muted italic mt-2">No sub-sectors available for the selected sector(s).</p>
                                     ) : (
                                         <div className="flex flex-wrap gap-2 mt-2">
                                             {filtered.map(ss => {
@@ -329,7 +275,7 @@ export default function RegisterPage() {
                                                         onClick={() => toggleSubSector(ss.id)}
                                                         className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium border transition-colors focus:outline-none focus:ring-2 focus:ring-green-500 ${selected
                                                             ? 'bg-green-600 text-white border-green-600'
-                                                            : 'bg-white text-gray-700 border-gray-300 hover:border-green-500 hover:text-green-700'
+                                                            : 'bg-white/10 text-secondary border-white/20 hover:border-green-500 hover:text-white'
                                                             }`}
                                                     >
                                                         {selected && (
@@ -347,87 +293,67 @@ export default function RegisterPage() {
                             )}
 
                             {formData.subSectorIds.length > 0 && (
-                                <p className="mt-2 text-xs text-green-700 font-medium">
+                                <p className="mt-2 text-xs text-accent-green font-medium">
                                     {formData.subSectorIds.length} sub-sector{formData.subSectorIds.length > 1 ? 's' : ''} selected
                                 </p>
                             )}
                         </div>
-                    </div>
+                    </Section>
 
-                    {/* Contact Person Information */}
-                    <div>
-                        <h2 className="text-xl font-bold text-gray-900 mb-4">Contact Person Information</h2>
+                    {/* Contact Person */}
+                    <Section title="Contact Person Information">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">
-                                    Representative Name
-                                </label>
+                                <FormLabel>Representative Name</FormLabel>
                                 <input
-                                    type="text"
-                                    name="representativeName"
-                                    value={formData.representativeName}
-                                    onChange={handleInputChange}
-                                    className="w-full px-3 py-2 border border-gray-300 text-gray-950 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                                    type="text" name="representativeName"
+                                    value={formData.representativeName} onChange={handleInputChange}
                                     placeholder="Contact person name"
+                                    className="glass-input w-full px-3 py-2"
                                 />
                             </div>
-
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">
-                                    Representative Email
-                                </label>
+                                <FormLabel>Representative Email</FormLabel>
                                 <input
-                                    type="email"
-                                    name="representativeEmail"
-                                    value={formData.representativeEmail}
-                                    onChange={handleInputChange}
-                                    className="w-full px-3 py-2 border border-gray-300 text-gray-950 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                                    type="email" name="representativeEmail"
+                                    value={formData.representativeEmail} onChange={handleInputChange}
                                     placeholder="representative@example.com"
+                                    className="glass-input w-full px-3 py-2"
                                 />
                             </div>
-
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">
-                                    Phone Number
-                                </label>
+                                <FormLabel>Phone Number</FormLabel>
                                 <input
-                                    type="tel"
-                                    name="representativeTel"
-                                    value={formData.representativeTel}
-                                    onChange={handleInputChange}
-                                    className="w-full px-3 py-2 border border-gray-300 text-gray-950 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                                    type="tel" name="representativeTel"
+                                    value={formData.representativeTel} onChange={handleInputChange}
                                     placeholder="+92 XXX XXXXXXX"
+                                    className="glass-input w-full px-3 py-2"
                                 />
                             </div>
-
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">
-                                    WhatsApp Number
-                                </label>
+                                <FormLabel>WhatsApp Number</FormLabel>
                                 <input
-                                    type="tel"
-                                    name="representativeWhatsapp"
-                                    value={formData.representativeWhatsapp}
-                                    onChange={handleInputChange}
-                                    className="w-full px-3 py-2 border border-gray-300 text-gray-950 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                                    type="tel" name="representativeWhatsapp"
+                                    value={formData.representativeWhatsapp} onChange={handleInputChange}
                                     placeholder="+92 XXX XXXXXXX"
+                                    className="glass-input w-full px-3 py-2"
                                 />
                             </div>
                         </div>
-                    </div>
+                    </Section>
 
-                    {/* Submit Buttons */}
-                    <div className="flex flex-col sm:flex-row gap-4 pt-4 border-t">
+                    {/* Submit */}
+                    <div className="flex flex-col sm:flex-row gap-4 pt-4 border-t glass-divider">
                         <button
                             type="submit"
                             disabled={loading}
-                            className="flex-1 bg-green-700 text-white px-6 py-3 rounded-md hover:bg-green-800 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed font-medium"
+                            className="btn-primary flex-1 px-6 py-3"
                         >
-                            {loading ? 'Submitting...' : 'Register Company'}
+                            {loading ? 'Submitting…' : 'Register Company'}
                         </button>
                         <Link
                             href="/companies"
-                            className="flex-1 bg-gray-200 text-gray-800 px-6 py-3 rounded-md hover:bg-gray-300 transition-colors text-center font-medium"
+                            className="btn-outline flex-1 px-6 py-3 text-center"
                         >
                             Cancel
                         </Link>
@@ -435,5 +361,23 @@ export default function RegisterPage() {
                 </form>
             </div>
         </div>
+    );
+}
+
+function Section({ title, children }) {
+    return (
+        <div>
+            <h2 className="text-xl font-bold text-white mb-4">{title}</h2>
+            {children}
+        </div>
+    );
+}
+
+function FormLabel({ children, required }) {
+    return (
+        <label className="block text-sm font-medium text-secondary mb-2">
+            {children}
+            {required && <span className="text-red-400 ml-1">*</span>}
+        </label>
     );
 }

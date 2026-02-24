@@ -59,31 +59,31 @@ export default function MissionFeedbackClient() {
     };
 
     return (
-        <div className="min-h-screen bg-gray-50 px-4">
+        <div className="page-wrapper px-4">
             <main className="container mx-auto px-4 py-8 max-w-xl">
-                <h1 className="text-2xl font-bold text-gray-900 mb-4">
+                <h1 className="text-2xl font-bold text-primary mb-4">
                     Mission Feedback Form
                 </h1>
                 {eventId && (
-                    <p className="text-sm text-gray-600 mb-4">
-                        For event ID: <span className="font-mono">{eventId}</span>
+                    <p className="text-sm text-secondary mb-4">
+                        For event ID: <span className="font-mono text-accent-green">{eventId}</span>
                     </p>
                 )}
 
                 {submitted ? (
-                    <div className="bg-green-50 border border-green-200 rounded-md p-4 text-green-800">
+                    <div className="alert-success px-4 py-4 text-sm font-medium">
                         Thank you for your feedback.
                     </div>
                 ) : (
-                    <form onSubmit={onSubmit} className="space-y-4 bg-white rounded-lg shadow-md p-6">
+                    <form onSubmit={onSubmit} className="space-y-4 glass-card p-6">
                         {error && (
-                            <div className="text-sm text-red-700 bg-red-50 border border-red-200 rounded-md px-3 py-2">
+                            <div className="alert-error px-3 py-2 text-sm">
                                 {error}
                             </div>
                         )}
 
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                            <label className="block text-sm font-medium text-secondary mb-1">
                                 Your Name
                             </label>
                             <input
@@ -91,12 +91,12 @@ export default function MissionFeedbackClient() {
                                 name="sourceName"
                                 value={form.sourceName}
                                 onChange={onChange}
-                                className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-green-600"
+                                className="glass-input w-full px-3 py-2 text-sm"
                             />
                         </div>
 
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                            <label className="block text-sm font-medium text-secondary mb-1">
                                 Your Email
                             </label>
                             <input
@@ -104,12 +104,12 @@ export default function MissionFeedbackClient() {
                                 name="sourceEmail"
                                 value={form.sourceEmail}
                                 onChange={onChange}
-                                className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-green-600"
+                                className="glass-input w-full px-3 py-2 text-sm"
                             />
                         </div>
 
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                            <label className="block text-sm font-medium text-secondary mb-1">
                                 Rating (1–5)
                             </label>
                             <input
@@ -119,12 +119,12 @@ export default function MissionFeedbackClient() {
                                 name="rating"
                                 value={form.rating}
                                 onChange={onChange}
-                                className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-green-600"
+                                className="glass-input w-full px-3 py-2 text-sm"
                             />
                         </div>
 
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                            <label className="block text-sm font-medium text-secondary mb-1">
                                 Comments
                             </label>
                             <textarea
@@ -132,14 +132,14 @@ export default function MissionFeedbackClient() {
                                 rows={4}
                                 value={form.comments}
                                 onChange={onChange}
-                                className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-green-600"
+                                className="glass-input w-full px-3 py-2 text-sm"
                             />
                         </div>
 
                         <button
                             type="submit"
                             disabled={submitting}
-                            className="w-full px-4 py-2 bg-green-700 text-white rounded-md text-sm font-medium hover:bg-green-800 disabled:opacity-60"
+                            className="btn-primary w-full px-4 py-2 text-sm font-semibold disabled:opacity-60"
                         >
                             {submitting ? 'Submitting...' : 'Submit Feedback'}
                         </button>
@@ -149,4 +149,3 @@ export default function MissionFeedbackClient() {
         </div>
     );
 }
-
