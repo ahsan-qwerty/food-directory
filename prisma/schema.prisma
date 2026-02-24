@@ -21,6 +21,8 @@ hsCode String?
 
 subSectors SubSector[]
 companies Company[]
+companySectors CompanySector[]
+eventSectors   EventSector[]
 
 
 createdAt DateTime @default(now())
@@ -39,6 +41,7 @@ sector Sector @relation(fields: [sectorId], references: [id])
 
 products Product[]
 companies Company[]
+companySubSectors CompanySubSector[]
 
 
 createdAt DateTime @default(now())
@@ -71,17 +74,46 @@ representativeWhatsapp String?
 representativeEmail String?
 productsToBeDisplayed String?
 
+// Primary / legacy single-FK (kept for backward-compat with existing data & filters)
 sectorId Int?
 sector   Sector?   @relation(fields: [sectorId], references: [id])
 
 subSectorId Int?
 subSector   SubSector? @relation(fields: [subSectorId], references: [id])
 
+// Many-to-many: all selected sectors / sub-sectors
+sectors    CompanySector[]
+subSectors CompanySubSector[]
+
 eventParticipations EventCompany[]
 delegationParticipations DelegationCompany[]
 feedbacks EventFeedback[]
 
 createdAt DateTime @default(now())
+}
+
+// ── Junction: Company ↔ Sector (many-to-many) ──────────────────────────────
+model CompanySector {
+  id        Int     @id @default(autoincrement())
+  companyId Int
+  sectorId  Int
+
+  company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  sector  Sector  @relation(fields: [sectorId],  references: [id], onDelete: Cascade)
+
+  @@unique([companyId, sectorId])
+}
+
+// ── Junction: Company ↔ SubSector (many-to-many) ───────────────────────────
+model CompanySubSector {
+  id          Int @id @default(autoincrement())
+  companyId   Int
+  subSectorId Int
+
+  company   Company   @relation(fields: [companyId],   references: [id], onDelete: Cascade)
+  subSector SubSector @relation(fields: [subSectorId], references: [id], onDelete: Cascade)
+
+  @@unique([companyId, subSectorId])
 }
 
 model Event {
@@ -119,9 +151,22 @@ model Event {
   // Relations
   participants EventCompany[]
   feedbacks    EventFeedback[]
+  eventSectors EventSector[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+// ── Junction: Event ↔ Sector (many-to-many) ────────────────────────────────
+model EventSector {
+  id       Int @id @default(autoincrement())
+  eventId  Int
+  sectorId Int
+
+  event  Event  @relation(fields: [eventId],  references: [id], onDelete: Cascade)
+  sector Sector @relation(fields: [sectorId], references: [id], onDelete: Cascade)
+
+  @@unique([eventId, sectorId])
 }
 
 model EventCompany {
@@ -260,4 +305,33 @@ model DelegationCompany {
   createdAt DateTime @default(now())
   
   @@unique([delegationId, companyId])
+}
+
+enum SeminarStatus {
+  PLANNED
+  COMPLETED
+  CANCELLED
+}
+
+model Seminar {
+  id                    Int           @id @default(autoincrement())
+  
+  // Core planning fields (from Excel sheet)
+  productSector         String?       // Product / Sector column
+  title                 String        // Event Details column
+  cityVenue             String?       // City / Venue column
+  tentativeDate         String?       // Tentative Date (e.g. "Aug-25", "Mar-26")
+  proposedBudget        Decimal?      @db.Decimal(15, 2) // Proposed Budget (PKR)
+  division              String?       // Division column
+  regionalCollaboration String?       // Regional Collaboration column
+  rationaleObjective    String?       @db.Text // Rationale/Objective column
+  
+  status                SeminarStatus @default(PLANNED)
+  
+  // Additional admin fields
+  deskOfficer           String?
+  finalRemarks          String?
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

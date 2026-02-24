@@ -38,10 +38,25 @@ export type Product = Prisma.ProductModel
  */
 export type Company = Prisma.CompanyModel
 /**
+ * Model CompanySector
+ * 
+ */
+export type CompanySector = Prisma.CompanySectorModel
+/**
+ * Model CompanySubSector
+ * 
+ */
+export type CompanySubSector = Prisma.CompanySubSectorModel
+/**
  * Model Event
  * 
  */
 export type Event = Prisma.EventModel
+/**
+ * Model EventSector
+ * 
+ */
+export type EventSector = Prisma.EventSectorModel
 /**
  * Model EventCompany
  * 
@@ -67,3 +82,8 @@ export type Delegation = Prisma.DelegationModel
  * 
  */
 export type DelegationCompany = Prisma.DelegationCompanyModel
+/**
+ * Model Seminar
+ * 
+ */
+export type Seminar = Prisma.SeminarModel

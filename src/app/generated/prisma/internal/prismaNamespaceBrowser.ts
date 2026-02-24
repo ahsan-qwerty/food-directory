@@ -55,12 +55,16 @@ export const ModelName = {
   SubSector: 'SubSector',
   Product: 'Product',
   Company: 'Company',
+  CompanySector: 'CompanySector',
+  CompanySubSector: 'CompanySubSector',
   Event: 'Event',
+  EventSector: 'EventSector',
   EventCompany: 'EventCompany',
   EventFeedback: 'EventFeedback',
   Mission: 'Mission',
   Delegation: 'Delegation',
-  DelegationCompany: 'DelegationCompany'
+  DelegationCompany: 'DelegationCompany',
+  Seminar: 'Seminar'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -131,6 +135,24 @@ export const CompanyScalarFieldEnum = {
 export type CompanyScalarFieldEnum = (typeof CompanyScalarFieldEnum)[keyof typeof CompanyScalarFieldEnum]
 
 
+export const CompanySectorScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  sectorId: 'sectorId'
+} as const
+
+export type CompanySectorScalarFieldEnum = (typeof CompanySectorScalarFieldEnum)[keyof typeof CompanySectorScalarFieldEnum]
+
+
+export const CompanySubSectorScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  subSectorId: 'subSectorId'
+} as const
+
+export type CompanySubSectorScalarFieldEnum = (typeof CompanySubSectorScalarFieldEnum)[keyof typeof CompanySubSectorScalarFieldEnum]
+
+
 export const EventScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -158,6 +180,15 @@ export const EventScalarFieldEnum = {
 } as const
 
 export type EventScalarFieldEnum = (typeof EventScalarFieldEnum)[keyof typeof EventScalarFieldEnum]
+
+
+export const EventSectorScalarFieldEnum = {
+  id: 'id',
+  eventId: 'eventId',
+  sectorId: 'sectorId'
+} as const
+
+export type EventSectorScalarFieldEnum = (typeof EventSectorScalarFieldEnum)[keyof typeof EventSectorScalarFieldEnum]
 
 
 export const EventCompanyScalarFieldEnum = {
@@ -247,6 +278,26 @@ export const DelegationCompanyScalarFieldEnum = {
 } as const
 
 export type DelegationCompanyScalarFieldEnum = (typeof DelegationCompanyScalarFieldEnum)[keyof typeof DelegationCompanyScalarFieldEnum]
+
+
+export const SeminarScalarFieldEnum = {
+  id: 'id',
+  productSector: 'productSector',
+  title: 'title',
+  cityVenue: 'cityVenue',
+  tentativeDate: 'tentativeDate',
+  proposedBudget: 'proposedBudget',
+  division: 'division',
+  regionalCollaboration: 'regionalCollaboration',
+  rationaleObjective: 'rationaleObjective',
+  status: 'status',
+  deskOfficer: 'deskOfficer',
+  finalRemarks: 'finalRemarks',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SeminarScalarFieldEnum = (typeof SeminarScalarFieldEnum)[keyof typeof SeminarScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -367,4 +418,19 @@ export const DelegationOrderByRelevanceFieldEnum = {
 } as const
 
 export type DelegationOrderByRelevanceFieldEnum = (typeof DelegationOrderByRelevanceFieldEnum)[keyof typeof DelegationOrderByRelevanceFieldEnum]
+
+
+export const SeminarOrderByRelevanceFieldEnum = {
+  productSector: 'productSector',
+  title: 'title',
+  cityVenue: 'cityVenue',
+  tentativeDate: 'tentativeDate',
+  division: 'division',
+  regionalCollaboration: 'regionalCollaboration',
+  rationaleObjective: 'rationaleObjective',
+  deskOfficer: 'deskOfficer',
+  finalRemarks: 'finalRemarks'
+} as const
+
+export type SeminarOrderByRelevanceFieldEnum = (typeof SeminarOrderByRelevanceFieldEnum)[keyof typeof SeminarOrderByRelevanceFieldEnum]
 

@@ -46,14 +46,35 @@ export async function GET(request) {
   if (sector) {
     const sectorId = Number(sector);
     if (!Number.isNaN(sectorId)) {
-      where.sectorId = sectorId;
+      // Match companies where this sector is either the primary FK
+      // OR any entry in the many-to-many junction table
+      where.OR = [
+        { sectorId },
+        { sectors: { some: { sectorId } } },
+      ];
     }
   }
 
   if (subSector) {
     const subSectorId = Number(subSector);
     if (!Number.isNaN(subSectorId)) {
-      where.subSectorId = subSectorId;
+      // Match companies where this sub-sector is either the primary FK
+      // OR any entry in the many-to-many junction table
+      const subFilter = [
+        { subSectorId },
+        { subSectors: { some: { subSectorId } } },
+      ];
+      // Merge with any existing OR (from sector filter above)
+      if (where.OR) {
+        // Both filters must match: wrap in AND
+        where.AND = [
+          { OR: where.OR },
+          { OR: subFilter },
+        ];
+        delete where.OR;
+      } else {
+        where.OR = subFilter;
+      }
     }
   }
 

@@ -7,11 +7,13 @@ export default function Home() {
   const [companies, setCompanies] = useState([]);
   const [sectors, setSectors] = useState([]);
   const [events, setEvents] = useState([]);
+  const [seminars, setSeminars] = useState([]);
 
   useEffect(() => {
     fetch('/api/events').then(r => r.json()).then(d => setEvents(d.events || []));
     fetch('/api/companies').then(r => r.json()).then(d => setCompanies(d.companies || []));
     fetch('/api/sectors').then(r => r.json()).then(d => setSectors(d.sectors || []));
+    fetch('/api/seminars').then(r => r.json()).then(d => setSeminars(d.seminars || []));
   }, []);
 
   return (
@@ -39,6 +41,12 @@ export default function Home() {
                 <Link href="/events" className="btn-outline px-8 py-3 inline-block">
                   View Events
                 </Link>
+                <Link
+                  href="/seminars"
+                  className="px-8 py-3 bg-orange-500 text-white rounded-lg font-semibold hover:bg-orange-600 transition-colors"
+                >
+                  Seminars
+                </Link>
               </div>
             </div>
           </div>
@@ -47,11 +55,12 @@ export default function Home() {
         {/* ── Stats ─────────────────────────────────────────────────── */}
         <section className="py-10 px-4">
           <div className="container mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
               {[
                 { value: companies.length, label: 'Registered Companies', color: 'text-accent-green' },
                 { value: sectors.length,   label: 'Food Sectors',          color: 'text-accent-blue' },
                 { value: events.length,    label: 'Events &amp; Exhibitions', color: 'text-accent-green' },
+                { value: seminars.length,  label: 'Seminars &amp; Webinars',  color: 'text-orange-400' },
               ].map(({ value, label, color }) => (
                 <div key={label} className="glass-card p-8">
                   <div className={`text-5xl font-bold mb-2 ${color}`}>{value}</div>

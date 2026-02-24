@@ -56,6 +56,12 @@ export default function Header() {
               <option value="/delegations?tab=outgoing">Outgoing</option>
             </select>
             <Link
+              href="/seminars"
+              className="text-white hover:text-green-100 transition-colors font-medium"
+            >
+              Seminars
+            </Link>
+            <Link
               href="/register"
               className="btn-primary px-4 py-2 text-sm ml-2"
             >
