@@ -59,7 +59,7 @@ export default function Header() {
               href="/seminars"
               className="text-white hover:text-green-100 transition-colors font-medium"
             >
-              Seminars
+              Seminars & Webinars
             </Link>
             <Link
               href="/register"

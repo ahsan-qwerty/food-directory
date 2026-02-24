@@ -3,9 +3,9 @@ import Link from 'next/link';
 import { prisma } from '../../../lib/prismaClient';
 
 const STATUS_STYLES = {
-    PLANNED: { bg: 'bg-blue-100', text: 'text-blue-800', label: 'Planned' },
-    COMPLETED: { bg: 'bg-green-100', text: 'text-green-800', label: 'Completed' },
-    CANCELLED: { bg: 'bg-red-100', text: 'text-red-800', label: 'Cancelled' },
+    PLANNED: { badge: 'badge-blue', label: 'Planned' },
+    COMPLETED: { badge: 'badge-green', label: 'Completed' },
+    CANCELLED: { badge: 'badge-red', label: 'Cancelled' },
 };
 
 function formatCurrencyPKR(value) {
@@ -44,31 +44,40 @@ export default async function SeminarDetailPage({ params }) {
     const statusStyle = STATUS_STYLES[seminar.status] || STATUS_STYLES.PLANNED;
 
     return (
-        <div className="min-h-screen bg-gray-50 px-4">
+        <div className="page-wrapper px-4">
             <main className="container mx-auto px-4 py-8">
 
                 {/* Breadcrumb */}
-                <nav className="flex text-sm text-gray-600 mb-6">
-                    <Link href="/" className="hover:text-orange-600">Home</Link>
-                    <span className="mx-2">/</span>
-                    <Link href="/seminars" className="hover:text-orange-600">Seminars</Link>
-                    <span className="mx-2">/</span>
-                    <span className="text-gray-900 line-clamp-1">{seminar.title}</span>
+                <nav className="flex text-sm text-secondary mb-6">
+                    <Link href="/" className="breadcrumb-link">Home</Link>
+                    <span className="mx-2 text-muted">/</span>
+                    <Link href="/seminars" className="breadcrumb-link">Seminars</Link>
+                    <span className="mx-2 text-muted">/</span>
+                    <span className="text-white line-clamp-1">{seminar.title}</span>
                 </nav>
 
                 {/* Hero Banner */}
-                <div className="bg-gradient-to-r from-orange-600 to-orange-500 rounded-xl shadow-lg p-8 md:p-10 mb-8 text-white">
+                <div
+                    className="rounded-xl p-8 md:p-10 mb-8 text-white"
+                    style={{
+                        background: 'linear-gradient(135deg, rgba(234,88,12,0.60) 0%, rgba(249,115,22,0.45) 100%)',
+                        backdropFilter: 'blur(14px)',
+                        WebkitBackdropFilter: 'blur(14px)',
+                        border: '1px solid rgba(249,115,22,0.30)',
+                        boxShadow: '0 8px 32px rgba(0,0,0,0.40)',
+                    }}
+                >
                     <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
                         <div className="flex-1 min-w-0">
                             {seminar.productSector && (
-                                <span className="inline-block px-3 py-1 text-xs font-semibold uppercase tracking-wide bg-white/20 rounded-full mb-3">
+                                <span className="inline-block px-3 py-1 text-xs font-semibold uppercase tracking-wide bg-white/15 border border-white/20 rounded-full mb-3">
                                     {seminar.productSector}
                                 </span>
                             )}
                             <h1 className="text-2xl md:text-3xl font-bold leading-snug mb-3">
                                 {seminar.title}
                             </h1>
-                            <div className="flex flex-wrap gap-4 text-orange-100 text-sm">
+                            <div className="flex flex-wrap gap-4 text-orange-200 text-sm">
                                 {seminar.cityVenue && (
                                     <div className="flex items-center gap-1.5">
                                         <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
@@ -95,7 +104,7 @@ export default async function SeminarDetailPage({ params }) {
                                 )}
                             </div>
                         </div>
-                        <span className={`self-start inline-flex items-center px-3 py-1.5 rounded-full text-sm font-bold ${statusStyle.bg} ${statusStyle.text}`}>
+                        <span className={`self-start inline-flex items-center px-3 py-1.5 rounded-full text-sm font-bold ${statusStyle.badge}`}>
                             {statusStyle.label}
                         </span>
                     </div>
@@ -107,28 +116,28 @@ export default async function SeminarDetailPage({ params }) {
                     <div className="lg:col-span-2 space-y-6">
 
                         {/* Rationale / Objective */}
-                        <div className="bg-white rounded-lg shadow-md p-6">
-                            <h2 className="text-xl font-bold text-gray-900 mb-3 flex items-center gap-2">
-                                <svg className="w-5 h-5 text-orange-500" fill="currentColor" viewBox="0 0 20 20">
+                        <div className="glass-card p-6">
+                            <h2 className="text-xl font-bold text-white mb-3 flex items-center gap-2">
+                                <svg className="w-5 h-5 text-orange-400" fill="currentColor" viewBox="0 0 20 20">
                                     <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
                                 </svg>
                                 Rationale / Objective
                             </h2>
-                            <p className="text-gray-700 leading-relaxed whitespace-pre-line">
+                            <p className="text-secondary leading-relaxed whitespace-pre-line">
                                 {seminar.rationaleObjective || '—'}
                             </p>
                         </div>
 
                         {/* Regional Collaboration */}
                         {seminar.regionalCollaboration && (
-                            <div className="bg-white rounded-lg shadow-md p-6">
-                                <h2 className="text-xl font-bold text-gray-900 mb-3 flex items-center gap-2">
-                                    <svg className="w-5 h-5 text-orange-500" fill="currentColor" viewBox="0 0 20 20">
+                            <div className="glass-card p-6">
+                                <h2 className="text-xl font-bold text-white mb-3 flex items-center gap-2">
+                                    <svg className="w-5 h-5 text-orange-400" fill="currentColor" viewBox="0 0 20 20">
                                         <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
                                     </svg>
                                     Regional Collaboration
                                 </h2>
-                                <p className="text-gray-700 leading-relaxed whitespace-pre-line">
+                                <p className="text-secondary leading-relaxed whitespace-pre-line">
                                     {seminar.regionalCollaboration}
                                 </p>
                             </div>
@@ -136,14 +145,14 @@ export default async function SeminarDetailPage({ params }) {
 
                         {/* Final Remarks */}
                         {seminar.finalRemarks && (
-                            <div className="bg-white rounded-lg shadow-md p-6">
-                                <h2 className="text-xl font-bold text-gray-900 mb-3 flex items-center gap-2">
-                                    <svg className="w-5 h-5 text-orange-500" fill="currentColor" viewBox="0 0 20 20">
+                            <div className="glass-card p-6">
+                                <h2 className="text-xl font-bold text-white mb-3 flex items-center gap-2">
+                                    <svg className="w-5 h-5 text-orange-400" fill="currentColor" viewBox="0 0 20 20">
                                         <path fillRule="evenodd" d="M18 13V5a2 2 0 00-2-2H4a2 2 0 00-2 2v8a2 2 0 002 2h3l3 3 3-3h3a2 2 0 002-2zM5 7a1 1 0 011-1h8a1 1 0 110 2H6a1 1 0 01-1-1zm1 3a1 1 0 000 2h3a1 1 0 100-2H6z" clipRule="evenodd" />
                                     </svg>
                                     Final Remarks
                                 </h2>
-                                <p className="text-gray-700 leading-relaxed whitespace-pre-line">
+                                <p className="text-secondary leading-relaxed whitespace-pre-line">
                                     {seminar.finalRemarks}
                                 </p>
                             </div>
@@ -153,13 +162,13 @@ export default async function SeminarDetailPage({ params }) {
                     {/* Sidebar */}
                     <div className="space-y-6">
                         {/* Quick Info */}
-                        <div className="bg-white rounded-lg shadow-md p-6">
-                            <h2 className="text-xl font-bold text-gray-900 mb-4">Quick Information</h2>
+                        <div className="glass-card p-6">
+                            <h2 className="text-xl font-bold text-white mb-4">Quick Information</h2>
                             <dl className="space-y-4 text-sm">
                                 <div>
-                                    <dt className="font-semibold text-gray-700 mb-0.5">Status</dt>
+                                    <dt className="font-semibold text-secondary mb-0.5">Status</dt>
                                     <dd>
-                                        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold ${statusStyle.bg} ${statusStyle.text}`}>
+                                        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold ${statusStyle.badge}`}>
                                             {statusStyle.label}
                                         </span>
                                     </dd>
@@ -167,43 +176,43 @@ export default async function SeminarDetailPage({ params }) {
 
                                 {seminar.productSector && (
                                     <div>
-                                        <dt className="font-semibold text-gray-700 mb-0.5">Product / Sector</dt>
-                                        <dd className="text-gray-600">{seminar.productSector}</dd>
+                                        <dt className="font-semibold text-secondary mb-0.5">Product / Sector</dt>
+                                        <dd className="text-white">{seminar.productSector}</dd>
                                     </div>
                                 )}
 
                                 {seminar.cityVenue && (
                                     <div>
-                                        <dt className="font-semibold text-gray-700 mb-0.5">City / Venue</dt>
-                                        <dd className="text-gray-600">{seminar.cityVenue}</dd>
+                                        <dt className="font-semibold text-secondary mb-0.5">City / Venue</dt>
+                                        <dd className="text-white">{seminar.cityVenue}</dd>
                                     </div>
                                 )}
 
                                 {seminar.tentativeDate && (
                                     <div>
-                                        <dt className="font-semibold text-gray-700 mb-0.5">Tentative Date</dt>
-                                        <dd className="text-gray-600">{seminar.tentativeDate}</dd>
+                                        <dt className="font-semibold text-secondary mb-0.5">Tentative Date</dt>
+                                        <dd className="text-white">{seminar.tentativeDate}</dd>
                                     </div>
                                 )}
 
                                 {seminar.division && (
                                     <div>
-                                        <dt className="font-semibold text-gray-700 mb-0.5">Division</dt>
-                                        <dd className="text-gray-600">{seminar.division}</dd>
+                                        <dt className="font-semibold text-secondary mb-0.5">Division</dt>
+                                        <dd className="text-white">{seminar.division}</dd>
                                     </div>
                                 )}
 
                                 {seminar.deskOfficer && (
                                     <div>
-                                        <dt className="font-semibold text-gray-700 mb-0.5">Desk Officer</dt>
-                                        <dd className="text-gray-600">{seminar.deskOfficer}</dd>
+                                        <dt className="font-semibold text-secondary mb-0.5">Desk Officer</dt>
+                                        <dd className="text-white">{seminar.deskOfficer}</dd>
                                     </div>
                                 )}
 
                                 {seminar.proposedBudget != null && (
-                                    <div className="pt-3 border-t border-gray-100">
-                                        <dt className="font-semibold text-gray-700 mb-0.5">Proposed Budget</dt>
-                                        <dd className="text-gray-900 font-bold text-base">
+                                    <div className="pt-3 border-t glass-divider">
+                                        <dt className="font-semibold text-secondary mb-0.5">Proposed Budget</dt>
+                                        <dd className="text-orange-400 font-bold text-base">
                                             {formatCurrencyPKR(seminar.proposedBudget)}
                                         </dd>
                                     </div>
@@ -212,18 +221,18 @@ export default async function SeminarDetailPage({ params }) {
                         </div>
 
                         {/* Actions */}
-                        <div className="bg-white rounded-lg shadow-md p-6">
-                            <h3 className="text-lg font-bold text-gray-900 mb-3">Manage Seminar</h3>
+                        <div className="glass-card p-6">
+                            <h3 className="text-lg font-bold text-white mb-3">Manage Seminar</h3>
                             <div className="flex flex-col gap-2">
                                 <Link
                                     href={`/seminars/${seminar.id}/edit`}
-                                    className="inline-flex items-center justify-center px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-md hover:bg-blue-700 transition-colors"
+                                    className="btn-primary inline-flex items-center justify-center px-4 py-2 text-sm"
                                 >
                                     Edit Seminar Details
                                 </Link>
                                 <Link
                                     href="/seminars"
-                                    className="inline-flex items-center justify-center px-4 py-2 bg-orange-600 text-white text-sm font-medium rounded-md hover:bg-orange-700 transition-colors"
+                                    className="btn-outline inline-flex items-center justify-center px-4 py-2 text-sm"
                                 >
                                     View All Seminars
                                 </Link>

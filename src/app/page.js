@@ -43,7 +43,7 @@ export default function Home() {
                 </Link>
                 <Link
                   href="/seminars"
-                  className="px-8 py-3 bg-orange-500 text-white rounded-lg font-semibold hover:bg-orange-600 transition-colors"
+                  className="btn-outline px-8 py-3 inline-block"
                 >
                   Seminars
                 </Link>

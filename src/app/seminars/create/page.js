@@ -22,11 +22,11 @@ const MONTH_YEAR_SUGGESTIONS = (() => {
 function FormField({ label, required, hint, children }) {
     return (
         <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1.5">
-                {label} {required && <span className="text-red-500">*</span>}
+            <label className="block text-sm font-medium text-secondary mb-1.5">
+                {label} {required && <span className="text-red-400">*</span>}
             </label>
             {children}
-            {hint && <p className="text-xs text-gray-500 mt-1">{hint}</p>}
+            {hint && <p className="text-xs text-muted mt-1">{hint}</p>}
         </div>
     );
 }
@@ -107,32 +107,32 @@ export default function CreateSeminarPage() {
         }
     };
 
-    const inputCls = 'w-full px-3 py-2 text-gray-900 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500';
+    const inputCls = 'glass-input w-full px-3 py-2';
     const textareaCls = `${inputCls} resize-none`;
 
     return (
-        <div className="min-h-screen bg-gray-50 px-4">
+        <div className="page-wrapper px-4">
             <main className="container mx-auto px-4 py-8 max-w-3xl">
 
                 {/* Header */}
                 <div className="mb-8">
-                    <nav className="flex text-sm text-gray-600 mb-4">
-                        <Link href="/" className="hover:text-orange-600">Home</Link>
-                        <span className="mx-2">/</span>
-                        <Link href="/seminars" className="hover:text-orange-600">Seminars</Link>
-                        <span className="mx-2">/</span>
-                        <span className="text-gray-900">Create</span>
+                    <nav className="flex text-sm text-secondary mb-4">
+                        <Link href="/" className="breadcrumb-link">Home</Link>
+                        <span className="mx-2 text-muted">/</span>
+                        <Link href="/seminars" className="breadcrumb-link">Seminars</Link>
+                        <span className="mx-2 text-muted">/</span>
+                        <span className="text-white">Create</span>
                     </nav>
-                    <h1 className="text-3xl font-bold text-gray-900 mb-1">Add New Seminar / Webinar</h1>
-                    <p className="text-gray-600 text-sm">Fill in the planning details from the Excel sheet</p>
+                    <h1 className="text-3xl font-bold text-white mb-1">Add New Seminar / Webinar</h1>
+                    <p className="text-secondary text-sm">Fill in the planning details from the Excel sheet</p>
                 </div>
 
-                <div className="bg-white rounded-xl shadow-md p-6 md:p-8">
+                <div className="glass-card p-6 md:p-8">
                     {error && (
-                        <div className="mb-5 text-sm text-red-700 bg-red-50 border border-red-200 rounded-md px-4 py-3">{error}</div>
+                        <div className="mb-5 alert-error px-4 py-3 text-sm">{error}</div>
                     )}
                     {success && (
-                        <div className="mb-5 text-sm text-green-700 bg-green-50 border border-green-200 rounded-md px-4 py-3">{success}</div>
+                        <div className="mb-5 alert-success px-4 py-3 text-sm">{success}</div>
                     )}
 
                     <form onSubmit={handleSubmit} className="space-y-6">
@@ -166,7 +166,7 @@ export default function CreateSeminarPage() {
                             </select>
                         </FormField>
 
-                        {/* City / Venue */}
+                        {/* City / Venue & Date */}
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <FormField label="City / Venue">
                                 <input
@@ -285,19 +285,19 @@ export default function CreateSeminarPage() {
                         </FormField>
 
                         {/* Actions */}
-                        <div className="flex gap-4 pt-2">
+                        <div className="flex gap-4 pt-2 border-t glass-divider">
                             <button
                                 type="button"
                                 onClick={() => router.back()}
                                 disabled={loading}
-                                className="px-6 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 disabled:opacity-50"
+                                className="btn-outline px-6 py-2 disabled:opacity-50"
                             >
                                 Cancel
                             </button>
                             <button
                                 type="submit"
                                 disabled={loading}
-                                className="px-6 py-2 bg-orange-600 text-white rounded-md hover:bg-orange-700 disabled:opacity-50 font-medium"
+                                className="btn-primary px-6 py-2 whitespace-nowrap"
                             >
                                 {loading ? 'Creating…' : 'Create Seminar'}
                             </button>
