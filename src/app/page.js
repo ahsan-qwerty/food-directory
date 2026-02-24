@@ -58,9 +58,9 @@ export default function Home() {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
               {[
                 { value: companies.length, label: 'Registered Companies', color: 'text-accent-green' },
-                { value: sectors.length,   label: 'Food Sectors',          color: 'text-accent-blue' },
-                { value: events.length,    label: 'Events &amp; Exhibitions', color: 'text-accent-green' },
-                { value: seminars.length,  label: 'Seminars &amp; Webinars',  color: 'text-orange-400' },
+                { value: sectors.length, label: 'Food Sectors', color: 'text-accent-blue' },
+                { value: events.length, label: 'Events &amp; Exhibitions', color: 'text-accent-green' },
+                { value: seminars.length, label: 'Seminars &amp; Webinars', color: 'text-orange-400' },
               ].map(({ value, label, color }) => (
                 <div key={label} className="glass-card p-8">
                   <div className={`text-5xl font-bold mb-2 ${color}`}>{value}</div>
