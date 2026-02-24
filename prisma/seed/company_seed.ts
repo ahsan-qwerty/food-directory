@@ -58,26 +58,26 @@ function getByHeader(row: Record<string, any>, header: string): string {
 
 async function main() {
     try {
-        console.log('Starting company seed from 5-dry_fruits.xlsx...')
+        console.log('Starting company seed from 16-tobacco.xlsx...')
 
-        const xlsxPath = path.join(process.cwd(), 'data', '5-dry_fruits.xlsx')
+        const xlsxPath = path.join(process.cwd(), 'data', '16-tobacco.xlsx')
         const workbook = XLSX.readFile(xlsxPath)
         const sheetName = workbook.SheetNames[0]
         if (!sheetName) {
-            throw new Error('No sheets found in 5-dry_fruits.xlsx')
+            throw new Error('No sheets found in 16-tobacco.xlsx')
         }
 
         const sheet = workbook.Sheets[sheetName]
         const rows = XLSX.utils.sheet_to_json<Record<string, any>>(sheet, { defval: '' })
 
         // Look up the related sector/sub-sector once (Sugar and Confectionary -> Dry Fruits)
-        const dryFruitsSubSector = await prisma.subSector.findFirst({
-            where: { name: 'Dry Fruits' },
+        const tobaccoSubSector = await prisma.subSector.findFirst({
+            where: { name: 'Tobacco' },
             select: { id: true, sectorId: true },
         })
 
-        if (!dryFruitsSubSector) {
-            throw new Error('SubSector "Sugar Confectionary" not found. Run sector and subsector seeds before company seed.')
+        if (!tobaccoSubSector) {
+            throw new Error('SubSector "Tobacco" not found. Run sector and subsector seeds before company seed.')
         }
 
         const companyData = rows
@@ -94,8 +94,8 @@ async function main() {
                     representativeWhatsapp: cleanValue(getByHeader(row, 'Representative Whatsapp')),
                     representativeEmail: cleanValue(getByHeader(row, 'Representative Email')),
                     productsToBeDisplayed: cleanValue(getByHeader(row, 'Products To Be Displayed')),
-                    sectorId: dryFruitsSubSector.sectorId,
-                    subSectorId: dryFruitsSubSector.id,
+                    sectorId: tobaccoSubSector.sectorId,
+                    subSectorId: tobaccoSubSector.id,
                 }
             })
             .filter((c) => (c.name || '').trim() !== '')
