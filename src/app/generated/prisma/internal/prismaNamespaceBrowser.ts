@@ -282,6 +282,7 @@ export type DelegationCompanyScalarFieldEnum = (typeof DelegationCompanyScalarFi
 
 export const SeminarScalarFieldEnum = {
   id: 'id',
+  type: 'type',
   productSector: 'productSector',
   title: 'title',
   cityVenue: 'cityVenue',

@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState, useEffect, Suspense } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 
 const PAKISTAN_CITIES = [
@@ -31,8 +31,19 @@ function FormField({ label, required, hint, children }) {
     );
 }
 
-export default function CreateSeminarPage() {
+// Map URL ?type= → DB enum value and display label
+const TYPE_MAP = {
+    seminar: { db: 'SEMINAR', label: 'Seminar' },
+    webinar: { db: 'WEBINAR', label: 'Webinar' },
+    'virtual-b2b': { db: 'VIRTUAL_B2B', label: 'Virtual B2B' },
+};
+
+function CreateSeminarForm() {
     const router = useRouter();
+    const searchParams = useSearchParams();
+    const typeParam = searchParams.get('type') || 'seminar';
+    const typeConf = TYPE_MAP[typeParam] || TYPE_MAP.seminar;
+
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [success, setSuccess] = useState(null);
@@ -46,6 +57,7 @@ export default function CreateSeminarPage() {
     }, []);
 
     const [formData, setFormData] = useState({
+        type: typeConf.db,
         title: '',
         productSector: '',
         cityVenue: '',
@@ -72,6 +84,7 @@ export default function CreateSeminarPage() {
 
         try {
             const payload = {
+                type: formData.type,
                 title: formData.title.trim(),
                 productSector: formData.productSector || null,
                 cityVenue: formData.cityVenue || null,
@@ -123,7 +136,7 @@ export default function CreateSeminarPage() {
                         <span className="mx-2 text-muted">/</span>
                         <span className="text-white">Create</span>
                     </nav>
-                    <h1 className="text-3xl font-bold text-white mb-1">Add New Seminar / Webinar</h1>
+                    <h1 className="text-3xl font-bold text-white mb-1">Add New {typeConf.label}</h1>
                     <p className="text-secondary text-sm">Fill in the planning details from the Excel sheet</p>
                 </div>
 
@@ -136,6 +149,15 @@ export default function CreateSeminarPage() {
                     )}
 
                     <form onSubmit={handleSubmit} className="space-y-6">
+
+                        {/* Type */}
+                        <FormField label="Type">
+                            <select name="type" value={formData.type} onChange={handleChange} className={inputCls}>
+                                <option value="SEMINAR">Seminar</option>
+                                <option value="WEBINAR">Webinar</option>
+                                <option value="VIRTUAL_B2B">Virtual B2B</option>
+                            </select>
+                        </FormField>
 
                         {/* Title */}
                         <FormField label="Event Title / Details" required>
@@ -299,12 +321,24 @@ export default function CreateSeminarPage() {
                                 disabled={loading}
                                 className="btn-primary px-6 py-2 whitespace-nowrap"
                             >
-                                {loading ? 'Creating…' : 'Create Seminar'}
+                                {loading ? 'Creating…' : `Create ${typeConf.label}`}
                             </button>
                         </div>
                     </form>
                 </div>
             </main>
         </div>
+    );
+}
+
+export default function CreateSeminarPage() {
+    return (
+        <Suspense fallback={
+            <div className="page-wrapper flex items-center justify-center">
+                <div className="inline-block animate-spin rounded-full h-12 w-12 border-4 glass-spinner" />
+            </div>
+        }>
+            <CreateSeminarForm />
+        </Suspense>
     );
 }

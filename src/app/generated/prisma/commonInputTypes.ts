@@ -280,11 +280,28 @@ export type EnumDelegationStatusWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumDelegationStatusFilter<$PrismaModel>
 }
 
+export type EnumSeminarTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.SeminarType | Prisma.EnumSeminarTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.SeminarType[]
+  notIn?: $Enums.SeminarType[]
+  not?: Prisma.NestedEnumSeminarTypeFilter<$PrismaModel> | $Enums.SeminarType
+}
+
 export type EnumSeminarStatusFilter<$PrismaModel = never> = {
   equals?: $Enums.SeminarStatus | Prisma.EnumSeminarStatusFieldRefInput<$PrismaModel>
   in?: $Enums.SeminarStatus[]
   notIn?: $Enums.SeminarStatus[]
   not?: Prisma.NestedEnumSeminarStatusFilter<$PrismaModel> | $Enums.SeminarStatus
+}
+
+export type EnumSeminarTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.SeminarType | Prisma.EnumSeminarTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.SeminarType[]
+  notIn?: $Enums.SeminarType[]
+  not?: Prisma.NestedEnumSeminarTypeWithAggregatesFilter<$PrismaModel> | $Enums.SeminarType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumSeminarTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumSeminarTypeFilter<$PrismaModel>
 }
 
 export type EnumSeminarStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -580,11 +597,28 @@ export type NestedEnumDelegationStatusWithAggregatesFilter<$PrismaModel = never>
   _max?: Prisma.NestedEnumDelegationStatusFilter<$PrismaModel>
 }
 
+export type NestedEnumSeminarTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.SeminarType | Prisma.EnumSeminarTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.SeminarType[]
+  notIn?: $Enums.SeminarType[]
+  not?: Prisma.NestedEnumSeminarTypeFilter<$PrismaModel> | $Enums.SeminarType
+}
+
 export type NestedEnumSeminarStatusFilter<$PrismaModel = never> = {
   equals?: $Enums.SeminarStatus | Prisma.EnumSeminarStatusFieldRefInput<$PrismaModel>
   in?: $Enums.SeminarStatus[]
   notIn?: $Enums.SeminarStatus[]
   not?: Prisma.NestedEnumSeminarStatusFilter<$PrismaModel> | $Enums.SeminarStatus
+}
+
+export type NestedEnumSeminarTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.SeminarType | Prisma.EnumSeminarTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.SeminarType[]
+  notIn?: $Enums.SeminarType[]
+  not?: Prisma.NestedEnumSeminarTypeWithAggregatesFilter<$PrismaModel> | $Enums.SeminarType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumSeminarTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumSeminarTypeFilter<$PrismaModel>
 }
 
 export type NestedEnumSeminarStatusWithAggregatesFilter<$PrismaModel = never> = {

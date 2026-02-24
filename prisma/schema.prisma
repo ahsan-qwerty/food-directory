@@ -313,10 +313,17 @@ enum SeminarStatus {
   CANCELLED
 }
 
+enum SeminarType {
+  SEMINAR
+  WEBINAR
+  VIRTUAL_B2B
+}
+
 model Seminar {
   id                    Int           @id @default(autoincrement())
   
   // Core planning fields (from Excel sheet)
+  type                  SeminarType   @default(SEMINAR)
   productSector         String?       // Product / Sector column
   title                 String        // Event Details column
   cityVenue             String?       // City / Venue column

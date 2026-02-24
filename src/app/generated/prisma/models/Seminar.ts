@@ -38,6 +38,7 @@ export type SeminarSumAggregateOutputType = {
 
 export type SeminarMinAggregateOutputType = {
   id: number | null
+  type: $Enums.SeminarType | null
   productSector: string | null
   title: string | null
   cityVenue: string | null
@@ -55,6 +56,7 @@ export type SeminarMinAggregateOutputType = {
 
 export type SeminarMaxAggregateOutputType = {
   id: number | null
+  type: $Enums.SeminarType | null
   productSector: string | null
   title: string | null
   cityVenue: string | null
@@ -72,6 +74,7 @@ export type SeminarMaxAggregateOutputType = {
 
 export type SeminarCountAggregateOutputType = {
   id: number
+  type: number
   productSector: number
   title: number
   cityVenue: number
@@ -101,6 +104,7 @@ export type SeminarSumAggregateInputType = {
 
 export type SeminarMinAggregateInputType = {
   id?: true
+  type?: true
   productSector?: true
   title?: true
   cityVenue?: true
@@ -118,6 +122,7 @@ export type SeminarMinAggregateInputType = {
 
 export type SeminarMaxAggregateInputType = {
   id?: true
+  type?: true
   productSector?: true
   title?: true
   cityVenue?: true
@@ -135,6 +140,7 @@ export type SeminarMaxAggregateInputType = {
 
 export type SeminarCountAggregateInputType = {
   id?: true
+  type?: true
   productSector?: true
   title?: true
   cityVenue?: true
@@ -239,6 +245,7 @@ export type SeminarGroupByArgs<ExtArgs extends runtime.Types.Extensions.Internal
 
 export type SeminarGroupByOutputType = {
   id: number
+  type: $Enums.SeminarType
   productSector: string | null
   title: string
   cityVenue: string | null
@@ -279,6 +286,7 @@ export type SeminarWhereInput = {
   OR?: Prisma.SeminarWhereInput[]
   NOT?: Prisma.SeminarWhereInput | Prisma.SeminarWhereInput[]
   id?: Prisma.IntFilter<"Seminar"> | number
+  type?: Prisma.EnumSeminarTypeFilter<"Seminar"> | $Enums.SeminarType
   productSector?: Prisma.StringNullableFilter<"Seminar"> | string | null
   title?: Prisma.StringFilter<"Seminar"> | string
   cityVenue?: Prisma.StringNullableFilter<"Seminar"> | string | null
@@ -296,6 +304,7 @@ export type SeminarWhereInput = {
 
 export type SeminarOrderByWithRelationInput = {
   id?: Prisma.SortOrder
+  type?: Prisma.SortOrder
   productSector?: Prisma.SortOrderInput | Prisma.SortOrder
   title?: Prisma.SortOrder
   cityVenue?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -317,6 +326,7 @@ export type SeminarWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.SeminarWhereInput | Prisma.SeminarWhereInput[]
   OR?: Prisma.SeminarWhereInput[]
   NOT?: Prisma.SeminarWhereInput | Prisma.SeminarWhereInput[]
+  type?: Prisma.EnumSeminarTypeFilter<"Seminar"> | $Enums.SeminarType
   productSector?: Prisma.StringNullableFilter<"Seminar"> | string | null
   title?: Prisma.StringFilter<"Seminar"> | string
   cityVenue?: Prisma.StringNullableFilter<"Seminar"> | string | null
@@ -334,6 +344,7 @@ export type SeminarWhereUniqueInput = Prisma.AtLeast<{
 
 export type SeminarOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
+  type?: Prisma.SortOrder
   productSector?: Prisma.SortOrderInput | Prisma.SortOrder
   title?: Prisma.SortOrder
   cityVenue?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -359,6 +370,7 @@ export type SeminarScalarWhereWithAggregatesInput = {
   OR?: Prisma.SeminarScalarWhereWithAggregatesInput[]
   NOT?: Prisma.SeminarScalarWhereWithAggregatesInput | Prisma.SeminarScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"Seminar"> | number
+  type?: Prisma.EnumSeminarTypeWithAggregatesFilter<"Seminar"> | $Enums.SeminarType
   productSector?: Prisma.StringNullableWithAggregatesFilter<"Seminar"> | string | null
   title?: Prisma.StringWithAggregatesFilter<"Seminar"> | string
   cityVenue?: Prisma.StringNullableWithAggregatesFilter<"Seminar"> | string | null
@@ -375,6 +387,7 @@ export type SeminarScalarWhereWithAggregatesInput = {
 }
 
 export type SeminarCreateInput = {
+  type?: $Enums.SeminarType
   productSector?: string | null
   title: string
   cityVenue?: string | null
@@ -392,6 +405,7 @@ export type SeminarCreateInput = {
 
 export type SeminarUncheckedCreateInput = {
   id?: number
+  type?: $Enums.SeminarType
   productSector?: string | null
   title: string
   cityVenue?: string | null
@@ -408,6 +422,7 @@ export type SeminarUncheckedCreateInput = {
 }
 
 export type SeminarUpdateInput = {
+  type?: Prisma.EnumSeminarTypeFieldUpdateOperationsInput | $Enums.SeminarType
   productSector?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   cityVenue?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -425,6 +440,7 @@ export type SeminarUpdateInput = {
 
 export type SeminarUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  type?: Prisma.EnumSeminarTypeFieldUpdateOperationsInput | $Enums.SeminarType
   productSector?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   cityVenue?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -442,6 +458,7 @@ export type SeminarUncheckedUpdateInput = {
 
 export type SeminarCreateManyInput = {
   id?: number
+  type?: $Enums.SeminarType
   productSector?: string | null
   title: string
   cityVenue?: string | null
@@ -458,6 +475,7 @@ export type SeminarCreateManyInput = {
 }
 
 export type SeminarUpdateManyMutationInput = {
+  type?: Prisma.EnumSeminarTypeFieldUpdateOperationsInput | $Enums.SeminarType
   productSector?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   cityVenue?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -475,6 +493,7 @@ export type SeminarUpdateManyMutationInput = {
 
 export type SeminarUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  type?: Prisma.EnumSeminarTypeFieldUpdateOperationsInput | $Enums.SeminarType
   productSector?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   cityVenue?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -498,6 +517,7 @@ export type SeminarOrderByRelevanceInput = {
 
 export type SeminarCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  type?: Prisma.SortOrder
   productSector?: Prisma.SortOrder
   title?: Prisma.SortOrder
   cityVenue?: Prisma.SortOrder
@@ -520,6 +540,7 @@ export type SeminarAvgOrderByAggregateInput = {
 
 export type SeminarMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  type?: Prisma.SortOrder
   productSector?: Prisma.SortOrder
   title?: Prisma.SortOrder
   cityVenue?: Prisma.SortOrder
@@ -537,6 +558,7 @@ export type SeminarMaxOrderByAggregateInput = {
 
 export type SeminarMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  type?: Prisma.SortOrder
   productSector?: Prisma.SortOrder
   title?: Prisma.SortOrder
   cityVenue?: Prisma.SortOrder
@@ -557,6 +579,10 @@ export type SeminarSumOrderByAggregateInput = {
   proposedBudget?: Prisma.SortOrder
 }
 
+export type EnumSeminarTypeFieldUpdateOperationsInput = {
+  set?: $Enums.SeminarType
+}
+
 export type EnumSeminarStatusFieldUpdateOperationsInput = {
   set?: $Enums.SeminarStatus
 }
@@ -565,6 +591,7 @@ export type EnumSeminarStatusFieldUpdateOperationsInput = {
 
 export type SeminarSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  type?: boolean
   productSector?: boolean
   title?: boolean
   cityVenue?: boolean
@@ -584,6 +611,7 @@ export type SeminarSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
 
 export type SeminarSelectScalar = {
   id?: boolean
+  type?: boolean
   productSector?: boolean
   title?: boolean
   cityVenue?: boolean
@@ -599,13 +627,14 @@ export type SeminarSelectScalar = {
   updatedAt?: boolean
 }
 
-export type SeminarOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "productSector" | "title" | "cityVenue" | "tentativeDate" | "proposedBudget" | "division" | "regionalCollaboration" | "rationaleObjective" | "status" | "deskOfficer" | "finalRemarks" | "createdAt" | "updatedAt", ExtArgs["result"]["seminar"]>
+export type SeminarOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "type" | "productSector" | "title" | "cityVenue" | "tentativeDate" | "proposedBudget" | "division" | "regionalCollaboration" | "rationaleObjective" | "status" | "deskOfficer" | "finalRemarks" | "createdAt" | "updatedAt", ExtArgs["result"]["seminar"]>
 
 export type $SeminarPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Seminar"
   objects: {}
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
+    type: $Enums.SeminarType
     productSector: string | null
     title: string
     cityVenue: string | null
@@ -989,6 +1018,7 @@ export interface Prisma__SeminarClient<T, Null = never, ExtArgs extends runtime.
  */
 export interface SeminarFieldRefs {
   readonly id: Prisma.FieldRef<"Seminar", 'Int'>
+  readonly type: Prisma.FieldRef<"Seminar", 'SeminarType'>
   readonly productSector: Prisma.FieldRef<"Seminar", 'String'>
   readonly title: Prisma.FieldRef<"Seminar", 'String'>
   readonly cityVenue: Prisma.FieldRef<"Seminar", 'String'>

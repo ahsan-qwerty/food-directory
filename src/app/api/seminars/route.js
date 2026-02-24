@@ -11,6 +11,14 @@ function toNumberOrNull(value) {
 }
 
 const VALID_STATUSES = ['PLANNED', 'COMPLETED', 'CANCELLED'];
+const VALID_TYPES = ['SEMINAR', 'WEBINAR', 'VIRTUAL_B2B'];
+
+// Map URL ?type= values to DB enum values
+const TYPE_MAP = {
+    seminar: 'SEMINAR',
+    webinar: 'WEBINAR',
+    'virtual-b2b': 'VIRTUAL_B2B',
+};
 
 // ── GET ──────────────────────────────────────────────────────────────────────
 export async function GET(request) {
@@ -40,9 +48,15 @@ export async function GET(request) {
 
     // Optional status filter
     const statusFilter = searchParams.get('status');
+    // Optional type filter (?type=seminar|webinar|virtual-b2b)
+    const typeParam = searchParams.get('type');
     const where = {};
     if (statusFilter && VALID_STATUSES.includes(statusFilter)) {
         where.status = statusFilter;
+    }
+    const mappedType = typeParam ? TYPE_MAP[typeParam] : TYPE_MAP['seminar'];
+    if (mappedType) {
+        where.type = mappedType;
     }
 
     const all = await prisma.seminar.findMany({
@@ -69,6 +83,7 @@ export async function POST(request) {
 
         const data = {
             title: String(body.title).trim(),
+            type: VALID_TYPES.includes(body.type) ? body.type : 'SEMINAR',
             productSector: body.productSector ? String(body.productSector).trim() : null,
             cityVenue: body.cityVenue ? String(body.cityVenue).trim() : null,
             tentativeDate: body.tentativeDate ? String(body.tentativeDate).trim() : null,
@@ -109,6 +124,7 @@ export async function PUT(request) {
 
         const data = {};
         if (body.title !== undefined) data.title = String(body.title).trim();
+        if (body.type !== undefined && VALID_TYPES.includes(body.type)) data.type = body.type;
         if (body.productSector !== undefined) data.productSector = body.productSector ? String(body.productSector).trim() : null;
         if (body.cityVenue !== undefined) data.cityVenue = body.cityVenue ? String(body.cityVenue).trim() : null;
         if (body.tentativeDate !== undefined) data.tentativeDate = body.tentativeDate ? String(body.tentativeDate).trim() : null;
