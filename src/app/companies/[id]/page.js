@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { prisma } from '../../../lib/prismaClient';
+import DeleteCompanyButton from './_components/DeleteCompanyButton';
 
 export async function generateMetadata({ params }) {
   const { id } = await params;
@@ -16,8 +17,10 @@ export async function generateMetadata({ params }) {
   };
 }
 
-export default async function CompanyProfilePage({ params }) {
+export default async function CompanyProfilePage({ params, searchParams }) {
   const { id } = await params;
+  const { dev } = await searchParams;
+  const isDev = dev === '1';
   const companyId = Number(id);
   if (Number.isNaN(companyId)) notFound();
 
@@ -173,6 +176,24 @@ export default async function CompanyProfilePage({ params }) {
                     <a href={`mailto:${company.representativeEmail}`} className="text-accent-green hover:underline text-sm break-all">
                       {company.representativeEmail}
                     </a>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Manage Company */}
+            <div className="glass-card p-6">
+              <h3 className="text-lg font-bold text-white mb-4">Manage Company</h3>
+              <div className="flex flex-col gap-3">
+                <Link
+                  href={`/companies/${company.id}/edit`}
+                  className="btn-outline px-4 py-2 text-sm text-center"
+                >
+                  Edit Company Details
+                </Link>
+                {isDev && (
+                  <div className="pt-2 mt-1 border-t border-red-500/20">
+                    <DeleteCompanyButton companyId={company.id} companyName={company.name} />
                   </div>
                 )}
               </div>
