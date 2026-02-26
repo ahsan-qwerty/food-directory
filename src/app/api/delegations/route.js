@@ -9,6 +9,7 @@ const delegationSelect = {
     type: true,
     status: true,
     title: true,
+    deskOfficer: true,
     division: true,
     productSector: true,   // legacy text field – kept for backward compat
     expectedDelegates: true,
@@ -37,6 +38,7 @@ function serializeDelegation(d, participants = null) {
         type: d.type,
         status: d.status,
         title: d.title,
+        deskOfficer: d.deskOfficer,
         division: d.division,
         productSector: d.productSector,
         expectedDelegates: d.expectedDelegates,
@@ -147,6 +149,7 @@ export async function POST(request) {
         const data = {
             type,
             title: body.title ? String(body.title).trim() : null,
+            deskOfficer: body.deskOfficer ? String(body.deskOfficer).trim() : null,
             division: body.division ? String(body.division).trim() : null,
             productSector: body.productSector ? String(body.productSector).trim() : null,
             expectedDelegates: body.expectedDelegates ? String(body.expectedDelegates).trim() : null,
@@ -195,6 +198,7 @@ export async function PUT(request) {
 
         const data = {};
         if (body.title !== undefined) data.title = body.title ? String(body.title).trim() : null;
+        if (body.deskOfficer !== undefined) data.deskOfficer = body.deskOfficer ? String(body.deskOfficer).trim() : null;
         if (body.division !== undefined) data.division = body.division ? String(body.division).trim() : null;
         if (body.productSector !== undefined) data.productSector = body.productSector ? String(body.productSector).trim() : null;
         if (body.expectedDelegates !== undefined) data.expectedDelegates = body.expectedDelegates ? String(body.expectedDelegates).trim() : null;

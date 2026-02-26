@@ -1616,6 +1616,7 @@ export const DelegationScalarFieldEnum = {
   type: 'type',
   status: 'status',
   title: 'title',
+  deskOfficer: 'deskOfficer',
   division: 'division',
   productSector: 'productSector',
   expectedDelegates: 'expectedDelegates',
@@ -1784,6 +1785,7 @@ export type MissionOrderByRelevanceFieldEnum = (typeof MissionOrderByRelevanceFi
 
 export const DelegationOrderByRelevanceFieldEnum = {
   title: 'title',
+  deskOfficer: 'deskOfficer',
   division: 'division',
   productSector: 'productSector',
   expectedDelegates: 'expectedDelegates',

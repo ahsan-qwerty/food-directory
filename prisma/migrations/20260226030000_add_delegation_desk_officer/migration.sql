@@ -1,0 +1,1 @@
+ALTER TABLE `Delegation` ADD COLUMN `deskOfficer` VARCHAR(191) NULL;

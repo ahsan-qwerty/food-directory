@@ -45,6 +45,7 @@ function CreateDelegationForm() {
     const [formData, setFormData] = useState({
         type: initialType,
         title: '',
+        deskOfficer: '',
         sectorIds: [],
         expectedDelegates: '',
         rationale: '',
@@ -82,6 +83,7 @@ function CreateDelegationForm() {
             const payload = {
                 type: formData.type,
                 title: formData.title || null,
+                deskOfficer: formData.deskOfficer || null,
                 sectorIds: formData.sectorIds,
                 expectedDelegates: formData.expectedDelegates ? String(formData.expectedDelegates) : null,
                 rationale: formData.rationale || null,
@@ -160,6 +162,20 @@ function CreateDelegationForm() {
                                 placeholder="e.g., Trade Mission to Germany 2026, Rice Export Delegation"
                             />
                             <p className="mt-1 text-xs text-muted">Optional — a short descriptive name for this delegation</p>
+                        </div>
+
+                        {/* Desk Officer */}
+                        <div>
+                            <label className={labelCls}>Desk Officer</label>
+                            <input
+                                type="text"
+                                name="deskOfficer"
+                                value={formData.deskOfficer}
+                                onChange={handleChange}
+                                className={inputCls}
+                                placeholder="e.g., Mr. Ahmed Khan"
+                            />
+                            <p className="mt-1 text-xs text-muted">Optional — name of the officer responsible for this delegation</p>
                         </div>
 
                         {/* Country Fields */}

@@ -41,6 +41,7 @@ export default function EditDelegationPage() {
 
     const [formData, setFormData] = useState({
         title: '',
+        deskOfficer: '',
         fromCountry: '',
         toCountry: '',
         startDate: '',
@@ -74,6 +75,7 @@ export default function EditDelegationPage() {
                 setSelectedSectorIds(data.sectorIds || []);
                 setFormData({
                     title: data.title || '',
+                    deskOfficer: data.deskOfficer || '',
                     fromCountry: data.fromCountry || '',
                     toCountry: data.toCountry || '',
                     startDate: data.startDate
@@ -108,6 +110,7 @@ export default function EditDelegationPage() {
             const payload = {
                 id: delegationId,
                 title: formData.title || null,
+                deskOfficer: formData.deskOfficer || null,
                 sectorIds: selectedSectorIds,
                 expectedDelegates: formData.expectedDelegates
                     ? String(formData.expectedDelegates)
@@ -209,6 +212,20 @@ export default function EditDelegationPage() {
                                 placeholder="e.g., Trade Mission to Germany 2026"
                             />
                             <p className="mt-1 text-xs text-muted">Optional — a short descriptive name</p>
+                        </div>
+
+                        {/* Desk Officer */}
+                        <div>
+                            <label className={labelCls}>Desk Officer</label>
+                            <input
+                                type="text"
+                                name="deskOfficer"
+                                value={formData.deskOfficer}
+                                onChange={handleChange}
+                                className={inputCls}
+                                placeholder="e.g., Mr. Ahmed Khan"
+                            />
+                            <p className="mt-1 text-xs text-muted">Optional — name of the officer responsible for this delegation</p>
                         </div>
 
                         {/* Country fields — depends on type */}
