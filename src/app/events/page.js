@@ -18,12 +18,19 @@ export default function EventsPage() {
       .finally(() => setLoading(false));
   }, []);
 
-  // Derive sorted unique years from events
+  // Fiscal year = starting year (Jul–Jun cycle).
+  // e.g. any date in Jul 2025 – Jun 2026  →  FY 2025
+  const getFiscalYear = (dateVal) => {
+    const d = new Date(dateVal);
+    return d.getMonth() >= 6 ? d.getFullYear() : d.getFullYear() - 1;
+  };
+  const fyLabel = (fy) => `${fy}`; // "FY 2025-26"
+
+  // Derive sorted unique fiscal years from events
   const years = useMemo(() => {
     const set = new Set();
     events.forEach(e => {
-      const yr = e.eventDate ? new Date(e.eventDate).getFullYear() : null;
-      if (yr) set.add(yr);
+      if (e.eventDate) set.add(getFiscalYear(e.eventDate));
     });
     return Array.from(set).sort((a, b) => b - a); // descending
   }, [events]);
@@ -31,10 +38,9 @@ export default function EventsPage() {
   // Filtered list
   const filtered = useMemo(() => {
     if (selectedYear === 'all') return events;
-    return events.filter(e => {
-      const yr = e.eventDate ? new Date(e.eventDate).getFullYear() : null;
-      return yr === Number(selectedYear);
-    });
+    return events.filter(e =>
+      e.eventDate && getFiscalYear(e.eventDate) === Number(selectedYear)
+    );
   }, [events, selectedYear]);
 
   return (
@@ -80,7 +86,7 @@ export default function EventsPage() {
 
             {years.map(yr => {
               const count = events.filter(e =>
-                e.eventDate && new Date(e.eventDate).getFullYear() === yr
+                e.eventDate && getFiscalYear(e.eventDate) === yr
               ).length;
               const active = selectedYear === String(yr);
               return (
@@ -92,7 +98,7 @@ export default function EventsPage() {
                     : 'bg-white/10 text-secondary border-white/20 hover:border-green-500 hover:text-white'
                     }`}
                 >
-                  {yr}
+                  {fyLabel(yr)}
                   <span className={`ml-1.5 text-xs ${active ? 'text-green-200' : 'text-muted'}`}>
                     {count}
                   </span>
@@ -113,7 +119,7 @@ export default function EventsPage() {
             <p className="text-secondary text-lg">
               {events.length === 0
                 ? 'No events available at the moment.'
-                : `No events found for ${selectedYear}.`}
+                : `No events found for ${fyLabel(Number(selectedYear))}.`}
             </p>
             {events.length > 0 && selectedYear !== 'all' && (
               <button
@@ -131,7 +137,7 @@ export default function EventsPage() {
                 Showing{' '}
                 <span className="font-semibold text-white">{filtered.length}</span>
                 {selectedYear !== 'all' && (
-                  <> events in <span className="font-semibold text-white">{selectedYear}</span></>
+                  <> events in <span className="font-semibold text-white">{fyLabel(Number(selectedYear))}</span></>
                 )}
                 {selectedYear === 'all' && <> events</>}
               </p>
