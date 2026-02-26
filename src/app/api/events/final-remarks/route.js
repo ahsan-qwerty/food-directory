@@ -8,15 +8,24 @@ export async function POST(request) {
         const body = await request.json();
         const eventId = Number(body.eventId);
         const finalRemarks = body.finalRemarks ? String(body.finalRemarks).trim() : '';
+        const utilizedBudget = body.utilizedBudget !== undefined && body.utilizedBudget !== ''
+            ? Number(body.utilizedBudget)
+            : undefined;
 
         if (Number.isNaN(eventId)) {
             return NextResponse.json({ error: 'Valid eventId is required' }, { status: 400 });
         }
+        if (utilizedBudget !== undefined && Number.isNaN(utilizedBudget)) {
+            return NextResponse.json({ error: 'utilizedBudget must be a valid number' }, { status: 400 });
+        }
 
         const updated = await prisma.event.update({
             where: { id: eventId },
-            data: { finalRemarks },
-            select: { id: true, finalRemarks: true },
+            data: {
+                finalRemarks,
+                ...(utilizedBudget !== undefined && { utilizedBudget }),
+            },
+            select: { id: true, finalRemarks: true, utilizedBudget: true },
         });
 
         return NextResponse.json({ ok: true, event: updated });

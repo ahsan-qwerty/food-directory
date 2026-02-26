@@ -1536,6 +1536,7 @@ export const EventScalarFieldEnum = {
   tdapCost: 'tdapCost',
   exhibitorCost: 'exhibitorCost',
   totalEstimatedBudget: 'totalEstimatedBudget',
+  utilizedBudget: 'utilizedBudget',
   recommendedByJustification: 'recommendedByJustification',
   feedbackFormUrl: 'feedbackFormUrl',
   finalRemarks: 'finalRemarks',

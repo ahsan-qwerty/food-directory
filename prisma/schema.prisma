@@ -142,6 +142,7 @@ model Event {
   tdapCost            Decimal? @db.Decimal(15, 2)
   exhibitorCost       Decimal? @db.Decimal(15, 2)
   totalEstimatedBudget Decimal? @db.Decimal(15, 2)
+  utilizedBudget      Decimal? @db.Decimal(15, 2) // Filled when closing the event
 
   recommendedByJustification String?
 

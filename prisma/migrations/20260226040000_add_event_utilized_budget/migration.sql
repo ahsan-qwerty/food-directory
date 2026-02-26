@@ -1,0 +1,1 @@
+ALTER TABLE `Event` ADD COLUMN `utilizedBudget` DECIMAL(15,2) NULL;

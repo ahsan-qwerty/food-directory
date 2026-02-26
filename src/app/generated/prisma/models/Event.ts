@@ -32,6 +32,7 @@ export type EventAvgAggregateOutputType = {
   tdapCost: runtime.Decimal | null
   exhibitorCost: runtime.Decimal | null
   totalEstimatedBudget: runtime.Decimal | null
+  utilizedBudget: runtime.Decimal | null
 }
 
 export type EventSumAggregateOutputType = {
@@ -40,6 +41,7 @@ export type EventSumAggregateOutputType = {
   tdapCost: runtime.Decimal | null
   exhibitorCost: runtime.Decimal | null
   totalEstimatedBudget: runtime.Decimal | null
+  utilizedBudget: runtime.Decimal | null
 }
 
 export type EventMinAggregateOutputType = {
@@ -61,6 +63,7 @@ export type EventMinAggregateOutputType = {
   tdapCost: runtime.Decimal | null
   exhibitorCost: runtime.Decimal | null
   totalEstimatedBudget: runtime.Decimal | null
+  utilizedBudget: runtime.Decimal | null
   recommendedByJustification: string | null
   feedbackFormUrl: string | null
   finalRemarks: string | null
@@ -87,6 +90,7 @@ export type EventMaxAggregateOutputType = {
   tdapCost: runtime.Decimal | null
   exhibitorCost: runtime.Decimal | null
   totalEstimatedBudget: runtime.Decimal | null
+  utilizedBudget: runtime.Decimal | null
   recommendedByJustification: string | null
   feedbackFormUrl: string | null
   finalRemarks: string | null
@@ -113,6 +117,7 @@ export type EventCountAggregateOutputType = {
   tdapCost: number
   exhibitorCost: number
   totalEstimatedBudget: number
+  utilizedBudget: number
   recommendedByJustification: number
   feedbackFormUrl: number
   finalRemarks: number
@@ -128,6 +133,7 @@ export type EventAvgAggregateInputType = {
   tdapCost?: true
   exhibitorCost?: true
   totalEstimatedBudget?: true
+  utilizedBudget?: true
 }
 
 export type EventSumAggregateInputType = {
@@ -136,6 +142,7 @@ export type EventSumAggregateInputType = {
   tdapCost?: true
   exhibitorCost?: true
   totalEstimatedBudget?: true
+  utilizedBudget?: true
 }
 
 export type EventMinAggregateInputType = {
@@ -157,6 +164,7 @@ export type EventMinAggregateInputType = {
   tdapCost?: true
   exhibitorCost?: true
   totalEstimatedBudget?: true
+  utilizedBudget?: true
   recommendedByJustification?: true
   feedbackFormUrl?: true
   finalRemarks?: true
@@ -183,6 +191,7 @@ export type EventMaxAggregateInputType = {
   tdapCost?: true
   exhibitorCost?: true
   totalEstimatedBudget?: true
+  utilizedBudget?: true
   recommendedByJustification?: true
   feedbackFormUrl?: true
   finalRemarks?: true
@@ -209,6 +218,7 @@ export type EventCountAggregateInputType = {
   tdapCost?: true
   exhibitorCost?: true
   totalEstimatedBudget?: true
+  utilizedBudget?: true
   recommendedByJustification?: true
   feedbackFormUrl?: true
   finalRemarks?: true
@@ -322,6 +332,7 @@ export type EventGroupByOutputType = {
   tdapCost: runtime.Decimal | null
   exhibitorCost: runtime.Decimal | null
   totalEstimatedBudget: runtime.Decimal | null
+  utilizedBudget: runtime.Decimal | null
   recommendedByJustification: string | null
   feedbackFormUrl: string | null
   finalRemarks: string | null
@@ -371,6 +382,7 @@ export type EventWhereInput = {
   tdapCost?: Prisma.DecimalNullableFilter<"Event"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   exhibitorCost?: Prisma.DecimalNullableFilter<"Event"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   totalEstimatedBudget?: Prisma.DecimalNullableFilter<"Event"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  utilizedBudget?: Prisma.DecimalNullableFilter<"Event"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   recommendedByJustification?: Prisma.StringNullableFilter<"Event"> | string | null
   feedbackFormUrl?: Prisma.StringNullableFilter<"Event"> | string | null
   finalRemarks?: Prisma.StringNullableFilter<"Event"> | string | null
@@ -400,6 +412,7 @@ export type EventOrderByWithRelationInput = {
   tdapCost?: Prisma.SortOrderInput | Prisma.SortOrder
   exhibitorCost?: Prisma.SortOrderInput | Prisma.SortOrder
   totalEstimatedBudget?: Prisma.SortOrderInput | Prisma.SortOrder
+  utilizedBudget?: Prisma.SortOrderInput | Prisma.SortOrder
   recommendedByJustification?: Prisma.SortOrderInput | Prisma.SortOrder
   feedbackFormUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   finalRemarks?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -433,6 +446,7 @@ export type EventWhereUniqueInput = Prisma.AtLeast<{
   tdapCost?: Prisma.DecimalNullableFilter<"Event"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   exhibitorCost?: Prisma.DecimalNullableFilter<"Event"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   totalEstimatedBudget?: Prisma.DecimalNullableFilter<"Event"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  utilizedBudget?: Prisma.DecimalNullableFilter<"Event"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   recommendedByJustification?: Prisma.StringNullableFilter<"Event"> | string | null
   feedbackFormUrl?: Prisma.StringNullableFilter<"Event"> | string | null
   finalRemarks?: Prisma.StringNullableFilter<"Event"> | string | null
@@ -462,6 +476,7 @@ export type EventOrderByWithAggregationInput = {
   tdapCost?: Prisma.SortOrderInput | Prisma.SortOrder
   exhibitorCost?: Prisma.SortOrderInput | Prisma.SortOrder
   totalEstimatedBudget?: Prisma.SortOrderInput | Prisma.SortOrder
+  utilizedBudget?: Prisma.SortOrderInput | Prisma.SortOrder
   recommendedByJustification?: Prisma.SortOrderInput | Prisma.SortOrder
   feedbackFormUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   finalRemarks?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -496,6 +511,7 @@ export type EventScalarWhereWithAggregatesInput = {
   tdapCost?: Prisma.DecimalNullableWithAggregatesFilter<"Event"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   exhibitorCost?: Prisma.DecimalNullableWithAggregatesFilter<"Event"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   totalEstimatedBudget?: Prisma.DecimalNullableWithAggregatesFilter<"Event"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  utilizedBudget?: Prisma.DecimalNullableWithAggregatesFilter<"Event"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   recommendedByJustification?: Prisma.StringNullableWithAggregatesFilter<"Event"> | string | null
   feedbackFormUrl?: Prisma.StringNullableWithAggregatesFilter<"Event"> | string | null
   finalRemarks?: Prisma.StringNullableWithAggregatesFilter<"Event"> | string | null
@@ -521,6 +537,7 @@ export type EventCreateInput = {
   tdapCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   exhibitorCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   totalEstimatedBudget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  utilizedBudget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   recommendedByJustification?: string | null
   feedbackFormUrl?: string | null
   finalRemarks?: string | null
@@ -550,6 +567,7 @@ export type EventUncheckedCreateInput = {
   tdapCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   exhibitorCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   totalEstimatedBudget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  utilizedBudget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   recommendedByJustification?: string | null
   feedbackFormUrl?: string | null
   finalRemarks?: string | null
@@ -578,6 +596,7 @@ export type EventUpdateInput = {
   tdapCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   exhibitorCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   totalEstimatedBudget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  utilizedBudget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   recommendedByJustification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   feedbackFormUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   finalRemarks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -607,6 +626,7 @@ export type EventUncheckedUpdateInput = {
   tdapCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   exhibitorCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   totalEstimatedBudget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  utilizedBudget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   recommendedByJustification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   feedbackFormUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   finalRemarks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -636,6 +656,7 @@ export type EventCreateManyInput = {
   tdapCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   exhibitorCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   totalEstimatedBudget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  utilizedBudget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   recommendedByJustification?: string | null
   feedbackFormUrl?: string | null
   finalRemarks?: string | null
@@ -661,6 +682,7 @@ export type EventUpdateManyMutationInput = {
   tdapCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   exhibitorCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   totalEstimatedBudget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  utilizedBudget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   recommendedByJustification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   feedbackFormUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   finalRemarks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -687,6 +709,7 @@ export type EventUncheckedUpdateManyInput = {
   tdapCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   exhibitorCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   totalEstimatedBudget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  utilizedBudget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   recommendedByJustification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   feedbackFormUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   finalRemarks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -719,6 +742,7 @@ export type EventCountOrderByAggregateInput = {
   tdapCost?: Prisma.SortOrder
   exhibitorCost?: Prisma.SortOrder
   totalEstimatedBudget?: Prisma.SortOrder
+  utilizedBudget?: Prisma.SortOrder
   recommendedByJustification?: Prisma.SortOrder
   feedbackFormUrl?: Prisma.SortOrder
   finalRemarks?: Prisma.SortOrder
@@ -732,6 +756,7 @@ export type EventAvgOrderByAggregateInput = {
   tdapCost?: Prisma.SortOrder
   exhibitorCost?: Prisma.SortOrder
   totalEstimatedBudget?: Prisma.SortOrder
+  utilizedBudget?: Prisma.SortOrder
 }
 
 export type EventMaxOrderByAggregateInput = {
@@ -753,6 +778,7 @@ export type EventMaxOrderByAggregateInput = {
   tdapCost?: Prisma.SortOrder
   exhibitorCost?: Prisma.SortOrder
   totalEstimatedBudget?: Prisma.SortOrder
+  utilizedBudget?: Prisma.SortOrder
   recommendedByJustification?: Prisma.SortOrder
   feedbackFormUrl?: Prisma.SortOrder
   finalRemarks?: Prisma.SortOrder
@@ -779,6 +805,7 @@ export type EventMinOrderByAggregateInput = {
   tdapCost?: Prisma.SortOrder
   exhibitorCost?: Prisma.SortOrder
   totalEstimatedBudget?: Prisma.SortOrder
+  utilizedBudget?: Prisma.SortOrder
   recommendedByJustification?: Prisma.SortOrder
   feedbackFormUrl?: Prisma.SortOrder
   finalRemarks?: Prisma.SortOrder
@@ -792,6 +819,7 @@ export type EventSumOrderByAggregateInput = {
   tdapCost?: Prisma.SortOrder
   exhibitorCost?: Prisma.SortOrder
   totalEstimatedBudget?: Prisma.SortOrder
+  utilizedBudget?: Prisma.SortOrder
 }
 
 export type EventScalarRelationFilter = {
@@ -871,6 +899,7 @@ export type EventCreateWithoutEventSectorsInput = {
   tdapCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   exhibitorCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   totalEstimatedBudget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  utilizedBudget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   recommendedByJustification?: string | null
   feedbackFormUrl?: string | null
   finalRemarks?: string | null
@@ -899,6 +928,7 @@ export type EventUncheckedCreateWithoutEventSectorsInput = {
   tdapCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   exhibitorCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   totalEstimatedBudget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  utilizedBudget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   recommendedByJustification?: string | null
   feedbackFormUrl?: string | null
   finalRemarks?: string | null
@@ -942,6 +972,7 @@ export type EventUpdateWithoutEventSectorsInput = {
   tdapCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   exhibitorCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   totalEstimatedBudget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  utilizedBudget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   recommendedByJustification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   feedbackFormUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   finalRemarks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -970,6 +1001,7 @@ export type EventUncheckedUpdateWithoutEventSectorsInput = {
   tdapCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   exhibitorCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   totalEstimatedBudget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  utilizedBudget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   recommendedByJustification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   feedbackFormUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   finalRemarks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -997,6 +1029,7 @@ export type EventCreateWithoutParticipantsInput = {
   tdapCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   exhibitorCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   totalEstimatedBudget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  utilizedBudget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   recommendedByJustification?: string | null
   feedbackFormUrl?: string | null
   finalRemarks?: string | null
@@ -1025,6 +1058,7 @@ export type EventUncheckedCreateWithoutParticipantsInput = {
   tdapCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   exhibitorCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   totalEstimatedBudget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  utilizedBudget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   recommendedByJustification?: string | null
   feedbackFormUrl?: string | null
   finalRemarks?: string | null
@@ -1068,6 +1102,7 @@ export type EventUpdateWithoutParticipantsInput = {
   tdapCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   exhibitorCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   totalEstimatedBudget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  utilizedBudget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   recommendedByJustification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   feedbackFormUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   finalRemarks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1096,6 +1131,7 @@ export type EventUncheckedUpdateWithoutParticipantsInput = {
   tdapCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   exhibitorCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   totalEstimatedBudget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  utilizedBudget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   recommendedByJustification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   feedbackFormUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   finalRemarks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1123,6 +1159,7 @@ export type EventCreateWithoutFeedbacksInput = {
   tdapCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   exhibitorCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   totalEstimatedBudget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  utilizedBudget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   recommendedByJustification?: string | null
   feedbackFormUrl?: string | null
   finalRemarks?: string | null
@@ -1151,6 +1188,7 @@ export type EventUncheckedCreateWithoutFeedbacksInput = {
   tdapCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   exhibitorCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   totalEstimatedBudget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  utilizedBudget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   recommendedByJustification?: string | null
   feedbackFormUrl?: string | null
   finalRemarks?: string | null
@@ -1194,6 +1232,7 @@ export type EventUpdateWithoutFeedbacksInput = {
   tdapCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   exhibitorCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   totalEstimatedBudget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  utilizedBudget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   recommendedByJustification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   feedbackFormUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   finalRemarks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1222,6 +1261,7 @@ export type EventUncheckedUpdateWithoutFeedbacksInput = {
   tdapCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   exhibitorCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   totalEstimatedBudget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  utilizedBudget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   recommendedByJustification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   feedbackFormUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   finalRemarks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1299,6 +1339,7 @@ export type EventSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   tdapCost?: boolean
   exhibitorCost?: boolean
   totalEstimatedBudget?: boolean
+  utilizedBudget?: boolean
   recommendedByJustification?: boolean
   feedbackFormUrl?: boolean
   finalRemarks?: boolean
@@ -1331,6 +1372,7 @@ export type EventSelectScalar = {
   tdapCost?: boolean
   exhibitorCost?: boolean
   totalEstimatedBudget?: boolean
+  utilizedBudget?: boolean
   recommendedByJustification?: boolean
   feedbackFormUrl?: boolean
   finalRemarks?: boolean
@@ -1338,7 +1380,7 @@ export type EventSelectScalar = {
   updatedAt?: boolean
 }
 
-export type EventOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "location" | "eventDate" | "deskOfficer" | "division" | "region" | "country" | "city" | "sectorProducts" | "startDate" | "endDate" | "datesText" | "subsidyPercentage" | "tdapCost" | "exhibitorCost" | "totalEstimatedBudget" | "recommendedByJustification" | "feedbackFormUrl" | "finalRemarks" | "createdAt" | "updatedAt", ExtArgs["result"]["event"]>
+export type EventOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "location" | "eventDate" | "deskOfficer" | "division" | "region" | "country" | "city" | "sectorProducts" | "startDate" | "endDate" | "datesText" | "subsidyPercentage" | "tdapCost" | "exhibitorCost" | "totalEstimatedBudget" | "utilizedBudget" | "recommendedByJustification" | "feedbackFormUrl" | "finalRemarks" | "createdAt" | "updatedAt", ExtArgs["result"]["event"]>
 export type EventInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   participants?: boolean | Prisma.Event$participantsArgs<ExtArgs>
   feedbacks?: boolean | Prisma.Event$feedbacksArgs<ExtArgs>
@@ -1372,6 +1414,7 @@ export type $EventPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     tdapCost: runtime.Decimal | null
     exhibitorCost: runtime.Decimal | null
     totalEstimatedBudget: runtime.Decimal | null
+    utilizedBudget: runtime.Decimal | null
     recommendedByJustification: string | null
     feedbackFormUrl: string | null
     finalRemarks: string | null
@@ -1767,6 +1810,7 @@ export interface EventFieldRefs {
   readonly tdapCost: Prisma.FieldRef<"Event", 'Decimal'>
   readonly exhibitorCost: Prisma.FieldRef<"Event", 'Decimal'>
   readonly totalEstimatedBudget: Prisma.FieldRef<"Event", 'Decimal'>
+  readonly utilizedBudget: Prisma.FieldRef<"Event", 'Decimal'>
   readonly recommendedByJustification: Prisma.FieldRef<"Event", 'String'>
   readonly feedbackFormUrl: Prisma.FieldRef<"Event", 'String'>
   readonly finalRemarks: Prisma.FieldRef<"Event", 'String'>

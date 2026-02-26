@@ -9,6 +9,7 @@ export default function DeskClosingClient() {
     const eventId = eventIdParam ? Number(eventIdParam) : null;
 
     const [finalRemarks, setFinalRemarks] = useState('');
+    const [utilizedBudget, setUtilizedBudget] = useState('');
     const [submitting, setSubmitting] = useState(false);
     const [submitted, setSubmitted] = useState(false);
     const [error, setError] = useState(null);
@@ -25,7 +26,7 @@ export default function DeskClosingClient() {
             const res = await fetch('/api/events/final-remarks', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ eventId, finalRemarks }),
+                body: JSON.stringify({ eventId, finalRemarks, utilizedBudget }),
             });
             const data = await res.json();
             if (!res.ok) {
@@ -64,6 +65,21 @@ export default function DeskClosingClient() {
                                 {error}
                             </div>
                         )}
+
+                        <div>
+                            <label className="block text-sm font-medium text-secondary mb-1">
+                                Budget Utilized <span className="text-muted font-normal">(Rs.)</span>
+                            </label>
+                            <input
+                                type="number"
+                                min="0"
+                                step="0.01"
+                                value={utilizedBudget}
+                                onChange={(e) => setUtilizedBudget(e.target.value)}
+                                placeholder="e.g. 250000"
+                                className="glass-input w-full px-3 py-2 text-sm"
+                            />
+                        </div>
 
                         <div>
                             <label className="block text-sm font-medium text-secondary mb-1">
