@@ -1,8 +1,8 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import CompanyCard from '../../../components/CompanyCard';
 import { prisma } from '../../../lib/prismaClient';
 import DelegationAdminPanel from '../_components/DelegationAdminPanel';
+import DelegationParticipantsList from './_components/DelegationParticipantsList';
 
 function formatDate(dateValue) {
     try {
@@ -266,15 +266,10 @@ export default async function DelegationDetailPage({ params }) {
                         {/* Participating Companies */}
                         <div className="glass-card p-6">
                             <h2 className="text-2xl font-bold text-white mb-6">Participating Companies</h2>
-                            {participants.length === 0 ? (
-                                <p className="text-secondary">No companies registered yet.</p>
-                            ) : (
-                                <div className="grid grid-cols-1 gap-4">
-                                    {participants.map(company => (
-                                        <CompanyCard key={company.id} company={company} />
-                                    ))}
-                                </div>
-                            )}
+                            <DelegationParticipantsList
+                                delegationId={delegation.id}
+                                participants={participants}
+                            />
                         </div>
                     </div>
 
