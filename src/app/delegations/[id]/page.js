@@ -24,13 +24,14 @@ export async function generateMetadata({ params }) {
 
     const delegation = await prisma.delegation.findUnique({
         where: { id: delegationId },
-        select: { type: true, fromCountry: true, toCountry: true, division: true },
+        select: { type: true, title: true, fromCountry: true, toCountry: true, division: true },
     });
     if (!delegation) return { title: 'Delegation Not Found' };
 
     const country = delegation.type === 'INCOMING' ? delegation.fromCountry : delegation.toCountry;
+    const pageTitle = delegation.title || `${delegation.type} Delegation${country ? ` — ${country}` : ''}`;
     return {
-        title: `${delegation.type} Delegation${country ? ` - ${country}` : ''} - TDAP Food Directory`,
+        title: `${pageTitle} - TDAP Food Directory`,
     };
 }
 
@@ -53,12 +54,15 @@ export default async function DelegationDetailPage({ params }) {
     const delegation = await prisma.delegation.findUnique({
         where: { id: delegationId },
         select: {
-            id: true, type: true, status: true, division: true,
+            id: true, type: true, status: true, title: true, division: true,
             productSector: true, expectedDelegates: true, rationale: true,
             fromCountry: true, toCountry: true,
             startDate: true, endDate: true,
             allocatedBudget: true, utilizedBudget: true,
             closedAt: true, closingRemarks: true,
+            sectors: {
+                select: { sector: { select: { id: true, name: true } } },
+            },
             participants: {
                 select: {
                     company: {
@@ -77,6 +81,7 @@ export default async function DelegationDetailPage({ params }) {
     if (!delegation) notFound();
 
     const participants = (delegation.participants || []).map(p => p.company).filter(Boolean);
+    const delegationSectors = (delegation.sectors || []).map(s => s.sector).filter(Boolean);
     const country = delegation.type === 'INCOMING' ? delegation.fromCountry : delegation.toCountry;
     const countryLabel = delegation.type === 'INCOMING' ? 'From Country' : 'To Country';
     const headerStyle = getHeaderStyle(delegation);
@@ -97,7 +102,7 @@ export default async function DelegationDetailPage({ params }) {
                     <Link href="/delegations" className="breadcrumb-link">Delegations</Link>
                     <span className="mx-2 text-muted">/</span>
                     <span className="text-white">
-                        {delegation.type} — {country || 'Delegation'}
+                        {delegation.title || `${delegation.type} — ${country || 'Delegation'}`}
                     </span>
                 </nav>
 
@@ -107,11 +112,16 @@ export default async function DelegationDetailPage({ params }) {
                     style={headerStyle}
                 >
                     <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-5">
-                        <h1 className="text-3xl md:text-4xl font-bold text-white">
-                            {delegation.type} Delegation
-                        </h1>
+                        <div>
+                            <p className="text-white/60 text-sm font-medium uppercase tracking-widest mb-1">
+                                {delegation.type} Delegation
+                            </p>
+                            <h1 className="text-3xl md:text-4xl font-bold text-white leading-tight">
+                                {delegation.title || country || 'Delegation'}
+                            </h1>
+                        </div>
                         {delegation.status === 'CLOSED' && (
-                            <span className="badge-gray self-start">CLOSED</span>
+                            <span className="badge-gray self-start mt-1">CLOSED</span>
                         )}
                     </div>
 
@@ -133,6 +143,13 @@ export default async function DelegationDetailPage({ params }) {
                                 <span className="font-medium text-white">{delegation.division}</span>
                             </div>
                         )}
+                        {delegationSectors.length > 0 && (
+                            <div className="flex items-center gap-2 flex-wrap">
+                                {delegationSectors.map((s) => (
+                                    <span key={s.id} className="badge-green text-xs">{s.name}</span>
+                                ))}
+                            </div>
+                        )}
                         <div className="flex items-center gap-2">
                             <svg className="w-5 h-5 text-white shrink-0" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z" />
@@ -150,7 +167,20 @@ export default async function DelegationDetailPage({ params }) {
                         <div className="glass-card p-6">
                             <h2 className="text-2xl font-bold text-white mb-5">Delegation Details</h2>
                             <div className="space-y-5">
-                                {delegation.productSector && (
+                                {delegationSectors.length > 0 && (
+                                    <div>
+                                        <h3 className="text-xs font-semibold text-muted uppercase tracking-wide mb-2">
+                                            Product / Sector
+                                        </h3>
+                                        <div className="flex flex-wrap gap-2">
+                                            {delegationSectors.map((s) => (
+                                                <span key={s.id} className="badge-green">{s.name}</span>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+                                {/* legacy text fallback (pre-junction data) */}
+                                {delegationSectors.length === 0 && delegation.productSector && (
                                     <DInfoRow label="Product / Sector" value={delegation.productSector} />
                                 )}
                                 {delegation.expectedDelegates && (
@@ -255,10 +285,21 @@ export default async function DelegationDetailPage({ params }) {
                         <div className="glass-card p-6">
                             <h2 className="text-xl font-bold text-white mb-4">Quick Information</h2>
                             <div className="space-y-4">
+                                {delegation.title && <DInfoRow label="Title" value={delegation.title} />}
                                 <DInfoRow label="Type" value={delegation.type} />
                                 <DInfoRow label="Status" value={delegation.status} />
                                 {country && <DInfoRow label={countryLabel} value={country} />}
                                 {delegation.division && <DInfoRow label="Division" value={delegation.division} />}
+                                {delegationSectors.length > 0 && (
+                                    <div>
+                                        <h3 className="text-xs font-semibold text-muted uppercase tracking-wide mb-2">Sectors</h3>
+                                        <div className="flex flex-wrap gap-1.5">
+                                            {delegationSectors.map((s) => (
+                                                <span key={s.id} className="badge-green text-xs">{s.name}</span>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
                                 <DInfoRow label="Participants" value={`${participants.length} Companies`} />
                                 <DInfoRow label="Created" value={formatDate(delegation.createdAt)} />
                                 {delegation.status === 'CLOSED' && delegation.closedAt && (
@@ -277,6 +318,19 @@ export default async function DelegationDetailPage({ params }) {
                                 allocatedBudget={delegation.allocatedBudget ? Number(delegation.allocatedBudget) : null}
                             />
                         )}
+
+                        {/* Manage Delegation */}
+                        <div className="glass-card p-6">
+                            <h3 className="text-lg font-bold text-white mb-4">Manage</h3>
+                            <div className="space-y-3">
+                                <Link
+                                    href={`/delegations/${delegation.id}/edit`}
+                                    className="btn-outline px-4 py-2 text-sm font-semibold w-full text-center block"
+                                >
+                                    ✏️ Edit Delegation
+                                </Link>
+                            </div>
+                        </div>
 
                         {/* Browse More */}
                         <div className="glass-card p-6 text-center">

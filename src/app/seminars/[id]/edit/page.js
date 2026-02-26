@@ -43,21 +43,28 @@ export default function EditSeminarPage() {
     const [error, setError] = useState(null);
     const [success, setSuccess] = useState(null);
     const [sectors, setSectors] = useState([]);
+    const [selectedSectorIds, setSelectedSectorIds] = useState([]);
+
+    const toggleSector = (id) =>
+        setSelectedSectorIds((prev) =>
+            prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]
+        );
 
     const [formData, setFormData] = useState({
         type: 'SEMINAR',
         title: '',
-        productSector: '',
         cityVenue: '',
         tentativeDate: '',
         proposedBudget: '',
-        division: '',
         regionalCollaboration: '',
         rationaleObjective: '',
         deskOfficer: '',
         finalRemarks: '',
         status: 'PLANNED',
     });
+
+    // Track the raw productSector string until sectors list is ready
+    const [rawProductSector, setRawProductSector] = useState('');
 
     useEffect(() => {
         fetch('/api/sectors')
@@ -66,20 +73,29 @@ export default function EditSeminarPage() {
             .catch(() => { });
     }, []);
 
+    // Once sectors list arrives, resolve the saved names → IDs
+    useEffect(() => {
+        if (sectors.length === 0 || !rawProductSector) return;
+        const savedNames = rawProductSector.split(',').map((n) => n.trim().toLowerCase());
+        const matched = sectors
+            .filter((s) => savedNames.includes(s.name.toLowerCase()))
+            .map((s) => s.id);
+        setSelectedSectorIds(matched);
+    }, [sectors, rawProductSector]);
+
     useEffect(() => {
         if (!seminarId || Number.isNaN(seminarId)) return;
         fetch(`/api/seminars?id=${seminarId}`)
             .then((r) => r.json())
             .then((data) => {
                 if (data.error) { setError(data.error); return; }
+                setRawProductSector(data.productSector || '');
                 setFormData({
                     type: VALID_TYPES.includes(data.type) ? data.type : 'SEMINAR',
                     title: data.title || '',
-                    productSector: data.productSector || '',
                     cityVenue: data.cityVenue || '',
                     tentativeDate: data.tentativeDate || '',
                     proposedBudget: data.proposedBudget != null ? String(data.proposedBudget) : '',
-                    division: data.division || '',
                     regionalCollaboration: data.regionalCollaboration || '',
                     rationaleObjective: data.rationaleObjective || '',
                     deskOfficer: data.deskOfficer || '',
@@ -103,15 +119,18 @@ export default function EditSeminarPage() {
         setSuccess(null);
 
         try {
+            const selectedSectorNames = sectors
+                .filter((s) => selectedSectorIds.includes(s.id))
+                .map((s) => s.name);
+
             const payload = {
                 id: seminarId,
                 type: formData.type,
                 title: formData.title.trim(),
-                productSector: formData.productSector || null,
+                productSector: selectedSectorNames.length > 0 ? selectedSectorNames.join(', ') : null,
                 cityVenue: formData.cityVenue || null,
                 tentativeDate: formData.tentativeDate || null,
                 proposedBudget: formData.proposedBudget ? Number(formData.proposedBudget) : null,
-                division: formData.division || null,
                 regionalCollaboration: formData.regionalCollaboration || null,
                 rationaleObjective: formData.rationaleObjective || null,
                 deskOfficer: formData.deskOfficer || null,
@@ -201,19 +220,36 @@ export default function EditSeminarPage() {
                             />
                         </FormField>
 
-                        <FormField label="Product / Sector">
-                            <select name="productSector" value={formData.productSector} onChange={handleChange} className={inputCls}>
-                                <option value="">Select sector…</option>
-                                {sectors.map((s) => (
-                                    <option key={s.id} value={s.name}>{s.name}</option>
-                                ))}
-                                <option value="Poultry">Poultry</option>
-                                <option value="Dairy Products">Dairy Products</option>
-                                <option value="Sesame">Sesame</option>
-                                <option value="Rice">Rice</option>
-                                <option value="Spices">Spices</option>
-                                <option value="Fruits & Vegetables">Fruits &amp; Vegetables</option>
-                            </select>
+                        {/* Product Sector — multi-select pills */}
+                        <FormField
+                            label="Product / Sector"
+                            hint={selectedSectorIds.length > 0
+                                ? `${selectedSectorIds.length} sector${selectedSectorIds.length > 1 ? 's' : ''} selected`
+                                : 'Select one or more sectors'}
+                        >
+                            {sectors.length === 0 ? (
+                                <p className="text-muted text-sm">Loading sectors…</p>
+                            ) : (
+                                <div className="flex flex-wrap gap-2 mt-1">
+                                    {sectors.map((s) => {
+                                        const active = selectedSectorIds.includes(s.id);
+                                        return (
+                                            <button
+                                                key={s.id}
+                                                type="button"
+                                                onClick={() => toggleSector(s.id)}
+                                                className={
+                                                    active
+                                                        ? 'badge-green cursor-pointer text-sm px-3 py-1'
+                                                        : 'px-3 py-1 text-sm rounded-full border border-white/20 text-secondary hover:border-white/40 hover:text-white transition-all cursor-pointer'
+                                                }
+                                            >
+                                                {s.name}
+                                            </button>
+                                        );
+                                    })}
+                                </div>
+                            )}
                         </FormField>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -259,17 +295,6 @@ export default function EditSeminarPage() {
                                     onChange={handleChange}
                                     className={inputCls}
                                     placeholder="e.g., 250000"
-                                />
-                            </FormField>
-
-                            <FormField label="Division">
-                                <input
-                                    type="text"
-                                    name="division"
-                                    value={formData.division}
-                                    onChange={handleChange}
-                                    className={inputCls}
-                                    placeholder="e.g., Agro & Food"
                                 />
                             </FormField>
                         </div>
