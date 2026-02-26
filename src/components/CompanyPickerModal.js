@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 
 /**
  * Reusable modal for selecting participating companies.
@@ -67,7 +68,7 @@ export default function CompanyPickerModal({ open, onClose, initialSelectedIds =
         )
         : allCompanies;
 
-    return (
+    return createPortal(
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
             <div className="glass-card-strong max-w-2xl w-full mx-4 max-h-[80vh] flex flex-col">
 
@@ -179,6 +180,7 @@ export default function CompanyPickerModal({ open, onClose, initialSelectedIds =
                     </div>
                 </div>
             </div>
-        </div>
+        </div>,
+        document.body
     );
 }
