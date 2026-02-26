@@ -8,7 +8,7 @@ const COUNTRY_CITIES = {
     Bangladesh: ['Chittagong', 'Dhaka'],
     Brazil: ['Brasília', 'Rio de Janeiro', 'São Paulo'],
     Canada: ['Calgary', 'Montreal', 'Ottawa', 'Toronto', 'Vancouver'],
-    China: ['Beijing', 'Chengdu', 'Guangzhou', 'Shanghai', 'Shenzhen'],
+    China: ['Beijing', 'Chengdu', 'Guangzhou', 'Shanghai', 'Shenzhen', 'Qingdao'],
     Egypt: ['Alexandria', 'Cairo'],
     France: ['Lyon', 'Marseille', 'Nice', 'Paris'],
     Germany: ['Berlin', 'Cologne', 'Düsseldorf', 'Frankfurt', 'Hamburg', 'Munich'],
@@ -25,7 +25,10 @@ const COUNTRY_CITIES = {
     'Sri Lanka': ['Colombo', 'Kandy'],
     'United Arab Emirates': ['Abu Dhabi', 'Dubai', 'Sharjah'],
     'United Kingdom': ['Birmingham', 'Edinburgh', 'London', 'Manchester'],
-    'United States': ['Chicago', 'Dallas', 'Houston', 'Los Angeles', 'New York', 'San Francisco'],
+    'United States': ['Chicago', 'Dallas', 'Houston', 'Los Angeles', 'New York', 'San Francisco', 'Las Vegas'],
+    'Kenya': ['Nairobi'],
+    'Spain': ['Barcelona', 'Madrid', 'Valencia'],
+    'Uzbekistan': ['Tashkent'],
 };
 
 const COUNTRY_OPTIONS = Object.keys(COUNTRY_CITIES).sort();

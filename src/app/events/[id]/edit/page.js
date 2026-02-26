@@ -8,7 +8,7 @@ const COUNTRY_CITIES = {
     Bangladesh: ['Chittagong', 'Dhaka'],
     Brazil: ['Brasília', 'Rio de Janeiro', 'São Paulo'],
     Canada: ['Calgary', 'Montreal', 'Ottawa', 'Toronto', 'Vancouver'],
-    China: ['Beijing', 'Chengdu', 'Guangzhou', 'Shanghai', 'Shenzhen'],
+    China: ['Beijing', 'Chengdu', 'Guangzhou', 'Shanghai', 'Shenzhen', 'Qingdao'],
     Egypt: ['Alexandria', 'Cairo'],
     France: ['Lyon', 'Marseille', 'Nice', 'Paris'],
     Germany: ['Berlin', 'Cologne', 'Düsseldorf', 'Frankfurt', 'Hamburg', 'Munich'],
@@ -25,7 +25,10 @@ const COUNTRY_CITIES = {
     'Sri Lanka': ['Colombo', 'Kandy'],
     'United Arab Emirates': ['Abu Dhabi', 'Dubai', 'Sharjah'],
     'United Kingdom': ['Birmingham', 'Edinburgh', 'London', 'Manchester'],
-    'United States': ['Chicago', 'Dallas', 'Houston', 'Los Angeles', 'New York', 'San Francisco'],
+    'United States': ['Chicago', 'Dallas', 'Houston', 'Los Angeles', 'New York', 'San Francisco', 'Las Vegas'],
+    'Kenya': ['Nairobi'],
+    'Spain': ['Barcelona', 'Madrid', 'Valencia'],
+    'Uzbekistan': ['Tashkent'],
 };
 
 const COUNTRY_OPTIONS = Object.keys(COUNTRY_CITIES).sort();
@@ -341,8 +344,8 @@ export default function EditEventPage() {
                                                 type="button"
                                                 onClick={() => toggleSector(s.id)}
                                                 className={`px-3 py-1.5 rounded-full text-sm font-medium border transition-colors ${selected
-                                                        ? 'bg-green-700 text-white border-green-700'
-                                                        : 'bg-white/10 text-secondary border-white/20 hover:border-green-500 hover:text-white'
+                                                    ? 'bg-green-700 text-white border-green-700'
+                                                    : 'bg-white/10 text-secondary border-white/20 hover:border-green-500 hover:text-white'
                                                     }`}
                                             >
                                                 {selected && <span className="mr-1">✓</span>}

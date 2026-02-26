@@ -34,17 +34,39 @@ export default function Header() {
             >
               Home
             </Link>
-            <Link
+            {/* <Link
               href="/companies"
               className="px-3 py-1.5 rounded-md text-secondary hover:text-white hover:bg-white/10 transition-all font-medium text-sm"
             >
               Companies
-            </Link>
+            </Link> */}
             <Link
               href="/events"
               className="px-3 py-1.5 rounded-md text-secondary hover:text-white hover:bg-white/10 transition-all font-medium text-sm"
             >
               Exhibitions
+            </Link>
+            {/* <select
+              defaultValue=""
+              onChange={(e) => { if (e.target.value) { router.push(e.target.value); e.target.value = ''; } }}
+              className="glass-input px-3 py-1.5 text-sm font-medium cursor-pointer"
+            >
+              <option value="" disabled>Seminars</option>
+              <option value="/seminars">Seminars</option>
+              <option value="/seminars?type=webinar">Webinars</option>
+              <option value="/seminars?type=virtual-b2b">Virtual B2Bs</option>
+            </select> */}
+            <Link
+              href="/seminars"
+              className="px-3 py-1.5 rounded-md text-secondary hover:text-white hover:bg-white/10 transition-all font-medium text-sm"
+            >
+              Seminars/Webinars
+            </Link>
+            <Link
+              href="/seminars?type=virtual-b2b"
+              className="px-3 py-1.5 rounded-md text-secondary hover:text-white hover:bg-white/10 transition-all font-medium text-sm"
+            >
+              Virtual B2B
             </Link>
             <select
               defaultValue=""
@@ -54,16 +76,6 @@ export default function Header() {
               <option value="" disabled>Delegations</option>
               <option value="/delegations?tab=incoming">Incoming</option>
               <option value="/delegations?tab=outgoing">Outgoing</option>
-            </select>
-            <select
-              defaultValue=""
-              onChange={(e) => { if (e.target.value) { router.push(e.target.value); e.target.value = ''; } }}
-              className="glass-input px-3 py-1.5 text-sm font-medium cursor-pointer"
-            >
-              <option value="" disabled>Seminars</option>
-              <option value="/seminars">Seminars</option>
-              <option value="/seminars?type=webinar">Webinars</option>
-              <option value="/seminars?type=virtual-b2b">Virtual B2Bs</option>
             </select>
             <Link
               href="/register"
