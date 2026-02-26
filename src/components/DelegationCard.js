@@ -42,9 +42,12 @@ export default function DelegationCard({ delegation }) {
                         )}
                     </div>
 
-                    <h3 className="text-lg font-bold mb-2 leading-snug">
-                        {country || 'Delegation'}
+                    <h3 className="text-lg font-bold mb-1 leading-snug">
+                        {delegation.title || country || 'Delegation'}
                     </h3>
+                    {delegation.title && country && (
+                        <p className="text-white/70 text-xs mb-1">{countryLabel}: {country}</p>
+                    )}
 
                     {delegation.division && (
                         <div className="flex items-center text-white/75 text-xs mb-1">
@@ -56,7 +59,8 @@ export default function DelegationCard({ delegation }) {
                         </div>
                     )}
 
-                    {country && (
+                    {/* Show country row only when there's no title (already shown inline above when both exist) */}
+                    {country && !delegation.title && (
                         <div className="flex items-center text-white/75 text-xs">
                             <svg className="w-3.5 h-3.5 mr-1.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                                 <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
@@ -68,7 +72,16 @@ export default function DelegationCard({ delegation }) {
 
                 {/* Card body */}
                 <div className="p-5 flex flex-col flex-1">
-                    {delegation.productSector && (
+                    {/* Junction-table sectors (preferred) */}
+                    {delegation.sectors && delegation.sectors.length > 0 && (
+                        <div className="flex flex-wrap gap-1.5 mb-2">
+                            {delegation.sectors.map((s) => (
+                                <span key={s.id} className="badge-green text-xs">{s.name}</span>
+                            ))}
+                        </div>
+                    )}
+                    {/* Legacy text fallback for older records */}
+                    {(!delegation.sectors || delegation.sectors.length === 0) && delegation.productSector && (
                         <p className="text-secondary text-sm mb-2">
                             <span className="font-semibold text-white/80">Product/Sector:</span>{' '}
                             {delegation.productSector}

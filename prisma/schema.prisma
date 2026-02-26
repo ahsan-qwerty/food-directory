@@ -23,6 +23,7 @@ subSectors SubSector[]
 companies Company[]
 companySectors CompanySector[]
 eventSectors   EventSector[]
+delegationSectors DelegationSector[]
 
 
 createdAt DateTime @default(now())
@@ -265,6 +266,7 @@ model Delegation {
   status      DelegationStatus @default(ACTIVE)
   
   // Common fields
+  title       String?  // Optional short title / name for the delegation
   division    String?
   productSector String?
   expectedDelegates String? // e.g., "2-4 delegates", "10"
@@ -287,7 +289,8 @@ model Delegation {
   closingRemarks String?
   
   // Relations
-  participants DelegationCompany[]
+  participants      DelegationCompany[]
+  sectors           DelegationSector[]
   
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -305,6 +308,18 @@ model DelegationCompany {
   createdAt DateTime @default(now())
   
   @@unique([delegationId, companyId])
+}
+
+// ── Junction: Delegation ↔ Sector (many-to-many) ───────────────────────────
+model DelegationSector {
+  id           Int @id @default(autoincrement())
+  delegationId Int
+  sectorId     Int
+
+  delegation Delegation @relation(fields: [delegationId], references: [id], onDelete: Cascade)
+  sector     Sector     @relation(fields: [sectorId],     references: [id], onDelete: Cascade)
+
+  @@unique([delegationId, sectorId])
 }
 
 enum SeminarStatus {

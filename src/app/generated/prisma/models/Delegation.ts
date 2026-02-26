@@ -42,6 +42,7 @@ export type DelegationMinAggregateOutputType = {
   id: number | null
   type: $Enums.DelegationType | null
   status: $Enums.DelegationStatus | null
+  title: string | null
   division: string | null
   productSector: string | null
   expectedDelegates: string | null
@@ -62,6 +63,7 @@ export type DelegationMaxAggregateOutputType = {
   id: number | null
   type: $Enums.DelegationType | null
   status: $Enums.DelegationStatus | null
+  title: string | null
   division: string | null
   productSector: string | null
   expectedDelegates: string | null
@@ -82,6 +84,7 @@ export type DelegationCountAggregateOutputType = {
   id: number
   type: number
   status: number
+  title: number
   division: number
   productSector: number
   expectedDelegates: number
@@ -116,6 +119,7 @@ export type DelegationMinAggregateInputType = {
   id?: true
   type?: true
   status?: true
+  title?: true
   division?: true
   productSector?: true
   expectedDelegates?: true
@@ -136,6 +140,7 @@ export type DelegationMaxAggregateInputType = {
   id?: true
   type?: true
   status?: true
+  title?: true
   division?: true
   productSector?: true
   expectedDelegates?: true
@@ -156,6 +161,7 @@ export type DelegationCountAggregateInputType = {
   id?: true
   type?: true
   status?: true
+  title?: true
   division?: true
   productSector?: true
   expectedDelegates?: true
@@ -263,6 +269,7 @@ export type DelegationGroupByOutputType = {
   id: number
   type: $Enums.DelegationType
   status: $Enums.DelegationStatus
+  title: string | null
   division: string | null
   productSector: string | null
   expectedDelegates: string | null
@@ -306,6 +313,7 @@ export type DelegationWhereInput = {
   id?: Prisma.IntFilter<"Delegation"> | number
   type?: Prisma.EnumDelegationTypeFilter<"Delegation"> | $Enums.DelegationType
   status?: Prisma.EnumDelegationStatusFilter<"Delegation"> | $Enums.DelegationStatus
+  title?: Prisma.StringNullableFilter<"Delegation"> | string | null
   division?: Prisma.StringNullableFilter<"Delegation"> | string | null
   productSector?: Prisma.StringNullableFilter<"Delegation"> | string | null
   expectedDelegates?: Prisma.StringNullableFilter<"Delegation"> | string | null
@@ -321,12 +329,14 @@ export type DelegationWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"Delegation"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Delegation"> | Date | string
   participants?: Prisma.DelegationCompanyListRelationFilter
+  sectors?: Prisma.DelegationSectorListRelationFilter
 }
 
 export type DelegationOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   type?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  title?: Prisma.SortOrderInput | Prisma.SortOrder
   division?: Prisma.SortOrderInput | Prisma.SortOrder
   productSector?: Prisma.SortOrderInput | Prisma.SortOrder
   expectedDelegates?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -342,6 +352,7 @@ export type DelegationOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   participants?: Prisma.DelegationCompanyOrderByRelationAggregateInput
+  sectors?: Prisma.DelegationSectorOrderByRelationAggregateInput
   _relevance?: Prisma.DelegationOrderByRelevanceInput
 }
 
@@ -352,6 +363,7 @@ export type DelegationWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.DelegationWhereInput | Prisma.DelegationWhereInput[]
   type?: Prisma.EnumDelegationTypeFilter<"Delegation"> | $Enums.DelegationType
   status?: Prisma.EnumDelegationStatusFilter<"Delegation"> | $Enums.DelegationStatus
+  title?: Prisma.StringNullableFilter<"Delegation"> | string | null
   division?: Prisma.StringNullableFilter<"Delegation"> | string | null
   productSector?: Prisma.StringNullableFilter<"Delegation"> | string | null
   expectedDelegates?: Prisma.StringNullableFilter<"Delegation"> | string | null
@@ -367,12 +379,14 @@ export type DelegationWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"Delegation"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Delegation"> | Date | string
   participants?: Prisma.DelegationCompanyListRelationFilter
+  sectors?: Prisma.DelegationSectorListRelationFilter
 }, "id">
 
 export type DelegationOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   type?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  title?: Prisma.SortOrderInput | Prisma.SortOrder
   division?: Prisma.SortOrderInput | Prisma.SortOrder
   productSector?: Prisma.SortOrderInput | Prisma.SortOrder
   expectedDelegates?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -401,6 +415,7 @@ export type DelegationScalarWhereWithAggregatesInput = {
   id?: Prisma.IntWithAggregatesFilter<"Delegation"> | number
   type?: Prisma.EnumDelegationTypeWithAggregatesFilter<"Delegation"> | $Enums.DelegationType
   status?: Prisma.EnumDelegationStatusWithAggregatesFilter<"Delegation"> | $Enums.DelegationStatus
+  title?: Prisma.StringNullableWithAggregatesFilter<"Delegation"> | string | null
   division?: Prisma.StringNullableWithAggregatesFilter<"Delegation"> | string | null
   productSector?: Prisma.StringNullableWithAggregatesFilter<"Delegation"> | string | null
   expectedDelegates?: Prisma.StringNullableWithAggregatesFilter<"Delegation"> | string | null
@@ -420,6 +435,7 @@ export type DelegationScalarWhereWithAggregatesInput = {
 export type DelegationCreateInput = {
   type: $Enums.DelegationType
   status?: $Enums.DelegationStatus
+  title?: string | null
   division?: string | null
   productSector?: string | null
   expectedDelegates?: string | null
@@ -435,12 +451,14 @@ export type DelegationCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   participants?: Prisma.DelegationCompanyCreateNestedManyWithoutDelegationInput
+  sectors?: Prisma.DelegationSectorCreateNestedManyWithoutDelegationInput
 }
 
 export type DelegationUncheckedCreateInput = {
   id?: number
   type: $Enums.DelegationType
   status?: $Enums.DelegationStatus
+  title?: string | null
   division?: string | null
   productSector?: string | null
   expectedDelegates?: string | null
@@ -456,11 +474,13 @@ export type DelegationUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   participants?: Prisma.DelegationCompanyUncheckedCreateNestedManyWithoutDelegationInput
+  sectors?: Prisma.DelegationSectorUncheckedCreateNestedManyWithoutDelegationInput
 }
 
 export type DelegationUpdateInput = {
   type?: Prisma.EnumDelegationTypeFieldUpdateOperationsInput | $Enums.DelegationType
   status?: Prisma.EnumDelegationStatusFieldUpdateOperationsInput | $Enums.DelegationStatus
+  title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   division?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   productSector?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expectedDelegates?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -476,12 +496,14 @@ export type DelegationUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   participants?: Prisma.DelegationCompanyUpdateManyWithoutDelegationNestedInput
+  sectors?: Prisma.DelegationSectorUpdateManyWithoutDelegationNestedInput
 }
 
 export type DelegationUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumDelegationTypeFieldUpdateOperationsInput | $Enums.DelegationType
   status?: Prisma.EnumDelegationStatusFieldUpdateOperationsInput | $Enums.DelegationStatus
+  title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   division?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   productSector?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expectedDelegates?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -497,12 +519,14 @@ export type DelegationUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   participants?: Prisma.DelegationCompanyUncheckedUpdateManyWithoutDelegationNestedInput
+  sectors?: Prisma.DelegationSectorUncheckedUpdateManyWithoutDelegationNestedInput
 }
 
 export type DelegationCreateManyInput = {
   id?: number
   type: $Enums.DelegationType
   status?: $Enums.DelegationStatus
+  title?: string | null
   division?: string | null
   productSector?: string | null
   expectedDelegates?: string | null
@@ -522,6 +546,7 @@ export type DelegationCreateManyInput = {
 export type DelegationUpdateManyMutationInput = {
   type?: Prisma.EnumDelegationTypeFieldUpdateOperationsInput | $Enums.DelegationType
   status?: Prisma.EnumDelegationStatusFieldUpdateOperationsInput | $Enums.DelegationStatus
+  title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   division?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   productSector?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expectedDelegates?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -542,6 +567,7 @@ export type DelegationUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumDelegationTypeFieldUpdateOperationsInput | $Enums.DelegationType
   status?: Prisma.EnumDelegationStatusFieldUpdateOperationsInput | $Enums.DelegationStatus
+  title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   division?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   productSector?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expectedDelegates?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -568,6 +594,7 @@ export type DelegationCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   type?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  title?: Prisma.SortOrder
   division?: Prisma.SortOrder
   productSector?: Prisma.SortOrder
   expectedDelegates?: Prisma.SortOrder
@@ -594,6 +621,7 @@ export type DelegationMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   type?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  title?: Prisma.SortOrder
   division?: Prisma.SortOrder
   productSector?: Prisma.SortOrder
   expectedDelegates?: Prisma.SortOrder
@@ -614,6 +642,7 @@ export type DelegationMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   type?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  title?: Prisma.SortOrder
   division?: Prisma.SortOrder
   productSector?: Prisma.SortOrder
   expectedDelegates?: Prisma.SortOrder
@@ -663,9 +692,24 @@ export type DelegationUpdateOneRequiredWithoutParticipantsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.DelegationUpdateToOneWithWhereWithoutParticipantsInput, Prisma.DelegationUpdateWithoutParticipantsInput>, Prisma.DelegationUncheckedUpdateWithoutParticipantsInput>
 }
 
+export type DelegationCreateNestedOneWithoutSectorsInput = {
+  create?: Prisma.XOR<Prisma.DelegationCreateWithoutSectorsInput, Prisma.DelegationUncheckedCreateWithoutSectorsInput>
+  connectOrCreate?: Prisma.DelegationCreateOrConnectWithoutSectorsInput
+  connect?: Prisma.DelegationWhereUniqueInput
+}
+
+export type DelegationUpdateOneRequiredWithoutSectorsNestedInput = {
+  create?: Prisma.XOR<Prisma.DelegationCreateWithoutSectorsInput, Prisma.DelegationUncheckedCreateWithoutSectorsInput>
+  connectOrCreate?: Prisma.DelegationCreateOrConnectWithoutSectorsInput
+  upsert?: Prisma.DelegationUpsertWithoutSectorsInput
+  connect?: Prisma.DelegationWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.DelegationUpdateToOneWithWhereWithoutSectorsInput, Prisma.DelegationUpdateWithoutSectorsInput>, Prisma.DelegationUncheckedUpdateWithoutSectorsInput>
+}
+
 export type DelegationCreateWithoutParticipantsInput = {
   type: $Enums.DelegationType
   status?: $Enums.DelegationStatus
+  title?: string | null
   division?: string | null
   productSector?: string | null
   expectedDelegates?: string | null
@@ -680,12 +724,14 @@ export type DelegationCreateWithoutParticipantsInput = {
   closingRemarks?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  sectors?: Prisma.DelegationSectorCreateNestedManyWithoutDelegationInput
 }
 
 export type DelegationUncheckedCreateWithoutParticipantsInput = {
   id?: number
   type: $Enums.DelegationType
   status?: $Enums.DelegationStatus
+  title?: string | null
   division?: string | null
   productSector?: string | null
   expectedDelegates?: string | null
@@ -700,6 +746,7 @@ export type DelegationUncheckedCreateWithoutParticipantsInput = {
   closingRemarks?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  sectors?: Prisma.DelegationSectorUncheckedCreateNestedManyWithoutDelegationInput
 }
 
 export type DelegationCreateOrConnectWithoutParticipantsInput = {
@@ -721,6 +768,7 @@ export type DelegationUpdateToOneWithWhereWithoutParticipantsInput = {
 export type DelegationUpdateWithoutParticipantsInput = {
   type?: Prisma.EnumDelegationTypeFieldUpdateOperationsInput | $Enums.DelegationType
   status?: Prisma.EnumDelegationStatusFieldUpdateOperationsInput | $Enums.DelegationStatus
+  title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   division?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   productSector?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expectedDelegates?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -735,12 +783,14 @@ export type DelegationUpdateWithoutParticipantsInput = {
   closingRemarks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sectors?: Prisma.DelegationSectorUpdateManyWithoutDelegationNestedInput
 }
 
 export type DelegationUncheckedUpdateWithoutParticipantsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumDelegationTypeFieldUpdateOperationsInput | $Enums.DelegationType
   status?: Prisma.EnumDelegationStatusFieldUpdateOperationsInput | $Enums.DelegationStatus
+  title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   division?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   productSector?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expectedDelegates?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -755,6 +805,109 @@ export type DelegationUncheckedUpdateWithoutParticipantsInput = {
   closingRemarks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sectors?: Prisma.DelegationSectorUncheckedUpdateManyWithoutDelegationNestedInput
+}
+
+export type DelegationCreateWithoutSectorsInput = {
+  type: $Enums.DelegationType
+  status?: $Enums.DelegationStatus
+  title?: string | null
+  division?: string | null
+  productSector?: string | null
+  expectedDelegates?: string | null
+  rationale?: string | null
+  fromCountry?: string | null
+  toCountry?: string | null
+  startDate?: Date | string | null
+  endDate?: Date | string | null
+  allocatedBudget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  utilizedBudget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  closedAt?: Date | string | null
+  closingRemarks?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  participants?: Prisma.DelegationCompanyCreateNestedManyWithoutDelegationInput
+}
+
+export type DelegationUncheckedCreateWithoutSectorsInput = {
+  id?: number
+  type: $Enums.DelegationType
+  status?: $Enums.DelegationStatus
+  title?: string | null
+  division?: string | null
+  productSector?: string | null
+  expectedDelegates?: string | null
+  rationale?: string | null
+  fromCountry?: string | null
+  toCountry?: string | null
+  startDate?: Date | string | null
+  endDate?: Date | string | null
+  allocatedBudget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  utilizedBudget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  closedAt?: Date | string | null
+  closingRemarks?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  participants?: Prisma.DelegationCompanyUncheckedCreateNestedManyWithoutDelegationInput
+}
+
+export type DelegationCreateOrConnectWithoutSectorsInput = {
+  where: Prisma.DelegationWhereUniqueInput
+  create: Prisma.XOR<Prisma.DelegationCreateWithoutSectorsInput, Prisma.DelegationUncheckedCreateWithoutSectorsInput>
+}
+
+export type DelegationUpsertWithoutSectorsInput = {
+  update: Prisma.XOR<Prisma.DelegationUpdateWithoutSectorsInput, Prisma.DelegationUncheckedUpdateWithoutSectorsInput>
+  create: Prisma.XOR<Prisma.DelegationCreateWithoutSectorsInput, Prisma.DelegationUncheckedCreateWithoutSectorsInput>
+  where?: Prisma.DelegationWhereInput
+}
+
+export type DelegationUpdateToOneWithWhereWithoutSectorsInput = {
+  where?: Prisma.DelegationWhereInput
+  data: Prisma.XOR<Prisma.DelegationUpdateWithoutSectorsInput, Prisma.DelegationUncheckedUpdateWithoutSectorsInput>
+}
+
+export type DelegationUpdateWithoutSectorsInput = {
+  type?: Prisma.EnumDelegationTypeFieldUpdateOperationsInput | $Enums.DelegationType
+  status?: Prisma.EnumDelegationStatusFieldUpdateOperationsInput | $Enums.DelegationStatus
+  title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  division?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  productSector?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expectedDelegates?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rationale?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fromCountry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  toCountry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  allocatedBudget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  utilizedBudget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  closingRemarks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  participants?: Prisma.DelegationCompanyUpdateManyWithoutDelegationNestedInput
+}
+
+export type DelegationUncheckedUpdateWithoutSectorsInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  type?: Prisma.EnumDelegationTypeFieldUpdateOperationsInput | $Enums.DelegationType
+  status?: Prisma.EnumDelegationStatusFieldUpdateOperationsInput | $Enums.DelegationStatus
+  title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  division?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  productSector?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expectedDelegates?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rationale?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fromCountry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  toCountry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  allocatedBudget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  utilizedBudget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  closingRemarks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  participants?: Prisma.DelegationCompanyUncheckedUpdateManyWithoutDelegationNestedInput
 }
 
 
@@ -764,10 +917,12 @@ export type DelegationUncheckedUpdateWithoutParticipantsInput = {
 
 export type DelegationCountOutputType = {
   participants: number
+  sectors: number
 }
 
 export type DelegationCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   participants?: boolean | DelegationCountOutputTypeCountParticipantsArgs
+  sectors?: boolean | DelegationCountOutputTypeCountSectorsArgs
 }
 
 /**
@@ -787,11 +942,19 @@ export type DelegationCountOutputTypeCountParticipantsArgs<ExtArgs extends runti
   where?: Prisma.DelegationCompanyWhereInput
 }
 
+/**
+ * DelegationCountOutputType without action
+ */
+export type DelegationCountOutputTypeCountSectorsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DelegationSectorWhereInput
+}
+
 
 export type DelegationSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   type?: boolean
   status?: boolean
+  title?: boolean
   division?: boolean
   productSector?: boolean
   expectedDelegates?: boolean
@@ -807,6 +970,7 @@ export type DelegationSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   createdAt?: boolean
   updatedAt?: boolean
   participants?: boolean | Prisma.Delegation$participantsArgs<ExtArgs>
+  sectors?: boolean | Prisma.Delegation$sectorsArgs<ExtArgs>
   _count?: boolean | Prisma.DelegationCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["delegation"]>
 
@@ -816,6 +980,7 @@ export type DelegationSelectScalar = {
   id?: boolean
   type?: boolean
   status?: boolean
+  title?: boolean
   division?: boolean
   productSector?: boolean
   expectedDelegates?: boolean
@@ -832,9 +997,10 @@ export type DelegationSelectScalar = {
   updatedAt?: boolean
 }
 
-export type DelegationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "type" | "status" | "division" | "productSector" | "expectedDelegates" | "rationale" | "fromCountry" | "toCountry" | "startDate" | "endDate" | "allocatedBudget" | "utilizedBudget" | "closedAt" | "closingRemarks" | "createdAt" | "updatedAt", ExtArgs["result"]["delegation"]>
+export type DelegationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "type" | "status" | "title" | "division" | "productSector" | "expectedDelegates" | "rationale" | "fromCountry" | "toCountry" | "startDate" | "endDate" | "allocatedBudget" | "utilizedBudget" | "closedAt" | "closingRemarks" | "createdAt" | "updatedAt", ExtArgs["result"]["delegation"]>
 export type DelegationInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   participants?: boolean | Prisma.Delegation$participantsArgs<ExtArgs>
+  sectors?: boolean | Prisma.Delegation$sectorsArgs<ExtArgs>
   _count?: boolean | Prisma.DelegationCountOutputTypeDefaultArgs<ExtArgs>
 }
 
@@ -842,11 +1008,13 @@ export type $DelegationPayload<ExtArgs extends runtime.Types.Extensions.Internal
   name: "Delegation"
   objects: {
     participants: Prisma.$DelegationCompanyPayload<ExtArgs>[]
+    sectors: Prisma.$DelegationSectorPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     type: $Enums.DelegationType
     status: $Enums.DelegationStatus
+    title: string | null
     division: string | null
     productSector: string | null
     expectedDelegates: string | null
@@ -1202,6 +1370,7 @@ readonly fields: DelegationFieldRefs;
 export interface Prisma__DelegationClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   participants<T extends Prisma.Delegation$participantsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Delegation$participantsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DelegationCompanyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  sectors<T extends Prisma.Delegation$sectorsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Delegation$sectorsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DelegationSectorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1234,6 +1403,7 @@ export interface DelegationFieldRefs {
   readonly id: Prisma.FieldRef<"Delegation", 'Int'>
   readonly type: Prisma.FieldRef<"Delegation", 'DelegationType'>
   readonly status: Prisma.FieldRef<"Delegation", 'DelegationStatus'>
+  readonly title: Prisma.FieldRef<"Delegation", 'String'>
   readonly division: Prisma.FieldRef<"Delegation", 'String'>
   readonly productSector: Prisma.FieldRef<"Delegation", 'String'>
   readonly expectedDelegates: Prisma.FieldRef<"Delegation", 'String'>
@@ -1612,6 +1782,30 @@ export type Delegation$participantsArgs<ExtArgs extends runtime.Types.Extensions
   take?: number
   skip?: number
   distinct?: Prisma.DelegationCompanyScalarFieldEnum | Prisma.DelegationCompanyScalarFieldEnum[]
+}
+
+/**
+ * Delegation.sectors
+ */
+export type Delegation$sectorsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the DelegationSector
+   */
+  select?: Prisma.DelegationSectorSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the DelegationSector
+   */
+  omit?: Prisma.DelegationSectorOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DelegationSectorInclude<ExtArgs> | null
+  where?: Prisma.DelegationSectorWhereInput
+  orderBy?: Prisma.DelegationSectorOrderByWithRelationInput | Prisma.DelegationSectorOrderByWithRelationInput[]
+  cursor?: Prisma.DelegationSectorWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.DelegationSectorScalarFieldEnum | Prisma.DelegationSectorScalarFieldEnum[]
 }
 
 /**

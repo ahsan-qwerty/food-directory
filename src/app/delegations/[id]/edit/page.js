@@ -1,7 +1,8 @@
 'use client';
 
-import { useState, useEffect, Suspense } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useState, useEffect } from 'react';
+import { useRouter, useParams } from 'next/navigation';
+import Link from 'next/link';
 
 const COUNTRIES = [
     'Afghanistan', 'Albania', 'Algeria', 'Angola', 'Argentina', 'Armenia', 'Australia',
@@ -24,52 +25,77 @@ const COUNTRIES = [
 const labelCls = 'block text-sm font-medium text-secondary mb-2';
 const inputCls = 'glass-input w-full px-3 py-2';
 
-function CreateDelegationForm() {
+export default function EditDelegationPage() {
     const router = useRouter();
-    const searchParams = useSearchParams();
+    const params = useParams();
+    const delegationId = Number(params?.id);
 
-    const initialType = searchParams.get('type') === 'OUTGOING' ? 'OUTGOING' : 'INCOMING';
-
+    const [fetching, setFetching] = useState(true);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [success, setSuccess] = useState(null);
-    const [sectors, setSectors] = useState([]);
 
-    useEffect(() => {
-        fetch('/api/sectors')
-            .then((r) => r.json())
-            .then((data) => setSectors(data.sectors || []))
-            .catch(() => { });
-    }, []);
+    const [delegationType, setDelegationType] = useState('INCOMING'); // read-only display
+    const [sectors, setSectors] = useState([]);
+    const [selectedSectorIds, setSelectedSectorIds] = useState([]);
 
     const [formData, setFormData] = useState({
-        type: initialType,
         title: '',
-        sectorIds: [],
-        expectedDelegates: '',
-        rationale: '',
         fromCountry: '',
         toCountry: '',
         startDate: '',
         endDate: '',
+        expectedDelegates: '',
         allocatedBudget: '',
+        rationale: '',
     });
 
-    const toggleSector = (id) => {
-        setFormData((prev) => ({
-            ...prev,
-            sectorIds: prev.sectorIds.includes(id)
-                ? prev.sectorIds.filter((x) => x !== id)
-                : [...prev.sectorIds, id],
-        }));
-    };
+    const toggleSector = (id) =>
+        setSelectedSectorIds((prev) =>
+            prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]
+        );
+
+    // Load sectors list
+    useEffect(() => {
+        fetch('/api/sectors')
+            .then((r) => r.json())
+            .then((d) => setSectors(d.sectors || []))
+            .catch(() => { });
+    }, []);
+
+    // Load existing delegation data
+    useEffect(() => {
+        if (!delegationId || Number.isNaN(delegationId)) return;
+        fetch(`/api/delegations?id=${delegationId}`)
+            .then((r) => r.json())
+            .then((data) => {
+                if (data.error) { setError(data.error); return; }
+                setDelegationType(data.type || 'INCOMING');
+                setSelectedSectorIds(data.sectorIds || []);
+                setFormData({
+                    title: data.title || '',
+                    fromCountry: data.fromCountry || '',
+                    toCountry: data.toCountry || '',
+                    startDate: data.startDate
+                        ? new Date(data.startDate).toISOString().slice(0, 10)
+                        : '',
+                    endDate: data.endDate
+                        ? new Date(data.endDate).toISOString().slice(0, 10)
+                        : '',
+                    expectedDelegates: data.expectedDelegates || '',
+                    allocatedBudget: data.allocatedBudget != null
+                        ? String(data.allocatedBudget)
+                        : '',
+                    rationale: data.rationale || '',
+                });
+            })
+            .catch(() => setError('Failed to load delegation'))
+            .finally(() => setFetching(false));
+    }, [delegationId]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData(prev => ({
-            ...prev,
-            [name]: value
-        }));
+        setFormData((prev) => ({ ...prev, [name]: value }));
     };
 
     const handleSubmit = async (e) => {
@@ -80,15 +106,19 @@ function CreateDelegationForm() {
 
         try {
             const payload = {
-                type: formData.type,
+                id: delegationId,
                 title: formData.title || null,
-                sectorIds: formData.sectorIds,
-                expectedDelegates: formData.expectedDelegates ? String(formData.expectedDelegates) : null,
+                sectorIds: selectedSectorIds,
+                expectedDelegates: formData.expectedDelegates
+                    ? String(formData.expectedDelegates)
+                    : null,
+                allocatedBudget: formData.allocatedBudget
+                    ? Number(formData.allocatedBudget)
+                    : null,
                 rationale: formData.rationale || null,
-                allocatedBudget: formData.allocatedBudget ? Number(formData.allocatedBudget) : null,
             };
 
-            if (formData.type === 'INCOMING') {
+            if (delegationType === 'INCOMING') {
                 payload.fromCountry = formData.fromCountry || null;
             } else {
                 payload.toCountry = formData.toCountry || null;
@@ -97,53 +127,72 @@ function CreateDelegationForm() {
             }
 
             const res = await fetch('/api/delegations', {
-                method: 'POST',
+                method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload),
             });
 
             const data = await res.json();
-
             if (!res.ok) {
-                setError(data.error || 'Failed to create delegation');
+                setError(data.error || 'Failed to update delegation');
                 return;
             }
 
-            setSuccess('Delegation created successfully! Redirecting...');
-            setTimeout(() => {
-                router.push(`/delegations/${data.id}`);
-            }, 1500);
+            setSuccess('Delegation updated successfully! Redirecting…');
+            setTimeout(() => router.push(`/delegations/${delegationId}`), 1500);
         } catch (err) {
-            console.error('Error creating delegation:', err);
-            setError('Failed to create delegation');
+            console.error(err);
+            setError('Failed to update delegation');
         } finally {
             setLoading(false);
         }
     };
 
+    if (fetching) {
+        return (
+            <div className="page-wrapper flex items-center justify-center">
+                <div className="inline-block animate-spin rounded-full h-12 w-12 border-4 glass-spinner"></div>
+            </div>
+        );
+    }
+
     return (
         <div className="page-wrapper px-4">
             <main className="container mx-auto px-4 py-8 max-w-3xl">
+
+                {/* Breadcrumb */}
+                <nav className="flex text-sm text-secondary mb-6 flex-wrap gap-1">
+                    <Link href="/" className="breadcrumb-link">Home</Link>
+                    <span className="mx-2 text-muted">/</span>
+                    <Link href="/delegations" className="breadcrumb-link">Delegations</Link>
+                    <span className="mx-2 text-muted">/</span>
+                    <Link href={`/delegations/${delegationId}`} className="breadcrumb-link">
+                        {formData.title || `Delegation #${delegationId}`}
+                    </Link>
+                    <span className="mx-2 text-muted">/</span>
+                    <span className="text-white">Edit</span>
+                </nav>
+
                 <div className="mb-8">
                     <h1 className="text-3xl md:text-4xl font-bold text-primary mb-2">
-                        Create New Delegation
+                        Edit Delegation
                     </h1>
                     <p className="text-secondary">
-                        Add a new {formData.type === 'INCOMING' ? 'incoming' : 'outgoing'} delegation
+                        Update details for this{' '}
+                        <span className="text-white font-medium">
+                            {delegationType === 'INCOMING' ? 'Incoming' : 'Outgoing'}
+                        </span>{' '}
+                        delegation
+                        <span className="ml-2 text-xs text-muted">(type cannot be changed)</span>
                     </p>
                 </div>
 
                 <div className="glass-card p-6 md:p-8">
                     {error && (
-                        <div className="mb-6 alert-error px-4 py-3 text-sm">
-                            {error}
-                        </div>
+                        <div className="mb-6 alert-error px-4 py-3 text-sm">{error}</div>
                     )}
-
                     {success && (
-                        <div className="mb-6 alert-success px-4 py-3 text-sm">
-                            {success}
-                        </div>
+                        <div className="mb-6 alert-success px-4 py-3 text-sm">{success}</div>
                     )}
 
                     <form onSubmit={handleSubmit} className="space-y-6">
@@ -157,13 +206,13 @@ function CreateDelegationForm() {
                                 value={formData.title}
                                 onChange={handleChange}
                                 className={inputCls}
-                                placeholder="e.g., Trade Mission to Germany 2026, Rice Export Delegation"
+                                placeholder="e.g., Trade Mission to Germany 2026"
                             />
-                            <p className="mt-1 text-xs text-muted">Optional — a short descriptive name for this delegation</p>
+                            <p className="mt-1 text-xs text-muted">Optional — a short descriptive name</p>
                         </div>
 
-                        {/* Country Fields */}
-                        {formData.type === 'INCOMING' ? (
+                        {/* Country fields — depends on type */}
+                        {delegationType === 'INCOMING' ? (
                             <div>
                                 <label className={labelCls}>From Country</label>
                                 <select
@@ -173,7 +222,7 @@ function CreateDelegationForm() {
                                     className={inputCls}
                                 >
                                     <option value="">Select country</option>
-                                    {COUNTRIES.map(c => (
+                                    {COUNTRIES.map((c) => (
                                         <option key={c} value={c}>{c}</option>
                                     ))}
                                 </select>
@@ -189,7 +238,7 @@ function CreateDelegationForm() {
                                         className={inputCls}
                                     >
                                         <option value="">Select country</option>
-                                        {COUNTRIES.map(c => (
+                                        {COUNTRIES.map((c) => (
                                             <option key={c} value={c}>{c}</option>
                                         ))}
                                     </select>
@@ -231,14 +280,14 @@ function CreateDelegationForm() {
                             ) : (
                                 <div className="flex flex-wrap gap-2 mt-1">
                                     {sectors.map((s) => {
-                                        const selected = formData.sectorIds.includes(s.id);
+                                        const active = selectedSectorIds.includes(s.id);
                                         return (
                                             <button
                                                 key={s.id}
                                                 type="button"
                                                 onClick={() => toggleSector(s.id)}
                                                 className={
-                                                    selected
+                                                    active
                                                         ? 'badge-green cursor-pointer text-sm px-3 py-1'
                                                         : 'px-3 py-1 text-sm rounded-full border border-white/20 text-secondary hover:border-white/40 hover:text-white transition-all cursor-pointer'
                                                 }
@@ -249,9 +298,9 @@ function CreateDelegationForm() {
                                     })}
                                 </div>
                             )}
-                            {formData.sectorIds.length > 0 && (
+                            {selectedSectorIds.length > 0 && (
                                 <p className="text-xs text-muted mt-2">
-                                    {formData.sectorIds.length} sector{formData.sectorIds.length > 1 ? 's' : ''} selected
+                                    {selectedSectorIds.length} sector{selectedSectorIds.length > 1 ? 's' : ''} selected
                                 </p>
                             )}
                         </div>
@@ -274,7 +323,9 @@ function CreateDelegationForm() {
                         {/* Budget */}
                         <div>
                             <label className={labelCls}>
-                                {formData.type === 'INCOMING' ? 'Tentative Expenditure (PKR)' : 'Proposed Budget (PKR)'}
+                                {delegationType === 'INCOMING'
+                                    ? 'Tentative Expenditure (PKR)'
+                                    : 'Proposed Budget (PKR)'}
                             </label>
                             <input
                                 type="number"
@@ -284,14 +335,16 @@ function CreateDelegationForm() {
                                 step="0.01"
                                 min="0"
                                 className={inputCls}
-                                placeholder="e.g., 500000, 2500000"
+                                placeholder="e.g., 500000"
                             />
                         </div>
 
                         {/* Rationale */}
                         <div>
                             <label className={labelCls}>
-                                {formData.type === 'INCOMING' ? 'Rationale / Objectives' : 'Rationale / Justification / Objective'}
+                                {delegationType === 'INCOMING'
+                                    ? 'Rationale / Objectives'
+                                    : 'Rationale / Justification / Objective'}
                             </label>
                             <textarea
                                 name="rationale"
@@ -299,42 +352,31 @@ function CreateDelegationForm() {
                                 onChange={handleChange}
                                 rows={4}
                                 className={inputCls}
-                                placeholder="Enter the rationale, objectives, or justification for this delegation..."
+                                placeholder="Enter the rationale, objectives, or justification…"
                             />
                         </div>
 
-                        <div className="flex gap-4 pt-4">
-                            <button
-                                type="button"
-                                onClick={() => router.back()}
+                        {/* Divider */}
+                        <div className="border-t glass-divider" />
+
+                        <div className="flex gap-4 pt-2">
+                            <Link
+                                href={`/delegations/${delegationId}`}
                                 className="btn-outline px-6 py-2 text-sm font-semibold"
-                                disabled={loading}
                             >
                                 Cancel
-                            </button>
+                            </Link>
                             <button
                                 type="submit"
                                 className="btn-primary px-6 py-2 text-sm font-semibold disabled:opacity-60"
                                 disabled={loading}
                             >
-                                {loading ? 'Creating...' : 'Create Delegation'}
+                                {loading ? 'Saving…' : 'Save Changes'}
                             </button>
                         </div>
                     </form>
                 </div>
             </main>
         </div>
-    );
-}
-
-export default function CreateDelegationPage() {
-    return (
-        <Suspense fallback={
-            <div className="page-wrapper flex items-center justify-center">
-                <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 glass-spinner"></div>
-            </div>
-        }>
-            <CreateDelegationForm />
-        </Suspense>
     );
 }

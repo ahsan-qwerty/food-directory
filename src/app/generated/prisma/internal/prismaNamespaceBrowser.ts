@@ -64,6 +64,7 @@ export const ModelName = {
   Mission: 'Mission',
   Delegation: 'Delegation',
   DelegationCompany: 'DelegationCompany',
+  DelegationSector: 'DelegationSector',
   Seminar: 'Seminar'
 } as const
 
@@ -251,6 +252,7 @@ export const DelegationScalarFieldEnum = {
   id: 'id',
   type: 'type',
   status: 'status',
+  title: 'title',
   division: 'division',
   productSector: 'productSector',
   expectedDelegates: 'expectedDelegates',
@@ -278,6 +280,15 @@ export const DelegationCompanyScalarFieldEnum = {
 } as const
 
 export type DelegationCompanyScalarFieldEnum = (typeof DelegationCompanyScalarFieldEnum)[keyof typeof DelegationCompanyScalarFieldEnum]
+
+
+export const DelegationSectorScalarFieldEnum = {
+  id: 'id',
+  delegationId: 'delegationId',
+  sectorId: 'sectorId'
+} as const
+
+export type DelegationSectorScalarFieldEnum = (typeof DelegationSectorScalarFieldEnum)[keyof typeof DelegationSectorScalarFieldEnum]
 
 
 export const SeminarScalarFieldEnum = {
@@ -409,6 +420,7 @@ export type MissionOrderByRelevanceFieldEnum = (typeof MissionOrderByRelevanceFi
 
 
 export const DelegationOrderByRelevanceFieldEnum = {
+  title: 'title',
   division: 'division',
   productSector: 'productSector',
   expectedDelegates: 'expectedDelegates',

@@ -397,6 +397,7 @@ export const ModelName = {
   Mission: 'Mission',
   Delegation: 'Delegation',
   DelegationCompany: 'DelegationCompany',
+  DelegationSector: 'DelegationSector',
   Seminar: 'Seminar'
 } as const
 
@@ -413,7 +414,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "sector" | "subSector" | "product" | "company" | "companySector" | "companySubSector" | "event" | "eventSector" | "eventCompany" | "eventFeedback" | "mission" | "delegation" | "delegationCompany" | "seminar"
+    modelProps: "sector" | "subSector" | "product" | "company" | "companySector" | "companySubSector" | "event" | "eventSector" | "eventCompany" | "eventFeedback" | "mission" | "delegation" | "delegationCompany" | "delegationSector" | "seminar"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1275,6 +1276,72 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    DelegationSector: {
+      payload: Prisma.$DelegationSectorPayload<ExtArgs>
+      fields: Prisma.DelegationSectorFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.DelegationSectorFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DelegationSectorPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.DelegationSectorFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DelegationSectorPayload>
+        }
+        findFirst: {
+          args: Prisma.DelegationSectorFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DelegationSectorPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.DelegationSectorFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DelegationSectorPayload>
+        }
+        findMany: {
+          args: Prisma.DelegationSectorFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DelegationSectorPayload>[]
+        }
+        create: {
+          args: Prisma.DelegationSectorCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DelegationSectorPayload>
+        }
+        createMany: {
+          args: Prisma.DelegationSectorCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        delete: {
+          args: Prisma.DelegationSectorDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DelegationSectorPayload>
+        }
+        update: {
+          args: Prisma.DelegationSectorUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DelegationSectorPayload>
+        }
+        deleteMany: {
+          args: Prisma.DelegationSectorDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.DelegationSectorUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        upsert: {
+          args: Prisma.DelegationSectorUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DelegationSectorPayload>
+        }
+        aggregate: {
+          args: Prisma.DelegationSectorAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateDelegationSector>
+        }
+        groupBy: {
+          args: Prisma.DelegationSectorGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DelegationSectorGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.DelegationSectorCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DelegationSectorCountAggregateOutputType> | number
+        }
+      }
+    }
     Seminar: {
       payload: Prisma.$SeminarPayload<ExtArgs>
       fields: Prisma.SeminarFieldRefs
@@ -1548,6 +1615,7 @@ export const DelegationScalarFieldEnum = {
   id: 'id',
   type: 'type',
   status: 'status',
+  title: 'title',
   division: 'division',
   productSector: 'productSector',
   expectedDelegates: 'expectedDelegates',
@@ -1575,6 +1643,15 @@ export const DelegationCompanyScalarFieldEnum = {
 } as const
 
 export type DelegationCompanyScalarFieldEnum = (typeof DelegationCompanyScalarFieldEnum)[keyof typeof DelegationCompanyScalarFieldEnum]
+
+
+export const DelegationSectorScalarFieldEnum = {
+  id: 'id',
+  delegationId: 'delegationId',
+  sectorId: 'sectorId'
+} as const
+
+export type DelegationSectorScalarFieldEnum = (typeof DelegationSectorScalarFieldEnum)[keyof typeof DelegationSectorScalarFieldEnum]
 
 
 export const SeminarScalarFieldEnum = {
@@ -1706,6 +1783,7 @@ export type MissionOrderByRelevanceFieldEnum = (typeof MissionOrderByRelevanceFi
 
 
 export const DelegationOrderByRelevanceFieldEnum = {
+  title: 'title',
   division: 'division',
   productSector: 'productSector',
   expectedDelegates: 'expectedDelegates',
@@ -1923,6 +2001,7 @@ export type GlobalOmitConfig = {
   mission?: Prisma.MissionOmit
   delegation?: Prisma.DelegationOmit
   delegationCompany?: Prisma.DelegationCompanyOmit
+  delegationSector?: Prisma.DelegationSectorOmit
   seminar?: Prisma.SeminarOmit
 }
 
