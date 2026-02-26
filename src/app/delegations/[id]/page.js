@@ -54,7 +54,7 @@ export default async function DelegationDetailPage({ params }) {
     const delegation = await prisma.delegation.findUnique({
         where: { id: delegationId },
         select: {
-            id: true, type: true, status: true, title: true, division: true,
+            id: true, type: true, status: true, title: true, deskOfficer: true, division: true,
             productSector: true, expectedDelegates: true, rationale: true,
             fromCountry: true, toCountry: true,
             startDate: true, endDate: true,
@@ -286,6 +286,7 @@ export default async function DelegationDetailPage({ params }) {
                             <h2 className="text-xl font-bold text-white mb-4">Quick Information</h2>
                             <div className="space-y-4">
                                 {delegation.title && <DInfoRow label="Title" value={delegation.title} />}
+                                {delegation.deskOfficer && <DInfoRow label="Desk Officer" value={delegation.deskOfficer} />}
                                 <DInfoRow label="Type" value={delegation.type} />
                                 <DInfoRow label="Status" value={delegation.status} />
                                 {country && <DInfoRow label={countryLabel} value={country} />}

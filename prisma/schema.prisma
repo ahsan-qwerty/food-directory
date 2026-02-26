@@ -267,6 +267,7 @@ model Delegation {
   
   // Common fields
   title       String?  // Optional short title / name for the delegation
+  deskOfficer String?  // Name of the desk officer responsible for this delegation
   division    String?
   productSector String?
   expectedDelegates String? // e.g., "2-4 delegates", "10"
