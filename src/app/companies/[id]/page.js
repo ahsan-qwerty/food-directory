@@ -28,7 +28,7 @@ export default async function CompanyProfilePage({ params, searchParams }) {
   if (!company) notFound();
 
   // Fetch all sectors/sub-sectors from junction tables (multi-select)
-  const [companySectors, companySubSectors] = await Promise.all([
+  const [companySectors, companySubSectors, eventParticipations, delegationParticipations] = await Promise.all([
     prisma.companySector.findMany({
       where: { companyId },
       include: { sector: { select: { id: true, name: true } } },
@@ -36,6 +36,32 @@ export default async function CompanyProfilePage({ params, searchParams }) {
     prisma.companySubSector.findMany({
       where: { companyId },
       include: { subSector: { select: { id: true, name: true } } },
+    }),
+    prisma.eventCompany.findMany({
+      where: { companyId },
+      include: {
+        event: {
+          select: {
+            id: true, name: true, status: true,
+            city: true, country: true, datesText: true,
+            startDate: true, endDate: true, eventDate: true,
+          },
+        },
+      },
+      orderBy: { event: { eventDate: 'desc' } },
+    }),
+    prisma.delegationCompany.findMany({
+      where: { companyId },
+      include: {
+        delegation: {
+          select: {
+            id: true, title: true, type: true, status: true,
+            toCountry: true, fromCountry: true,
+            startDate: true, endDate: true, division: true,
+          },
+        },
+      },
+      orderBy: { id: 'desc' },
     }),
   ]);
 
@@ -99,6 +125,189 @@ export default async function CompanyProfilePage({ params, searchParams }) {
                 <p className="text-secondary whitespace-pre-line">{company.productsToBeDisplayed}</p>
               </div>
             )}
+
+            {/* Events participated in */}
+            {eventParticipations.length > 0 && (
+              <div className="glass-card p-6">
+                <h2 className="text-2xl font-bold text-white mb-5 flex items-center gap-2">
+                  <svg className="w-5 h-5 text-accent-green shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
+                  </svg>
+                  Participation in TDAP Sponsored Events
+                  <span className="ml-auto text-sm font-normal text-muted">{eventParticipations.length + delegationParticipations.length} total</span>
+                </h2>
+                <div className="space-y-3">
+                  <h3 className="text-lg font-bold text-white mt-4 flex items-center gap-2">
+                    <svg className="w-5 h-5 text-accent-blue shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
+                    </svg>
+                    Exhibitions
+                    <span className="ml-auto text-sm font-normal text-muted">{eventParticipations.length} total</span>
+                  </h3>
+                  {eventParticipations.map(({ event }) => {
+                    const dateLabel = event.datesText
+                      || (event.startDate && event.endDate
+                        ? `${new Date(event.startDate).toISOString().slice(0, 10)} – ${new Date(event.endDate).toISOString().slice(0, 10)}`
+                        : event.eventDate
+                          ? new Date(event.eventDate).toISOString().slice(0, 10)
+                          : null);
+                    const locationLabel = [event.city, event.country].filter(Boolean).join(', ') || null;
+                    const statusColors = {
+                      PLANNED: 'border-blue-500/40 text-blue-300 bg-blue-500/10',
+                      COMPLETED: 'border-green-500/40 text-green-300 bg-green-500/10',
+                      CANCELLED: 'border-red-500/40 text-red-300 bg-red-500/10',
+                    };
+                    const statusLabels = { PLANNED: 'Planned', COMPLETED: 'Completed', CANCELLED: 'Cancelled' };
+                    return (
+                      <Link
+                        key={event.id}
+                        href={`/events/${event.id}`}
+                        className="flex items-start justify-between gap-3 px-4 py-3 rounded-lg border border-white/10 hover:border-white/20 hover:bg-white/5 transition-colors group"
+                      >
+                        <div className="min-w-0 flex-1">
+                          <p className="text-white font-medium text-sm group-hover:text-accent-green transition-colors line-clamp-1">
+                            {event.name}
+                          </p>
+                          <div className="flex flex-wrap gap-x-3 gap-y-0.5 mt-1">
+                            {dateLabel && (
+                              <span className="text-xs text-muted">{dateLabel}</span>
+                            )}
+                            {locationLabel && (
+                              <span className="text-xs text-muted">{locationLabel}</span>
+                            )}
+                          </div>
+                        </div>
+                        {event.status && (
+                          <span className={`shrink-0 self-center text-xs font-semibold px-2 py-0.5 rounded-full border ${statusColors[event.status] || statusColors.PLANNED}`}>
+                            {statusLabels[event.status] || event.status}
+                          </span>
+                        )}
+                      </Link>
+                    );
+                  })}
+                </div>
+                <div className="space-y-3">
+                  <h3 className="text-lg font-bold text-white mt-4 flex items-center gap-2">
+                    <svg className="w-5 h-5 text-accent-blue shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
+                    </svg>
+                    Delegations
+                    <span className="ml-auto text-sm font-normal text-muted">{delegationParticipations.length} total</span>
+                  </h3>
+                  <div className="space-y-3">
+                    {delegationParticipations.map(({ delegation }) => {
+                      const typeLabels = { OUTGOING: 'Outgoing', INCOMING: 'Incoming' };
+                      const statusColors = {
+                        ACTIVE: 'border-blue-500/40 text-blue-300 bg-blue-500/10',
+                        CLOSED: 'border-green-500/40 text-green-300 bg-green-500/10',
+                        CANCELLED: 'border-red-500/40 text-red-300 bg-red-500/10',
+                      };
+                      const statusLabels = { ACTIVE: 'Active', CLOSED: 'Closed', CANCELLED: 'Cancelled' };
+                      const countryLabel = delegation.type === 'OUTGOING'
+                        ? delegation.toCountry
+                        : delegation.fromCountry;
+                      const dateLabel = delegation.startDate && delegation.endDate
+                        ? `${new Date(delegation.startDate).toISOString().slice(0, 10)} – ${new Date(delegation.endDate).toISOString().slice(0, 10)}`
+                        : delegation.startDate
+                          ? new Date(delegation.startDate).toISOString().slice(0, 10)
+                          : null;
+                      return (
+                        <Link
+                          key={delegation.id}
+                          href={`/delegations/${delegation.id}`}
+                          className="flex items-start justify-between gap-3 px-4 py-3 rounded-lg border border-white/10 hover:border-white/20 hover:bg-white/5 transition-colors group"
+                        >
+                          <div className="min-w-0 flex-1">
+                            <p className="text-white font-medium text-sm group-hover:text-accent-blue transition-colors line-clamp-1">
+                              {delegation.title || `${typeLabels[delegation.type] || delegation.type} Delegation`}
+                              {delegation.division && (
+                                <span className="font-normal text-muted"> — {delegation.division}</span>
+                              )}
+                            </p>
+                            <div className="flex flex-wrap gap-x-3 gap-y-0.5 mt-1">
+                              {typeLabels[delegation.type] && (
+                                <span className="text-xs text-muted">{typeLabels[delegation.type]}</span>
+                              )}
+                              {countryLabel && (
+                                <span className="text-xs text-muted">{countryLabel}</span>
+                              )}
+                              {dateLabel && (
+                                <span className="text-xs text-muted">{dateLabel}</span>
+                              )}
+                            </div>
+                          </div>
+                          <span className={`shrink-0 self-center text-xs font-semibold px-2 py-0.5 rounded-full border ${statusColors[delegation.status] || statusColors.ACTIVE}`}>
+                            {statusLabels[delegation.status] || delegation.status}
+                          </span>
+                        </Link>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Delegations participated in */}
+            {/* {delegationParticipations.length > 0 && (
+              <div className="glass-card p-6">
+                <h2 className="text-2xl font-bold text-white mb-5 flex items-center gap-2">
+                  <svg className="w-5 h-5 text-accent-blue shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
+                  </svg>
+                  Delegations
+                  <span className="ml-auto text-sm font-normal text-muted">{delegationParticipations.length} total</span>
+                </h2>
+                <div className="space-y-3">
+                  {delegationParticipations.map(({ delegation }) => {
+                    const typeLabels = { OUTGOING: 'Outgoing', INCOMING: 'Incoming' };
+                    const statusColors = {
+                      ACTIVE: 'border-blue-500/40 text-blue-300 bg-blue-500/10',
+                      CLOSED: 'border-green-500/40 text-green-300 bg-green-500/10',
+                      CANCELLED: 'border-red-500/40 text-red-300 bg-red-500/10',
+                    };
+                    const statusLabels = { ACTIVE: 'Active', CLOSED: 'Closed', CANCELLED: 'Cancelled' };
+                    const countryLabel = delegation.type === 'OUTGOING'
+                      ? delegation.toCountry
+                      : delegation.fromCountry;
+                    const dateLabel = delegation.startDate && delegation.endDate
+                      ? `${new Date(delegation.startDate).toISOString().slice(0, 10)} – ${new Date(delegation.endDate).toISOString().slice(0, 10)}`
+                      : delegation.startDate
+                        ? new Date(delegation.startDate).toISOString().slice(0, 10)
+                        : null;
+                    return (
+                      <Link
+                        key={delegation.id}
+                        href={`/delegations/${delegation.id}`}
+                        className="flex items-start justify-between gap-3 px-4 py-3 rounded-lg border border-white/10 hover:border-white/20 hover:bg-white/5 transition-colors group"
+                      >
+                        <div className="min-w-0 flex-1">
+                          <p className="text-white font-medium text-sm group-hover:text-accent-blue transition-colors line-clamp-1">
+                            {delegation.title || `${typeLabels[delegation.type] || delegation.type} Delegation`}
+                            {delegation.division && (
+                              <span className="font-normal text-muted"> — {delegation.division}</span>
+                            )}
+                          </p>
+                          <div className="flex flex-wrap gap-x-3 gap-y-0.5 mt-1">
+                            {typeLabels[delegation.type] && (
+                              <span className="text-xs text-muted">{typeLabels[delegation.type]}</span>
+                            )}
+                            {countryLabel && (
+                              <span className="text-xs text-muted">{countryLabel}</span>
+                            )}
+                            {dateLabel && (
+                              <span className="text-xs text-muted">{dateLabel}</span>
+                            )}
+                          </div>
+                        </div>
+                        <span className={`shrink-0 self-center text-xs font-semibold px-2 py-0.5 rounded-full border ${statusColors[delegation.status] || statusColors.ACTIVE}`}>
+                          {statusLabels[delegation.status] || delegation.status}
+                        </span>
+                      </Link>
+                    );
+                  })}
+                </div>
+              </div>
+            )} */}
           </div>
 
           {/* Sidebar */}
