@@ -9,6 +9,15 @@
 * 🟢 You can import this file directly.
 */
 
+export const EventStatus = {
+  PLANNED: 'PLANNED',
+  COMPLETED: 'COMPLETED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type EventStatus = (typeof EventStatus)[keyof typeof EventStatus]
+
+
 export const FeedbackSource = {
   COMPANY: 'COMPANY',
   MISSION: 'MISSION'

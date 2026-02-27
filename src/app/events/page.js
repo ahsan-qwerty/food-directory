@@ -24,7 +24,7 @@ export default function EventsPage() {
     const d = new Date(dateVal);
     return d.getMonth() >= 6 ? d.getFullYear() : d.getFullYear() - 1;
   };
-  const fyLabel = (fy) => `${fy}`; // "FY 2025-26"
+  const fyLabel = (fy) => `${fy}-${fy + 1}`; // "FY 2025-26"
 
   // Derive sorted unique fiscal years from events
   const years = useMemo(() => {
