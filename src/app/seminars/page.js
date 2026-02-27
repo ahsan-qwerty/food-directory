@@ -113,6 +113,15 @@ function SeminarCard({ seminar, onDelete }) {
                     </div>
                 )}
 
+                {seminar.deskOfficer && (
+                    <div className="flex items-center gap-2">
+                        <svg className="w-4 h-4 text-muted flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
+                        </svg>
+                        <span>{seminar.deskOfficer}</span>
+                    </div>
+                )}
+
                 {seminar.rationaleObjective && (
                     <p className="text-muted text-xs leading-relaxed line-clamp-2 pt-1 border-t glass-divider">
                         {seminar.rationaleObjective}
