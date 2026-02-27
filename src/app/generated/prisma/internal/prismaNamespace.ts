@@ -1519,11 +1519,13 @@ export type CompanySubSectorScalarFieldEnum = (typeof CompanySubSectorScalarFiel
 
 export const EventScalarFieldEnum = {
   id: 'id',
+  status: 'status',
   name: 'name',
   description: 'description',
   location: 'location',
   eventDate: 'eventDate',
   deskOfficer: 'deskOfficer',
+  closedAt: 'closedAt',
   division: 'division',
   region: 'region',
   country: 'country',
@@ -1838,6 +1840,13 @@ export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 
  * Reference to a field of type 'DateTime'
  */
 export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
+    
+
+
+/**
+ * Reference to a field of type 'EventStatus'
+ */
+export type EnumEventStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EventStatus'>
     
 
 

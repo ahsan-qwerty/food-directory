@@ -52,9 +52,12 @@ export async function GET(request) {
         tdapCost: true,
         exhibitorCost: true,
         totalEstimatedBudget: true,
+        utilizedBudget: true,
         recommendedByJustification: true,
         feedbackFormUrl: true,
         finalRemarks: true,
+        status: true,
+        closedAt: true,
         eventSectors: {
           select: {
             sectorId: true,

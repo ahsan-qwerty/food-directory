@@ -117,13 +117,21 @@ model CompanySubSector {
   @@unique([companyId, subSectorId])
 }
 
+enum EventStatus {
+  PLANNED
+  COMPLETED
+  CANCELLED
+}
+
 model Event {
-  id          Int      @id @default(autoincrement())
+  id          Int         @id @default(autoincrement())
+  status      EventStatus @default(PLANNED)
   name        String
   description String?
   location    String?
   eventDate   DateTime
   deskOfficer String?
+  closedAt    DateTime?   // Set when the desk officer submits the closing form
 
   // Excel sheet fields (Events / Exhibitions planning)
   division String?

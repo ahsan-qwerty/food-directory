@@ -23,9 +23,11 @@ export async function POST(request) {
             where: { id: eventId },
             data: {
                 finalRemarks,
+                status: 'COMPLETED',
+                closedAt: new Date(),
                 ...(utilizedBudget !== undefined && { utilizedBudget }),
             },
-            select: { id: true, finalRemarks: true, utilizedBudget: true },
+            select: { id: true, finalRemarks: true, utilizedBudget: true, status: true, closedAt: true },
         });
 
         return NextResponse.json({ ok: true, event: updated });

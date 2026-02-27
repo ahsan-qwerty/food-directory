@@ -156,11 +156,13 @@ export type CompanySubSectorScalarFieldEnum = (typeof CompanySubSectorScalarFiel
 
 export const EventScalarFieldEnum = {
   id: 'id',
+  status: 'status',
   name: 'name',
   description: 'description',
   location: 'location',
   eventDate: 'eventDate',
   deskOfficer: 'deskOfficer',
+  closedAt: 'closedAt',
   division: 'division',
   region: 'region',
   country: 'country',
