@@ -7,9 +7,11 @@ import CompanyPickerModal from '../../../../components/CompanyPickerModal';
 export default function EventAdminPanel({
     eventId,
     eventName,
+    eventStatus,
     participantCompanyIds,
     participantEmails,
 }) {
+    const isClosed = eventStatus === 'COMPLETED';
     const router = useRouter();
     const [modalOpen, setModalOpen] = useState(false);
     const [error, setError] = useState(null);
@@ -90,14 +92,26 @@ export default function EventAdminPanel({
                 >
                     Send Feedback Email to Mission
                 </button>
-                <button
-                    type="button"
-                    onClick={() => router.push(`/feedback/desk?eventId=${eventId}`)}
-                    className="btn-outline w-full px-4 py-2 text-sm"
-                    style={{ borderColor: 'rgba(234,179,8,0.5)', color: '#fde047' }}
-                >
-                    Desk Officer Closing Form
-                </button>
+                {isClosed ? (
+                    <div
+                        className="w-full px-4 py-2 text-sm rounded-lg flex items-center justify-center gap-2 font-medium"
+                        style={{ background: 'rgba(34,197,94,0.10)', border: '1px solid rgba(34,197,94,0.30)', color: '#86efac' }}
+                    >
+                        <svg className="w-4 h-4 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                        </svg>
+                        Event Already Closed
+                    </div>
+                ) : (
+                    <button
+                        type="button"
+                        onClick={() => router.push(`/feedback/desk?eventId=${eventId}`)}
+                        className="btn-outline w-full px-4 py-2 text-sm"
+                        style={{ borderColor: 'rgba(234,179,8,0.5)', color: '#fde047' }}
+                    >
+                        Desk Officer Closing Form
+                    </button>
+                )}
             </div>
 
             <CompanyPickerModal

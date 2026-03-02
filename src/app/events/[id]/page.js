@@ -62,7 +62,8 @@ export default async function EventDetailPage({ params, searchParams }) {
       region: true, country: true, city: true, sectorProducts: true,
       startDate: true, endDate: true, datesText: true,
       tdapCost: true, exhibitorCost: true, totalEstimatedBudget: true,
-      recommendedByJustification: true,
+      utilizedBudget: true, recommendedByJustification: true,
+      status: true, closedAt: true, finalRemarks: true,
       eventSectors: {
         select: {
           sector: { select: { id: true, name: true } },
@@ -114,12 +115,28 @@ export default async function EventDetailPage({ params, searchParams }) {
         <div className="glass-hero p-8 md:p-12 mb-8">
           <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-4 gap-3">
             <div>
-              {event.division && (
-                <span className="badge-green mb-3 inline-block">
-                  {event.division}
-                </span>
-              )}
-              <h1 className="text-3xl md:text-4xl font-bold text-white mt-1">
+              <div className="flex flex-wrap items-center gap-2 mb-3">
+                {event.division && (
+                  <span className="badge-green">{event.division}</span>
+                )}
+                {event.status === 'COMPLETED' && (
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-green-500/20 border border-green-400/40 text-green-300">
+                    <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                    Completed
+                  </span>
+                )}
+                {event.status === 'CANCELLED' && (
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-red-500/20 border border-red-400/40 text-red-300">
+                    <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+                    </svg>
+                    Cancelled
+                  </span>
+                )}
+              </div>
+              <h1 className="text-3xl md:text-4xl font-bold text-white">
                 {event.name}
               </h1>
             </div>
@@ -230,6 +247,12 @@ export default async function EventDetailPage({ params, searchParams }) {
                           <dd className="font-semibold text-accent-green">{formatCurrencyPKR(event.totalEstimatedBudget)}</dd>
                         </div>
                       )}
+                      {event.utilizedBudget != null && (
+                        <div className="flex justify-between pt-1 border-t border-white/10 mt-1">
+                          <dt className="text-secondary">Utilized</dt>
+                          <dd className="font-semibold text-orange-400">{formatCurrencyPKR(event.utilizedBudget)}</dd>
+                        </div>
+                      )}
                     </dl>
                   </div>
                 )}
@@ -245,10 +268,43 @@ export default async function EventDetailPage({ params, searchParams }) {
               </div>
             </div>
 
+            {/* Closing Summary — only shown once event is completed */}
+            {event.status === 'COMPLETED' && (
+              <div className="glass-card p-6 border border-green-500/25">
+                <h3 className="text-lg font-bold text-green-300 mb-4 flex items-center gap-2">
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  </svg>
+                  Event Closed
+                </h3>
+                <dl className="space-y-3 text-sm">
+                  {event.closedAt && (
+                    <div>
+                      <dt className="text-xs font-semibold text-muted uppercase tracking-wide mb-0.5">Closed On</dt>
+                      <dd className="text-white">{new Date(event.closedAt).toLocaleDateString('en-PK', { day: 'numeric', month: 'long', year: 'numeric' })}</dd>
+                    </div>
+                  )}
+                  {event.utilizedBudget != null && (
+                    <div>
+                      <dt className="text-xs font-semibold text-muted uppercase tracking-wide mb-0.5">Budget Utilized</dt>
+                      <dd className="text-orange-400 font-bold">{formatCurrencyPKR(event.utilizedBudget)}</dd>
+                    </div>
+                  )}
+                  {event.finalRemarks && (
+                    <div>
+                      <dt className="text-xs font-semibold text-muted uppercase tracking-wide mb-0.5">Final Remarks</dt>
+                      <dd className="text-secondary leading-relaxed whitespace-pre-line">{event.finalRemarks}</dd>
+                    </div>
+                  )}
+                </dl>
+              </div>
+            )}
+
             {/* Admin Panel */}
             <EventAdminPanel
               eventId={event.id}
               eventName={event.name}
+              eventStatus={event.status}
               participantCompanyIds={participants.map(c => c.id)}
               participantEmails={participants.map(c => c.email).filter(Boolean)}
             />
