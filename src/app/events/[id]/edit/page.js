@@ -29,6 +29,11 @@ const COUNTRY_CITIES = {
     'Kenya': ['Nairobi'],
     'Spain': ['Barcelona', 'Madrid', 'Valencia'],
     'Uzbekistan': ['Tashkent'],
+    'Rwanda': ['Kigali'],
+    'Nigeria': ['Lagos'],
+    'Gambia': ['Banjul'],
+    'Tanzania': ['Dar es Salaam'],
+
 };
 
 const COUNTRY_OPTIONS = Object.keys(COUNTRY_CITIES).sort();

@@ -38,14 +38,53 @@ export default function EventAdminPanel({
         setSuccess('Participants updated. Refresh to see changes.');
     };
 
-    const sendCompanyEmails = () => {
-        const emails = (participantEmails || []).filter(Boolean);
-        if (!emails.length) { alert('No participant emails available.'); return; }
-        const subject = encodeURIComponent(`Feedback for ${eventName}`);
-        const body = encodeURIComponent(
-            `Dear Participant,\n\nThank you for participating in ${eventName}.\nPlease fill in the feedback form: ${feedbackUrls.company}\n\nBest regards,\nTDAP`
-        );
-        window.location.href = `mailto:?bcc=${encodeURIComponent(emails.join(','))}&subject=${subject}&body=${body}`;
+    const sendCompanyEmails = async (test = false) => {
+        try {
+            // const emails = (participantEmails || []).filter(Boolean);
+            const emails = (participantEmails || []).filter(Boolean);
+            if (!emails.length) {
+                alert('No participant emails available.');
+                return;
+            }
+
+            setError(null);
+            setSuccess(null);
+
+            const res = await fetch('/api/events/company-emails', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    emails,
+                    eventId,
+                    eventName,
+                    feedbackUrl: feedbackUrls.company,
+                    test,
+                }),
+            });
+
+            const data = await res.json();
+
+            if (!res.ok) {
+                throw new Error(data.error || 'Failed to send feedback emails');
+            }
+
+            setSuccess(
+                test
+                    ? 'Test feedback emails sent to participating companies.'
+                    : 'Feedback emails sent to participating companies.',
+            );
+        } catch (err) {
+            console.error('Error sending company feedback emails:', err);
+            setError(err.message || 'Failed to send feedback emails.');
+        }
+    };
+
+    const handleSendCompanyEmails = () => {
+        void sendCompanyEmails(false);
+    };
+
+    const handleSendTestCompanyEmails = () => {
+        void sendCompanyEmails(true);
     };
 
     const sendMissionEmail = () => {
@@ -80,11 +119,18 @@ export default function EventAdminPanel({
                 </button>
                 <button
                     type="button"
-                    onClick={sendCompanyEmails}
+                    onClick={handleSendCompanyEmails}
                     className="btn-primary w-full px-4 py-2 text-sm"
                 >
                     Send Feedback Email to Companies
                 </button>
+                {/* <button
+                    type="button"
+                    onClick={handleSendTestCompanyEmails}
+                    className="btn-outline w-full px-4 py-2 text-sm"
+                >
+                    Send Dummy/Test Email to Companies
+                </button> */}
                 <button
                     type="button"
                     onClick={sendMissionEmail}

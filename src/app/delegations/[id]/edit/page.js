@@ -19,7 +19,7 @@ const COUNTRIES = [
     'Sierra Leone', 'Singapore', 'Somalia', 'South Africa', 'South Korea', 'Spain',
     'Sri Lanka', 'Sudan', 'Sweden', 'Switzerland', 'Syria', 'Tajikistan', 'Tanzania',
     'Thailand', 'Tunisia', 'Turkey', 'Turkmenistan', 'UAE', 'Uganda', 'UK',
-    'Ukraine', 'USA', 'Uzbekistan', 'Venezuela', 'Vietnam', 'Yemen', 'Zambia', 'Zimbabwe',
+    'Ukraine', 'USA', 'Uzbekistan', 'Venezuela', 'Vietnam', 'Yemen', 'Zambia', 'Zimbabwe', 'Rwanda'
 ];
 
 const labelCls = 'block text-sm font-medium text-secondary mb-2';
