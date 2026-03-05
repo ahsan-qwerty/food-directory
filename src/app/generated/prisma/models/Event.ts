@@ -407,6 +407,7 @@ export type EventWhereInput = {
   participants?: Prisma.EventCompanyListRelationFilter
   feedbacks?: Prisma.EventFeedbackListRelationFilter
   eventSectors?: Prisma.EventSectorListRelationFilter
+  emailStatuses?: Prisma.EventCompanyEmailStatusListRelationFilter
 }
 
 export type EventOrderByWithRelationInput = {
@@ -439,6 +440,7 @@ export type EventOrderByWithRelationInput = {
   participants?: Prisma.EventCompanyOrderByRelationAggregateInput
   feedbacks?: Prisma.EventFeedbackOrderByRelationAggregateInput
   eventSectors?: Prisma.EventSectorOrderByRelationAggregateInput
+  emailStatuses?: Prisma.EventCompanyEmailStatusOrderByRelationAggregateInput
   _relevance?: Prisma.EventOrderByRelevanceInput
 }
 
@@ -475,6 +477,7 @@ export type EventWhereUniqueInput = Prisma.AtLeast<{
   participants?: Prisma.EventCompanyListRelationFilter
   feedbacks?: Prisma.EventFeedbackListRelationFilter
   eventSectors?: Prisma.EventSectorListRelationFilter
+  emailStatuses?: Prisma.EventCompanyEmailStatusListRelationFilter
 }, "id">
 
 export type EventOrderByWithAggregationInput = {
@@ -572,6 +575,7 @@ export type EventCreateInput = {
   participants?: Prisma.EventCompanyCreateNestedManyWithoutEventInput
   feedbacks?: Prisma.EventFeedbackCreateNestedManyWithoutEventInput
   eventSectors?: Prisma.EventSectorCreateNestedManyWithoutEventInput
+  emailStatuses?: Prisma.EventCompanyEmailStatusCreateNestedManyWithoutEventInput
 }
 
 export type EventUncheckedCreateInput = {
@@ -604,6 +608,7 @@ export type EventUncheckedCreateInput = {
   participants?: Prisma.EventCompanyUncheckedCreateNestedManyWithoutEventInput
   feedbacks?: Prisma.EventFeedbackUncheckedCreateNestedManyWithoutEventInput
   eventSectors?: Prisma.EventSectorUncheckedCreateNestedManyWithoutEventInput
+  emailStatuses?: Prisma.EventCompanyEmailStatusUncheckedCreateNestedManyWithoutEventInput
 }
 
 export type EventUpdateInput = {
@@ -635,6 +640,7 @@ export type EventUpdateInput = {
   participants?: Prisma.EventCompanyUpdateManyWithoutEventNestedInput
   feedbacks?: Prisma.EventFeedbackUpdateManyWithoutEventNestedInput
   eventSectors?: Prisma.EventSectorUpdateManyWithoutEventNestedInput
+  emailStatuses?: Prisma.EventCompanyEmailStatusUpdateManyWithoutEventNestedInput
 }
 
 export type EventUncheckedUpdateInput = {
@@ -667,6 +673,7 @@ export type EventUncheckedUpdateInput = {
   participants?: Prisma.EventCompanyUncheckedUpdateManyWithoutEventNestedInput
   feedbacks?: Prisma.EventFeedbackUncheckedUpdateManyWithoutEventNestedInput
   eventSectors?: Prisma.EventSectorUncheckedUpdateManyWithoutEventNestedInput
+  emailStatuses?: Prisma.EventCompanyEmailStatusUncheckedUpdateManyWithoutEventNestedInput
 }
 
 export type EventCreateManyInput = {
@@ -915,6 +922,20 @@ export type EventUpdateOneRequiredWithoutParticipantsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.EventUpdateToOneWithWhereWithoutParticipantsInput, Prisma.EventUpdateWithoutParticipantsInput>, Prisma.EventUncheckedUpdateWithoutParticipantsInput>
 }
 
+export type EventCreateNestedOneWithoutEmailStatusesInput = {
+  create?: Prisma.XOR<Prisma.EventCreateWithoutEmailStatusesInput, Prisma.EventUncheckedCreateWithoutEmailStatusesInput>
+  connectOrCreate?: Prisma.EventCreateOrConnectWithoutEmailStatusesInput
+  connect?: Prisma.EventWhereUniqueInput
+}
+
+export type EventUpdateOneRequiredWithoutEmailStatusesNestedInput = {
+  create?: Prisma.XOR<Prisma.EventCreateWithoutEmailStatusesInput, Prisma.EventUncheckedCreateWithoutEmailStatusesInput>
+  connectOrCreate?: Prisma.EventCreateOrConnectWithoutEmailStatusesInput
+  upsert?: Prisma.EventUpsertWithoutEmailStatusesInput
+  connect?: Prisma.EventWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.EventUpdateToOneWithWhereWithoutEmailStatusesInput, Prisma.EventUpdateWithoutEmailStatusesInput>, Prisma.EventUncheckedUpdateWithoutEmailStatusesInput>
+}
+
 export type EventCreateNestedOneWithoutFeedbacksInput = {
   create?: Prisma.XOR<Prisma.EventCreateWithoutFeedbacksInput, Prisma.EventUncheckedCreateWithoutFeedbacksInput>
   connectOrCreate?: Prisma.EventCreateOrConnectWithoutFeedbacksInput
@@ -957,6 +978,7 @@ export type EventCreateWithoutEventSectorsInput = {
   updatedAt?: Date | string
   participants?: Prisma.EventCompanyCreateNestedManyWithoutEventInput
   feedbacks?: Prisma.EventFeedbackCreateNestedManyWithoutEventInput
+  emailStatuses?: Prisma.EventCompanyEmailStatusCreateNestedManyWithoutEventInput
 }
 
 export type EventUncheckedCreateWithoutEventSectorsInput = {
@@ -988,6 +1010,7 @@ export type EventUncheckedCreateWithoutEventSectorsInput = {
   updatedAt?: Date | string
   participants?: Prisma.EventCompanyUncheckedCreateNestedManyWithoutEventInput
   feedbacks?: Prisma.EventFeedbackUncheckedCreateNestedManyWithoutEventInput
+  emailStatuses?: Prisma.EventCompanyEmailStatusUncheckedCreateNestedManyWithoutEventInput
 }
 
 export type EventCreateOrConnectWithoutEventSectorsInput = {
@@ -1034,6 +1057,7 @@ export type EventUpdateWithoutEventSectorsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   participants?: Prisma.EventCompanyUpdateManyWithoutEventNestedInput
   feedbacks?: Prisma.EventFeedbackUpdateManyWithoutEventNestedInput
+  emailStatuses?: Prisma.EventCompanyEmailStatusUpdateManyWithoutEventNestedInput
 }
 
 export type EventUncheckedUpdateWithoutEventSectorsInput = {
@@ -1065,6 +1089,7 @@ export type EventUncheckedUpdateWithoutEventSectorsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   participants?: Prisma.EventCompanyUncheckedUpdateManyWithoutEventNestedInput
   feedbacks?: Prisma.EventFeedbackUncheckedUpdateManyWithoutEventNestedInput
+  emailStatuses?: Prisma.EventCompanyEmailStatusUncheckedUpdateManyWithoutEventNestedInput
 }
 
 export type EventCreateWithoutParticipantsInput = {
@@ -1095,6 +1120,7 @@ export type EventCreateWithoutParticipantsInput = {
   updatedAt?: Date | string
   feedbacks?: Prisma.EventFeedbackCreateNestedManyWithoutEventInput
   eventSectors?: Prisma.EventSectorCreateNestedManyWithoutEventInput
+  emailStatuses?: Prisma.EventCompanyEmailStatusCreateNestedManyWithoutEventInput
 }
 
 export type EventUncheckedCreateWithoutParticipantsInput = {
@@ -1126,6 +1152,7 @@ export type EventUncheckedCreateWithoutParticipantsInput = {
   updatedAt?: Date | string
   feedbacks?: Prisma.EventFeedbackUncheckedCreateNestedManyWithoutEventInput
   eventSectors?: Prisma.EventSectorUncheckedCreateNestedManyWithoutEventInput
+  emailStatuses?: Prisma.EventCompanyEmailStatusUncheckedCreateNestedManyWithoutEventInput
 }
 
 export type EventCreateOrConnectWithoutParticipantsInput = {
@@ -1172,6 +1199,7 @@ export type EventUpdateWithoutParticipantsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   feedbacks?: Prisma.EventFeedbackUpdateManyWithoutEventNestedInput
   eventSectors?: Prisma.EventSectorUpdateManyWithoutEventNestedInput
+  emailStatuses?: Prisma.EventCompanyEmailStatusUpdateManyWithoutEventNestedInput
 }
 
 export type EventUncheckedUpdateWithoutParticipantsInput = {
@@ -1201,6 +1229,149 @@ export type EventUncheckedUpdateWithoutParticipantsInput = {
   finalRemarks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  feedbacks?: Prisma.EventFeedbackUncheckedUpdateManyWithoutEventNestedInput
+  eventSectors?: Prisma.EventSectorUncheckedUpdateManyWithoutEventNestedInput
+  emailStatuses?: Prisma.EventCompanyEmailStatusUncheckedUpdateManyWithoutEventNestedInput
+}
+
+export type EventCreateWithoutEmailStatusesInput = {
+  status?: $Enums.EventStatus
+  name: string
+  description?: string | null
+  location?: string | null
+  eventDate: Date | string
+  deskOfficer?: string | null
+  closedAt?: Date | string | null
+  division?: string | null
+  region?: string | null
+  country?: string | null
+  city?: string | null
+  sectorProducts?: string | null
+  startDate?: Date | string | null
+  endDate?: Date | string | null
+  datesText?: string | null
+  subsidyPercentage?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  tdapCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  exhibitorCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  totalEstimatedBudget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  utilizedBudget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  recommendedByJustification?: string | null
+  feedbackFormUrl?: string | null
+  finalRemarks?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  participants?: Prisma.EventCompanyCreateNestedManyWithoutEventInput
+  feedbacks?: Prisma.EventFeedbackCreateNestedManyWithoutEventInput
+  eventSectors?: Prisma.EventSectorCreateNestedManyWithoutEventInput
+}
+
+export type EventUncheckedCreateWithoutEmailStatusesInput = {
+  id?: number
+  status?: $Enums.EventStatus
+  name: string
+  description?: string | null
+  location?: string | null
+  eventDate: Date | string
+  deskOfficer?: string | null
+  closedAt?: Date | string | null
+  division?: string | null
+  region?: string | null
+  country?: string | null
+  city?: string | null
+  sectorProducts?: string | null
+  startDate?: Date | string | null
+  endDate?: Date | string | null
+  datesText?: string | null
+  subsidyPercentage?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  tdapCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  exhibitorCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  totalEstimatedBudget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  utilizedBudget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  recommendedByJustification?: string | null
+  feedbackFormUrl?: string | null
+  finalRemarks?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  participants?: Prisma.EventCompanyUncheckedCreateNestedManyWithoutEventInput
+  feedbacks?: Prisma.EventFeedbackUncheckedCreateNestedManyWithoutEventInput
+  eventSectors?: Prisma.EventSectorUncheckedCreateNestedManyWithoutEventInput
+}
+
+export type EventCreateOrConnectWithoutEmailStatusesInput = {
+  where: Prisma.EventWhereUniqueInput
+  create: Prisma.XOR<Prisma.EventCreateWithoutEmailStatusesInput, Prisma.EventUncheckedCreateWithoutEmailStatusesInput>
+}
+
+export type EventUpsertWithoutEmailStatusesInput = {
+  update: Prisma.XOR<Prisma.EventUpdateWithoutEmailStatusesInput, Prisma.EventUncheckedUpdateWithoutEmailStatusesInput>
+  create: Prisma.XOR<Prisma.EventCreateWithoutEmailStatusesInput, Prisma.EventUncheckedCreateWithoutEmailStatusesInput>
+  where?: Prisma.EventWhereInput
+}
+
+export type EventUpdateToOneWithWhereWithoutEmailStatusesInput = {
+  where?: Prisma.EventWhereInput
+  data: Prisma.XOR<Prisma.EventUpdateWithoutEmailStatusesInput, Prisma.EventUncheckedUpdateWithoutEmailStatusesInput>
+}
+
+export type EventUpdateWithoutEmailStatusesInput = {
+  status?: Prisma.EnumEventStatusFieldUpdateOperationsInput | $Enums.EventStatus
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  eventDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deskOfficer?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  division?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sectorProducts?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  datesText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subsidyPercentage?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  tdapCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  exhibitorCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  totalEstimatedBudget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  utilizedBudget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  recommendedByJustification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  feedbackFormUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  finalRemarks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  participants?: Prisma.EventCompanyUpdateManyWithoutEventNestedInput
+  feedbacks?: Prisma.EventFeedbackUpdateManyWithoutEventNestedInput
+  eventSectors?: Prisma.EventSectorUpdateManyWithoutEventNestedInput
+}
+
+export type EventUncheckedUpdateWithoutEmailStatusesInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  status?: Prisma.EnumEventStatusFieldUpdateOperationsInput | $Enums.EventStatus
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  eventDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deskOfficer?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  division?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sectorProducts?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  datesText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subsidyPercentage?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  tdapCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  exhibitorCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  totalEstimatedBudget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  utilizedBudget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  recommendedByJustification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  feedbackFormUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  finalRemarks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  participants?: Prisma.EventCompanyUncheckedUpdateManyWithoutEventNestedInput
   feedbacks?: Prisma.EventFeedbackUncheckedUpdateManyWithoutEventNestedInput
   eventSectors?: Prisma.EventSectorUncheckedUpdateManyWithoutEventNestedInput
 }
@@ -1233,6 +1404,7 @@ export type EventCreateWithoutFeedbacksInput = {
   updatedAt?: Date | string
   participants?: Prisma.EventCompanyCreateNestedManyWithoutEventInput
   eventSectors?: Prisma.EventSectorCreateNestedManyWithoutEventInput
+  emailStatuses?: Prisma.EventCompanyEmailStatusCreateNestedManyWithoutEventInput
 }
 
 export type EventUncheckedCreateWithoutFeedbacksInput = {
@@ -1264,6 +1436,7 @@ export type EventUncheckedCreateWithoutFeedbacksInput = {
   updatedAt?: Date | string
   participants?: Prisma.EventCompanyUncheckedCreateNestedManyWithoutEventInput
   eventSectors?: Prisma.EventSectorUncheckedCreateNestedManyWithoutEventInput
+  emailStatuses?: Prisma.EventCompanyEmailStatusUncheckedCreateNestedManyWithoutEventInput
 }
 
 export type EventCreateOrConnectWithoutFeedbacksInput = {
@@ -1310,6 +1483,7 @@ export type EventUpdateWithoutFeedbacksInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   participants?: Prisma.EventCompanyUpdateManyWithoutEventNestedInput
   eventSectors?: Prisma.EventSectorUpdateManyWithoutEventNestedInput
+  emailStatuses?: Prisma.EventCompanyEmailStatusUpdateManyWithoutEventNestedInput
 }
 
 export type EventUncheckedUpdateWithoutFeedbacksInput = {
@@ -1341,6 +1515,7 @@ export type EventUncheckedUpdateWithoutFeedbacksInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   participants?: Prisma.EventCompanyUncheckedUpdateManyWithoutEventNestedInput
   eventSectors?: Prisma.EventSectorUncheckedUpdateManyWithoutEventNestedInput
+  emailStatuses?: Prisma.EventCompanyEmailStatusUncheckedUpdateManyWithoutEventNestedInput
 }
 
 
@@ -1352,12 +1527,14 @@ export type EventCountOutputType = {
   participants: number
   feedbacks: number
   eventSectors: number
+  emailStatuses: number
 }
 
 export type EventCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   participants?: boolean | EventCountOutputTypeCountParticipantsArgs
   feedbacks?: boolean | EventCountOutputTypeCountFeedbacksArgs
   eventSectors?: boolean | EventCountOutputTypeCountEventSectorsArgs
+  emailStatuses?: boolean | EventCountOutputTypeCountEmailStatusesArgs
 }
 
 /**
@@ -1391,6 +1568,13 @@ export type EventCountOutputTypeCountEventSectorsArgs<ExtArgs extends runtime.Ty
   where?: Prisma.EventSectorWhereInput
 }
 
+/**
+ * EventCountOutputType without action
+ */
+export type EventCountOutputTypeCountEmailStatusesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.EventCompanyEmailStatusWhereInput
+}
+
 
 export type EventSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1422,6 +1606,7 @@ export type EventSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   participants?: boolean | Prisma.Event$participantsArgs<ExtArgs>
   feedbacks?: boolean | Prisma.Event$feedbacksArgs<ExtArgs>
   eventSectors?: boolean | Prisma.Event$eventSectorsArgs<ExtArgs>
+  emailStatuses?: boolean | Prisma.Event$emailStatusesArgs<ExtArgs>
   _count?: boolean | Prisma.EventCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["event"]>
 
@@ -1461,6 +1646,7 @@ export type EventInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   participants?: boolean | Prisma.Event$participantsArgs<ExtArgs>
   feedbacks?: boolean | Prisma.Event$feedbacksArgs<ExtArgs>
   eventSectors?: boolean | Prisma.Event$eventSectorsArgs<ExtArgs>
+  emailStatuses?: boolean | Prisma.Event$emailStatusesArgs<ExtArgs>
   _count?: boolean | Prisma.EventCountOutputTypeDefaultArgs<ExtArgs>
 }
 
@@ -1470,6 +1656,7 @@ export type $EventPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     participants: Prisma.$EventCompanyPayload<ExtArgs>[]
     feedbacks: Prisma.$EventFeedbackPayload<ExtArgs>[]
     eventSectors: Prisma.$EventSectorPayload<ExtArgs>[]
+    emailStatuses: Prisma.$EventCompanyEmailStatusPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1841,6 +2028,7 @@ export interface Prisma__EventClient<T, Null = never, ExtArgs extends runtime.Ty
   participants<T extends Prisma.Event$participantsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Event$participantsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EventCompanyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   feedbacks<T extends Prisma.Event$feedbacksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Event$feedbacksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EventFeedbackPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   eventSectors<T extends Prisma.Event$eventSectorsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Event$eventSectorsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EventSectorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  emailStatuses<T extends Prisma.Event$emailStatusesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Event$emailStatusesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EventCompanyEmailStatusPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2308,6 +2496,30 @@ export type Event$eventSectorsArgs<ExtArgs extends runtime.Types.Extensions.Inte
   take?: number
   skip?: number
   distinct?: Prisma.EventSectorScalarFieldEnum | Prisma.EventSectorScalarFieldEnum[]
+}
+
+/**
+ * Event.emailStatuses
+ */
+export type Event$emailStatusesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the EventCompanyEmailStatus
+   */
+  select?: Prisma.EventCompanyEmailStatusSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the EventCompanyEmailStatus
+   */
+  omit?: Prisma.EventCompanyEmailStatusOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.EventCompanyEmailStatusInclude<ExtArgs> | null
+  where?: Prisma.EventCompanyEmailStatusWhereInput
+  orderBy?: Prisma.EventCompanyEmailStatusOrderByWithRelationInput | Prisma.EventCompanyEmailStatusOrderByWithRelationInput[]
+  cursor?: Prisma.EventCompanyEmailStatusWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.EventCompanyEmailStatusScalarFieldEnum | Prisma.EventCompanyEmailStatusScalarFieldEnum[]
 }
 
 /**

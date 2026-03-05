@@ -60,6 +60,7 @@ export const ModelName = {
   Event: 'Event',
   EventSector: 'EventSector',
   EventCompany: 'EventCompany',
+  EventCompanyEmailStatus: 'EventCompanyEmailStatus',
   EventFeedback: 'EventFeedback',
   Mission: 'Mission',
   Delegation: 'Delegation',
@@ -203,6 +204,20 @@ export const EventCompanyScalarFieldEnum = {
 } as const
 
 export type EventCompanyScalarFieldEnum = (typeof EventCompanyScalarFieldEnum)[keyof typeof EventCompanyScalarFieldEnum]
+
+
+export const EventCompanyEmailStatusScalarFieldEnum = {
+  id: 'id',
+  eventId: 'eventId',
+  companyId: 'companyId',
+  lastEmailAddress: 'lastEmailAddress',
+  lastEmailSource: 'lastEmailSource',
+  lastSentAt: 'lastSentAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type EventCompanyEmailStatusScalarFieldEnum = (typeof EventCompanyEmailStatusScalarFieldEnum)[keyof typeof EventCompanyEmailStatusScalarFieldEnum]
 
 
 export const EventFeedbackScalarFieldEnum = {
@@ -389,6 +404,14 @@ export const EventOrderByRelevanceFieldEnum = {
 } as const
 
 export type EventOrderByRelevanceFieldEnum = (typeof EventOrderByRelevanceFieldEnum)[keyof typeof EventOrderByRelevanceFieldEnum]
+
+
+export const EventCompanyEmailStatusOrderByRelevanceFieldEnum = {
+  lastEmailAddress: 'lastEmailAddress',
+  lastEmailSource: 'lastEmailSource'
+} as const
+
+export type EventCompanyEmailStatusOrderByRelevanceFieldEnum = (typeof EventCompanyEmailStatusOrderByRelevanceFieldEnum)[keyof typeof EventCompanyEmailStatusOrderByRelevanceFieldEnum]
 
 
 export const EventFeedbackOrderByRelevanceFieldEnum = {

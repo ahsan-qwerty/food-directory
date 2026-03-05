@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 
 function formatCurrencyPKR(value) {
@@ -19,6 +20,14 @@ export default function DeskClosingClient() {
     const [event, setEvent] = useState(null);
     const [loadingEvent, setLoadingEvent] = useState(true);
     const [loadError, setLoadError] = useState(null);
+
+    // Company email status for desk officer
+    const [emailStatus, setEmailStatus] = useState(null);
+    const [loadingEmailStatus, setLoadingEmailStatus] = useState(false);
+    const [emailStatusError, setEmailStatusError] = useState(null);
+    const [sendingPending, setSendingPending] = useState(false);
+    const [sendPendingError, setSendPendingError] = useState(null);
+    const [sendPendingSuccess, setSendPendingSuccess] = useState(null);
 
     // Form state
     const [finalRemarks, setFinalRemarks] = useState('');
@@ -45,6 +54,66 @@ export default function DeskClosingClient() {
             .catch(() => setLoadError('Failed to load event details.'))
             .finally(() => setLoadingEvent(false));
     }, [eventId]);
+
+    const fetchEmailStatus = () => {
+        if (!eventId || Number.isNaN(eventId)) return;
+        setLoadingEmailStatus(true);
+        setEmailStatusError(null);
+        fetch(`/api/events/company-emails?eventId=${eventId}`)
+            .then(async (r) => {
+                const data = await r.json();
+                if (!r.ok) {
+                    throw new Error(data.error || 'Failed to load company email status.');
+                }
+                setEmailStatus(data);
+            })
+            .catch((err) => {
+                console.error('Error loading company email status:', err);
+                setEmailStatusError('Failed to load company email status.');
+            })
+            .finally(() => setLoadingEmailStatus(false));
+    };
+
+    useEffect(() => {
+        fetchEmailStatus();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [eventId]);
+
+    const sendPendingEmails = async () => {
+        if (!eventId || Number.isNaN(eventId)) return;
+        setSendingPending(true);
+        setSendPendingError(null);
+        setSendPendingSuccess(null);
+        try {
+            const origin = typeof window !== 'undefined' ? window.location.origin : '';
+            const feedbackUrl = origin ? `${origin}/feedback/company?eventId=${eventId}` : '';
+
+            const res = await fetch('/api/events/company-emails', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    eventId,
+                    eventName: event?.name,
+                    feedbackUrl,
+                    mode: 'unsent_only',
+                }),
+            });
+            const data = await res.json();
+            if (!res.ok) {
+                throw new Error(data.error || 'Failed to send pending emails.');
+            }
+            const stats = data.stats || {};
+            setSendPendingSuccess(
+                `Sent ${stats.recipientsCount ?? 0} pending emails (company: ${stats.companyEmailCount ?? 0}, representative: ${stats.representativeEmailCount ?? 0}).`,
+            );
+            fetchEmailStatus();
+        } catch (err) {
+            console.error('Error sending pending emails:', err);
+            setSendPendingError(err.message || 'Failed to send pending emails.');
+        } finally {
+            setSendingPending(false);
+        }
+    };
 
     const allocatedBudget = event?.totalEstimatedBudget != null ? Number(event.totalEstimatedBudget) : null;
 
@@ -126,6 +195,99 @@ export default function DeskClosingClient() {
                     ) : (
                         <p className="text-sm text-secondary mb-4">Event ID: {eventId}</p>
                     )
+                )}
+
+                {/* Company email status for desk officer */}
+                <div className="glass-card px-4 py-4 mb-6">
+                    <div className="flex items-center justify-between mb-3 gap-2">
+                        <h2 className="text-sm font-semibold text-secondary">Companies Missing Email</h2>
+                        {emailStatus && (
+                            <span className="text-[11px] text-muted">
+                                Missing: {emailStatus.withoutEmail} / {emailStatus.totalCompanies}
+                            </span>
+                        )}
+                    </div>
+                    {sendPendingError && <div className="alert-error text-xs px-3 py-2 mb-3">{sendPendingError}</div>}
+                    {sendPendingSuccess && <div className="alert-success text-xs px-3 py-2 mb-3">{sendPendingSuccess}</div>}
+                    {loadingEmailStatus ? (
+                        <p className="text-xs text-secondary">Loading company emails…</p>
+                    ) : emailStatusError ? (
+                        <p className="text-xs text-red-400">{emailStatusError}</p>
+                    ) : emailStatus && emailStatus.rows && emailStatus.rows.filter((r) => !r.hasAnyEmail).length > 0 ? (
+                        <div className="-mx-2 overflow-x-auto">
+                            <table className="min-w-full text-left text-[11px]">
+                                <thead>
+                                    <tr className="text-muted border-b border-white/10">
+                                        <th className="px-2 py-1 font-medium">Company</th>
+                                        <th className="px-2 py-1 font-medium">Company Email</th>
+                                        <th className="px-2 py-1 font-medium">Representative Email</th>
+                                        <th className="px-2 py-1 font-medium text-right">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {emailStatus.rows.filter((r) => !r.hasAnyEmail).map((row) => (
+                                        <tr key={row.companyId} className="border-b border-white/5 last:border-0">
+                                            <td className="px-2 py-1 text-white whitespace-nowrap">
+                                                {row.companyName}
+                                            </td>
+                                            <td className="px-2 py-1 text-secondary whitespace-nowrap">
+                                                {row.companyEmail || <span className="text-red-300/80">—</span>}
+                                            </td>
+                                            <td className="px-2 py-1 text-secondary whitespace-nowrap">
+                                                {row.representativeEmail || <span className="text-red-300/80">—</span>}
+                                            </td>
+                                            <td className="px-2 py-1 text-right whitespace-nowrap">
+                                                <Link
+                                                    href={`/companies/${row.companyId}/edit`}
+                                                    className="text-[11px] text-accent-green hover:text-accent-green/80 underline"
+                                                >
+                                                    Edit Emails
+                                                </Link>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    ) : (
+                        <p className="text-xs text-secondary">All participating companies have an email address on file.</p>
+                    )}
+                    <div className="mt-3 flex items-center justify-between gap-2">
+                        <p className="text-[11px] text-muted">
+                            After adding emails, click refresh then send pending emails (unsent only).
+                        </p>
+                        <button
+                            type="button"
+                            onClick={fetchEmailStatus}
+                            className="btn-outline px-3 py-1.5 text-[11px]"
+                            disabled={loadingEmailStatus}
+                        >
+                            Refresh
+                        </button>
+                    </div>
+                </div>
+
+                {/* Pending emails (unsent only) */}
+                {emailStatus && (
+                    <div className="glass-card px-4 py-4 mb-6">
+                        <div className="flex items-center justify-between mb-2 gap-2">
+                            <h2 className="text-sm font-semibold text-secondary">Pending Feedback Emails</h2>
+                            <span className="text-[11px] text-muted">
+                                Pending: {emailStatus.unsentCount ?? 0} · Sent: {emailStatus.sentCount ?? 0}
+                            </span>
+                        </div>
+                        <p className="text-[11px] text-muted mb-3">
+                            This will email only companies that have an email available and have not received the feedback email yet.
+                        </p>
+                        <button
+                            type="button"
+                            onClick={sendPendingEmails}
+                            disabled={sendingPending || (emailStatus.unsentCount ?? 0) === 0}
+                            className="btn-primary w-full px-4 py-2 text-sm font-semibold disabled:opacity-60"
+                        >
+                            {sendingPending ? 'Sending…' : 'Send Pending Emails (Unsent Only)'}
+                        </button>
+                    </div>
                 )}
 
                 {submitted ? (

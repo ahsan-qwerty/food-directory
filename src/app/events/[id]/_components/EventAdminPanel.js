@@ -40,10 +40,8 @@ export default function EventAdminPanel({
 
     const sendCompanyEmails = async (test = false) => {
         try {
-            // const emails = (participantEmails || []).filter(Boolean);
-            const emails = (participantEmails || []).filter(Boolean);
-            if (!emails.length) {
-                alert('No participant emails available.');
+            if (!participantCompanyIds || participantCompanyIds.length === 0) {
+                alert('No participating companies available to email.');
                 return;
             }
 
@@ -54,7 +52,6 @@ export default function EventAdminPanel({
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    emails,
                     eventId,
                     eventName,
                     feedbackUrl: feedbackUrls.company,
@@ -68,10 +65,17 @@ export default function EventAdminPanel({
                 throw new Error(data.error || 'Failed to send feedback emails');
             }
 
+            const stats = data.stats || {};
+            const total = stats.totalCompanies ?? '—';
+            const recipients = stats.recipientsCount ?? '—';
+            const companyEmailCount = stats.companyEmailCount ?? 0;
+            const representativeEmailCount = stats.representativeEmailCount ?? 0;
+            const missingEmailCount = stats.missingEmailCount ?? 0;
+
             setSuccess(
                 test
-                    ? 'Test feedback emails sent to participating companies.'
-                    : 'Feedback emails sent to participating companies.',
+                    ? `Test feedback emails sent. Recipients: ${recipients}/${total} (company: ${companyEmailCount}, representative: ${representativeEmailCount}, missing: ${missingEmailCount}).`
+                    : `Feedback emails sent. Recipients: ${recipients}/${total} (company: ${companyEmailCount}, representative: ${representativeEmailCount}, missing: ${missingEmailCount}).`,
             );
         } catch (err) {
             console.error('Error sending company feedback emails:', err);
@@ -131,13 +135,13 @@ export default function EventAdminPanel({
                 >
                     Send Dummy/Test Email to Companies
                 </button> */}
-                <button
+                {/* <button
                     type="button"
                     onClick={sendMissionEmail}
                     className="btn-primary w-full px-4 py-2 text-sm"
                 >
                     Send Feedback Email to Mission
-                </button>
+                </button> */}
                 {isClosed ? (
                     <div
                         className="w-full px-4 py-2 text-sm rounded-lg flex items-center justify-center gap-2 font-medium"

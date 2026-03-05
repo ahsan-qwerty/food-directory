@@ -63,6 +63,11 @@ export type EventSector = Prisma.EventSectorModel
  */
 export type EventCompany = Prisma.EventCompanyModel
 /**
+ * Model EventCompanyEmailStatus
+ * 
+ */
+export type EventCompanyEmailStatus = Prisma.EventCompanyEmailStatusModel
+/**
  * Model EventFeedback
  * 
  */

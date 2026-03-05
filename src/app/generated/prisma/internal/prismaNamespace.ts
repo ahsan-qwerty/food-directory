@@ -393,6 +393,7 @@ export const ModelName = {
   Event: 'Event',
   EventSector: 'EventSector',
   EventCompany: 'EventCompany',
+  EventCompanyEmailStatus: 'EventCompanyEmailStatus',
   EventFeedback: 'EventFeedback',
   Mission: 'Mission',
   Delegation: 'Delegation',
@@ -414,7 +415,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "sector" | "subSector" | "product" | "company" | "companySector" | "companySubSector" | "event" | "eventSector" | "eventCompany" | "eventFeedback" | "mission" | "delegation" | "delegationCompany" | "delegationSector" | "seminar"
+    modelProps: "sector" | "subSector" | "product" | "company" | "companySector" | "companySubSector" | "event" | "eventSector" | "eventCompany" | "eventCompanyEmailStatus" | "eventFeedback" | "mission" | "delegation" | "delegationCompany" | "delegationSector" | "seminar"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1012,6 +1013,72 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    EventCompanyEmailStatus: {
+      payload: Prisma.$EventCompanyEmailStatusPayload<ExtArgs>
+      fields: Prisma.EventCompanyEmailStatusFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.EventCompanyEmailStatusFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EventCompanyEmailStatusPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.EventCompanyEmailStatusFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EventCompanyEmailStatusPayload>
+        }
+        findFirst: {
+          args: Prisma.EventCompanyEmailStatusFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EventCompanyEmailStatusPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.EventCompanyEmailStatusFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EventCompanyEmailStatusPayload>
+        }
+        findMany: {
+          args: Prisma.EventCompanyEmailStatusFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EventCompanyEmailStatusPayload>[]
+        }
+        create: {
+          args: Prisma.EventCompanyEmailStatusCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EventCompanyEmailStatusPayload>
+        }
+        createMany: {
+          args: Prisma.EventCompanyEmailStatusCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        delete: {
+          args: Prisma.EventCompanyEmailStatusDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EventCompanyEmailStatusPayload>
+        }
+        update: {
+          args: Prisma.EventCompanyEmailStatusUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EventCompanyEmailStatusPayload>
+        }
+        deleteMany: {
+          args: Prisma.EventCompanyEmailStatusDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.EventCompanyEmailStatusUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        upsert: {
+          args: Prisma.EventCompanyEmailStatusUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EventCompanyEmailStatusPayload>
+        }
+        aggregate: {
+          args: Prisma.EventCompanyEmailStatusAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateEventCompanyEmailStatus>
+        }
+        groupBy: {
+          args: Prisma.EventCompanyEmailStatusGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.EventCompanyEmailStatusGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.EventCompanyEmailStatusCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.EventCompanyEmailStatusCountAggregateOutputType> | number
+        }
+      }
+    }
     EventFeedback: {
       payload: Prisma.$EventFeedbackPayload<ExtArgs>
       fields: Prisma.EventFeedbackFieldRefs
@@ -1568,6 +1635,20 @@ export const EventCompanyScalarFieldEnum = {
 export type EventCompanyScalarFieldEnum = (typeof EventCompanyScalarFieldEnum)[keyof typeof EventCompanyScalarFieldEnum]
 
 
+export const EventCompanyEmailStatusScalarFieldEnum = {
+  id: 'id',
+  eventId: 'eventId',
+  companyId: 'companyId',
+  lastEmailAddress: 'lastEmailAddress',
+  lastEmailSource: 'lastEmailSource',
+  lastSentAt: 'lastSentAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type EventCompanyEmailStatusScalarFieldEnum = (typeof EventCompanyEmailStatusScalarFieldEnum)[keyof typeof EventCompanyEmailStatusScalarFieldEnum]
+
+
 export const EventFeedbackScalarFieldEnum = {
   id: 'id',
   eventId: 'eventId',
@@ -1752,6 +1833,14 @@ export const EventOrderByRelevanceFieldEnum = {
 } as const
 
 export type EventOrderByRelevanceFieldEnum = (typeof EventOrderByRelevanceFieldEnum)[keyof typeof EventOrderByRelevanceFieldEnum]
+
+
+export const EventCompanyEmailStatusOrderByRelevanceFieldEnum = {
+  lastEmailAddress: 'lastEmailAddress',
+  lastEmailSource: 'lastEmailSource'
+} as const
+
+export type EventCompanyEmailStatusOrderByRelevanceFieldEnum = (typeof EventCompanyEmailStatusOrderByRelevanceFieldEnum)[keyof typeof EventCompanyEmailStatusOrderByRelevanceFieldEnum]
 
 
 export const EventFeedbackOrderByRelevanceFieldEnum = {
@@ -2009,6 +2098,7 @@ export type GlobalOmitConfig = {
   event?: Prisma.EventOmit
   eventSector?: Prisma.EventSectorOmit
   eventCompany?: Prisma.EventCompanyOmit
+  eventCompanyEmailStatus?: Prisma.EventCompanyEmailStatusOmit
   eventFeedback?: Prisma.EventFeedbackOmit
   mission?: Prisma.MissionOmit
   delegation?: Prisma.DelegationOmit

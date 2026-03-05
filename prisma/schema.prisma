@@ -89,6 +89,7 @@ subSectors CompanySubSector[]
 eventParticipations EventCompany[]
 delegationParticipations DelegationCompany[]
 feedbacks EventFeedback[]
+emailStatuses EventCompanyEmailStatus[]
 
 createdAt DateTime @default(now())
 }
@@ -162,6 +163,7 @@ model Event {
   participants EventCompany[]
   feedbacks    EventFeedback[]
   eventSectors EventSector[]
+  emailStatuses EventCompanyEmailStatus[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -189,6 +191,24 @@ model EventCompany {
   company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
+
+  @@unique([eventId, companyId])
+}
+
+model EventCompanyEmailStatus {
+  id        Int      @id @default(autoincrement())
+  eventId   Int
+  companyId Int
+
+  lastEmailAddress String?
+  lastEmailSource  String?
+  lastSentAt       DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  event   Event   @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
 
   @@unique([eventId, companyId])
 }
