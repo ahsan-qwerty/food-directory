@@ -16,8 +16,13 @@ export async function POST(request) {
         }
 
         // Normalise the multi-select arrays coming from the form
-        const sectorIds = Array.isArray(data.sectorIds) ? data.sectorIds.map(Number).filter(Boolean) : [];
+        const sectorIds    = Array.isArray(data.sectorIds)    ? data.sectorIds.map(Number).filter(Boolean) : [];
         const subSectorIds = Array.isArray(data.subSectorIds) ? data.subSectorIds.map(Number).filter(Boolean) : [];
+
+        const VALID_GCC = ['UAE', 'KSA', 'Qatar', 'Kuwait', 'Bahrain', 'Oman'];
+        const gccCountries = Array.isArray(data.gccCountries)
+            ? data.gccCountries.filter(c => VALID_GCC.includes(c))
+            : [];
 
         // Primary (legacy) FK values — first item in each array
         const primarySectorId = sectorIds[0] ?? null;
@@ -63,6 +68,8 @@ export async function POST(request) {
             representativeWhatsapp: data.representativeWhatsapp?.trim() || null,
             representativeEmail: data.representativeEmail?.trim() || null,
             productsToBeDisplayed: data.productsToBeDisplayed?.trim() || null,
+            willingToExportToGCC: Boolean(data.willingToExportToGCC),
+            gccCountries,
             // Legacy single-FK fields (primary selection)
             sectorId: primarySectorId,
             subSectorId: primarySubSectorId,
@@ -105,6 +112,8 @@ export async function POST(request) {
                 representativeWhatsapp: newCompany.representativeWhatsapp,
                 representativeEmail: newCompany.representativeEmail,
                 productsToBeDisplayed: newCompany.productsToBeDisplayed,
+                willingToExportToGCC: newCompany.willingToExportToGCC,
+                gccCountries: newCompany.gccCountries,
                 // Primary FK (backward compat)
                 sector: newCompany.sector,
                 subSector: newCompany.subSector,

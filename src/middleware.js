@@ -22,6 +22,11 @@ export function middleware(request) {
     return NextResponse.next();
   }
 
+  // Allow /register
+  if (pathname === '/register' || pathname.startsWith('/register/')) {
+    return NextResponse.next();
+  }
+
   // Everything else → redirect to /companies (temporary protection)
   const companiesUrl = new URL('/companies', request.url);
   return NextResponse.redirect(companiesUrl);

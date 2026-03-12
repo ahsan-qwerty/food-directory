@@ -33,63 +33,66 @@ export async function GET(request) {
     });
   }
 
-  // Apply filters
+  // Apply filters — each condition is AND-ed together; within a condition, OR is used
   const query = searchParams.get('q');
   const sector = searchParams.get('sector');
   const subSector = searchParams.get('sub_sector');
   const gcc = searchParams.get('gcc');
+  const gccCountries = searchParams.getAll('gcc_country').filter(Boolean);
 
-  const where = {};
+  const conditions = [];
 
   if (gcc === 'true') {
-    where.willingToExportToGCC = true;
+    conditions.push({ willingToExportToGCC: true });
+  }
+
+  // Match companies willing to export to ANY of the selected GCC countries
+  if (gccCountries.length > 0) {
+    conditions.push({
+      OR: gccCountries.map(c => ({ gccCountries: { array_contains: c } })),
+    });
   }
 
   if (query) {
-    where.OR = [
-      { name: { contains: query } },
-      { email: { contains: query } },
-      { website: { contains: query } },
-      { representativeName: { contains: query } },
-    ];
+    conditions.push({
+      OR: [
+        { name: { contains: query } },
+        { email: { contains: query } },
+        { website: { contains: query } },
+        { representativeName: { contains: query } },
+      ],
+    });
   }
 
   if (sector) {
     const sectorId = Number(sector);
     if (!Number.isNaN(sectorId)) {
-      // Match companies where this sector is either the primary FK
-      // OR any entry in the many-to-many junction table
-      where.OR = [
-        { sectorId },
-        { sectors: { some: { sectorId } } },
-      ];
+      conditions.push({
+        OR: [
+          { sectorId },
+          { sectors: { some: { sectorId } } },
+        ],
+      });
     }
   }
 
   if (subSector) {
     const subSectorId = Number(subSector);
     if (!Number.isNaN(subSectorId)) {
-      // Match companies where this sub-sector is either the primary FK
-      // OR any entry in the many-to-many junction table
-      const subFilter = [
-        { subSectorId },
-        { subSectors: { some: { subSectorId } } },
-      ];
-      // Merge with any existing OR (from sector filter above)
-      if (where.OR) {
-        // Both filters must match: wrap in AND
-        where.AND = [
-          { OR: where.OR },
-          { OR: subFilter },
-        ];
-        delete where.OR;
-      } else {
-        where.OR = subFilter;
-      }
+      conditions.push({
+        OR: [
+          { subSectorId },
+          { subSectors: { some: { subSectorId } } },
+        ],
+      });
     }
   }
 
-  const finalWhere = Object.keys(where).length > 0 ? where : undefined;
+  const finalWhere = conditions.length === 0
+    ? undefined
+    : conditions.length === 1
+      ? conditions[0]
+      : { AND: conditions };
 
   const companies = await prisma.company.findMany({
     where: finalWhere,
@@ -117,32 +120,31 @@ export async function PUT(request) {
     const sectorIds = Array.isArray(body.sectorIds) ? body.sectorIds.map(Number).filter(Boolean) : [];
     const subSectorIds = Array.isArray(body.subSectorIds) ? body.subSectorIds.map(Number).filter(Boolean) : [];
 
-    // Run everything in a transaction
-    const updated = await prisma.$transaction(async (tx) => {
-      // Replace junction records
-      await tx.companySector.deleteMany({ where: { companyId } });
-      await tx.companySubSector.deleteMany({ where: { companyId } });
+    // The mariadb adapter does not support interactive transactions (P2028).
+    // Run operations sequentially instead.
+    await prisma.companySector.deleteMany({ where: { companyId } });
+    await prisma.companySubSector.deleteMany({ where: { companyId } });
 
-      return tx.company.update({
-        where: { id: companyId },
-        data: {
-          name: body.name.trim(),
-          profile: body.profile?.trim() || null,
-          address: body.address?.trim() || null,
-          email: body.email?.trim() || null,
-          website: body.website?.trim() || null,
-          representativeName: body.representativeName?.trim() || null,
-          representativeTel: body.representativeTel?.trim() || null,
-          representativeWhatsapp: body.representativeWhatsapp?.trim() || null,
-          representativeEmail: body.representativeEmail?.trim() || null,
-          productsToBeDisplayed: body.productsToBeDisplayed?.trim() || null,
-          willingToExportToGCC: Boolean(body.willingToExportToGCC),
-          sectorId: sectorIds[0] ?? null,
-          subSectorId: subSectorIds[0] ?? null,
-          sectors: sectorIds.length > 0 ? { create: sectorIds.map(id => ({ sectorId: id })) } : undefined,
-          subSectors: subSectorIds.length > 0 ? { create: subSectorIds.map(id => ({ subSectorId: id })) } : undefined,
-        },
-      });
+    const updated = await prisma.company.update({
+      where: { id: companyId },
+      data: {
+        name: body.name.trim(),
+        profile: body.profile?.trim() || null,
+        address: body.address?.trim() || null,
+        email: body.email?.trim() || null,
+        website: body.website?.trim() || null,
+        representativeName: body.representativeName?.trim() || null,
+        representativeTel: body.representativeTel?.trim() || null,
+        representativeWhatsapp: body.representativeWhatsapp?.trim() || null,
+        representativeEmail: body.representativeEmail?.trim() || null,
+        productsToBeDisplayed: body.productsToBeDisplayed?.trim() || null,
+        willingToExportToGCC: Boolean(body.willingToExportToGCC),
+        gccCountries: Array.isArray(body.gccCountries) ? body.gccCountries : [],
+        sectorId: sectorIds[0] ?? null,
+        subSectorId: subSectorIds[0] ?? null,
+        sectors: sectorIds.length > 0 ? { create: sectorIds.map(id => ({ sectorId: id })) } : undefined,
+        subSectors: subSectorIds.length > 0 ? { create: subSectorIds.map(id => ({ subSectorId: id })) } : undefined,
+      },
     });
 
     return NextResponse.json({ success: true, company: updated });

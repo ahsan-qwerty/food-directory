@@ -29,6 +29,7 @@ export default function EditCompanyPage() {
         representativeEmail: '',
         productsToBeDisplayed: '',
         willingToExportToGCC: false,
+        gccCountries: [],
         sectorIds: [],
         subSectorIds: [],
     });
@@ -59,6 +60,7 @@ export default function EditCompanyPage() {
                     representativeEmail: c.representativeEmail || '',
                     productsToBeDisplayed: c.productsToBeDisplayed || '',
                     willingToExportToGCC: Boolean(c.willingToExportToGCC),
+                    gccCountries: Array.isArray(c.gccCountries) ? c.gccCountries : [],
                     sectorIds: c.sectorIds || (c.sectorId ? [c.sectorId] : []),
                     subSectorIds: c.subSectorIds || (c.subSectorId ? [c.subSectorId] : []),
                 });
@@ -100,6 +102,16 @@ export default function EditCompanyPage() {
             subSectorIds: prev.subSectorIds.includes(id)
                 ? prev.subSectorIds.filter(s => s !== id)
                 : [...prev.subSectorIds, id],
+        }));
+
+    const GCC_COUNTRIES = ['UAE', 'KSA', 'Qatar', 'Kuwait', 'Bahrain', 'Oman'];
+
+    const toggleGccCountry = (country) =>
+        setFormData(prev => ({
+            ...prev,
+            gccCountries: prev.gccCountries.includes(country)
+                ? prev.gccCountries.filter(c => c !== country)
+                : [...prev.gccCountries, country],
         }));
 
     const handleSubmit = async (e) => {
@@ -249,6 +261,41 @@ export default function EditCompanyPage() {
                                         )}
                                     </span>
                                 </label>
+                            </div>
+
+                            <div className="md:col-span-2">
+                                <label className="block text-sm font-medium text-secondary mb-2">
+                                    Target GCC Countries
+                                    <span className="ml-1 text-xs font-normal text-muted">(select all that apply)</span>
+                                </label>
+                                <div className="flex flex-wrap gap-2">
+                                    {GCC_COUNTRIES.map(country => {
+                                        const selected = formData.gccCountries.includes(country);
+                                        return (
+                                            <button
+                                                key={country}
+                                                type="button"
+                                                onClick={() => toggleGccCountry(country)}
+                                                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium border transition-colors focus:outline-none focus:ring-2 focus:ring-green-500 ${selected
+                                                    ? 'bg-green-700 text-white border-green-700'
+                                                    : 'bg-white/10 text-secondary border-white/20 hover:border-green-500 hover:text-white'
+                                                }`}
+                                            >
+                                                {selected && (
+                                                    <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
+                                                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                                                    </svg>
+                                                )}
+                                                {country}
+                                            </button>
+                                        );
+                                    })}
+                                </div>
+                                {formData.gccCountries.length > 0 && (
+                                    <p className="mt-2 text-xs text-accent-green font-medium">
+                                        {formData.gccCountries.length} countr{formData.gccCountries.length > 1 ? 'ies' : 'y'} selected
+                                    </p>
+                                )}
                             </div>
                         </div>
                     </Section>

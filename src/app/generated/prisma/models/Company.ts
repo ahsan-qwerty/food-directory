@@ -87,6 +87,7 @@ export type CompanyCountAggregateOutputType = {
   representativeEmail: number
   productsToBeDisplayed: number
   willingToExportToGCC: number
+  gccCountries: number
   sectorId: number
   subSectorId: number
   createdAt: number
@@ -155,6 +156,7 @@ export type CompanyCountAggregateInputType = {
   representativeEmail?: true
   productsToBeDisplayed?: true
   willingToExportToGCC?: true
+  gccCountries?: true
   sectorId?: true
   subSectorId?: true
   createdAt?: true
@@ -260,6 +262,7 @@ export type CompanyGroupByOutputType = {
   representativeEmail: string | null
   productsToBeDisplayed: string | null
   willingToExportToGCC: boolean
+  gccCountries: runtime.JsonValue
   sectorId: number | null
   subSectorId: number | null
   createdAt: Date
@@ -301,6 +304,7 @@ export type CompanyWhereInput = {
   representativeEmail?: Prisma.StringNullableFilter<"Company"> | string | null
   productsToBeDisplayed?: Prisma.StringNullableFilter<"Company"> | string | null
   willingToExportToGCC?: Prisma.BoolFilter<"Company"> | boolean
+  gccCountries?: Prisma.JsonFilter<"Company">
   sectorId?: Prisma.IntNullableFilter<"Company"> | number | null
   subSectorId?: Prisma.IntNullableFilter<"Company"> | number | null
   createdAt?: Prisma.DateTimeFilter<"Company"> | Date | string
@@ -327,6 +331,7 @@ export type CompanyOrderByWithRelationInput = {
   representativeEmail?: Prisma.SortOrderInput | Prisma.SortOrder
   productsToBeDisplayed?: Prisma.SortOrderInput | Prisma.SortOrder
   willingToExportToGCC?: Prisma.SortOrder
+  gccCountries?: Prisma.SortOrder
   sectorId?: Prisma.SortOrderInput | Prisma.SortOrder
   subSectorId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -357,6 +362,7 @@ export type CompanyWhereUniqueInput = Prisma.AtLeast<{
   representativeEmail?: Prisma.StringNullableFilter<"Company"> | string | null
   productsToBeDisplayed?: Prisma.StringNullableFilter<"Company"> | string | null
   willingToExportToGCC?: Prisma.BoolFilter<"Company"> | boolean
+  gccCountries?: Prisma.JsonFilter<"Company">
   sectorId?: Prisma.IntNullableFilter<"Company"> | number | null
   subSectorId?: Prisma.IntNullableFilter<"Company"> | number | null
   createdAt?: Prisma.DateTimeFilter<"Company"> | Date | string
@@ -383,6 +389,7 @@ export type CompanyOrderByWithAggregationInput = {
   representativeEmail?: Prisma.SortOrderInput | Prisma.SortOrder
   productsToBeDisplayed?: Prisma.SortOrderInput | Prisma.SortOrder
   willingToExportToGCC?: Prisma.SortOrder
+  gccCountries?: Prisma.SortOrder
   sectorId?: Prisma.SortOrderInput | Prisma.SortOrder
   subSectorId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -409,6 +416,7 @@ export type CompanyScalarWhereWithAggregatesInput = {
   representativeEmail?: Prisma.StringNullableWithAggregatesFilter<"Company"> | string | null
   productsToBeDisplayed?: Prisma.StringNullableWithAggregatesFilter<"Company"> | string | null
   willingToExportToGCC?: Prisma.BoolWithAggregatesFilter<"Company"> | boolean
+  gccCountries?: Prisma.JsonWithAggregatesFilter<"Company">
   sectorId?: Prisma.IntNullableWithAggregatesFilter<"Company"> | number | null
   subSectorId?: Prisma.IntNullableWithAggregatesFilter<"Company"> | number | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Company"> | Date | string
@@ -426,6 +434,7 @@ export type CompanyCreateInput = {
   representativeEmail?: string | null
   productsToBeDisplayed?: string | null
   willingToExportToGCC?: boolean
+  gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   sector?: Prisma.SectorCreateNestedOneWithoutCompaniesInput
   subSector?: Prisma.SubSectorCreateNestedOneWithoutCompaniesInput
@@ -450,6 +459,7 @@ export type CompanyUncheckedCreateInput = {
   representativeEmail?: string | null
   productsToBeDisplayed?: string | null
   willingToExportToGCC?: boolean
+  gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   sectorId?: number | null
   subSectorId?: number | null
   createdAt?: Date | string
@@ -473,6 +483,7 @@ export type CompanyUpdateInput = {
   representativeEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   productsToBeDisplayed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   willingToExportToGCC?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sector?: Prisma.SectorUpdateOneWithoutCompaniesNestedInput
   subSector?: Prisma.SubSectorUpdateOneWithoutCompaniesNestedInput
@@ -497,6 +508,7 @@ export type CompanyUncheckedUpdateInput = {
   representativeEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   productsToBeDisplayed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   willingToExportToGCC?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   sectorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   subSectorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -521,6 +533,7 @@ export type CompanyCreateManyInput = {
   representativeEmail?: string | null
   productsToBeDisplayed?: string | null
   willingToExportToGCC?: boolean
+  gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   sectorId?: number | null
   subSectorId?: number | null
   createdAt?: Date | string
@@ -538,6 +551,7 @@ export type CompanyUpdateManyMutationInput = {
   representativeEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   productsToBeDisplayed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   willingToExportToGCC?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -554,6 +568,7 @@ export type CompanyUncheckedUpdateManyInput = {
   representativeEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   productsToBeDisplayed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   willingToExportToGCC?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   sectorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   subSectorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -588,6 +603,7 @@ export type CompanyCountOrderByAggregateInput = {
   representativeEmail?: Prisma.SortOrder
   productsToBeDisplayed?: Prisma.SortOrder
   willingToExportToGCC?: Prisma.SortOrder
+  gccCountries?: Prisma.SortOrder
   sectorId?: Prisma.SortOrder
   subSectorId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -845,6 +861,7 @@ export type CompanyCreateWithoutSectorInput = {
   representativeEmail?: string | null
   productsToBeDisplayed?: string | null
   willingToExportToGCC?: boolean
+  gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   subSector?: Prisma.SubSectorCreateNestedOneWithoutCompaniesInput
   sectors?: Prisma.CompanySectorCreateNestedManyWithoutCompanyInput
@@ -868,6 +885,7 @@ export type CompanyUncheckedCreateWithoutSectorInput = {
   representativeEmail?: string | null
   productsToBeDisplayed?: string | null
   willingToExportToGCC?: boolean
+  gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   subSectorId?: number | null
   createdAt?: Date | string
   sectors?: Prisma.CompanySectorUncheckedCreateNestedManyWithoutCompanyInput
@@ -920,6 +938,7 @@ export type CompanyScalarWhereInput = {
   representativeEmail?: Prisma.StringNullableFilter<"Company"> | string | null
   productsToBeDisplayed?: Prisma.StringNullableFilter<"Company"> | string | null
   willingToExportToGCC?: Prisma.BoolFilter<"Company"> | boolean
+  gccCountries?: Prisma.JsonFilter<"Company">
   sectorId?: Prisma.IntNullableFilter<"Company"> | number | null
   subSectorId?: Prisma.IntNullableFilter<"Company"> | number | null
   createdAt?: Prisma.DateTimeFilter<"Company"> | Date | string
@@ -937,6 +956,7 @@ export type CompanyCreateWithoutSubSectorInput = {
   representativeEmail?: string | null
   productsToBeDisplayed?: string | null
   willingToExportToGCC?: boolean
+  gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   sector?: Prisma.SectorCreateNestedOneWithoutCompaniesInput
   sectors?: Prisma.CompanySectorCreateNestedManyWithoutCompanyInput
@@ -960,6 +980,7 @@ export type CompanyUncheckedCreateWithoutSubSectorInput = {
   representativeEmail?: string | null
   productsToBeDisplayed?: string | null
   willingToExportToGCC?: boolean
+  gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   sectorId?: number | null
   createdAt?: Date | string
   sectors?: Prisma.CompanySectorUncheckedCreateNestedManyWithoutCompanyInput
@@ -1008,6 +1029,7 @@ export type CompanyCreateWithoutSectorsInput = {
   representativeEmail?: string | null
   productsToBeDisplayed?: string | null
   willingToExportToGCC?: boolean
+  gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   sector?: Prisma.SectorCreateNestedOneWithoutCompaniesInput
   subSector?: Prisma.SubSectorCreateNestedOneWithoutCompaniesInput
@@ -1031,6 +1053,7 @@ export type CompanyUncheckedCreateWithoutSectorsInput = {
   representativeEmail?: string | null
   productsToBeDisplayed?: string | null
   willingToExportToGCC?: boolean
+  gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   sectorId?: number | null
   subSectorId?: number | null
   createdAt?: Date | string
@@ -1069,6 +1092,7 @@ export type CompanyUpdateWithoutSectorsInput = {
   representativeEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   productsToBeDisplayed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   willingToExportToGCC?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sector?: Prisma.SectorUpdateOneWithoutCompaniesNestedInput
   subSector?: Prisma.SubSectorUpdateOneWithoutCompaniesNestedInput
@@ -1092,6 +1116,7 @@ export type CompanyUncheckedUpdateWithoutSectorsInput = {
   representativeEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   productsToBeDisplayed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   willingToExportToGCC?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   sectorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   subSectorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1114,6 +1139,7 @@ export type CompanyCreateWithoutSubSectorsInput = {
   representativeEmail?: string | null
   productsToBeDisplayed?: string | null
   willingToExportToGCC?: boolean
+  gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   sector?: Prisma.SectorCreateNestedOneWithoutCompaniesInput
   subSector?: Prisma.SubSectorCreateNestedOneWithoutCompaniesInput
@@ -1137,6 +1163,7 @@ export type CompanyUncheckedCreateWithoutSubSectorsInput = {
   representativeEmail?: string | null
   productsToBeDisplayed?: string | null
   willingToExportToGCC?: boolean
+  gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   sectorId?: number | null
   subSectorId?: number | null
   createdAt?: Date | string
@@ -1175,6 +1202,7 @@ export type CompanyUpdateWithoutSubSectorsInput = {
   representativeEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   productsToBeDisplayed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   willingToExportToGCC?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sector?: Prisma.SectorUpdateOneWithoutCompaniesNestedInput
   subSector?: Prisma.SubSectorUpdateOneWithoutCompaniesNestedInput
@@ -1198,6 +1226,7 @@ export type CompanyUncheckedUpdateWithoutSubSectorsInput = {
   representativeEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   productsToBeDisplayed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   willingToExportToGCC?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   sectorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   subSectorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1220,6 +1249,7 @@ export type CompanyCreateWithoutEventParticipationsInput = {
   representativeEmail?: string | null
   productsToBeDisplayed?: string | null
   willingToExportToGCC?: boolean
+  gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   sector?: Prisma.SectorCreateNestedOneWithoutCompaniesInput
   subSector?: Prisma.SubSectorCreateNestedOneWithoutCompaniesInput
@@ -1243,6 +1273,7 @@ export type CompanyUncheckedCreateWithoutEventParticipationsInput = {
   representativeEmail?: string | null
   productsToBeDisplayed?: string | null
   willingToExportToGCC?: boolean
+  gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   sectorId?: number | null
   subSectorId?: number | null
   createdAt?: Date | string
@@ -1281,6 +1312,7 @@ export type CompanyUpdateWithoutEventParticipationsInput = {
   representativeEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   productsToBeDisplayed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   willingToExportToGCC?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sector?: Prisma.SectorUpdateOneWithoutCompaniesNestedInput
   subSector?: Prisma.SubSectorUpdateOneWithoutCompaniesNestedInput
@@ -1304,6 +1336,7 @@ export type CompanyUncheckedUpdateWithoutEventParticipationsInput = {
   representativeEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   productsToBeDisplayed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   willingToExportToGCC?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   sectorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   subSectorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1326,6 +1359,7 @@ export type CompanyCreateWithoutEmailStatusesInput = {
   representativeEmail?: string | null
   productsToBeDisplayed?: string | null
   willingToExportToGCC?: boolean
+  gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   sector?: Prisma.SectorCreateNestedOneWithoutCompaniesInput
   subSector?: Prisma.SubSectorCreateNestedOneWithoutCompaniesInput
@@ -1349,6 +1383,7 @@ export type CompanyUncheckedCreateWithoutEmailStatusesInput = {
   representativeEmail?: string | null
   productsToBeDisplayed?: string | null
   willingToExportToGCC?: boolean
+  gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   sectorId?: number | null
   subSectorId?: number | null
   createdAt?: Date | string
@@ -1387,6 +1422,7 @@ export type CompanyUpdateWithoutEmailStatusesInput = {
   representativeEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   productsToBeDisplayed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   willingToExportToGCC?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sector?: Prisma.SectorUpdateOneWithoutCompaniesNestedInput
   subSector?: Prisma.SubSectorUpdateOneWithoutCompaniesNestedInput
@@ -1410,6 +1446,7 @@ export type CompanyUncheckedUpdateWithoutEmailStatusesInput = {
   representativeEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   productsToBeDisplayed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   willingToExportToGCC?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   sectorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   subSectorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1432,6 +1469,7 @@ export type CompanyCreateWithoutFeedbacksInput = {
   representativeEmail?: string | null
   productsToBeDisplayed?: string | null
   willingToExportToGCC?: boolean
+  gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   sector?: Prisma.SectorCreateNestedOneWithoutCompaniesInput
   subSector?: Prisma.SubSectorCreateNestedOneWithoutCompaniesInput
@@ -1455,6 +1493,7 @@ export type CompanyUncheckedCreateWithoutFeedbacksInput = {
   representativeEmail?: string | null
   productsToBeDisplayed?: string | null
   willingToExportToGCC?: boolean
+  gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   sectorId?: number | null
   subSectorId?: number | null
   createdAt?: Date | string
@@ -1493,6 +1532,7 @@ export type CompanyUpdateWithoutFeedbacksInput = {
   representativeEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   productsToBeDisplayed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   willingToExportToGCC?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sector?: Prisma.SectorUpdateOneWithoutCompaniesNestedInput
   subSector?: Prisma.SubSectorUpdateOneWithoutCompaniesNestedInput
@@ -1516,6 +1556,7 @@ export type CompanyUncheckedUpdateWithoutFeedbacksInput = {
   representativeEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   productsToBeDisplayed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   willingToExportToGCC?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   sectorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   subSectorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1538,6 +1579,7 @@ export type CompanyCreateWithoutDelegationParticipationsInput = {
   representativeEmail?: string | null
   productsToBeDisplayed?: string | null
   willingToExportToGCC?: boolean
+  gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   sector?: Prisma.SectorCreateNestedOneWithoutCompaniesInput
   subSector?: Prisma.SubSectorCreateNestedOneWithoutCompaniesInput
@@ -1561,6 +1603,7 @@ export type CompanyUncheckedCreateWithoutDelegationParticipationsInput = {
   representativeEmail?: string | null
   productsToBeDisplayed?: string | null
   willingToExportToGCC?: boolean
+  gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   sectorId?: number | null
   subSectorId?: number | null
   createdAt?: Date | string
@@ -1599,6 +1642,7 @@ export type CompanyUpdateWithoutDelegationParticipationsInput = {
   representativeEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   productsToBeDisplayed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   willingToExportToGCC?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sector?: Prisma.SectorUpdateOneWithoutCompaniesNestedInput
   subSector?: Prisma.SubSectorUpdateOneWithoutCompaniesNestedInput
@@ -1622,6 +1666,7 @@ export type CompanyUncheckedUpdateWithoutDelegationParticipationsInput = {
   representativeEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   productsToBeDisplayed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   willingToExportToGCC?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   sectorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   subSectorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1645,6 +1690,7 @@ export type CompanyCreateManySectorInput = {
   representativeEmail?: string | null
   productsToBeDisplayed?: string | null
   willingToExportToGCC?: boolean
+  gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   subSectorId?: number | null
   createdAt?: Date | string
 }
@@ -1661,6 +1707,7 @@ export type CompanyUpdateWithoutSectorInput = {
   representativeEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   productsToBeDisplayed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   willingToExportToGCC?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subSector?: Prisma.SubSectorUpdateOneWithoutCompaniesNestedInput
   sectors?: Prisma.CompanySectorUpdateManyWithoutCompanyNestedInput
@@ -1684,6 +1731,7 @@ export type CompanyUncheckedUpdateWithoutSectorInput = {
   representativeEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   productsToBeDisplayed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   willingToExportToGCC?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   subSectorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sectors?: Prisma.CompanySectorUncheckedUpdateManyWithoutCompanyNestedInput
@@ -1707,6 +1755,7 @@ export type CompanyUncheckedUpdateManyWithoutSectorInput = {
   representativeEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   productsToBeDisplayed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   willingToExportToGCC?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   subSectorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1724,6 +1773,7 @@ export type CompanyCreateManySubSectorInput = {
   representativeEmail?: string | null
   productsToBeDisplayed?: string | null
   willingToExportToGCC?: boolean
+  gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   sectorId?: number | null
   createdAt?: Date | string
 }
@@ -1740,6 +1790,7 @@ export type CompanyUpdateWithoutSubSectorInput = {
   representativeEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   productsToBeDisplayed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   willingToExportToGCC?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sector?: Prisma.SectorUpdateOneWithoutCompaniesNestedInput
   sectors?: Prisma.CompanySectorUpdateManyWithoutCompanyNestedInput
@@ -1763,6 +1814,7 @@ export type CompanyUncheckedUpdateWithoutSubSectorInput = {
   representativeEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   productsToBeDisplayed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   willingToExportToGCC?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   sectorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sectors?: Prisma.CompanySectorUncheckedUpdateManyWithoutCompanyNestedInput
@@ -1786,6 +1838,7 @@ export type CompanyUncheckedUpdateManyWithoutSubSectorInput = {
   representativeEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   productsToBeDisplayed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   willingToExportToGCC?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   sectorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1879,6 +1932,7 @@ export type CompanySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   representativeEmail?: boolean
   productsToBeDisplayed?: boolean
   willingToExportToGCC?: boolean
+  gccCountries?: boolean
   sectorId?: boolean
   subSectorId?: boolean
   createdAt?: boolean
@@ -1908,12 +1962,13 @@ export type CompanySelectScalar = {
   representativeEmail?: boolean
   productsToBeDisplayed?: boolean
   willingToExportToGCC?: boolean
+  gccCountries?: boolean
   sectorId?: boolean
   subSectorId?: boolean
   createdAt?: boolean
 }
 
-export type CompanyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "profile" | "address" | "email" | "website" | "representativeName" | "representativeTel" | "representativeWhatsapp" | "representativeEmail" | "productsToBeDisplayed" | "willingToExportToGCC" | "sectorId" | "subSectorId" | "createdAt", ExtArgs["result"]["company"]>
+export type CompanyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "profile" | "address" | "email" | "website" | "representativeName" | "representativeTel" | "representativeWhatsapp" | "representativeEmail" | "productsToBeDisplayed" | "willingToExportToGCC" | "gccCountries" | "sectorId" | "subSectorId" | "createdAt", ExtArgs["result"]["company"]>
 export type CompanyInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   sector?: boolean | Prisma.Company$sectorArgs<ExtArgs>
   subSector?: boolean | Prisma.Company$subSectorArgs<ExtArgs>
@@ -1951,6 +2006,7 @@ export type $CompanyPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     representativeEmail: string | null
     productsToBeDisplayed: string | null
     willingToExportToGCC: boolean
+    gccCountries: runtime.JsonValue
     sectorId: number | null
     subSectorId: number | null
     createdAt: Date
@@ -2343,6 +2399,7 @@ export interface CompanyFieldRefs {
   readonly representativeEmail: Prisma.FieldRef<"Company", 'String'>
   readonly productsToBeDisplayed: Prisma.FieldRef<"Company", 'String'>
   readonly willingToExportToGCC: Prisma.FieldRef<"Company", 'Boolean'>
+  readonly gccCountries: Prisma.FieldRef<"Company", 'Json'>
   readonly sectorId: Prisma.FieldRef<"Company", 'Int'>
   readonly subSectorId: Prisma.FieldRef<"Company", 'Int'>
   readonly createdAt: Prisma.FieldRef<"Company", 'DateTime'>

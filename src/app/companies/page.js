@@ -4,10 +4,18 @@ import { useState, useEffect } from 'react';
 import CompanyCard from '../../components/CompanyCard';
 import SearchableSelect from '../../components/SearchableSelect';
 
+const GCC_COUNTRIES = ['UAE', 'KSA', 'Qatar', 'Kuwait', 'Bahrain', 'Oman'];
+
 export default function CompaniesPage() {
   const [companies, setCompanies] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [filters, setFilters] = useState({ search: '', sector: '', subSector: '', gcc: '' });
+  const [filters, setFilters] = useState({
+    search: '',
+    sector: '',
+    subSector: '',
+    gcc: '',
+    gccCountries: [],
+  });
   const [sectors, setSectors] = useState([]);
   const [subSectors, setSubSectors] = useState([]);
 
@@ -20,6 +28,7 @@ export default function CompaniesPage() {
         if (filters.sector) params.append('sector', filters.sector);
         if (filters.subSector) params.append('sub_sector', filters.subSector);
         if (filters.gcc) params.append('gcc', filters.gcc);
+        filters.gccCountries.forEach(c => params.append('gcc_country', c));
         const res = await fetch(`/api/companies?${params}`);
         const data = await res.json();
         setCompanies(data.companies);
@@ -50,8 +59,17 @@ export default function CompaniesPage() {
     setFilters(prev => ({ ...prev, [name]: value }));
   };
 
-  const clearFilters = () => setFilters({ search: '', sector: '', subSector: '', gcc: '' });
-  const hasActiveFilters = filters.search || filters.sector || filters.subSector;
+  const toggleGccCountry = (country) => {
+    setFilters(prev => ({
+      ...prev,
+      gccCountries: prev.gccCountries.includes(country)
+        ? prev.gccCountries.filter(c => c !== country)
+        : [...prev.gccCountries, country],
+    }));
+  };
+
+  const clearFilters = () => setFilters({ search: '', sector: '', subSector: '', gcc: '', gccCountries: [] });
+  const hasActiveFilters = filters.search || filters.sector || filters.subSector || filters.gcc || filters.gccCountries.length > 0;
 
   return (
     <div className="page-wrapper px-4">
@@ -81,7 +99,8 @@ export default function CompaniesPage() {
             )}
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          {/* Row 1 — dropdowns */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-5">
             <div>
               <label className="block text-sm font-medium text-secondary mb-2">Search</label>
               <input
@@ -127,6 +146,41 @@ export default function CompaniesPage() {
                 <option value="">All Companies</option>
                 <option value="true">Willing to Export to GCC</option>
               </select>
+            </div>
+          </div>
+
+          {/* Row 2 — GCC country multi-select */}
+          <div>
+            <label className="block text-sm font-medium text-secondary mb-2">
+              GCC Target Countries
+              {filters.gccCountries.length > 0 && (
+                <span className="ml-2 text-xs font-semibold text-accent-green">
+                  {filters.gccCountries.length} selected
+                </span>
+              )}
+            </label>
+            <div className="flex flex-wrap gap-2">
+              {GCC_COUNTRIES.map(country => {
+                const selected = filters.gccCountries.includes(country);
+                return (
+                  <button
+                    key={country}
+                    type="button"
+                    onClick={() => toggleGccCountry(country)}
+                    className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium border transition-colors focus:outline-none focus:ring-2 focus:ring-green-500 ${selected
+                      ? 'bg-green-700 text-white border-green-700'
+                      : 'bg-white/10 text-secondary border-white/20 hover:border-green-500 hover:text-white'
+                      }`}
+                  >
+                    {selected && (
+                      <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                      </svg>
+                    )}
+                    {country}
+                  </button>
+                );
+              })}
             </div>
           </div>
         </div>

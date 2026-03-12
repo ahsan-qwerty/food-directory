@@ -6,11 +6,13 @@ import Link from 'next/link';
 
 export default function RegisterPage() {
     const router = useRouter();
-    const [sectors, setSectors]       = useState([]);
+    const [sectors, setSectors] = useState([]);
     const [subSectors, setSubSectors] = useState([]);
-    const [loading, setLoading]       = useState(false);
-    const [error, setError]           = useState('');
-    const [success, setSuccess]       = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState('');
+    const [success, setSuccess] = useState(false);
+
+    const GCC_COUNTRIES = ['UAE', 'KSA', 'Qatar', 'Kuwait', 'Bahrain', 'Oman'];
 
     const [formData, setFormData] = useState({
         name: '',
@@ -23,6 +25,8 @@ export default function RegisterPage() {
         representativeWhatsapp: '',
         representativeEmail: '',
         productsToBeDisplayed: '',
+        willingToExportToGCC: false,
+        gccCountries: [],
         sectorIds: [],
         subSectorIds: [],
     });
@@ -70,6 +74,15 @@ export default function RegisterPage() {
             subSectorIds: prev.subSectorIds.includes(id)
                 ? prev.subSectorIds.filter(s => s !== id)
                 : [...prev.subSectorIds, id],
+        }));
+    };
+
+    const toggleGccCountry = (country) => {
+        setFormData(prev => ({
+            ...prev,
+            gccCountries: prev.gccCountries.includes(country)
+                ? prev.gccCountries.filter(c => c !== country)
+                : [...prev.gccCountries, country],
         }));
     };
 
@@ -199,6 +212,63 @@ export default function RegisterPage() {
                                     placeholder="List products your company will display (comma separated)"
                                     className="glass-input w-full px-3 py-2"
                                 />
+                            </div>
+
+                            {/* GCC Export toggle */}
+                            <div className="md:col-span-2">
+                                <label className="flex items-center gap-3 cursor-pointer select-none">
+                                    <button
+                                        type="button"
+                                        role="switch"
+                                        aria-checked={formData.willingToExportToGCC}
+                                        onClick={() => setFormData(prev => ({ ...prev, willingToExportToGCC: !prev.willingToExportToGCC }))}
+                                        className={`relative inline-flex h-6 w-11 flex-shrink-0 rounded-full border-2 border-transparent transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:ring-offset-transparent ${formData.willingToExportToGCC ? 'bg-green-600' : 'bg-white/20'}`}
+                                    >
+                                        <span className={`pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow transform transition duration-200 ${formData.willingToExportToGCC ? 'translate-x-5' : 'translate-x-0'}`} />
+                                    </button>
+                                    <span className="text-sm font-medium text-secondary">
+                                        Willing to Export to GCC
+                                        {formData.willingToExportToGCC && (
+                                            <span className="ml-2 text-xs font-semibold text-accent-green">Yes</span>
+                                        )}
+                                    </span>
+                                </label>
+                            </div>
+
+                            {/* GCC target countries */}
+                            <div className="md:col-span-2">
+                                <FormLabel>
+                                    Target GCC Countries
+                                    <span className="ml-1 text-xs font-normal text-muted">(select all that apply)</span>
+                                </FormLabel>
+                                <div className="flex flex-wrap gap-2">
+                                    {GCC_COUNTRIES.map(country => {
+                                        const selected = formData.gccCountries.includes(country);
+                                        return (
+                                            <button
+                                                key={country}
+                                                type="button"
+                                                onClick={() => toggleGccCountry(country)}
+                                                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium border transition-colors focus:outline-none focus:ring-2 focus:ring-green-500 ${selected
+                                                    ? 'bg-green-700 text-white border-green-700'
+                                                    : 'bg-white/10 text-secondary border-white/20 hover:border-green-500 hover:text-white'
+                                                    }`}
+                                            >
+                                                {selected && (
+                                                    <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
+                                                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                                                    </svg>
+                                                )}
+                                                {country}
+                                            </button>
+                                        );
+                                    })}
+                                </div>
+                                {formData.gccCountries.length > 0 && (
+                                    <p className="mt-2 text-xs text-accent-green font-medium">
+                                        {formData.gccCountries.length} countr{formData.gccCountries.length > 1 ? 'ies' : 'y'} selected
+                                    </p>
+                                )}
                             </div>
                         </div>
                     </Section>

@@ -34,20 +34,77 @@ const adapter = new PrismaMariaDb({
 const prisma = new PrismaClient({ adapter })
 
 const subsectorData: Prisma.SubSectorCreateInput[] = [
-    { name: 'Maize', hsCode: '1006', sector: { connect: { name: 'Cereals' } } },
+    // { name: 'Preparations used in animal feeding', hsCode: '1006', sector: { connect: { name: 'Animal Feed' } } },
+    // { name: 'Oil cake', hsCode: '1006', sector: { connect: { name: 'Animal Feed' } } },
+    // { name: 'Feed supplements', hsCode: '1006', sector: { connect: { name: 'Animal Feed' } } },
+
+    // { name: 'Oil seeds', hsCode: '1006', sector: { connect: { name: 'Oil Seeds & Oils' } } },
+    // { name: 'Oleaginous fruits', hsCode: '1006', sector: { connect: { name: 'Oil Seeds & Oils' } } },
+    // { name: 'Vegetable & animal oils and fats', hsCode: '1006', sector: { connect: { name: 'Oil Seeds & Oils' } } },
+
+    // { name: 'Maize', hsCode: '1006', sector: { connect: { name: 'Cereals' } } },
+    // { name: 'Maize', hsCode: '1006', sector: { connect: { name: 'Cereals' } } },
+    // { name: 'Wheat', hsCode: '1006', sector: { connect: { name: 'Cereals' } } },
+    // { name: 'Cereal flours', hsCode: '1006', sector: { connect: { name: 'Cereals' } } },
+    // { name: 'Malt', hsCode: '1006', sector: { connect: { name: 'Cereals' } } },
+    // { name: 'Starches', hsCode: '1006', sector: { connect: { name: 'Cereals' } } },
+
     // { name: 'Fruits', hsCode: '0811', sector: { connect: { name: 'Fruit and Vegetables' } } },
+    // { name: 'Fresh, Chilled, Frozen, Dried Fruits & Vegetables;', hsCode: '0811', sector: { connect: { name: 'Fruit and Vegetables' } } },
+    // { name: 'Edible Plant Parts', hsCode: '0811', sector: { connect: { name: 'Fruit and Vegetables' } } },
+
     // { name: 'Beverages', hsCode: '2206', sector: { connect: { name: 'Processed Food, Bakery, Beverages, Juices' } } },
+    // { name: 'Bakery items', hsCode: '2206', sector: { connect: { name: 'Processed Food, Bakery, Beverages, Juices' } } },
+    // { name: 'Pasta', hsCode: '2206', sector: { connect: { name: 'Processed Food, Bakery, Beverages, Juices' } } },
+    // { name: 'Processed fruits & vegetables', hsCode: '2206', sector: { connect: { name: 'Processed Food, Bakery, Beverages, Juices' } } },
+    // { name: 'Sauces', hsCode: '2206', sector: { connect: { name: 'Processed Food, Bakery, Beverages, Juices' } } },
+    // { name: 'Non-alcoholic drinks', hsCode: '2206', sector: { connect: { name: 'Processed Food, Bakery, Beverages, Juices' } } },
+
     // { name: 'Sugar Confectionary', hsCode: '1704', sector: { connect: { name: 'Sugar and Confectionary' } } },
-    // { name: 'Dry Fruits', hsCode: '1703', sector: { connect: { name: 'Sugar and Confectionary' } } },
+    // { name: 'Raw/refined sugar', hsCode: '1703', sector: { connect: { name: 'Sugar and Confectionary' } } },
+    // { name: 'Sugar syrups', hsCode: '1703', sector: { connect: { name: 'Sugar and Confectionary' } } },
+    // { name: 'Cocoa products', hsCode: '1703', sector: { connect: { name: 'Sugar and Confectionary' } } },
+
+
     // { name: 'Oil & Ghee', hsCode: '1703', sector: { connect: { name: 'Oil & Ghee/Oil' } } },
+
     // { name: 'Salt', hsCode: '1703', sector: { connect: { name: 'Salt' } } },
+    // { name: 'Salt(table, industrial, edible)', hsCode: '1703', sector: { connect: { name: 'Salt' } } },
+    // { name: 'Pure sodium chloride', hsCode: '1703', sector: { connect: { name: 'Salt' } } },
+
     // { name: 'fisheries', hsCode: '1703', sector: { connect: { name: 'Sea Food & Fisheries' } } },
+
+    // { name: 'Fresh & Frozen Fish', hsCode: '1703', sector: { connect: { name: 'Sea Food & Fisheries' } } },
+    // { name: 'Crustaceans', hsCode: '1703', sector: { connect: { name: 'Sea Food & Fisheries' } } },
+    // { name: 'Molluscs', hsCode: '1703', sector: { connect: { name: 'Sea Food & Fisheries' } } },
+    // { name: 'Processed Seafood', hsCode: '1703', sector: { connect: { name: 'Sea Food & Fisheries' } } },
+    // { name: 'Fish Meal', hsCode: '1703', sector: { connect: { name: 'Sea Food & Fisheries' } } },
     // { name: 'Spices', hsCode: '1703', sector: { connect: { name: 'FMCG' } } },
+
+    // { name: 'Whole and Ground Spices', hsCode: '1703', sector: { connect: { name: 'Spices' } } },
+    // { name: 'Seeds used as Spices', hsCode: '1703', sector: { connect: { name: 'Spices' } } },
+
     // { name: 'Poultry', hsCode: '1703', sector: { connect: { name: 'Meat, Poultry & Diary' } } },
+    // { name: 'Live Animals', hsCode: '1703', sector: { connect: { name: 'Meat, Poultry & Diary' } } },
+    // { name: 'Fresh & Frozen Meat', hsCode: '1703', sector: { connect: { name: 'Meat, Poultry & Diary' } } },
+    // { name: 'Diary Products', hsCode: '1703', sector: { connect: { name: 'Meat, Poultry & Diary' } } },
+    // { name: 'Animal By-Products', hsCode: '1703', sector: { connect: { name: 'Meat, Poultry & Diary' } } },
     // { name: 'Honey', hsCode: '1703', sector: { connect: { name: 'Honey' } } },
+
     // { name: 'Floriculture', hsCode: '1703', sector: { connect: { name: 'Floriculture' } } },
+    // { name: 'Live Plants', hsCode: '1703', sector: { connect: { name: 'Floriculture' } } },
+    // { name: 'Cut Flowers', hsCode: '1703', sector: { connect: { name: 'Floriculture' } } },
+    // { name: 'Buds', hsCode: '1703', sector: { connect: { name: 'Floriculture' } } },
+    // { name: 'Ornamental Foliage', hsCode: '1703', sector: { connect: { name: 'Floriculture' } } },
+
     // { name: 'Agritech', hsCode: '1703', sector: { connect: { name: 'Machinery/Technology (Food & Agri)' } } },
+    // { name: 'Food Processing Machinery', hsCode: '1703', sector: { connect: { name: 'Machinery/Technology (Food & Agri)' } } },
+    // { name: 'Packing Machines', hsCode: '1703', sector: { connect: { name: 'Machinery/Technology (Food & Agri)' } } },
+    // { name: 'Agricultural Machinery', hsCode: '1703', sector: { connect: { name: 'Machinery/Technology (Food & Agri)' } } },
+
     // { name: 'Tobacco', hsCode: '1703', sector: { connect: { name: 'Tobacco' } } },
+    // { name: 'Unmanufactured tobacco', hsCode: '1703', sector: { connect: { name: 'Tobacco' } } },
+    // { name: 'Manufactured tobacco products', hsCode: '1703', sector: { connect: { name: 'Tobacco' } } },
 ]
 
 // const subsectorData: Prisma.SubSectorCreateInput[] = [
