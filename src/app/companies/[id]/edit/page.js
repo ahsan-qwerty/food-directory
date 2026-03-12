@@ -28,6 +28,7 @@ export default function EditCompanyPage() {
         representativeWhatsapp: '',
         representativeEmail: '',
         productsToBeDisplayed: '',
+        willingToExportToGCC: false,
         sectorIds: [],
         subSectorIds: [],
     });
@@ -57,6 +58,7 @@ export default function EditCompanyPage() {
                     representativeWhatsapp: c.representativeWhatsapp || '',
                     representativeEmail: c.representativeEmail || '',
                     productsToBeDisplayed: c.productsToBeDisplayed || '',
+                    willingToExportToGCC: Boolean(c.willingToExportToGCC),
                     sectorIds: c.sectorIds || (c.sectorId ? [c.sectorId] : []),
                     subSectorIds: c.subSectorIds || (c.subSectorId ? [c.subSectorId] : []),
                 });
@@ -226,6 +228,27 @@ export default function EditCompanyPage() {
                                     value={formData.productsToBeDisplayed} onChange={handleChange}
                                     className="glass-input w-full px-3 py-2"
                                 />
+                            </div>
+                            <div className="md:col-span-2">
+                                <label className="flex items-center gap-3 cursor-pointer select-none">
+                                    <button
+                                        type="button"
+                                        role="switch"
+                                        aria-checked={formData.willingToExportToGCC}
+                                        onClick={() => setFormData(prev => ({ ...prev, willingToExportToGCC: !prev.willingToExportToGCC }))}
+                                        className={`relative inline-flex h-6 w-11 flex-shrink-0 rounded-full border-2 border-transparent transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:ring-offset-transparent ${formData.willingToExportToGCC ? 'bg-green-600' : 'bg-white/20'}`}
+                                    >
+                                        <span
+                                            className={`pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow transform transition duration-200 ${formData.willingToExportToGCC ? 'translate-x-5' : 'translate-x-0'}`}
+                                        />
+                                    </button>
+                                    <span className="text-sm font-medium text-secondary">
+                                        Willing to Export to GCC
+                                        {formData.willingToExportToGCC && (
+                                            <span className="ml-2 text-xs font-semibold text-accent-green">Yes</span>
+                                        )}
+                                    </span>
+                                </label>
                             </div>
                         </div>
                     </Section>

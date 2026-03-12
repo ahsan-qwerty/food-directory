@@ -37,8 +37,13 @@ export async function GET(request) {
   const query = searchParams.get('q');
   const sector = searchParams.get('sector');
   const subSector = searchParams.get('sub_sector');
+  const gcc = searchParams.get('gcc');
 
   const where = {};
+
+  if (gcc === 'true') {
+    where.willingToExportToGCC = true;
+  }
 
   if (query) {
     where.OR = [
@@ -131,6 +136,7 @@ export async function PUT(request) {
           representativeWhatsapp: body.representativeWhatsapp?.trim() || null,
           representativeEmail: body.representativeEmail?.trim() || null,
           productsToBeDisplayed: body.productsToBeDisplayed?.trim() || null,
+          willingToExportToGCC: Boolean(body.willingToExportToGCC),
           sectorId: sectorIds[0] ?? null,
           subSectorId: subSectorIds[0] ?? null,
           sectors: sectorIds.length > 0 ? { create: sectorIds.map(id => ({ sectorId: id })) } : undefined,

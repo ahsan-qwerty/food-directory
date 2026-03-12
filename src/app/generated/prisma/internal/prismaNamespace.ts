@@ -1558,6 +1558,7 @@ export const CompanyScalarFieldEnum = {
   representativeWhatsapp: 'representativeWhatsapp',
   representativeEmail: 'representativeEmail',
   productsToBeDisplayed: 'productsToBeDisplayed',
+  willingToExportToGCC: 'willingToExportToGCC',
   sectorId: 'sectorId',
   subSectorId: 'subSectorId',
   createdAt: 'createdAt'
@@ -1933,6 +1934,13 @@ export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel
 
 
 /**
+ * Reference to a field of type 'Boolean'
+ */
+export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+/**
  * Reference to a field of type 'EventStatus'
  */
 export type EnumEventStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EventStatus'>
@@ -1950,13 +1958,6 @@ export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel,
  * Reference to a field of type 'FeedbackSource'
  */
 export type EnumFeedbackSourceFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FeedbackSource'>
-    
-
-
-/**
- * Reference to a field of type 'Boolean'
- */
-export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 

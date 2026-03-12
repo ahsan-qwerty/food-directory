@@ -6,7 +6,7 @@ import CompanyCard from '../../components/CompanyCard';
 export default function CompaniesPage() {
   const [companies, setCompanies] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [filters, setFilters] = useState({ search: '', sector: '', subSector: '' });
+  const [filters, setFilters] = useState({ search: '', sector: '', subSector: '', gcc: '' });
   const [sectors, setSectors] = useState([]);
   const [subSectors, setSubSectors] = useState([]);
 
@@ -18,6 +18,7 @@ export default function CompaniesPage() {
         if (filters.search) params.append('q', filters.search);
         if (filters.sector) params.append('sector', filters.sector);
         if (filters.subSector) params.append('sub_sector', filters.subSector);
+        if (filters.gcc) params.append('gcc', filters.gcc);
         const res = await fetch(`/api/companies?${params}`);
         const data = await res.json();
         setCompanies(data.companies);
@@ -54,7 +55,7 @@ export default function CompaniesPage() {
     }));
   };
 
-  const clearFilters = () => setFilters({ search: '', sector: '', subSector: '' });
+  const clearFilters = () => setFilters({ search: '', sector: '', subSector: '', gcc: '' });
   const hasActiveFilters = filters.search || filters.sector || filters.subSector;
 
   return (
@@ -85,7 +86,7 @@ export default function CompaniesPage() {
             )}
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <div>
               <label className="block text-sm font-medium text-secondary mb-2">Search</label>
               <input
@@ -125,6 +126,18 @@ export default function CompaniesPage() {
                 {subSectors.map(ss => (
                   <option key={ss.id} value={ss.id}>{ss.name}</option>
                 ))}
+              </select>
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-secondary mb-2">GCC Export</label>
+              <select
+                value={filters.gcc}
+                onChange={e => handleFilterChange('gcc', e.target.value)}
+                className="glass-input w-full px-3 py-2"
+              >
+                <option value="">All Companies</option>
+                <option value="true">Willing to Export to GCC</option>
               </select>
             </div>
           </div>

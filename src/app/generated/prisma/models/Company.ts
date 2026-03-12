@@ -50,6 +50,7 @@ export type CompanyMinAggregateOutputType = {
   representativeWhatsapp: string | null
   representativeEmail: string | null
   productsToBeDisplayed: string | null
+  willingToExportToGCC: boolean | null
   sectorId: number | null
   subSectorId: number | null
   createdAt: Date | null
@@ -67,6 +68,7 @@ export type CompanyMaxAggregateOutputType = {
   representativeWhatsapp: string | null
   representativeEmail: string | null
   productsToBeDisplayed: string | null
+  willingToExportToGCC: boolean | null
   sectorId: number | null
   subSectorId: number | null
   createdAt: Date | null
@@ -84,6 +86,7 @@ export type CompanyCountAggregateOutputType = {
   representativeWhatsapp: number
   representativeEmail: number
   productsToBeDisplayed: number
+  willingToExportToGCC: number
   sectorId: number
   subSectorId: number
   createdAt: number
@@ -115,6 +118,7 @@ export type CompanyMinAggregateInputType = {
   representativeWhatsapp?: true
   representativeEmail?: true
   productsToBeDisplayed?: true
+  willingToExportToGCC?: true
   sectorId?: true
   subSectorId?: true
   createdAt?: true
@@ -132,6 +136,7 @@ export type CompanyMaxAggregateInputType = {
   representativeWhatsapp?: true
   representativeEmail?: true
   productsToBeDisplayed?: true
+  willingToExportToGCC?: true
   sectorId?: true
   subSectorId?: true
   createdAt?: true
@@ -149,6 +154,7 @@ export type CompanyCountAggregateInputType = {
   representativeWhatsapp?: true
   representativeEmail?: true
   productsToBeDisplayed?: true
+  willingToExportToGCC?: true
   sectorId?: true
   subSectorId?: true
   createdAt?: true
@@ -253,6 +259,7 @@ export type CompanyGroupByOutputType = {
   representativeWhatsapp: string | null
   representativeEmail: string | null
   productsToBeDisplayed: string | null
+  willingToExportToGCC: boolean
   sectorId: number | null
   subSectorId: number | null
   createdAt: Date
@@ -293,6 +300,7 @@ export type CompanyWhereInput = {
   representativeWhatsapp?: Prisma.StringNullableFilter<"Company"> | string | null
   representativeEmail?: Prisma.StringNullableFilter<"Company"> | string | null
   productsToBeDisplayed?: Prisma.StringNullableFilter<"Company"> | string | null
+  willingToExportToGCC?: Prisma.BoolFilter<"Company"> | boolean
   sectorId?: Prisma.IntNullableFilter<"Company"> | number | null
   subSectorId?: Prisma.IntNullableFilter<"Company"> | number | null
   createdAt?: Prisma.DateTimeFilter<"Company"> | Date | string
@@ -318,6 +326,7 @@ export type CompanyOrderByWithRelationInput = {
   representativeWhatsapp?: Prisma.SortOrderInput | Prisma.SortOrder
   representativeEmail?: Prisma.SortOrderInput | Prisma.SortOrder
   productsToBeDisplayed?: Prisma.SortOrderInput | Prisma.SortOrder
+  willingToExportToGCC?: Prisma.SortOrder
   sectorId?: Prisma.SortOrderInput | Prisma.SortOrder
   subSectorId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -347,6 +356,7 @@ export type CompanyWhereUniqueInput = Prisma.AtLeast<{
   representativeWhatsapp?: Prisma.StringNullableFilter<"Company"> | string | null
   representativeEmail?: Prisma.StringNullableFilter<"Company"> | string | null
   productsToBeDisplayed?: Prisma.StringNullableFilter<"Company"> | string | null
+  willingToExportToGCC?: Prisma.BoolFilter<"Company"> | boolean
   sectorId?: Prisma.IntNullableFilter<"Company"> | number | null
   subSectorId?: Prisma.IntNullableFilter<"Company"> | number | null
   createdAt?: Prisma.DateTimeFilter<"Company"> | Date | string
@@ -372,6 +382,7 @@ export type CompanyOrderByWithAggregationInput = {
   representativeWhatsapp?: Prisma.SortOrderInput | Prisma.SortOrder
   representativeEmail?: Prisma.SortOrderInput | Prisma.SortOrder
   productsToBeDisplayed?: Prisma.SortOrderInput | Prisma.SortOrder
+  willingToExportToGCC?: Prisma.SortOrder
   sectorId?: Prisma.SortOrderInput | Prisma.SortOrder
   subSectorId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -397,6 +408,7 @@ export type CompanyScalarWhereWithAggregatesInput = {
   representativeWhatsapp?: Prisma.StringNullableWithAggregatesFilter<"Company"> | string | null
   representativeEmail?: Prisma.StringNullableWithAggregatesFilter<"Company"> | string | null
   productsToBeDisplayed?: Prisma.StringNullableWithAggregatesFilter<"Company"> | string | null
+  willingToExportToGCC?: Prisma.BoolWithAggregatesFilter<"Company"> | boolean
   sectorId?: Prisma.IntNullableWithAggregatesFilter<"Company"> | number | null
   subSectorId?: Prisma.IntNullableWithAggregatesFilter<"Company"> | number | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Company"> | Date | string
@@ -413,6 +425,7 @@ export type CompanyCreateInput = {
   representativeWhatsapp?: string | null
   representativeEmail?: string | null
   productsToBeDisplayed?: string | null
+  willingToExportToGCC?: boolean
   createdAt?: Date | string
   sector?: Prisma.SectorCreateNestedOneWithoutCompaniesInput
   subSector?: Prisma.SubSectorCreateNestedOneWithoutCompaniesInput
@@ -436,6 +449,7 @@ export type CompanyUncheckedCreateInput = {
   representativeWhatsapp?: string | null
   representativeEmail?: string | null
   productsToBeDisplayed?: string | null
+  willingToExportToGCC?: boolean
   sectorId?: number | null
   subSectorId?: number | null
   createdAt?: Date | string
@@ -458,6 +472,7 @@ export type CompanyUpdateInput = {
   representativeWhatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   representativeEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   productsToBeDisplayed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  willingToExportToGCC?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sector?: Prisma.SectorUpdateOneWithoutCompaniesNestedInput
   subSector?: Prisma.SubSectorUpdateOneWithoutCompaniesNestedInput
@@ -481,6 +496,7 @@ export type CompanyUncheckedUpdateInput = {
   representativeWhatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   representativeEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   productsToBeDisplayed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  willingToExportToGCC?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sectorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   subSectorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -504,6 +520,7 @@ export type CompanyCreateManyInput = {
   representativeWhatsapp?: string | null
   representativeEmail?: string | null
   productsToBeDisplayed?: string | null
+  willingToExportToGCC?: boolean
   sectorId?: number | null
   subSectorId?: number | null
   createdAt?: Date | string
@@ -520,6 +537,7 @@ export type CompanyUpdateManyMutationInput = {
   representativeWhatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   representativeEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   productsToBeDisplayed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  willingToExportToGCC?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -535,6 +553,7 @@ export type CompanyUncheckedUpdateManyInput = {
   representativeWhatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   representativeEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   productsToBeDisplayed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  willingToExportToGCC?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sectorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   subSectorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -568,6 +587,7 @@ export type CompanyCountOrderByAggregateInput = {
   representativeWhatsapp?: Prisma.SortOrder
   representativeEmail?: Prisma.SortOrder
   productsToBeDisplayed?: Prisma.SortOrder
+  willingToExportToGCC?: Prisma.SortOrder
   sectorId?: Prisma.SortOrder
   subSectorId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -591,6 +611,7 @@ export type CompanyMaxOrderByAggregateInput = {
   representativeWhatsapp?: Prisma.SortOrder
   representativeEmail?: Prisma.SortOrder
   productsToBeDisplayed?: Prisma.SortOrder
+  willingToExportToGCC?: Prisma.SortOrder
   sectorId?: Prisma.SortOrder
   subSectorId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -608,6 +629,7 @@ export type CompanyMinOrderByAggregateInput = {
   representativeWhatsapp?: Prisma.SortOrder
   representativeEmail?: Prisma.SortOrder
   productsToBeDisplayed?: Prisma.SortOrder
+  willingToExportToGCC?: Prisma.SortOrder
   sectorId?: Prisma.SortOrder
   subSectorId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -711,6 +733,10 @@ export type CompanyUncheckedUpdateManyWithoutSubSectorNestedInput = {
   update?: Prisma.CompanyUpdateWithWhereUniqueWithoutSubSectorInput | Prisma.CompanyUpdateWithWhereUniqueWithoutSubSectorInput[]
   updateMany?: Prisma.CompanyUpdateManyWithWhereWithoutSubSectorInput | Prisma.CompanyUpdateManyWithWhereWithoutSubSectorInput[]
   deleteMany?: Prisma.CompanyScalarWhereInput | Prisma.CompanyScalarWhereInput[]
+}
+
+export type BoolFieldUpdateOperationsInput = {
+  set?: boolean
 }
 
 export type NullableIntFieldUpdateOperationsInput = {
@@ -818,6 +844,7 @@ export type CompanyCreateWithoutSectorInput = {
   representativeWhatsapp?: string | null
   representativeEmail?: string | null
   productsToBeDisplayed?: string | null
+  willingToExportToGCC?: boolean
   createdAt?: Date | string
   subSector?: Prisma.SubSectorCreateNestedOneWithoutCompaniesInput
   sectors?: Prisma.CompanySectorCreateNestedManyWithoutCompanyInput
@@ -840,6 +867,7 @@ export type CompanyUncheckedCreateWithoutSectorInput = {
   representativeWhatsapp?: string | null
   representativeEmail?: string | null
   productsToBeDisplayed?: string | null
+  willingToExportToGCC?: boolean
   subSectorId?: number | null
   createdAt?: Date | string
   sectors?: Prisma.CompanySectorUncheckedCreateNestedManyWithoutCompanyInput
@@ -891,6 +919,7 @@ export type CompanyScalarWhereInput = {
   representativeWhatsapp?: Prisma.StringNullableFilter<"Company"> | string | null
   representativeEmail?: Prisma.StringNullableFilter<"Company"> | string | null
   productsToBeDisplayed?: Prisma.StringNullableFilter<"Company"> | string | null
+  willingToExportToGCC?: Prisma.BoolFilter<"Company"> | boolean
   sectorId?: Prisma.IntNullableFilter<"Company"> | number | null
   subSectorId?: Prisma.IntNullableFilter<"Company"> | number | null
   createdAt?: Prisma.DateTimeFilter<"Company"> | Date | string
@@ -907,6 +936,7 @@ export type CompanyCreateWithoutSubSectorInput = {
   representativeWhatsapp?: string | null
   representativeEmail?: string | null
   productsToBeDisplayed?: string | null
+  willingToExportToGCC?: boolean
   createdAt?: Date | string
   sector?: Prisma.SectorCreateNestedOneWithoutCompaniesInput
   sectors?: Prisma.CompanySectorCreateNestedManyWithoutCompanyInput
@@ -929,6 +959,7 @@ export type CompanyUncheckedCreateWithoutSubSectorInput = {
   representativeWhatsapp?: string | null
   representativeEmail?: string | null
   productsToBeDisplayed?: string | null
+  willingToExportToGCC?: boolean
   sectorId?: number | null
   createdAt?: Date | string
   sectors?: Prisma.CompanySectorUncheckedCreateNestedManyWithoutCompanyInput
@@ -976,6 +1007,7 @@ export type CompanyCreateWithoutSectorsInput = {
   representativeWhatsapp?: string | null
   representativeEmail?: string | null
   productsToBeDisplayed?: string | null
+  willingToExportToGCC?: boolean
   createdAt?: Date | string
   sector?: Prisma.SectorCreateNestedOneWithoutCompaniesInput
   subSector?: Prisma.SubSectorCreateNestedOneWithoutCompaniesInput
@@ -998,6 +1030,7 @@ export type CompanyUncheckedCreateWithoutSectorsInput = {
   representativeWhatsapp?: string | null
   representativeEmail?: string | null
   productsToBeDisplayed?: string | null
+  willingToExportToGCC?: boolean
   sectorId?: number | null
   subSectorId?: number | null
   createdAt?: Date | string
@@ -1035,6 +1068,7 @@ export type CompanyUpdateWithoutSectorsInput = {
   representativeWhatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   representativeEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   productsToBeDisplayed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  willingToExportToGCC?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sector?: Prisma.SectorUpdateOneWithoutCompaniesNestedInput
   subSector?: Prisma.SubSectorUpdateOneWithoutCompaniesNestedInput
@@ -1057,6 +1091,7 @@ export type CompanyUncheckedUpdateWithoutSectorsInput = {
   representativeWhatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   representativeEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   productsToBeDisplayed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  willingToExportToGCC?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sectorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   subSectorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1078,6 +1113,7 @@ export type CompanyCreateWithoutSubSectorsInput = {
   representativeWhatsapp?: string | null
   representativeEmail?: string | null
   productsToBeDisplayed?: string | null
+  willingToExportToGCC?: boolean
   createdAt?: Date | string
   sector?: Prisma.SectorCreateNestedOneWithoutCompaniesInput
   subSector?: Prisma.SubSectorCreateNestedOneWithoutCompaniesInput
@@ -1100,6 +1136,7 @@ export type CompanyUncheckedCreateWithoutSubSectorsInput = {
   representativeWhatsapp?: string | null
   representativeEmail?: string | null
   productsToBeDisplayed?: string | null
+  willingToExportToGCC?: boolean
   sectorId?: number | null
   subSectorId?: number | null
   createdAt?: Date | string
@@ -1137,6 +1174,7 @@ export type CompanyUpdateWithoutSubSectorsInput = {
   representativeWhatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   representativeEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   productsToBeDisplayed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  willingToExportToGCC?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sector?: Prisma.SectorUpdateOneWithoutCompaniesNestedInput
   subSector?: Prisma.SubSectorUpdateOneWithoutCompaniesNestedInput
@@ -1159,6 +1197,7 @@ export type CompanyUncheckedUpdateWithoutSubSectorsInput = {
   representativeWhatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   representativeEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   productsToBeDisplayed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  willingToExportToGCC?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sectorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   subSectorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1180,6 +1219,7 @@ export type CompanyCreateWithoutEventParticipationsInput = {
   representativeWhatsapp?: string | null
   representativeEmail?: string | null
   productsToBeDisplayed?: string | null
+  willingToExportToGCC?: boolean
   createdAt?: Date | string
   sector?: Prisma.SectorCreateNestedOneWithoutCompaniesInput
   subSector?: Prisma.SubSectorCreateNestedOneWithoutCompaniesInput
@@ -1202,6 +1242,7 @@ export type CompanyUncheckedCreateWithoutEventParticipationsInput = {
   representativeWhatsapp?: string | null
   representativeEmail?: string | null
   productsToBeDisplayed?: string | null
+  willingToExportToGCC?: boolean
   sectorId?: number | null
   subSectorId?: number | null
   createdAt?: Date | string
@@ -1239,6 +1280,7 @@ export type CompanyUpdateWithoutEventParticipationsInput = {
   representativeWhatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   representativeEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   productsToBeDisplayed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  willingToExportToGCC?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sector?: Prisma.SectorUpdateOneWithoutCompaniesNestedInput
   subSector?: Prisma.SubSectorUpdateOneWithoutCompaniesNestedInput
@@ -1261,6 +1303,7 @@ export type CompanyUncheckedUpdateWithoutEventParticipationsInput = {
   representativeWhatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   representativeEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   productsToBeDisplayed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  willingToExportToGCC?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sectorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   subSectorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1282,6 +1325,7 @@ export type CompanyCreateWithoutEmailStatusesInput = {
   representativeWhatsapp?: string | null
   representativeEmail?: string | null
   productsToBeDisplayed?: string | null
+  willingToExportToGCC?: boolean
   createdAt?: Date | string
   sector?: Prisma.SectorCreateNestedOneWithoutCompaniesInput
   subSector?: Prisma.SubSectorCreateNestedOneWithoutCompaniesInput
@@ -1304,6 +1348,7 @@ export type CompanyUncheckedCreateWithoutEmailStatusesInput = {
   representativeWhatsapp?: string | null
   representativeEmail?: string | null
   productsToBeDisplayed?: string | null
+  willingToExportToGCC?: boolean
   sectorId?: number | null
   subSectorId?: number | null
   createdAt?: Date | string
@@ -1341,6 +1386,7 @@ export type CompanyUpdateWithoutEmailStatusesInput = {
   representativeWhatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   representativeEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   productsToBeDisplayed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  willingToExportToGCC?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sector?: Prisma.SectorUpdateOneWithoutCompaniesNestedInput
   subSector?: Prisma.SubSectorUpdateOneWithoutCompaniesNestedInput
@@ -1363,6 +1409,7 @@ export type CompanyUncheckedUpdateWithoutEmailStatusesInput = {
   representativeWhatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   representativeEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   productsToBeDisplayed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  willingToExportToGCC?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sectorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   subSectorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1384,6 +1431,7 @@ export type CompanyCreateWithoutFeedbacksInput = {
   representativeWhatsapp?: string | null
   representativeEmail?: string | null
   productsToBeDisplayed?: string | null
+  willingToExportToGCC?: boolean
   createdAt?: Date | string
   sector?: Prisma.SectorCreateNestedOneWithoutCompaniesInput
   subSector?: Prisma.SubSectorCreateNestedOneWithoutCompaniesInput
@@ -1406,6 +1454,7 @@ export type CompanyUncheckedCreateWithoutFeedbacksInput = {
   representativeWhatsapp?: string | null
   representativeEmail?: string | null
   productsToBeDisplayed?: string | null
+  willingToExportToGCC?: boolean
   sectorId?: number | null
   subSectorId?: number | null
   createdAt?: Date | string
@@ -1443,6 +1492,7 @@ export type CompanyUpdateWithoutFeedbacksInput = {
   representativeWhatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   representativeEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   productsToBeDisplayed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  willingToExportToGCC?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sector?: Prisma.SectorUpdateOneWithoutCompaniesNestedInput
   subSector?: Prisma.SubSectorUpdateOneWithoutCompaniesNestedInput
@@ -1465,6 +1515,7 @@ export type CompanyUncheckedUpdateWithoutFeedbacksInput = {
   representativeWhatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   representativeEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   productsToBeDisplayed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  willingToExportToGCC?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sectorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   subSectorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1486,6 +1537,7 @@ export type CompanyCreateWithoutDelegationParticipationsInput = {
   representativeWhatsapp?: string | null
   representativeEmail?: string | null
   productsToBeDisplayed?: string | null
+  willingToExportToGCC?: boolean
   createdAt?: Date | string
   sector?: Prisma.SectorCreateNestedOneWithoutCompaniesInput
   subSector?: Prisma.SubSectorCreateNestedOneWithoutCompaniesInput
@@ -1508,6 +1560,7 @@ export type CompanyUncheckedCreateWithoutDelegationParticipationsInput = {
   representativeWhatsapp?: string | null
   representativeEmail?: string | null
   productsToBeDisplayed?: string | null
+  willingToExportToGCC?: boolean
   sectorId?: number | null
   subSectorId?: number | null
   createdAt?: Date | string
@@ -1545,6 +1598,7 @@ export type CompanyUpdateWithoutDelegationParticipationsInput = {
   representativeWhatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   representativeEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   productsToBeDisplayed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  willingToExportToGCC?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sector?: Prisma.SectorUpdateOneWithoutCompaniesNestedInput
   subSector?: Prisma.SubSectorUpdateOneWithoutCompaniesNestedInput
@@ -1567,6 +1621,7 @@ export type CompanyUncheckedUpdateWithoutDelegationParticipationsInput = {
   representativeWhatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   representativeEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   productsToBeDisplayed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  willingToExportToGCC?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sectorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   subSectorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1589,6 +1644,7 @@ export type CompanyCreateManySectorInput = {
   representativeWhatsapp?: string | null
   representativeEmail?: string | null
   productsToBeDisplayed?: string | null
+  willingToExportToGCC?: boolean
   subSectorId?: number | null
   createdAt?: Date | string
 }
@@ -1604,6 +1660,7 @@ export type CompanyUpdateWithoutSectorInput = {
   representativeWhatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   representativeEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   productsToBeDisplayed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  willingToExportToGCC?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subSector?: Prisma.SubSectorUpdateOneWithoutCompaniesNestedInput
   sectors?: Prisma.CompanySectorUpdateManyWithoutCompanyNestedInput
@@ -1626,6 +1683,7 @@ export type CompanyUncheckedUpdateWithoutSectorInput = {
   representativeWhatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   representativeEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   productsToBeDisplayed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  willingToExportToGCC?: Prisma.BoolFieldUpdateOperationsInput | boolean
   subSectorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sectors?: Prisma.CompanySectorUncheckedUpdateManyWithoutCompanyNestedInput
@@ -1648,6 +1706,7 @@ export type CompanyUncheckedUpdateManyWithoutSectorInput = {
   representativeWhatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   representativeEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   productsToBeDisplayed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  willingToExportToGCC?: Prisma.BoolFieldUpdateOperationsInput | boolean
   subSectorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1664,6 +1723,7 @@ export type CompanyCreateManySubSectorInput = {
   representativeWhatsapp?: string | null
   representativeEmail?: string | null
   productsToBeDisplayed?: string | null
+  willingToExportToGCC?: boolean
   sectorId?: number | null
   createdAt?: Date | string
 }
@@ -1679,6 +1739,7 @@ export type CompanyUpdateWithoutSubSectorInput = {
   representativeWhatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   representativeEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   productsToBeDisplayed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  willingToExportToGCC?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sector?: Prisma.SectorUpdateOneWithoutCompaniesNestedInput
   sectors?: Prisma.CompanySectorUpdateManyWithoutCompanyNestedInput
@@ -1701,6 +1762,7 @@ export type CompanyUncheckedUpdateWithoutSubSectorInput = {
   representativeWhatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   representativeEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   productsToBeDisplayed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  willingToExportToGCC?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sectorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sectors?: Prisma.CompanySectorUncheckedUpdateManyWithoutCompanyNestedInput
@@ -1723,6 +1785,7 @@ export type CompanyUncheckedUpdateManyWithoutSubSectorInput = {
   representativeWhatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   representativeEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   productsToBeDisplayed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  willingToExportToGCC?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sectorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1815,6 +1878,7 @@ export type CompanySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   representativeWhatsapp?: boolean
   representativeEmail?: boolean
   productsToBeDisplayed?: boolean
+  willingToExportToGCC?: boolean
   sectorId?: boolean
   subSectorId?: boolean
   createdAt?: boolean
@@ -1843,12 +1907,13 @@ export type CompanySelectScalar = {
   representativeWhatsapp?: boolean
   representativeEmail?: boolean
   productsToBeDisplayed?: boolean
+  willingToExportToGCC?: boolean
   sectorId?: boolean
   subSectorId?: boolean
   createdAt?: boolean
 }
 
-export type CompanyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "profile" | "address" | "email" | "website" | "representativeName" | "representativeTel" | "representativeWhatsapp" | "representativeEmail" | "productsToBeDisplayed" | "sectorId" | "subSectorId" | "createdAt", ExtArgs["result"]["company"]>
+export type CompanyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "profile" | "address" | "email" | "website" | "representativeName" | "representativeTel" | "representativeWhatsapp" | "representativeEmail" | "productsToBeDisplayed" | "willingToExportToGCC" | "sectorId" | "subSectorId" | "createdAt", ExtArgs["result"]["company"]>
 export type CompanyInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   sector?: boolean | Prisma.Company$sectorArgs<ExtArgs>
   subSector?: boolean | Prisma.Company$subSectorArgs<ExtArgs>
@@ -1885,6 +1950,7 @@ export type $CompanyPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     representativeWhatsapp: string | null
     representativeEmail: string | null
     productsToBeDisplayed: string | null
+    willingToExportToGCC: boolean
     sectorId: number | null
     subSectorId: number | null
     createdAt: Date
@@ -2276,6 +2342,7 @@ export interface CompanyFieldRefs {
   readonly representativeWhatsapp: Prisma.FieldRef<"Company", 'String'>
   readonly representativeEmail: Prisma.FieldRef<"Company", 'String'>
   readonly productsToBeDisplayed: Prisma.FieldRef<"Company", 'String'>
+  readonly willingToExportToGCC: Prisma.FieldRef<"Company", 'Boolean'>
   readonly sectorId: Prisma.FieldRef<"Company", 'Int'>
   readonly subSectorId: Prisma.FieldRef<"Company", 'Int'>
   readonly createdAt: Prisma.FieldRef<"Company", 'DateTime'>

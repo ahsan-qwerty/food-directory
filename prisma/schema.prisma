@@ -74,6 +74,7 @@ representativeTel String?
 representativeWhatsapp String?
 representativeEmail String?
 productsToBeDisplayed String?
+willingToExportToGCC Boolean @default(false)
 
 // Primary / legacy single-FK (kept for backward-compat with existing data & filters)
 sectorId Int?

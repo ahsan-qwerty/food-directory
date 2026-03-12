@@ -129,6 +129,7 @@ export const CompanyScalarFieldEnum = {
   representativeWhatsapp: 'representativeWhatsapp',
   representativeEmail: 'representativeEmail',
   productsToBeDisplayed: 'productsToBeDisplayed',
+  willingToExportToGCC: 'willingToExportToGCC',
   sectorId: 'sectorId',
   subSectorId: 'subSectorId',
   createdAt: 'createdAt'
