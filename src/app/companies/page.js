@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import CompanyCard from '../../components/CompanyCard';
+import SearchableSelect from '../../components/SearchableSelect';
 
 export default function CompaniesPage() {
   const [companies, setCompanies] = useState([]);
@@ -39,20 +40,14 @@ export default function CompaniesPage() {
   }, []);
 
   useEffect(() => {
-    const params = new URLSearchParams();
-    if (filters.sector) params.append('sector_id', filters.sector);
-    fetch(`/api/categories?${params}`)
+    fetch('/api/categories')
       .then(r => r.json())
       .then(d => setSubSectors(d.subSectors || []))
       .catch(console.error);
-  }, [filters.sector]);
+  }, []);
 
   const handleFilterChange = (name, value) => {
-    setFilters(prev => ({
-      ...prev,
-      [name]: value,
-      ...(name === 'sector' ? { subSector: '' } : {}),
-    }));
+    setFilters(prev => ({ ...prev, [name]: value }));
   };
 
   const clearFilters = () => setFilters({ search: '', sector: '', subSector: '', gcc: '' });
@@ -114,19 +109,12 @@ export default function CompaniesPage() {
 
             <div>
               <label className="block text-sm font-medium text-secondary mb-2">Sub-Sector</label>
-              <select
+              <SearchableSelect
+                options={subSectors.map(ss => ({ value: ss.id, label: ss.name }))}
                 value={filters.subSector}
-                onChange={e => handleFilterChange('subSector', e.target.value)}
-                className="glass-input w-full px-3 py-2"
-                disabled={!filters.sector}
-              >
-                <option value="">
-                  {filters.sector ? 'All Sub-Sectors' : 'Select a sector first'}
-                </option>
-                {subSectors.map(ss => (
-                  <option key={ss.id} value={ss.id}>{ss.name}</option>
-                ))}
-              </select>
+                onChange={val => handleFilterChange('subSector', val)}
+                placeholder="All Sub-Sectors"
+              />
             </div>
 
             <div>

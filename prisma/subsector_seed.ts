@@ -34,7 +34,7 @@ const adapter = new PrismaMariaDb({
 const prisma = new PrismaClient({ adapter })
 
 const subsectorData: Prisma.SubSectorCreateInput[] = [
-    // { name: 'Rice', hsCode: '1006', sector: { connect: { name: 'Cereals' } } },
+    { name: 'Maize', hsCode: '1006', sector: { connect: { name: 'Cereals' } } },
     // { name: 'Fruits', hsCode: '0811', sector: { connect: { name: 'Fruit and Vegetables' } } },
     // { name: 'Beverages', hsCode: '2206', sector: { connect: { name: 'Processed Food, Bakery, Beverages, Juices' } } },
     // { name: 'Sugar Confectionary', hsCode: '1704', sector: { connect: { name: 'Sugar and Confectionary' } } },
@@ -47,7 +47,7 @@ const subsectorData: Prisma.SubSectorCreateInput[] = [
     // { name: 'Honey', hsCode: '1703', sector: { connect: { name: 'Honey' } } },
     // { name: 'Floriculture', hsCode: '1703', sector: { connect: { name: 'Floriculture' } } },
     // { name: 'Agritech', hsCode: '1703', sector: { connect: { name: 'Machinery/Technology (Food & Agri)' } } },
-    { name: 'Tobacco', hsCode: '1703', sector: { connect: { name: 'Tobacco' } } },
+    // { name: 'Tobacco', hsCode: '1703', sector: { connect: { name: 'Tobacco' } } },
 ]
 
 // const subsectorData: Prisma.SubSectorCreateInput[] = [
