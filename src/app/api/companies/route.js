@@ -47,10 +47,14 @@ export async function GET(request) {
   }
 
   // Match companies willing to export to ANY of the selected GCC countries
+  // For JSON array fields, we need to filter after fetching since Prisma/MariaDB
+  // doesn't have direct JSON array contains support
+  // We'll fetch companies willing to export to GCC and filter by country in memory
+  let gccCountryFilter = null;
   if (gccCountries.length > 0) {
-    conditions.push({
-      OR: gccCountries.map(c => ({ gccCountries: { array_contains: c } })),
-    });
+    gccCountryFilter = gccCountries;
+    // Also ensure they're willing to export to GCC
+    conditions.push({ willingToExportToGCC: true });
   }
 
   if (query) {
@@ -94,10 +98,21 @@ export async function GET(request) {
       ? conditions[0]
       : { AND: conditions };
 
-  const companies = await prisma.company.findMany({
+  let companies = await prisma.company.findMany({
     where: finalWhere,
     orderBy: { name: 'asc' },
   });
+
+  // Filter by GCC countries if specified (JSON array filtering)
+  if (gccCountryFilter && gccCountryFilter.length > 0) {
+    companies = companies.filter(company => {
+      const companyGccCountries = Array.isArray(company.gccCountries)
+        ? company.gccCountries
+        : [];
+      // Check if company's gccCountries array contains any of the requested countries
+      return gccCountryFilter.some(country => companyGccCountries.includes(country));
+    });
+  }
 
   return NextResponse.json({
     companies,
@@ -140,6 +155,11 @@ export async function PUT(request) {
         productsToBeDisplayed: body.productsToBeDisplayed?.trim() || null,
         willingToExportToGCC: Boolean(body.willingToExportToGCC),
         gccCountries: Array.isArray(body.gccCountries) ? body.gccCountries : [],
+        countriesAlreadyExportingTo: Array.isArray(body.countriesAlreadyExportingTo)
+          ? body.countriesAlreadyExportingTo.filter(c => c && c.trim().length > 0).map(c => c.trim())
+          : typeof body.countriesAlreadyExportingTo === 'string'
+            ? body.countriesAlreadyExportingTo.split(',').map(c => c.trim()).filter(c => c.length > 0)
+            : [],
         sectorId: sectorIds[0] ?? null,
         subSectorId: subSectorIds[0] ?? null,
         sectors: sectorIds.length > 0 ? { create: sectorIds.map(id => ({ sectorId: id })) } : undefined,

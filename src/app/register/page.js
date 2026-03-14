@@ -27,6 +27,7 @@ export default function RegisterPage() {
         productsToBeDisplayed: '',
         willingToExportToGCC: false,
         gccCountries: [],
+        countriesAlreadyExportingTo: [],
         sectorIds: [],
         subSectorIds: [],
     });
@@ -83,6 +84,15 @@ export default function RegisterPage() {
             gccCountries: prev.gccCountries.includes(country)
                 ? prev.gccCountries.filter(c => c !== country)
                 : [...prev.gccCountries, country],
+        }));
+    };
+
+    const toggleExportingCountry = (country) => {
+        setFormData(prev => ({
+            ...prev,
+            countriesAlreadyExportingTo: prev.countriesAlreadyExportingTo.includes(country)
+                ? prev.countriesAlreadyExportingTo.filter(c => c !== country)
+                : [...prev.countriesAlreadyExportingTo, country],
         }));
     };
 
@@ -267,6 +277,42 @@ export default function RegisterPage() {
                                 {formData.gccCountries.length > 0 && (
                                     <p className="mt-2 text-xs text-accent-green font-medium">
                                         {formData.gccCountries.length} countr{formData.gccCountries.length > 1 ? 'ies' : 'y'} selected
+                                    </p>
+                                )}
+                            </div>
+
+                            {/* Countries Already Exporting To */}
+                            <div className="md:col-span-2">
+                                <FormLabel>
+                                    Countries Already Exporting To
+                                    <span className="ml-1 text-xs font-normal text-muted">(select all that apply)</span>
+                                </FormLabel>
+                                <div className="flex flex-wrap gap-2">
+                                    {GCC_COUNTRIES.map(country => {
+                                        const selected = formData.countriesAlreadyExportingTo.includes(country);
+                                        return (
+                                            <button
+                                                key={country}
+                                                type="button"
+                                                onClick={() => toggleExportingCountry(country)}
+                                                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium border transition-colors focus:outline-none focus:ring-2 focus:ring-amber-500 ${selected
+                                                    ? 'bg-amber-700 text-white border-amber-700'
+                                                    : 'bg-white/10 text-secondary border-white/20 hover:border-amber-500 hover:text-white'
+                                                    }`}
+                                            >
+                                                {selected && (
+                                                    <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
+                                                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                                                    </svg>
+                                                )}
+                                                {country}
+                                            </button>
+                                        );
+                                    })}
+                                </div>
+                                {formData.countriesAlreadyExportingTo.length > 0 && (
+                                    <p className="mt-2 text-xs text-amber-400 font-medium">
+                                        {formData.countriesAlreadyExportingTo.length} countr{formData.countriesAlreadyExportingTo.length > 1 ? 'ies' : 'y'} selected
                                     </p>
                                 )}
                             </div>

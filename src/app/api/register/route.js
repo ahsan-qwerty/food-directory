@@ -23,6 +23,13 @@ export async function POST(request) {
         const gccCountries = Array.isArray(data.gccCountries)
             ? data.gccCountries.filter(c => VALID_GCC.includes(c))
             : [];
+        
+        // Normalize countries already exporting to (can be array or comma-separated string)
+        const countriesAlreadyExportingTo = Array.isArray(data.countriesAlreadyExportingTo)
+            ? data.countriesAlreadyExportingTo.filter(c => c && c.trim().length > 0).map(c => c.trim())
+            : typeof data.countriesAlreadyExportingTo === 'string'
+            ? data.countriesAlreadyExportingTo.split(',').map(c => c.trim()).filter(c => c.length > 0)
+            : [];
 
         // Primary (legacy) FK values — first item in each array
         const primarySectorId = sectorIds[0] ?? null;
@@ -70,6 +77,7 @@ export async function POST(request) {
             productsToBeDisplayed: data.productsToBeDisplayed?.trim() || null,
             willingToExportToGCC: Boolean(data.willingToExportToGCC),
             gccCountries,
+            countriesAlreadyExportingTo,
             // Legacy single-FK fields (primary selection)
             sectorId: primarySectorId,
             subSectorId: primarySubSectorId,
@@ -114,6 +122,7 @@ export async function POST(request) {
                 productsToBeDisplayed: newCompany.productsToBeDisplayed,
                 willingToExportToGCC: newCompany.willingToExportToGCC,
                 gccCountries: newCompany.gccCountries,
+                countriesAlreadyExportingTo: newCompany.countriesAlreadyExportingTo,
                 // Primary FK (backward compat)
                 sector: newCompany.sector,
                 subSector: newCompany.subSector,

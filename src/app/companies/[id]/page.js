@@ -123,6 +123,22 @@ export default async function CompanyProfilePage({ params, searchParams }) {
             </div>
           )}
 
+          {/* Countries Already Exporting To */}
+          {Array.isArray(company.countriesAlreadyExportingTo) && company.countriesAlreadyExportingTo.length > 0 && (
+            <div className="mb-3">
+              <p className="text-xs font-semibold text-muted uppercase tracking-wide mb-2">
+                Countries Already Exporting To:
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {company.countriesAlreadyExportingTo.map(country => (
+                  <span key={country} className="px-2.5 py-1 rounded-full text-xs font-medium border border-amber-500/40 text-amber-300 bg-amber-500/10">
+                    {country}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+
           {company.address && (
             <p className="text-secondary">{company.address}</p>
           )}
