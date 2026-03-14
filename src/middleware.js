@@ -27,6 +27,11 @@ export function middleware(request) {
     return NextResponse.next();
   }
 
+  // Allow /countries and /countries/[id] (any sub-path under /countries)
+  if (pathname === '/countries' || pathname.startsWith('/countries/')) {
+    return NextResponse.next();
+  }
+
   // Everything else → redirect to /companies (temporary protection)
   const companiesUrl = new URL('/companies', request.url);
   return NextResponse.redirect(companiesUrl);

@@ -283,6 +283,32 @@ model Mission {
   email  String
 }
 
+// ── Country Profile ──────────────────────────────────────────────────────────
+model CountryProfile {
+  id      Int    @id @default(autoincrement())
+  country String @unique
+
+  // Narrative overview / market intelligence text
+  overview       String? @db.Text
+  population     String?
+  gdp            String?
+  currency       String?
+  additionalNotes String? @db.Text
+
+  // Top 10 AgroFood imports from world
+  // JSON: [{ rank, product, hsCode?, value }]
+  topImportsFromWorld           Json    @default("[]")
+  otherImportsFromWorldValue    Decimal? @db.Decimal(15, 2)
+
+  // Top 10 AgroFood imports from Pakistan
+  // JSON: [{ rank, product, hsCode?, value }]
+  topImportsFromPakistan        Json    @default("[]")
+  otherImportsFromPakistanValue Decimal? @db.Decimal(15, 2)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
 enum DelegationType {
   INCOMING
   OUTGOING

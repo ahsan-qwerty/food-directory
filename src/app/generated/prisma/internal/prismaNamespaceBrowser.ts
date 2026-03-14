@@ -63,6 +63,7 @@ export const ModelName = {
   EventCompanyEmailStatus: 'EventCompanyEmailStatus',
   EventFeedback: 'EventFeedback',
   Mission: 'Mission',
+  CountryProfile: 'CountryProfile',
   Delegation: 'Delegation',
   DelegationCompany: 'DelegationCompany',
   DelegationSector: 'DelegationSector',
@@ -270,6 +271,25 @@ export const MissionScalarFieldEnum = {
 export type MissionScalarFieldEnum = (typeof MissionScalarFieldEnum)[keyof typeof MissionScalarFieldEnum]
 
 
+export const CountryProfileScalarFieldEnum = {
+  id: 'id',
+  country: 'country',
+  overview: 'overview',
+  population: 'population',
+  gdp: 'gdp',
+  currency: 'currency',
+  additionalNotes: 'additionalNotes',
+  topImportsFromWorld: 'topImportsFromWorld',
+  otherImportsFromWorldValue: 'otherImportsFromWorldValue',
+  topImportsFromPakistan: 'topImportsFromPakistan',
+  otherImportsFromPakistanValue: 'otherImportsFromPakistanValue',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CountryProfileScalarFieldEnum = (typeof CountryProfileScalarFieldEnum)[keyof typeof CountryProfileScalarFieldEnum]
+
+
 export const DelegationScalarFieldEnum = {
   id: 'id',
   type: 'type',
@@ -472,6 +492,18 @@ export const MissionOrderByRelevanceFieldEnum = {
 } as const
 
 export type MissionOrderByRelevanceFieldEnum = (typeof MissionOrderByRelevanceFieldEnum)[keyof typeof MissionOrderByRelevanceFieldEnum]
+
+
+export const CountryProfileOrderByRelevanceFieldEnum = {
+  country: 'country',
+  overview: 'overview',
+  population: 'population',
+  gdp: 'gdp',
+  currency: 'currency',
+  additionalNotes: 'additionalNotes'
+} as const
+
+export type CountryProfileOrderByRelevanceFieldEnum = (typeof CountryProfileOrderByRelevanceFieldEnum)[keyof typeof CountryProfileOrderByRelevanceFieldEnum]
 
 
 export const DelegationOrderByRelevanceFieldEnum = {

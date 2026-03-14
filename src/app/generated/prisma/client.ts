@@ -100,6 +100,11 @@ export type EventFeedback = Prisma.EventFeedbackModel
  */
 export type Mission = Prisma.MissionModel
 /**
+ * Model CountryProfile
+ * 
+ */
+export type CountryProfile = Prisma.CountryProfileModel
+/**
  * Model Delegation
  * 
  */

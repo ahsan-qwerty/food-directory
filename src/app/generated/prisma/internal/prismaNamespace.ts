@@ -396,6 +396,7 @@ export const ModelName = {
   EventCompanyEmailStatus: 'EventCompanyEmailStatus',
   EventFeedback: 'EventFeedback',
   Mission: 'Mission',
+  CountryProfile: 'CountryProfile',
   Delegation: 'Delegation',
   DelegationCompany: 'DelegationCompany',
   DelegationSector: 'DelegationSector',
@@ -415,7 +416,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "sector" | "subSector" | "product" | "company" | "companySector" | "companySubSector" | "event" | "eventSector" | "eventCompany" | "eventCompanyEmailStatus" | "eventFeedback" | "mission" | "delegation" | "delegationCompany" | "delegationSector" | "seminar"
+    modelProps: "sector" | "subSector" | "product" | "company" | "companySector" | "companySubSector" | "event" | "eventSector" | "eventCompany" | "eventCompanyEmailStatus" | "eventFeedback" | "mission" | "countryProfile" | "delegation" | "delegationCompany" | "delegationSector" | "seminar"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1211,6 +1212,72 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    CountryProfile: {
+      payload: Prisma.$CountryProfilePayload<ExtArgs>
+      fields: Prisma.CountryProfileFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CountryProfileFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CountryProfilePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CountryProfileFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CountryProfilePayload>
+        }
+        findFirst: {
+          args: Prisma.CountryProfileFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CountryProfilePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CountryProfileFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CountryProfilePayload>
+        }
+        findMany: {
+          args: Prisma.CountryProfileFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CountryProfilePayload>[]
+        }
+        create: {
+          args: Prisma.CountryProfileCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CountryProfilePayload>
+        }
+        createMany: {
+          args: Prisma.CountryProfileCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        delete: {
+          args: Prisma.CountryProfileDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CountryProfilePayload>
+        }
+        update: {
+          args: Prisma.CountryProfileUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CountryProfilePayload>
+        }
+        deleteMany: {
+          args: Prisma.CountryProfileDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CountryProfileUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        upsert: {
+          args: Prisma.CountryProfileUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CountryProfilePayload>
+        }
+        aggregate: {
+          args: Prisma.CountryProfileAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCountryProfile>
+        }
+        groupBy: {
+          args: Prisma.CountryProfileGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CountryProfileGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CountryProfileCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CountryProfileCountAggregateOutputType> | number
+        }
+      }
+    }
     Delegation: {
       payload: Prisma.$DelegationPayload<ExtArgs>
       fields: Prisma.DelegationFieldRefs
@@ -1699,6 +1766,25 @@ export const MissionScalarFieldEnum = {
 export type MissionScalarFieldEnum = (typeof MissionScalarFieldEnum)[keyof typeof MissionScalarFieldEnum]
 
 
+export const CountryProfileScalarFieldEnum = {
+  id: 'id',
+  country: 'country',
+  overview: 'overview',
+  population: 'population',
+  gdp: 'gdp',
+  currency: 'currency',
+  additionalNotes: 'additionalNotes',
+  topImportsFromWorld: 'topImportsFromWorld',
+  otherImportsFromWorldValue: 'otherImportsFromWorldValue',
+  topImportsFromPakistan: 'topImportsFromPakistan',
+  otherImportsFromPakistanValue: 'otherImportsFromPakistanValue',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CountryProfileScalarFieldEnum = (typeof CountryProfileScalarFieldEnum)[keyof typeof CountryProfileScalarFieldEnum]
+
+
 export const DelegationScalarFieldEnum = {
   id: 'id',
   type: 'type',
@@ -1901,6 +1987,18 @@ export const MissionOrderByRelevanceFieldEnum = {
 } as const
 
 export type MissionOrderByRelevanceFieldEnum = (typeof MissionOrderByRelevanceFieldEnum)[keyof typeof MissionOrderByRelevanceFieldEnum]
+
+
+export const CountryProfileOrderByRelevanceFieldEnum = {
+  country: 'country',
+  overview: 'overview',
+  population: 'population',
+  gdp: 'gdp',
+  currency: 'currency',
+  additionalNotes: 'additionalNotes'
+} as const
+
+export type CountryProfileOrderByRelevanceFieldEnum = (typeof CountryProfileOrderByRelevanceFieldEnum)[keyof typeof CountryProfileOrderByRelevanceFieldEnum]
 
 
 export const DelegationOrderByRelevanceFieldEnum = {
@@ -2143,6 +2241,7 @@ export type GlobalOmitConfig = {
   eventCompanyEmailStatus?: Prisma.EventCompanyEmailStatusOmit
   eventFeedback?: Prisma.EventFeedbackOmit
   mission?: Prisma.MissionOmit
+  countryProfile?: Prisma.CountryProfileOmit
   delegation?: Prisma.DelegationOmit
   delegationCompany?: Prisma.DelegationCompanyOmit
   delegationSector?: Prisma.DelegationSectorOmit
