@@ -239,7 +239,7 @@ export default function RegisterPage() {
                             </div>
 
                             {/* GCC Export toggle */}
-                            <div className="md:col-span-2">
+                            {/* <div className="md:col-span-2">
                                 <label className="flex items-center gap-3 cursor-pointer select-none">
                                     <button
                                         type="button"
@@ -257,7 +257,7 @@ export default function RegisterPage() {
                                         )}
                                     </span>
                                 </label>
-                            </div>
+                            </div> */}
 
                             {/* GCC target countries */}
                             <div className="md:col-span-2">

@@ -266,7 +266,7 @@ export default function EditCompanyPage() {
                                     className="glass-input w-full px-3 py-2"
                                 />
                             </div>
-                            <div className="md:col-span-2">
+                            {/* <div className="md:col-span-2">
                                 <label className="flex items-center gap-3 cursor-pointer select-none">
                                     <button
                                         type="button"
@@ -286,7 +286,7 @@ export default function EditCompanyPage() {
                                         )}
                                     </span>
                                 </label>
-                            </div>
+                            </div> */}
 
                             <div className="md:col-span-2">
                                 <label className="block text-sm font-medium text-secondary mb-2">
