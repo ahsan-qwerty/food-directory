@@ -100,7 +100,7 @@ export default function CompaniesPage() {
           </div>
 
           {/* Row 1 — dropdowns */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-5">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-5">
             <div>
               <label className="block text-sm font-medium text-secondary mb-2">Search</label>
               <input
@@ -136,7 +136,7 @@ export default function CompaniesPage() {
               />
             </div>
 
-            <div>
+            {/* <div>
               <label className="block text-sm font-medium text-secondary mb-2">GCC Export</label>
               <select
                 value={filters.gcc}
@@ -146,7 +146,7 @@ export default function CompaniesPage() {
                 <option value="">All Companies</option>
                 <option value="true">Willing to Export to GCC</option>
               </select>
-            </div>
+            </div> */}
           </div>
 
           {/* Row 2 — GCC country multi-select */}
