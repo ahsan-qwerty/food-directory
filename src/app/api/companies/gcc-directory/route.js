@@ -29,11 +29,10 @@ export async function GET(request) {
         return NextResponse.json({ error: 'Country parameter is required' }, { status: 400 });
     }
 
-    // Fetch companies willing to export to GCC
-    const conditions = [{ willingToExportToGCC: true }];
-
+    // Fetch all companies — willingToExportToGCC toggle is ignored so that
+    // any company with the selected country in gccCountries is included.
     let companies = await prisma.company.findMany({
-        where: { AND: conditions },
+        where: undefined,
         select: {
             id: true,
             name: true,
@@ -63,17 +62,24 @@ export async function GET(request) {
         orderBy: { name: 'asc' },
     });
 
+    // Normalise gccCountries — MariaDB may return JSON columns as raw strings
+    companies = companies.map(company => ({
+        ...company,
+        gccCountries: Array.isArray(company.gccCountries)
+            ? company.gccCountries
+            : typeof company.gccCountries === 'string'
+                ? (() => { try { return JSON.parse(company.gccCountries); } catch { return []; } })()
+                : [],
+    }));
+
     // Filter by GCC country if not 'all'
     if (country !== 'all') {
         if (!GCC_COUNTRIES.includes(country)) {
             return NextResponse.json({ error: 'Invalid GCC country' }, { status: 400 });
         }
-        companies = companies.filter(company => {
-            const companyGccCountries = Array.isArray(company.gccCountries)
-                ? company.gccCountries
-                : [];
-            return companyGccCountries.includes(country);
-        });
+        companies = companies.filter(company =>
+            company.gccCountries.includes(country)
+        );
     }
 
     if (companies.length === 0) {

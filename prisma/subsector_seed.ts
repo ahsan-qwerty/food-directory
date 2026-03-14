@@ -35,65 +35,66 @@ const prisma = new PrismaClient({ adapter })
 
 const subsectorData: Prisma.SubSectorCreateInput[] = [
     // Cereals
-    { name: 'Oats', hsCode: '1004', sector: { connect: { name: 'Cereals' } } },
-    { name: 'Corn (Maize)', hsCode: '1005', sector: { connect: { name: 'Cereals' } } },
+    // { name: 'Oats', hsCode: '1004', sector: { connect: { name: 'Cereals' } } },
+    // { name: 'Corn (Maize)', hsCode: '1005', sector: { connect: { name: 'Cereals' } } },
 
-    // Oil & Ghee/Oil
-    { name: 'Cooking Oils', hsCode: '1509', sector: { connect: { name: 'Oil & Ghee/Oil' } } },
+    // // Oil & Ghee/Oil
+    // { name: 'Cooking Oils', hsCode: '1509', sector: { connect: { name: 'Oil & Ghee/Oil' } } },
 
-    // Meat, Poultry & Diary
-    { name: 'Frozen Red Meat', hsCode: '0201', sector: { connect: { name: 'Meat, Poultry & Diary' } } },
-    { name: 'Frozen Poultry', hsCode: '0207', sector: { connect: { name: 'Meat, Poultry & Diary' } } },
-    { name: 'Powdered Milk', hsCode: '0402', sector: { connect: { name: 'Meat, Poultry & Diary' } } },
-    { name: 'Long-Life Milk (UHT)', hsCode: '0401', sector: { connect: { name: 'Meat, Poultry & Diary' } } },
-    { name: 'Infant Milk Formula', hsCode: '1901', sector: { connect: { name: 'Meat, Poultry & Diary' } } },
-    { name: 'Evaporated Milk', hsCode: '0402', sector: { connect: { name: 'Meat, Poultry & Diary' } } },
-    { name: 'Table Eggs', hsCode: '0407', sector: { connect: { name: 'Meat, Poultry & Diary' } } },
-    { name: 'Dairy and Yogurt Products', hsCode: '0403', sector: { connect: { name: 'Meat, Poultry & Diary' } } },
-    { name: 'Cheese Products', hsCode: '0406', sector: { connect: { name: 'Meat, Poultry & Diary' } } },
-    { name: 'Chilled Red Meat', hsCode: '0201', sector: { connect: { name: 'Meat, Poultry & Diary' } } },
-    { name: 'Chilled Poultry', hsCode: '0207', sector: { connect: { name: 'Meat, Poultry & Diary' } } },
+    // // Meat, Poultry & Diary
+    // { name: 'Frozen Red Meat', hsCode: '0201', sector: { connect: { name: 'Meat, Poultry & Diary' } } },
+    // { name: 'Frozen Poultry', hsCode: '0207', sector: { connect: { name: 'Meat, Poultry & Diary' } } },
+    // { name: 'Powdered Milk', hsCode: '0402', sector: { connect: { name: 'Meat, Poultry & Diary' } } },
+    // { name: 'Long-Life Milk (UHT)', hsCode: '0401', sector: { connect: { name: 'Meat, Poultry & Diary' } } },
+    // { name: 'Infant Milk Formula', hsCode: '1901', sector: { connect: { name: 'Meat, Poultry & Diary' } } },
+    // { name: 'Evaporated Milk', hsCode: '0402', sector: { connect: { name: 'Meat, Poultry & Diary' } } },
+    // { name: 'Table Eggs', hsCode: '0407', sector: { connect: { name: 'Meat, Poultry & Diary' } } },
+    // { name: 'Dairy and Yogurt Products', hsCode: '0403', sector: { connect: { name: 'Meat, Poultry & Diary' } } },
+    // { name: 'Cheese Products', hsCode: '0406', sector: { connect: { name: 'Meat, Poultry & Diary' } } },
+    // { name: 'Chilled Red Meat', hsCode: '0201', sector: { connect: { name: 'Meat, Poultry & Diary' } } },
+    // { name: 'Chilled Poultry', hsCode: '0207', sector: { connect: { name: 'Meat, Poultry & Diary' } } },
 
-    // Processed Food, Bakery, Beverages, Juices
-    { name: 'Baby Food', hsCode: '1901', sector: { connect: { name: 'Processed Food, Bakery, Beverages, Juices' } } },
-    { name: 'Tomato Paste', hsCode: '2002', sector: { connect: { name: 'Processed Food, Bakery, Beverages, Juices' } } },
-    { name: 'Canned Fruits & Vegetables, Pickles and Jam', hsCode: '2008', sector: { connect: { name: 'Processed Food, Bakery, Beverages, Juices' } } },
-    { name: 'Canned Meat and Fish', hsCode: '1604', sector: { connect: { name: 'Processed Food, Bakery, Beverages, Juices' } } },
-    { name: 'Light Energy-Dense Snack Meals', hsCode: '1905', sector: { connect: { name: 'Processed Food, Bakery, Beverages, Juices' } } },
-    { name: 'Mineral Water', hsCode: '2201', sector: { connect: { name: 'Processed Food, Bakery, Beverages, Juices' } } },
-    { name: 'Ready-to-Eat Meals', hsCode: '1604', sector: { connect: { name: 'Processed Food, Bakery, Beverages, Juices' } } },
-    { name: 'Nut Butter', hsCode: '2008', sector: { connect: { name: 'Processed Food, Bakery, Beverages, Juices' } } },
-    { name: 'Juices', hsCode: '2009', sector: { connect: { name: 'Processed Food, Bakery, Beverages, Juices' } } },
-    { name: 'Tea Products', hsCode: '0902', sector: { connect: { name: 'Processed Food, Bakery, Beverages, Juices' } } },
-    { name: 'Coffee Products', hsCode: '0901', sector: { connect: { name: 'Processed Food, Bakery, Beverages, Juices' } } },
-    { name: 'Pickles', hsCode: '2001', sector: { connect: { name: 'Processed Food, Bakery, Beverages, Juices' } } },
+    // // Processed Food, Bakery, Beverages, Juices
+    // { name: 'Baby Food', hsCode: '1901', sector: { connect: { name: 'Processed Food, Bakery, Beverages, Juices' } } },
+    // { name: 'Tomato Paste', hsCode: '2002', sector: { connect: { name: 'Processed Food, Bakery, Beverages, Juices' } } },
+    // { name: 'Canned Fruits & Vegetables, Pickles and Jam', hsCode: '2008', sector: { connect: { name: 'Processed Food, Bakery, Beverages, Juices' } } },
+    // { name: 'Canned Meat and Fish', hsCode: '1604', sector: { connect: { name: 'Processed Food, Bakery, Beverages, Juices' } } },
+    // { name: 'Light Energy-Dense Snack Meals', hsCode: '1905', sector: { connect: { name: 'Processed Food, Bakery, Beverages, Juices' } } },
+    // { name: 'Mineral Water', hsCode: '2201', sector: { connect: { name: 'Processed Food, Bakery, Beverages, Juices' } } },
+    // { name: 'Ready-to-Eat Meals', hsCode: '1604', sector: { connect: { name: 'Processed Food, Bakery, Beverages, Juices' } } },
+    // { name: 'Nut Butter', hsCode: '2008', sector: { connect: { name: 'Processed Food, Bakery, Beverages, Juices' } } },
+    // { name: 'Juices', hsCode: '2009', sector: { connect: { name: 'Processed Food, Bakery, Beverages, Juices' } } },
+    // { name: 'Tea Products', hsCode: '0902', sector: { connect: { name: 'Processed Food, Bakery, Beverages, Juices' } } },
+    // { name: 'Coffee Products', hsCode: '0901', sector: { connect: { name: 'Processed Food, Bakery, Beverages, Juices' } } },
+    // { name: 'Pickles', hsCode: '2001', sector: { connect: { name: 'Processed Food, Bakery, Beverages, Juices' } } },
 
-    // Fruit and Vegetables
-    { name: 'Frozen vegetables', hsCode: '0710', sector: { connect: { name: 'Fruit and Vegetables' } } },
-    { name: 'Dates', hsCode: '0804', sector: { connect: { name: 'Fruit and Vegetables' } } },
-    { name: 'Fresh vegetables', hsCode: '0701', sector: { connect: { name: 'Fruit and Vegetables' } } },
-    { name: 'Fresh Fruits', hsCode: '0801', sector: { connect: { name: 'Fruit and Vegetables' } } },
+    // // Fruit and Vegetables
+    // { name: 'Frozen vegetables', hsCode: '0710', sector: { connect: { name: 'Fruit and Vegetables' } } },
+    // { name: 'Dates', hsCode: '0804', sector: { connect: { name: 'Fruit and Vegetables' } } },
+    // { name: 'Fresh vegetables', hsCode: '0701', sector: { connect: { name: 'Fruit and Vegetables' } } },
+    // { name: 'Fresh Fruits', hsCode: '0801', sector: { connect: { name: 'Fruit and Vegetables' } } },
 
-    // Spices
-    { name: 'Spices and Seasonings', hsCode: '0909', sector: { connect: { name: 'Spices' } } },
+    // // Spices
+    // { name: 'Spices and Seasonings', hsCode: '0909', sector: { connect: { name: 'Spices' } } },
 
-    // Salt
-    { name: 'Mineral Salts', hsCode: '2501', sector: { connect: { name: 'Salt' } } },
+    // // Salt
+    // { name: 'Mineral Salts', hsCode: '2501', sector: { connect: { name: 'Salt' } } },
 
-    // Nuts & Dry Fruits
-    { name: 'Seeds and Nuts', hsCode: '0802', sector: { connect: { name: 'Nuts & Dry Fruits' } } },
+    // // Nuts & Dry Fruits
+    // { name: 'Seeds and Nuts', hsCode: '0802', sector: { connect: { name: 'Nuts & Dry Fruits' } } },
 
-    // Machinery/Technology (Food & Agri)
-    { name: 'Pesticides', hsCode: '3808', sector: { connect: { name: 'Machinery/Technology (Food & Agri)' } } },
-    // Animal Feed
-    { name: 'Green Fodder', hsCode: '1214', sector: { connect: { name: 'Animal Feed' } } },
-    { name: 'Fish Feed', hsCode: '2309', sector: { connect: { name: 'Animal Feed' } } },
+    // // Machinery/Technology (Food & Agri)
+    // { name: 'Pesticides', hsCode: '3808', sector: { connect: { name: 'Machinery/Technology (Food & Agri)' } } },
+    // // Animal Feed
+    // { name: 'Green Fodder', hsCode: '1214', sector: { connect: { name: 'Animal Feed' } } },
+    // { name: 'Fish Feed', hsCode: '2309', sector: { connect: { name: 'Animal Feed' } } },
 
     // { name: 'Oil seeds', hsCode: '1006', sector: { connect: { name: 'Oil Seeds & Oils' } } },
     // { name: 'Oleaginous fruits', hsCode: '1006', sector: { connect: { name: 'Oil Seeds & Oils' } } },
     // { name: 'Vegetable & animal oils and fats', hsCode: '1006', sector: { connect: { name: 'Oil Seeds & Oils' } } },
 
     // { name: 'Rice', hsCode: '1006', sector: { connect: { name: 'Cereals' } } },
+    { name: 'Non Basmati Rice', hsCode: '1006', sector: { connect: { name: 'Cereals' } } },
     // { name: 'Maize', hsCode: '1006', sector: { connect: { name: 'Cereals' } } },
     // { name: 'Wheat', hsCode: '1006', sector: { connect: { name: 'Cereals' } } },
     // { name: 'Cereal flours', hsCode: '1006', sector: { connect: { name: 'Cereals' } } },

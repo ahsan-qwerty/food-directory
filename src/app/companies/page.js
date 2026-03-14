@@ -31,9 +31,8 @@ export default function CompaniesPage() {
         if (filters.sector) params.append('sector', filters.sector);
         if (filters.subSector) params.append('sub_sector', filters.subSector);
 
-        // In GCC directory mode, filter by selected country
+        // In GCC directory mode, filter by selected country only (no gcc toggle requirement)
         if (viewMode === 'gcc-directory' && selectedGccCountry) {
-          params.append('gcc', 'true');
           params.append('gcc_country', selectedGccCountry);
         } else {
           // In all companies mode, use existing filters
