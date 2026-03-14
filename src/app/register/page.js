@@ -28,6 +28,7 @@ export default function RegisterPage() {
         willingToExportToGCC: false,
         gccCountries: [],
         countriesAlreadyExportingTo: [],
+        lastYearExport: '',
         sectorIds: [],
         subSectorIds: [],
     });
@@ -220,6 +221,19 @@ export default function RegisterPage() {
                                     name="productsToBeDisplayed" rows="3"
                                     value={formData.productsToBeDisplayed} onChange={handleInputChange}
                                     placeholder="List products your company will display (comma separated)"
+                                    className="glass-input w-full px-3 py-2"
+                                />
+                            </div>
+                            <div>
+                                <FormLabel>Last Year Export (USD)</FormLabel>
+                                <input
+                                    type="number"
+                                    name="lastYearExport"
+                                    value={formData.lastYearExport}
+                                    onChange={handleInputChange}
+                                    placeholder="e.g. 500000"
+                                    min="0"
+                                    step="0.01"
                                     className="glass-input w-full px-3 py-2"
                                 />
                             </div>

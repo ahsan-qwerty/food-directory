@@ -154,6 +154,9 @@ export async function PUT(request) {
         productsToBeDisplayed: body.productsToBeDisplayed?.trim() || null,
         willingToExportToGCC: Boolean(body.willingToExportToGCC),
         gccCountries: Array.isArray(body.gccCountries) ? body.gccCountries : [],
+        lastYearExport: body.lastYearExport !== '' && body.lastYearExport != null
+          ? parseFloat(body.lastYearExport)
+          : null,
         countriesAlreadyExportingTo: Array.isArray(body.countriesAlreadyExportingTo)
           ? body.countriesAlreadyExportingTo.filter(c => c && c.trim().length > 0).map(c => c.trim())
           : typeof body.countriesAlreadyExportingTo === 'string'

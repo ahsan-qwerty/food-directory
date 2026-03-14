@@ -28,24 +28,24 @@ export default function Header() {
 
           {/* Navigation */}
           <nav className="flex flex-wrap gap-1 md:gap-2 items-center">
-            <Link
+            {/* <Link
               href="/"
               className="px-3 py-1.5 rounded-md text-secondary hover:text-white hover:bg-white/10 transition-all font-medium text-sm"
             >
               Home
-            </Link>
+            </Link> */}
             {/* <Link
               href="/companies"
               className="px-3 py-1.5 rounded-md text-secondary hover:text-white hover:bg-white/10 transition-all font-medium text-sm"
             >
               Companies
             </Link> */}
-            <Link
+            {/* <Link
               href="/events"
               className="px-3 py-1.5 rounded-md text-secondary hover:text-white hover:bg-white/10 transition-all font-medium text-sm"
             >
               Exhibitions
-            </Link>
+            </Link> */}
             {/* <select
               defaultValue=""
               onChange={(e) => { if (e.target.value) { router.push(e.target.value); e.target.value = ''; } }}
@@ -56,7 +56,7 @@ export default function Header() {
               <option value="/seminars?type=webinar">Webinars</option>
               <option value="/seminars?type=virtual-b2b">Virtual B2Bs</option>
             </select> */}
-            <Link
+            {/* <Link
               href="/seminars"
               className="px-3 py-1.5 rounded-md text-secondary hover:text-white hover:bg-white/10 transition-all font-medium text-sm"
             >
@@ -76,7 +76,7 @@ export default function Header() {
               <option value="" disabled>Delegations</option>
               <option value="/delegations?tab=incoming">Incoming</option>
               <option value="/delegations?tab=outgoing">Outgoing</option>
-            </select>
+            </select> */}
             <Link
               href="/register"
               className="btn-primary px-4 py-2 text-sm ml-2"

@@ -379,6 +379,14 @@ export default async function CompanyProfilePage({ params, searchParams }) {
                     </a>
                   </div>
                 )}
+                {company.lastYearExport != null && (
+                  <div>
+                    <h3 className="text-xs font-semibold text-muted uppercase tracking-wide mb-1">Last Year Export</h3>
+                    <p className="text-secondary text-sm font-medium">
+                      USD {Number(company.lastYearExport).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 })}
+                    </p>
+                  </div>
+                )}
               </div>
             </div>
 

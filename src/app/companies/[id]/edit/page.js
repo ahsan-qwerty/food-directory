@@ -31,6 +31,7 @@ export default function EditCompanyPage() {
         willingToExportToGCC: false,
         gccCountries: [],
         countriesAlreadyExportingTo: [],
+        lastYearExport: '',
         sectorIds: [],
         subSectorIds: [],
     });
@@ -63,6 +64,7 @@ export default function EditCompanyPage() {
                     willingToExportToGCC: Boolean(c.willingToExportToGCC),
                     gccCountries: Array.isArray(c.gccCountries) ? c.gccCountries : [],
                     countriesAlreadyExportingTo: Array.isArray(c.countriesAlreadyExportingTo) ? c.countriesAlreadyExportingTo : [],
+                    lastYearExport: c.lastYearExport != null ? String(c.lastYearExport) : '',
                     sectorIds: c.sectorIds || (c.sectorId ? [c.sectorId] : []),
                     subSectorIds: c.subSectorIds || (c.subSectorId ? [c.subSectorId] : []),
                 });
@@ -248,6 +250,19 @@ export default function EditCompanyPage() {
                                 <textarea
                                     name="productsToBeDisplayed" rows={3}
                                     value={formData.productsToBeDisplayed} onChange={handleChange}
+                                    className="glass-input w-full px-3 py-2"
+                                />
+                            </div>
+                            <div>
+                                <FormLabel>Last Year Export (USD)</FormLabel>
+                                <input
+                                    type="number"
+                                    name="lastYearExport"
+                                    value={formData.lastYearExport}
+                                    onChange={handleChange}
+                                    placeholder="e.g. 500000"
+                                    min="0"
+                                    step="0.01"
                                     className="glass-input w-full px-3 py-2"
                                 />
                             </div>

@@ -16,20 +16,20 @@ export async function POST(request) {
         }
 
         // Normalise the multi-select arrays coming from the form
-        const sectorIds    = Array.isArray(data.sectorIds)    ? data.sectorIds.map(Number).filter(Boolean) : [];
+        const sectorIds = Array.isArray(data.sectorIds) ? data.sectorIds.map(Number).filter(Boolean) : [];
         const subSectorIds = Array.isArray(data.subSectorIds) ? data.subSectorIds.map(Number).filter(Boolean) : [];
 
         const VALID_GCC = ['UAE', 'KSA', 'Qatar', 'Kuwait', 'Bahrain', 'Oman'];
         const gccCountries = Array.isArray(data.gccCountries)
             ? data.gccCountries.filter(c => VALID_GCC.includes(c))
             : [];
-        
+
         // Normalize countries already exporting to (can be array or comma-separated string)
         const countriesAlreadyExportingTo = Array.isArray(data.countriesAlreadyExportingTo)
             ? data.countriesAlreadyExportingTo.filter(c => c && c.trim().length > 0).map(c => c.trim())
             : typeof data.countriesAlreadyExportingTo === 'string'
-            ? data.countriesAlreadyExportingTo.split(',').map(c => c.trim()).filter(c => c.length > 0)
-            : [];
+                ? data.countriesAlreadyExportingTo.split(',').map(c => c.trim()).filter(c => c.length > 0)
+                : [];
 
         // Primary (legacy) FK values — first item in each array
         const primarySectorId = sectorIds[0] ?? null;
@@ -78,6 +78,9 @@ export async function POST(request) {
             willingToExportToGCC: Boolean(data.willingToExportToGCC),
             gccCountries,
             countriesAlreadyExportingTo,
+            lastYearExport: data.lastYearExport !== '' && data.lastYearExport != null
+                ? parseFloat(data.lastYearExport)
+                : null,
             // Legacy single-FK fields (primary selection)
             sectorId: primarySectorId,
             subSectorId: primarySubSectorId,
