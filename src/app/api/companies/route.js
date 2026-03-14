@@ -46,15 +46,14 @@ export async function GET(request) {
     conditions.push({ willingToExportToGCC: true });
   }
 
-  // Match companies willing to export to ANY of the selected GCC countries
-  // For JSON array fields, we need to filter after fetching since Prisma/MariaDB
-  // doesn't have direct JSON array contains support
-  // We'll fetch companies willing to export to GCC and filter by country in memory
+  // Match companies that have ANY of the selected GCC countries in their gccCountries array.
+  // The willingToExportToGCC toggle is intentionally ignored here so all companies
+  // with that country listed are included regardless of the toggle state.
+  // Filtering is done in-memory after fetching since Prisma/MariaDB doesn't support
+  // JSON array contains natively.
   let gccCountryFilter = null;
   if (gccCountries.length > 0) {
     gccCountryFilter = gccCountries;
-    // Also ensure they're willing to export to GCC
-    conditions.push({ willingToExportToGCC: true });
   }
 
   if (query) {
