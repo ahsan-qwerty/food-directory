@@ -141,7 +141,7 @@ export default async function CompanyProfilePage({ params, searchParams }) {
 
             {company.productsToBeDisplayed && (
               <div className="glass-card p-6">
-                <h2 className="text-2xl font-bold text-white mb-4">Products To Be Displayed</h2>
+                <h2 className="text-2xl font-bold text-white mb-4">Products</h2>
                 <p className="text-secondary whitespace-pre-line">{company.productsToBeDisplayed}</p>
               </div>
             )}

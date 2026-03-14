@@ -127,12 +127,12 @@ export default function CompaniesPage() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-secondary mb-2">Sub-Sector</label>
+              <label className="block text-sm font-medium text-secondary mb-2">Products</label>
               <SearchableSelect
                 options={subSectors.map(ss => ({ value: ss.id, label: ss.name }))}
                 value={filters.subSector}
                 onChange={val => handleFilterChange('subSector', val)}
-                placeholder="All Sub-Sectors"
+                placeholder="All Products"
               />
             </div>
 
