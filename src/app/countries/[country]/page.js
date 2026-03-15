@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { prisma } from '../../../lib/prismaClient';
 import { Suspense } from 'react';
+import DownloadButton from './_components/DownloadButton';
 
 const GCC_COUNTRIES = ['UAE', 'KSA', 'Qatar', 'Kuwait', 'Bahrain', 'Oman'];
 
@@ -220,24 +221,51 @@ export default async function CountryProfilePage({ params }) {
                         {/* Product / Subsector Interests & Recommended Companies */}
                         {profile.interests && profile.interests.length > 0 && (
                             <div className="glass-card p-6">
-                                <h2 className="text-xl font-bold text-white mb-1">TDAP Recommended Companies</h2>
-                                <p className="text-xs text-muted mb-5">Products/subsectors of interest and Pakistani companies best suited for each</p>
-                                <div className="space-y-5">
+                                {/* Section header + download-all button */}
+                                <div className="flex flex-wrap items-start justify-between gap-3 mb-1">
+                                    <div>
+                                        <h2 className="text-xl font-bold text-white">TDAP Recommended Companies</h2>
+                                        <p className="text-xs text-muted mt-0.5">Products/subsectors of interest and Pakistani companies best suited for each</p>
+                                    </div>
+                                    {profile.interests.some(i => i.companies.length > 0) && (
+                                        <DownloadButton
+                                            url={`/api/countries/${encodeURIComponent(countryName)}/interest-directory`}
+                                            filename={`${countryName.toLowerCase()}-all-products-directory.pdf`}
+                                            label="Download All Products Directory"
+                                            variant="purple"
+                                        />
+                                    )}
+                                </div>
+
+                                <div className="space-y-5 mt-5">
                                     {profile.interests.map(interest => {
                                         const label = interest.subSector
                                             ? interest.subSector.name
                                             : interest.customProduct || 'Unnamed Product';
                                         const sectorName = interest.subSector?.sector?.name || null;
+                                        const slug = label.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
                                         return (
                                             <div key={interest.id} className="border border-white/10 rounded-xl p-5">
-                                                <div className="flex flex-wrap items-start gap-2 mb-3">
-                                                    <h3 className="text-base font-bold text-white">{label}</h3>
-                                                    {sectorName && (
-                                                        <span className="px-2 py-0.5 rounded-full text-xs font-medium border border-emerald-500/30 text-emerald-300 bg-emerald-500/10">
-                                                            {sectorName}
-                                                        </span>
+                                                {/* Interest header */}
+                                                <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
+                                                    <div className="flex flex-wrap items-center gap-2">
+                                                        <h3 className="text-base font-bold text-white">{label}</h3>
+                                                        {sectorName && (
+                                                            <span className="px-2 py-0.5 rounded-full text-xs font-medium border border-emerald-500/30 text-emerald-300 bg-emerald-500/10">
+                                                                {sectorName}
+                                                            </span>
+                                                        )}
+                                                    </div>
+                                                    {interest.companies.length > 0 && (
+                                                        <DownloadButton
+                                                            url={`/api/countries/${encodeURIComponent(countryName)}/interest-directory?interestId=${interest.id}`}
+                                                            filename={`${countryName.toLowerCase()}-${slug}-directory.pdf`}
+                                                            label={`Download ${label} Directory`}
+                                                            variant="teal"
+                                                        />
                                                     )}
                                                 </div>
+
                                                 {interest.notes && (
                                                     <p className="text-secondary text-sm mb-4 leading-relaxed">{interest.notes}</p>
                                                 )}
