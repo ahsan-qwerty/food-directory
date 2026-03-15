@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, use } from 'react';
+import { useState, useEffect, useRef, use } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
@@ -487,9 +487,39 @@ function InterestCard({ interest, onDelete, onSaveNotes, onUpdateCompanies }) {
     const [companySearch, setCompanySearch] = useState('');
     const [searchResults, setSearchResults] = useState([]);
     const [searching, setSearching] = useState(false);
+    const searchRef = useRef(null);
     const [assignedCompanies, setAssignedCompanies] = useState(
-        interest.companies.map(ic => ic.company)
+        () => interest.companies.map(ic => ic.company)
     );
+
+    // Re-sync assigned companies whenever the parent refreshes this interest from the API.
+    // We compare the serialised company IDs so reference changes from unrelated
+    // parent state updates don't cause unnecessary resets.
+    const companiesSnapshot = interest.companies.map(ic => ic.id).join(',');
+    useEffect(() => {
+        setAssignedCompanies(interest.companies.map(ic => ic.company));
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [companiesSnapshot]);
+
+    // Re-sync notes from prop (only when not actively editing)
+    useEffect(() => {
+        if (!notesDirty) {
+            setNotes(interest.notes || '');
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [interest.notes]);
+
+    // Close the search dropdown when clicking outside
+    useEffect(() => {
+        function handleClickOutside(e) {
+            if (searchRef.current && !searchRef.current.contains(e.target)) {
+                setSearchResults([]);
+                setCompanySearch('');
+            }
+        }
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
 
     const label = interest.subSector ? interest.subSector.name : (interest.customProduct || 'Unnamed');
     const sectorName = interest.subSector?.sector?.name || null;
@@ -510,16 +540,22 @@ function InterestCard({ interest, onDelete, onSaveNotes, onUpdateCompanies }) {
         return () => clearTimeout(timer);
     }, [companySearch, assignedCompanies]);
 
+    // Keep a ref to the latest assignedCompanies so async callbacks
+    // always work with the most up-to-date list.
+    const assignedRef = useRef(assignedCompanies);
+    useEffect(() => { assignedRef.current = assignedCompanies; }, [assignedCompanies]);
+
     async function addCompany(company) {
-        const next = [...assignedCompanies, company];
+        if (assignedRef.current.some(c => c.id === company.id)) return; // guard duplicate
+        const next = [...assignedRef.current, company];
         setAssignedCompanies(next);
         setCompanySearch('');
         setSearchResults([]);
         await onUpdateCompanies(next.map(c => c.id));
     }
 
-    async function removeCompany(id) {
-        const next = assignedCompanies.filter(c => c.id !== id);
+    async function removeCompany(companyId) {
+        const next = assignedRef.current.filter(c => c.id !== companyId);
         setAssignedCompanies(next);
         await onUpdateCompanies(next.map(c => c.id));
     }
@@ -608,7 +644,7 @@ function InterestCard({ interest, onDelete, onSaveNotes, onUpdateCompanies }) {
             </div>
 
             {/* Company search */}
-            <div className="relative">
+            <div className="relative" ref={searchRef}>
                 <input
                     type="text"
                     value={companySearch}
