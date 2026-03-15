@@ -220,7 +220,7 @@ export default async function CountryProfilePage({ params }) {
                         {/* Product / Subsector Interests & Recommended Companies */}
                         {profile.interests && profile.interests.length > 0 && (
                             <div className="glass-card p-6">
-                                <h2 className="text-xl font-bold text-white mb-1">Product Interests &amp; Recommended Companies</h2>
+                                <h2 className="text-xl font-bold text-white mb-1">TDAP Recommended Companies</h2>
                                 <p className="text-xs text-muted mb-5">Products/subsectors of interest and Pakistani companies best suited for each</p>
                                 <div className="space-y-5">
                                     {profile.interests.map(interest => {
