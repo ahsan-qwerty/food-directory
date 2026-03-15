@@ -1628,7 +1628,7 @@ export const CompanyScalarFieldEnum = {
   willingToExportToGCC: 'willingToExportToGCC',
   gccCountries: 'gccCountries',
   countriesAlreadyExportingTo: 'countriesAlreadyExportingTo',
-  lastYearExport: 'lastYearExport',
+  countryExports: 'countryExports',
   sectorId: 'sectorId',
   subSectorId: 'subSectorId',
   createdAt: 'createdAt'
@@ -2080,16 +2080,16 @@ export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$Prisma
 
 
 /**
- * Reference to a field of type 'Decimal'
+ * Reference to a field of type 'EventStatus'
  */
-export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal'>
+export type EnumEventStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EventStatus'>
     
 
 
 /**
- * Reference to a field of type 'EventStatus'
+ * Reference to a field of type 'Decimal'
  */
-export type EnumEventStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EventStatus'>
+export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal'>
     
 
 

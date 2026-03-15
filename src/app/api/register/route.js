@@ -78,9 +78,14 @@ export async function POST(request) {
             willingToExportToGCC: Boolean(data.willingToExportToGCC),
             gccCountries,
             countriesAlreadyExportingTo,
-            lastYearExport: data.lastYearExport !== '' && data.lastYearExport != null
-                ? parseFloat(data.lastYearExport)
-                : null,
+            countryExports: (typeof data.countryExports === 'object' && data.countryExports !== null && !Array.isArray(data.countryExports))
+                ? Object.fromEntries(
+                    Object.entries(data.countryExports)
+                        .filter(([, v]) => v !== '' && v != null)
+                        .map(([k, v]) => [k, parseFloat(v)])
+                        .filter(([, v]) => !isNaN(v))
+                )
+                : {},
             // Legacy single-FK fields (primary selection)
             sectorId: primarySectorId,
             subSectorId: primarySubSectorId,

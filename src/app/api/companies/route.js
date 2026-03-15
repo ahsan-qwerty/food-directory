@@ -154,9 +154,14 @@ export async function PUT(request) {
         productsToBeDisplayed: body.productsToBeDisplayed?.trim() || null,
         willingToExportToGCC: Boolean(body.willingToExportToGCC),
         gccCountries: Array.isArray(body.gccCountries) ? body.gccCountries : [],
-        lastYearExport: body.lastYearExport !== '' && body.lastYearExport != null
-          ? parseFloat(body.lastYearExport)
-          : null,
+        countryExports: (typeof body.countryExports === 'object' && body.countryExports !== null && !Array.isArray(body.countryExports))
+          ? Object.fromEntries(
+            Object.entries(body.countryExports)
+              .filter(([, v]) => v !== '' && v != null)
+              .map(([k, v]) => [k, parseFloat(v)])
+              .filter(([, v]) => !isNaN(v))
+          )
+          : {},
         countriesAlreadyExportingTo: Array.isArray(body.countriesAlreadyExportingTo)
           ? body.countriesAlreadyExportingTo.filter(c => c && c.trim().length > 0).map(c => c.trim())
           : typeof body.countriesAlreadyExportingTo === 'string'

@@ -77,7 +77,8 @@ productsToBeDisplayed String?
 willingToExportToGCC Boolean  @default(false)
 gccCountries         Json     @default("[]")
 countriesAlreadyExportingTo Json     @default("[]")
-lastYearExport       Decimal? @db.Decimal(15, 2)
+// Per-country last-year export values  e.g. {"UAE": 500000, "KSA": 250000}
+countryExports       Json     @default("{}")
 
 // Primary / legacy single-FK (kept for backward-compat with existing data & filters)
 sectorId Int?

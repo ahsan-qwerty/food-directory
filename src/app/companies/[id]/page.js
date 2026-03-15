@@ -106,20 +106,41 @@ export default async function CompanyProfilePage({ params, searchParams }) {
 
           {/* GCC Export */}
           {(company.willingToExportToGCC || (Array.isArray(company.gccCountries) && company.gccCountries.length > 0)) && (
-            <div className="flex flex-wrap items-center gap-2 mb-3">
+            <div className="mb-3">
               {company.willingToExportToGCC && (
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold border border-emerald-500/40 text-emerald-300 bg-emerald-500/10">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold border border-emerald-500/40 text-emerald-300 bg-emerald-500/10 mb-2">
                   <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                   </svg>
                   Willing to Export to GCC
                 </span>
               )}
-              {Array.isArray(company.gccCountries) && company.gccCountries.map(country => (
-                <span key={country} className="px-2.5 py-1 rounded-full text-xs font-medium border border-sky-500/40 text-sky-300 bg-sky-500/10">
-                  {country}
-                </span>
-              ))}
+              {Array.isArray(company.gccCountries) && company.gccCountries.length > 0 && (() => {
+                const exports = (typeof company.countryExports === 'object' && company.countryExports !== null && !Array.isArray(company.countryExports))
+                  ? company.countryExports : {};
+                const hasAnyExport = company.gccCountries.some(c => exports[c] != null && exports[c] !== '');
+                return (
+                  <div className="inline-block border border-white/10 rounded-lg overflow-hidden text-sm mt-1">
+                    <div className="grid grid-cols-[auto_auto] bg-white/5 px-3 py-1.5 border-b border-white/10 gap-x-8">
+                      <span className="text-xs font-semibold text-muted uppercase tracking-wide">Target Country</span>
+                      {hasAnyExport && <span className="text-xs font-semibold text-muted uppercase tracking-wide text-right">Last Year Export (USD)</span>}
+                    </div>
+                    {company.gccCountries.map(c => (
+                      <div key={c} className="grid grid-cols-[auto_auto] items-center px-3 py-2 border-b border-white/5 last:border-b-0 gap-x-8">
+                        <span className="text-sky-300 font-medium">{c}</span>
+                        {hasAnyExport && (
+                          <span className="text-right text-accent-green font-semibold">
+                            {exports[c] != null && exports[c] !== ''
+                              ? '$' + Number(exports[c]).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })
+                              : <span className="text-muted font-normal">—</span>
+                            }
+                          </span>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                );
+              })()}
             </div>
           )}
 
@@ -377,14 +398,6 @@ export default async function CompanyProfilePage({ params, searchParams }) {
                     >
                       {company.website}
                     </a>
-                  </div>
-                )}
-                {company.lastYearExport != null && (
-                  <div>
-                    <h3 className="text-xs font-semibold text-muted uppercase tracking-wide mb-1">Last Year Export</h3>
-                    <p className="text-secondary text-sm font-medium">
-                      USD {Number(company.lastYearExport).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 })}
-                    </p>
                   </div>
                 )}
               </div>

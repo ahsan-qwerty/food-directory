@@ -886,6 +886,14 @@ export type NullableDateTimeFieldUpdateOperationsInput = {
   set?: Date | string | null
 }
 
+export type NullableDecimalFieldUpdateOperationsInput = {
+  set?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  increment?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  decrement?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  multiply?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  divide?: runtime.Decimal | runtime.DecimalJsLike | number | string
+}
+
 export type EventCreateNestedOneWithoutEventSectorsInput = {
   create?: Prisma.XOR<Prisma.EventCreateWithoutEventSectorsInput, Prisma.EventUncheckedCreateWithoutEventSectorsInput>
   connectOrCreate?: Prisma.EventCreateOrConnectWithoutEventSectorsInput

@@ -133,7 +133,7 @@ export const CompanyScalarFieldEnum = {
   willingToExportToGCC: 'willingToExportToGCC',
   gccCountries: 'gccCountries',
   countriesAlreadyExportingTo: 'countriesAlreadyExportingTo',
-  lastYearExport: 'lastYearExport',
+  countryExports: 'countryExports',
   sectorId: 'sectorId',
   subSectorId: 'subSectorId',
   createdAt: 'createdAt'
