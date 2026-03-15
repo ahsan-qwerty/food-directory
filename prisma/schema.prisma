@@ -43,6 +43,7 @@ sector Sector @relation(fields: [sectorId], references: [id])
 products Product[]
 companies Company[]
 companySubSectors CompanySubSector[]
+countryInterests CountryProductInterest[]
 
 
 createdAt DateTime @default(now())
@@ -95,6 +96,7 @@ eventParticipations EventCompany[]
 delegationParticipations DelegationCompany[]
 feedbacks EventFeedback[]
 emailStatuses EventCompanyEmailStatus[]
+countryInterests CountryInterestCompany[]
 
 createdAt DateTime @default(now())
 }
@@ -306,8 +308,36 @@ model CountryProfile {
   topImportsFromPakistan        Json    @default("[]")
   otherImportsFromPakistanValue Decimal? @db.Decimal(15, 2)
 
+  interests CountryProductInterest[]
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+// ── Country product interests + officer-recommended companies ────────────────
+model CountryProductInterest {
+  id               Int            @id @default(autoincrement())
+  countryProfileId Int
+  countryProfile   CountryProfile @relation(fields: [countryProfileId], references: [id], onDelete: Cascade)
+
+  subSectorId      Int?
+  subSector        SubSector?     @relation(fields: [subSectorId], references: [id], onDelete: SetNull)
+  customProduct    String?        // free-text product name when no subsector selected
+  notes            String?        @db.Text
+
+  companies CountryInterestCompany[]
+
+  createdAt DateTime @default(now())
+}
+
+model CountryInterestCompany {
+  id         Int                    @id @default(autoincrement())
+  interestId Int
+  interest   CountryProductInterest @relation(fields: [interestId], references: [id], onDelete: Cascade)
+  companyId  Int
+  company    Company                @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  @@unique([interestId, companyId])
 }
 
 enum DelegationType {

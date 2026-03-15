@@ -224,6 +224,7 @@ export type SubSectorWhereInput = {
   products?: Prisma.ProductListRelationFilter
   companies?: Prisma.CompanyListRelationFilter
   companySubSectors?: Prisma.CompanySubSectorListRelationFilter
+  countryInterests?: Prisma.CountryProductInterestListRelationFilter
 }
 
 export type SubSectorOrderByWithRelationInput = {
@@ -236,6 +237,7 @@ export type SubSectorOrderByWithRelationInput = {
   products?: Prisma.ProductOrderByRelationAggregateInput
   companies?: Prisma.CompanyOrderByRelationAggregateInput
   companySubSectors?: Prisma.CompanySubSectorOrderByRelationAggregateInput
+  countryInterests?: Prisma.CountryProductInterestOrderByRelationAggregateInput
   _relevance?: Prisma.SubSectorOrderByRelevanceInput
 }
 
@@ -252,6 +254,7 @@ export type SubSectorWhereUniqueInput = Prisma.AtLeast<{
   products?: Prisma.ProductListRelationFilter
   companies?: Prisma.CompanyListRelationFilter
   companySubSectors?: Prisma.CompanySubSectorListRelationFilter
+  countryInterests?: Prisma.CountryProductInterestListRelationFilter
 }, "id">
 
 export type SubSectorOrderByWithAggregationInput = {
@@ -286,6 +289,7 @@ export type SubSectorCreateInput = {
   products?: Prisma.ProductCreateNestedManyWithoutSubSectorInput
   companies?: Prisma.CompanyCreateNestedManyWithoutSubSectorInput
   companySubSectors?: Prisma.CompanySubSectorCreateNestedManyWithoutSubSectorInput
+  countryInterests?: Prisma.CountryProductInterestCreateNestedManyWithoutSubSectorInput
 }
 
 export type SubSectorUncheckedCreateInput = {
@@ -297,6 +301,7 @@ export type SubSectorUncheckedCreateInput = {
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutSubSectorInput
   companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutSubSectorInput
   companySubSectors?: Prisma.CompanySubSectorUncheckedCreateNestedManyWithoutSubSectorInput
+  countryInterests?: Prisma.CountryProductInterestUncheckedCreateNestedManyWithoutSubSectorInput
 }
 
 export type SubSectorUpdateInput = {
@@ -307,6 +312,7 @@ export type SubSectorUpdateInput = {
   products?: Prisma.ProductUpdateManyWithoutSubSectorNestedInput
   companies?: Prisma.CompanyUpdateManyWithoutSubSectorNestedInput
   companySubSectors?: Prisma.CompanySubSectorUpdateManyWithoutSubSectorNestedInput
+  countryInterests?: Prisma.CountryProductInterestUpdateManyWithoutSubSectorNestedInput
 }
 
 export type SubSectorUncheckedUpdateInput = {
@@ -318,6 +324,7 @@ export type SubSectorUncheckedUpdateInput = {
   products?: Prisma.ProductUncheckedUpdateManyWithoutSubSectorNestedInput
   companies?: Prisma.CompanyUncheckedUpdateManyWithoutSubSectorNestedInput
   companySubSectors?: Prisma.CompanySubSectorUncheckedUpdateManyWithoutSubSectorNestedInput
+  countryInterests?: Prisma.CountryProductInterestUncheckedUpdateManyWithoutSubSectorNestedInput
 }
 
 export type SubSectorCreateManyInput = {
@@ -488,6 +495,22 @@ export type SubSectorUpdateOneRequiredWithoutCompanySubSectorsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.SubSectorUpdateToOneWithWhereWithoutCompanySubSectorsInput, Prisma.SubSectorUpdateWithoutCompanySubSectorsInput>, Prisma.SubSectorUncheckedUpdateWithoutCompanySubSectorsInput>
 }
 
+export type SubSectorCreateNestedOneWithoutCountryInterestsInput = {
+  create?: Prisma.XOR<Prisma.SubSectorCreateWithoutCountryInterestsInput, Prisma.SubSectorUncheckedCreateWithoutCountryInterestsInput>
+  connectOrCreate?: Prisma.SubSectorCreateOrConnectWithoutCountryInterestsInput
+  connect?: Prisma.SubSectorWhereUniqueInput
+}
+
+export type SubSectorUpdateOneWithoutCountryInterestsNestedInput = {
+  create?: Prisma.XOR<Prisma.SubSectorCreateWithoutCountryInterestsInput, Prisma.SubSectorUncheckedCreateWithoutCountryInterestsInput>
+  connectOrCreate?: Prisma.SubSectorCreateOrConnectWithoutCountryInterestsInput
+  upsert?: Prisma.SubSectorUpsertWithoutCountryInterestsInput
+  disconnect?: Prisma.SubSectorWhereInput | boolean
+  delete?: Prisma.SubSectorWhereInput | boolean
+  connect?: Prisma.SubSectorWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.SubSectorUpdateToOneWithWhereWithoutCountryInterestsInput, Prisma.SubSectorUpdateWithoutCountryInterestsInput>, Prisma.SubSectorUncheckedUpdateWithoutCountryInterestsInput>
+}
+
 export type SubSectorCreateWithoutSectorInput = {
   name: string
   hsCode?: string | null
@@ -495,6 +518,7 @@ export type SubSectorCreateWithoutSectorInput = {
   products?: Prisma.ProductCreateNestedManyWithoutSubSectorInput
   companies?: Prisma.CompanyCreateNestedManyWithoutSubSectorInput
   companySubSectors?: Prisma.CompanySubSectorCreateNestedManyWithoutSubSectorInput
+  countryInterests?: Prisma.CountryProductInterestCreateNestedManyWithoutSubSectorInput
 }
 
 export type SubSectorUncheckedCreateWithoutSectorInput = {
@@ -505,6 +529,7 @@ export type SubSectorUncheckedCreateWithoutSectorInput = {
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutSubSectorInput
   companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutSubSectorInput
   companySubSectors?: Prisma.CompanySubSectorUncheckedCreateNestedManyWithoutSubSectorInput
+  countryInterests?: Prisma.CountryProductInterestUncheckedCreateNestedManyWithoutSubSectorInput
 }
 
 export type SubSectorCreateOrConnectWithoutSectorInput = {
@@ -551,6 +576,7 @@ export type SubSectorCreateWithoutProductsInput = {
   sector: Prisma.SectorCreateNestedOneWithoutSubSectorsInput
   companies?: Prisma.CompanyCreateNestedManyWithoutSubSectorInput
   companySubSectors?: Prisma.CompanySubSectorCreateNestedManyWithoutSubSectorInput
+  countryInterests?: Prisma.CountryProductInterestCreateNestedManyWithoutSubSectorInput
 }
 
 export type SubSectorUncheckedCreateWithoutProductsInput = {
@@ -561,6 +587,7 @@ export type SubSectorUncheckedCreateWithoutProductsInput = {
   createdAt?: Date | string
   companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutSubSectorInput
   companySubSectors?: Prisma.CompanySubSectorUncheckedCreateNestedManyWithoutSubSectorInput
+  countryInterests?: Prisma.CountryProductInterestUncheckedCreateNestedManyWithoutSubSectorInput
 }
 
 export type SubSectorCreateOrConnectWithoutProductsInput = {
@@ -586,6 +613,7 @@ export type SubSectorUpdateWithoutProductsInput = {
   sector?: Prisma.SectorUpdateOneRequiredWithoutSubSectorsNestedInput
   companies?: Prisma.CompanyUpdateManyWithoutSubSectorNestedInput
   companySubSectors?: Prisma.CompanySubSectorUpdateManyWithoutSubSectorNestedInput
+  countryInterests?: Prisma.CountryProductInterestUpdateManyWithoutSubSectorNestedInput
 }
 
 export type SubSectorUncheckedUpdateWithoutProductsInput = {
@@ -596,6 +624,7 @@ export type SubSectorUncheckedUpdateWithoutProductsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   companies?: Prisma.CompanyUncheckedUpdateManyWithoutSubSectorNestedInput
   companySubSectors?: Prisma.CompanySubSectorUncheckedUpdateManyWithoutSubSectorNestedInput
+  countryInterests?: Prisma.CountryProductInterestUncheckedUpdateManyWithoutSubSectorNestedInput
 }
 
 export type SubSectorCreateWithoutCompaniesInput = {
@@ -605,6 +634,7 @@ export type SubSectorCreateWithoutCompaniesInput = {
   sector: Prisma.SectorCreateNestedOneWithoutSubSectorsInput
   products?: Prisma.ProductCreateNestedManyWithoutSubSectorInput
   companySubSectors?: Prisma.CompanySubSectorCreateNestedManyWithoutSubSectorInput
+  countryInterests?: Prisma.CountryProductInterestCreateNestedManyWithoutSubSectorInput
 }
 
 export type SubSectorUncheckedCreateWithoutCompaniesInput = {
@@ -615,6 +645,7 @@ export type SubSectorUncheckedCreateWithoutCompaniesInput = {
   createdAt?: Date | string
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutSubSectorInput
   companySubSectors?: Prisma.CompanySubSectorUncheckedCreateNestedManyWithoutSubSectorInput
+  countryInterests?: Prisma.CountryProductInterestUncheckedCreateNestedManyWithoutSubSectorInput
 }
 
 export type SubSectorCreateOrConnectWithoutCompaniesInput = {
@@ -640,6 +671,7 @@ export type SubSectorUpdateWithoutCompaniesInput = {
   sector?: Prisma.SectorUpdateOneRequiredWithoutSubSectorsNestedInput
   products?: Prisma.ProductUpdateManyWithoutSubSectorNestedInput
   companySubSectors?: Prisma.CompanySubSectorUpdateManyWithoutSubSectorNestedInput
+  countryInterests?: Prisma.CountryProductInterestUpdateManyWithoutSubSectorNestedInput
 }
 
 export type SubSectorUncheckedUpdateWithoutCompaniesInput = {
@@ -650,6 +682,7 @@ export type SubSectorUncheckedUpdateWithoutCompaniesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   products?: Prisma.ProductUncheckedUpdateManyWithoutSubSectorNestedInput
   companySubSectors?: Prisma.CompanySubSectorUncheckedUpdateManyWithoutSubSectorNestedInput
+  countryInterests?: Prisma.CountryProductInterestUncheckedUpdateManyWithoutSubSectorNestedInput
 }
 
 export type SubSectorCreateWithoutCompanySubSectorsInput = {
@@ -659,6 +692,7 @@ export type SubSectorCreateWithoutCompanySubSectorsInput = {
   sector: Prisma.SectorCreateNestedOneWithoutSubSectorsInput
   products?: Prisma.ProductCreateNestedManyWithoutSubSectorInput
   companies?: Prisma.CompanyCreateNestedManyWithoutSubSectorInput
+  countryInterests?: Prisma.CountryProductInterestCreateNestedManyWithoutSubSectorInput
 }
 
 export type SubSectorUncheckedCreateWithoutCompanySubSectorsInput = {
@@ -669,6 +703,7 @@ export type SubSectorUncheckedCreateWithoutCompanySubSectorsInput = {
   createdAt?: Date | string
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutSubSectorInput
   companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutSubSectorInput
+  countryInterests?: Prisma.CountryProductInterestUncheckedCreateNestedManyWithoutSubSectorInput
 }
 
 export type SubSectorCreateOrConnectWithoutCompanySubSectorsInput = {
@@ -694,6 +729,7 @@ export type SubSectorUpdateWithoutCompanySubSectorsInput = {
   sector?: Prisma.SectorUpdateOneRequiredWithoutSubSectorsNestedInput
   products?: Prisma.ProductUpdateManyWithoutSubSectorNestedInput
   companies?: Prisma.CompanyUpdateManyWithoutSubSectorNestedInput
+  countryInterests?: Prisma.CountryProductInterestUpdateManyWithoutSubSectorNestedInput
 }
 
 export type SubSectorUncheckedUpdateWithoutCompanySubSectorsInput = {
@@ -704,6 +740,65 @@ export type SubSectorUncheckedUpdateWithoutCompanySubSectorsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   products?: Prisma.ProductUncheckedUpdateManyWithoutSubSectorNestedInput
   companies?: Prisma.CompanyUncheckedUpdateManyWithoutSubSectorNestedInput
+  countryInterests?: Prisma.CountryProductInterestUncheckedUpdateManyWithoutSubSectorNestedInput
+}
+
+export type SubSectorCreateWithoutCountryInterestsInput = {
+  name: string
+  hsCode?: string | null
+  createdAt?: Date | string
+  sector: Prisma.SectorCreateNestedOneWithoutSubSectorsInput
+  products?: Prisma.ProductCreateNestedManyWithoutSubSectorInput
+  companies?: Prisma.CompanyCreateNestedManyWithoutSubSectorInput
+  companySubSectors?: Prisma.CompanySubSectorCreateNestedManyWithoutSubSectorInput
+}
+
+export type SubSectorUncheckedCreateWithoutCountryInterestsInput = {
+  id?: number
+  name: string
+  hsCode?: string | null
+  sectorId: number
+  createdAt?: Date | string
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutSubSectorInput
+  companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutSubSectorInput
+  companySubSectors?: Prisma.CompanySubSectorUncheckedCreateNestedManyWithoutSubSectorInput
+}
+
+export type SubSectorCreateOrConnectWithoutCountryInterestsInput = {
+  where: Prisma.SubSectorWhereUniqueInput
+  create: Prisma.XOR<Prisma.SubSectorCreateWithoutCountryInterestsInput, Prisma.SubSectorUncheckedCreateWithoutCountryInterestsInput>
+}
+
+export type SubSectorUpsertWithoutCountryInterestsInput = {
+  update: Prisma.XOR<Prisma.SubSectorUpdateWithoutCountryInterestsInput, Prisma.SubSectorUncheckedUpdateWithoutCountryInterestsInput>
+  create: Prisma.XOR<Prisma.SubSectorCreateWithoutCountryInterestsInput, Prisma.SubSectorUncheckedCreateWithoutCountryInterestsInput>
+  where?: Prisma.SubSectorWhereInput
+}
+
+export type SubSectorUpdateToOneWithWhereWithoutCountryInterestsInput = {
+  where?: Prisma.SubSectorWhereInput
+  data: Prisma.XOR<Prisma.SubSectorUpdateWithoutCountryInterestsInput, Prisma.SubSectorUncheckedUpdateWithoutCountryInterestsInput>
+}
+
+export type SubSectorUpdateWithoutCountryInterestsInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  hsCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sector?: Prisma.SectorUpdateOneRequiredWithoutSubSectorsNestedInput
+  products?: Prisma.ProductUpdateManyWithoutSubSectorNestedInput
+  companies?: Prisma.CompanyUpdateManyWithoutSubSectorNestedInput
+  companySubSectors?: Prisma.CompanySubSectorUpdateManyWithoutSubSectorNestedInput
+}
+
+export type SubSectorUncheckedUpdateWithoutCountryInterestsInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  hsCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sectorId?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  products?: Prisma.ProductUncheckedUpdateManyWithoutSubSectorNestedInput
+  companies?: Prisma.CompanyUncheckedUpdateManyWithoutSubSectorNestedInput
+  companySubSectors?: Prisma.CompanySubSectorUncheckedUpdateManyWithoutSubSectorNestedInput
 }
 
 export type SubSectorCreateManySectorInput = {
@@ -720,6 +815,7 @@ export type SubSectorUpdateWithoutSectorInput = {
   products?: Prisma.ProductUpdateManyWithoutSubSectorNestedInput
   companies?: Prisma.CompanyUpdateManyWithoutSubSectorNestedInput
   companySubSectors?: Prisma.CompanySubSectorUpdateManyWithoutSubSectorNestedInput
+  countryInterests?: Prisma.CountryProductInterestUpdateManyWithoutSubSectorNestedInput
 }
 
 export type SubSectorUncheckedUpdateWithoutSectorInput = {
@@ -730,6 +826,7 @@ export type SubSectorUncheckedUpdateWithoutSectorInput = {
   products?: Prisma.ProductUncheckedUpdateManyWithoutSubSectorNestedInput
   companies?: Prisma.CompanyUncheckedUpdateManyWithoutSubSectorNestedInput
   companySubSectors?: Prisma.CompanySubSectorUncheckedUpdateManyWithoutSubSectorNestedInput
+  countryInterests?: Prisma.CountryProductInterestUncheckedUpdateManyWithoutSubSectorNestedInput
 }
 
 export type SubSectorUncheckedUpdateManyWithoutSectorInput = {
@@ -748,12 +845,14 @@ export type SubSectorCountOutputType = {
   products: number
   companies: number
   companySubSectors: number
+  countryInterests: number
 }
 
 export type SubSectorCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   products?: boolean | SubSectorCountOutputTypeCountProductsArgs
   companies?: boolean | SubSectorCountOutputTypeCountCompaniesArgs
   companySubSectors?: boolean | SubSectorCountOutputTypeCountCompanySubSectorsArgs
+  countryInterests?: boolean | SubSectorCountOutputTypeCountCountryInterestsArgs
 }
 
 /**
@@ -787,6 +886,13 @@ export type SubSectorCountOutputTypeCountCompanySubSectorsArgs<ExtArgs extends r
   where?: Prisma.CompanySubSectorWhereInput
 }
 
+/**
+ * SubSectorCountOutputType without action
+ */
+export type SubSectorCountOutputTypeCountCountryInterestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CountryProductInterestWhereInput
+}
+
 
 export type SubSectorSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -798,6 +904,7 @@ export type SubSectorSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   products?: boolean | Prisma.SubSector$productsArgs<ExtArgs>
   companies?: boolean | Prisma.SubSector$companiesArgs<ExtArgs>
   companySubSectors?: boolean | Prisma.SubSector$companySubSectorsArgs<ExtArgs>
+  countryInterests?: boolean | Prisma.SubSector$countryInterestsArgs<ExtArgs>
   _count?: boolean | Prisma.SubSectorCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["subSector"]>
 
@@ -817,6 +924,7 @@ export type SubSectorInclude<ExtArgs extends runtime.Types.Extensions.InternalAr
   products?: boolean | Prisma.SubSector$productsArgs<ExtArgs>
   companies?: boolean | Prisma.SubSector$companiesArgs<ExtArgs>
   companySubSectors?: boolean | Prisma.SubSector$companySubSectorsArgs<ExtArgs>
+  countryInterests?: boolean | Prisma.SubSector$countryInterestsArgs<ExtArgs>
   _count?: boolean | Prisma.SubSectorCountOutputTypeDefaultArgs<ExtArgs>
 }
 
@@ -827,6 +935,7 @@ export type $SubSectorPayload<ExtArgs extends runtime.Types.Extensions.InternalA
     products: Prisma.$ProductPayload<ExtArgs>[]
     companies: Prisma.$CompanyPayload<ExtArgs>[]
     companySubSectors: Prisma.$CompanySubSectorPayload<ExtArgs>[]
+    countryInterests: Prisma.$CountryProductInterestPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1178,6 +1287,7 @@ export interface Prisma__SubSectorClient<T, Null = never, ExtArgs extends runtim
   products<T extends Prisma.SubSector$productsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SubSector$productsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   companies<T extends Prisma.SubSector$companiesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SubSector$companiesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   companySubSectors<T extends Prisma.SubSector$companySubSectorsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SubSector$companySubSectorsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CompanySubSectorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  countryInterests<T extends Prisma.SubSector$countryInterestsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SubSector$countryInterestsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CountryProductInterestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1624,6 +1734,30 @@ export type SubSector$companySubSectorsArgs<ExtArgs extends runtime.Types.Extens
   take?: number
   skip?: number
   distinct?: Prisma.CompanySubSectorScalarFieldEnum | Prisma.CompanySubSectorScalarFieldEnum[]
+}
+
+/**
+ * SubSector.countryInterests
+ */
+export type SubSector$countryInterestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CountryProductInterest
+   */
+  select?: Prisma.CountryProductInterestSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CountryProductInterest
+   */
+  omit?: Prisma.CountryProductInterestOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CountryProductInterestInclude<ExtArgs> | null
+  where?: Prisma.CountryProductInterestWhereInput
+  orderBy?: Prisma.CountryProductInterestOrderByWithRelationInput | Prisma.CountryProductInterestOrderByWithRelationInput[]
+  cursor?: Prisma.CountryProductInterestWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CountryProductInterestScalarFieldEnum | Prisma.CountryProductInterestScalarFieldEnum[]
 }
 
 /**

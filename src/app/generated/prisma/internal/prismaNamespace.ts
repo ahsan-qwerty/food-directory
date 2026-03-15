@@ -397,6 +397,8 @@ export const ModelName = {
   EventFeedback: 'EventFeedback',
   Mission: 'Mission',
   CountryProfile: 'CountryProfile',
+  CountryProductInterest: 'CountryProductInterest',
+  CountryInterestCompany: 'CountryInterestCompany',
   Delegation: 'Delegation',
   DelegationCompany: 'DelegationCompany',
   DelegationSector: 'DelegationSector',
@@ -416,7 +418,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "sector" | "subSector" | "product" | "company" | "companySector" | "companySubSector" | "event" | "eventSector" | "eventCompany" | "eventCompanyEmailStatus" | "eventFeedback" | "mission" | "countryProfile" | "delegation" | "delegationCompany" | "delegationSector" | "seminar"
+    modelProps: "sector" | "subSector" | "product" | "company" | "companySector" | "companySubSector" | "event" | "eventSector" | "eventCompany" | "eventCompanyEmailStatus" | "eventFeedback" | "mission" | "countryProfile" | "countryProductInterest" | "countryInterestCompany" | "delegation" | "delegationCompany" | "delegationSector" | "seminar"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1278,6 +1280,138 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    CountryProductInterest: {
+      payload: Prisma.$CountryProductInterestPayload<ExtArgs>
+      fields: Prisma.CountryProductInterestFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CountryProductInterestFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CountryProductInterestPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CountryProductInterestFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CountryProductInterestPayload>
+        }
+        findFirst: {
+          args: Prisma.CountryProductInterestFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CountryProductInterestPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CountryProductInterestFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CountryProductInterestPayload>
+        }
+        findMany: {
+          args: Prisma.CountryProductInterestFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CountryProductInterestPayload>[]
+        }
+        create: {
+          args: Prisma.CountryProductInterestCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CountryProductInterestPayload>
+        }
+        createMany: {
+          args: Prisma.CountryProductInterestCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        delete: {
+          args: Prisma.CountryProductInterestDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CountryProductInterestPayload>
+        }
+        update: {
+          args: Prisma.CountryProductInterestUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CountryProductInterestPayload>
+        }
+        deleteMany: {
+          args: Prisma.CountryProductInterestDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CountryProductInterestUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        upsert: {
+          args: Prisma.CountryProductInterestUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CountryProductInterestPayload>
+        }
+        aggregate: {
+          args: Prisma.CountryProductInterestAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCountryProductInterest>
+        }
+        groupBy: {
+          args: Prisma.CountryProductInterestGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CountryProductInterestGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CountryProductInterestCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CountryProductInterestCountAggregateOutputType> | number
+        }
+      }
+    }
+    CountryInterestCompany: {
+      payload: Prisma.$CountryInterestCompanyPayload<ExtArgs>
+      fields: Prisma.CountryInterestCompanyFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CountryInterestCompanyFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CountryInterestCompanyPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CountryInterestCompanyFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CountryInterestCompanyPayload>
+        }
+        findFirst: {
+          args: Prisma.CountryInterestCompanyFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CountryInterestCompanyPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CountryInterestCompanyFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CountryInterestCompanyPayload>
+        }
+        findMany: {
+          args: Prisma.CountryInterestCompanyFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CountryInterestCompanyPayload>[]
+        }
+        create: {
+          args: Prisma.CountryInterestCompanyCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CountryInterestCompanyPayload>
+        }
+        createMany: {
+          args: Prisma.CountryInterestCompanyCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        delete: {
+          args: Prisma.CountryInterestCompanyDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CountryInterestCompanyPayload>
+        }
+        update: {
+          args: Prisma.CountryInterestCompanyUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CountryInterestCompanyPayload>
+        }
+        deleteMany: {
+          args: Prisma.CountryInterestCompanyDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CountryInterestCompanyUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        upsert: {
+          args: Prisma.CountryInterestCompanyUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CountryInterestCompanyPayload>
+        }
+        aggregate: {
+          args: Prisma.CountryInterestCompanyAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCountryInterestCompany>
+        }
+        groupBy: {
+          args: Prisma.CountryInterestCompanyGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CountryInterestCompanyGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CountryInterestCompanyCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CountryInterestCompanyCountAggregateOutputType> | number
+        }
+      }
+    }
     Delegation: {
       payload: Prisma.$DelegationPayload<ExtArgs>
       fields: Prisma.DelegationFieldRefs
@@ -1785,6 +1919,27 @@ export const CountryProfileScalarFieldEnum = {
 export type CountryProfileScalarFieldEnum = (typeof CountryProfileScalarFieldEnum)[keyof typeof CountryProfileScalarFieldEnum]
 
 
+export const CountryProductInterestScalarFieldEnum = {
+  id: 'id',
+  countryProfileId: 'countryProfileId',
+  subSectorId: 'subSectorId',
+  customProduct: 'customProduct',
+  notes: 'notes',
+  createdAt: 'createdAt'
+} as const
+
+export type CountryProductInterestScalarFieldEnum = (typeof CountryProductInterestScalarFieldEnum)[keyof typeof CountryProductInterestScalarFieldEnum]
+
+
+export const CountryInterestCompanyScalarFieldEnum = {
+  id: 'id',
+  interestId: 'interestId',
+  companyId: 'companyId'
+} as const
+
+export type CountryInterestCompanyScalarFieldEnum = (typeof CountryInterestCompanyScalarFieldEnum)[keyof typeof CountryInterestCompanyScalarFieldEnum]
+
+
 export const DelegationScalarFieldEnum = {
   id: 'id',
   type: 'type',
@@ -1999,6 +2154,14 @@ export const CountryProfileOrderByRelevanceFieldEnum = {
 } as const
 
 export type CountryProfileOrderByRelevanceFieldEnum = (typeof CountryProfileOrderByRelevanceFieldEnum)[keyof typeof CountryProfileOrderByRelevanceFieldEnum]
+
+
+export const CountryProductInterestOrderByRelevanceFieldEnum = {
+  customProduct: 'customProduct',
+  notes: 'notes'
+} as const
+
+export type CountryProductInterestOrderByRelevanceFieldEnum = (typeof CountryProductInterestOrderByRelevanceFieldEnum)[keyof typeof CountryProductInterestOrderByRelevanceFieldEnum]
 
 
 export const DelegationOrderByRelevanceFieldEnum = {
@@ -2242,6 +2405,8 @@ export type GlobalOmitConfig = {
   eventFeedback?: Prisma.EventFeedbackOmit
   mission?: Prisma.MissionOmit
   countryProfile?: Prisma.CountryProfileOmit
+  countryProductInterest?: Prisma.CountryProductInterestOmit
+  countryInterestCompany?: Prisma.CountryInterestCompanyOmit
   delegation?: Prisma.DelegationOmit
   delegationCompany?: Prisma.DelegationCompanyOmit
   delegationSector?: Prisma.DelegationSectorOmit

@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { prisma } from '../../../lib/prismaClient';
+import { Suspense } from 'react';
 
 const GCC_COUNTRIES = ['UAE', 'KSA', 'Qatar', 'Kuwait', 'Bahrain', 'Oman'];
 
@@ -38,6 +39,19 @@ export default async function CountryProfilePage({ params }) {
 
     const raw = await prisma.countryProfile.findUnique({
         where: { country: countryName },
+        include: {
+            interests: {
+                orderBy: { createdAt: 'asc' },
+                include: {
+                    subSector: { select: { id: true, name: true, sector: { select: { id: true, name: true } } } },
+                    companies: {
+                        include: {
+                            company: { select: { id: true, name: true, email: true, representativeName: true } },
+                        },
+                    },
+                },
+            },
+        },
     });
 
     const profile = raw
@@ -200,6 +214,65 @@ export default async function CountryProfilePage({ params }) {
                             <div className="glass-card p-6">
                                 <h2 className="text-xl font-bold text-white mb-3">Additional Notes</h2>
                                 <p className="text-secondary leading-relaxed whitespace-pre-line">{profile.additionalNotes}</p>
+                            </div>
+                        )}
+
+                        {/* Product / Subsector Interests & Recommended Companies */}
+                        {profile.interests && profile.interests.length > 0 && (
+                            <div className="glass-card p-6">
+                                <h2 className="text-xl font-bold text-white mb-1">Product Interests &amp; Recommended Companies</h2>
+                                <p className="text-xs text-muted mb-5">Products/subsectors of interest and Pakistani companies best suited for each</p>
+                                <div className="space-y-5">
+                                    {profile.interests.map(interest => {
+                                        const label = interest.subSector
+                                            ? interest.subSector.name
+                                            : interest.customProduct || 'Unnamed Product';
+                                        const sectorName = interest.subSector?.sector?.name || null;
+                                        return (
+                                            <div key={interest.id} className="border border-white/10 rounded-xl p-5">
+                                                <div className="flex flex-wrap items-start gap-2 mb-3">
+                                                    <h3 className="text-base font-bold text-white">{label}</h3>
+                                                    {sectorName && (
+                                                        <span className="px-2 py-0.5 rounded-full text-xs font-medium border border-emerald-500/30 text-emerald-300 bg-emerald-500/10">
+                                                            {sectorName}
+                                                        </span>
+                                                    )}
+                                                </div>
+                                                {interest.notes && (
+                                                    <p className="text-secondary text-sm mb-4 leading-relaxed">{interest.notes}</p>
+                                                )}
+                                                {interest.companies.length > 0 ? (
+                                                    <div>
+                                                        <p className="text-xs font-semibold text-muted uppercase tracking-wide mb-2">Recommended Companies</p>
+                                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                                                            {interest.companies.map(({ company }) => (
+                                                                <Link
+                                                                    key={company.id}
+                                                                    href={`/companies/${company.id}`}
+                                                                    className="flex items-center gap-3 px-3 py-2.5 rounded-lg border border-white/10 hover:border-sky-500/40 hover:bg-sky-500/5 transition-colors group"
+                                                                >
+                                                                    <div className="w-7 h-7 rounded-full bg-sky-500/20 border border-sky-500/30 flex items-center justify-center shrink-0">
+                                                                        <span className="text-xs font-bold text-sky-300">
+                                                                            {company.name.charAt(0).toUpperCase()}
+                                                                        </span>
+                                                                    </div>
+                                                                    <div className="min-w-0">
+                                                                        <p className="text-sm font-medium text-white group-hover:text-sky-300 transition-colors line-clamp-1">{company.name}</p>
+                                                                        {company.representativeName && (
+                                                                            <p className="text-xs text-muted line-clamp-1">{company.representativeName}</p>
+                                                                        )}
+                                                                    </div>
+                                                                </Link>
+                                                            ))}
+                                                        </div>
+                                                    </div>
+                                                ) : (
+                                                    <p className="text-xs text-muted italic">No companies assigned yet.</p>
+                                                )}
+                                            </div>
+                                        );
+                                    })}
+                                </div>
                             </div>
                         )}
 

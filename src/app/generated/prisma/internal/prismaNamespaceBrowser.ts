@@ -64,6 +64,8 @@ export const ModelName = {
   EventFeedback: 'EventFeedback',
   Mission: 'Mission',
   CountryProfile: 'CountryProfile',
+  CountryProductInterest: 'CountryProductInterest',
+  CountryInterestCompany: 'CountryInterestCompany',
   Delegation: 'Delegation',
   DelegationCompany: 'DelegationCompany',
   DelegationSector: 'DelegationSector',
@@ -290,6 +292,27 @@ export const CountryProfileScalarFieldEnum = {
 export type CountryProfileScalarFieldEnum = (typeof CountryProfileScalarFieldEnum)[keyof typeof CountryProfileScalarFieldEnum]
 
 
+export const CountryProductInterestScalarFieldEnum = {
+  id: 'id',
+  countryProfileId: 'countryProfileId',
+  subSectorId: 'subSectorId',
+  customProduct: 'customProduct',
+  notes: 'notes',
+  createdAt: 'createdAt'
+} as const
+
+export type CountryProductInterestScalarFieldEnum = (typeof CountryProductInterestScalarFieldEnum)[keyof typeof CountryProductInterestScalarFieldEnum]
+
+
+export const CountryInterestCompanyScalarFieldEnum = {
+  id: 'id',
+  interestId: 'interestId',
+  companyId: 'companyId'
+} as const
+
+export type CountryInterestCompanyScalarFieldEnum = (typeof CountryInterestCompanyScalarFieldEnum)[keyof typeof CountryInterestCompanyScalarFieldEnum]
+
+
 export const DelegationScalarFieldEnum = {
   id: 'id',
   type: 'type',
@@ -504,6 +527,14 @@ export const CountryProfileOrderByRelevanceFieldEnum = {
 } as const
 
 export type CountryProfileOrderByRelevanceFieldEnum = (typeof CountryProfileOrderByRelevanceFieldEnum)[keyof typeof CountryProfileOrderByRelevanceFieldEnum]
+
+
+export const CountryProductInterestOrderByRelevanceFieldEnum = {
+  customProduct: 'customProduct',
+  notes: 'notes'
+} as const
+
+export type CountryProductInterestOrderByRelevanceFieldEnum = (typeof CountryProductInterestOrderByRelevanceFieldEnum)[keyof typeof CountryProductInterestOrderByRelevanceFieldEnum]
 
 
 export const DelegationOrderByRelevanceFieldEnum = {

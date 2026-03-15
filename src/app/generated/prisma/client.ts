@@ -105,6 +105,16 @@ export type Mission = Prisma.MissionModel
  */
 export type CountryProfile = Prisma.CountryProfileModel
 /**
+ * Model CountryProductInterest
+ * 
+ */
+export type CountryProductInterest = Prisma.CountryProductInterestModel
+/**
+ * Model CountryInterestCompany
+ * 
+ */
+export type CountryInterestCompany = Prisma.CountryInterestCompanyModel
+/**
  * Model Delegation
  * 
  */

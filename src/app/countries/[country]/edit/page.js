@@ -266,7 +266,7 @@ export default function EditCountryProfilePage({ params }) {
                     </div>
 
                     {/* Submit */}
-                    <div className="flex items-center justify-end gap-4 pb-8">
+                    <div className="flex items-center justify-end gap-4">
                         <Link
                             href={`/countries/${encodeURIComponent(countryName)}`}
                             className="btn-outline px-5 py-2.5 text-sm"
@@ -289,7 +289,357 @@ export default function EditCountryProfilePage({ params }) {
                     </div>
 
                 </form>
+
+                {/* Interests section — lives outside the main form so saves are independent */}
+                <InterestsManager countryName={countryName} />
             </main>
+        </div>
+    );
+}
+
+/* ─── Interests Manager ────────────────────────────────────────────────────── */
+
+function InterestsManager({ countryName }) {
+    const [interests, setInterests] = useState([]);
+    const [subSectors, setSubSectors] = useState([]);
+    const [loadingInterests, setLoadingInterests] = useState(true);
+    const [addingInterest, setAddingInterest] = useState(false);
+    const [newInterest, setNewInterest] = useState({ subSectorId: '', customProduct: '', notes: '' });
+    const [saving, setSaving] = useState(false);
+
+    useEffect(() => {
+        Promise.all([
+            fetch(`/api/countries/${encodeURIComponent(countryName)}/interests`).then(r => r.json()),
+            fetch('/api/categories').then(r => r.json()),
+        ]).then(([iData, cData]) => {
+            setInterests(iData.interests || []);
+            setSubSectors(cData.subSectors || []);
+        }).catch(console.error)
+            .finally(() => setLoadingInterests(false));
+    }, [countryName]);
+
+    async function handleAddInterest() {
+        if (!newInterest.subSectorId && !newInterest.customProduct.trim()) return;
+        setSaving(true);
+        try {
+            const res = await fetch(`/api/countries/${encodeURIComponent(countryName)}/interests`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    subSectorId: newInterest.subSectorId || null,
+                    customProduct: newInterest.customProduct,
+                    notes: newInterest.notes,
+                }),
+            });
+            const data = await res.json();
+            if (res.ok) {
+                setInterests(prev => [...prev, data.interest]);
+                setNewInterest({ subSectorId: '', customProduct: '', notes: '' });
+                setAddingInterest(false);
+            }
+        } catch (e) { console.error(e); }
+        finally { setSaving(false); }
+    }
+
+    async function handleDeleteInterest(id) {
+        if (!confirm('Remove this product interest?')) return;
+        await fetch(`/api/countries/${encodeURIComponent(countryName)}/interests/${id}`, { method: 'DELETE' });
+        setInterests(prev => prev.filter(i => i.id !== id));
+    }
+
+    async function handleSaveNotes(id, notes) {
+        const res = await fetch(`/api/countries/${encodeURIComponent(countryName)}/interests/${id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ notes }),
+        });
+        const data = await res.json();
+        if (res.ok) setInterests(prev => prev.map(i => i.id === id ? data.interest : i));
+    }
+
+    async function handleUpdateCompanies(id, companyIds) {
+        const res = await fetch(`/api/countries/${encodeURIComponent(countryName)}/interests/${id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ companyIds }),
+        });
+        const data = await res.json();
+        if (res.ok) setInterests(prev => prev.map(i => i.id === id ? data.interest : i));
+    }
+
+    return (
+        <div className="mt-8 pb-12">
+            <div className="flex items-center justify-between mb-4 gap-4">
+                <div>
+                    <h2 className="text-xl font-bold text-white">Product Interests &amp; Recommended Companies</h2>
+                    <p className="text-xs text-muted mt-0.5">Add subsectors/products this country is interested in, then assign recommended Pakistani companies</p>
+                </div>
+                <button
+                    type="button"
+                    onClick={() => setAddingInterest(v => !v)}
+                    className="shrink-0 inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-sky-600 hover:bg-sky-700 text-white transition-colors"
+                >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                    </svg>
+                    Add Interest
+                </button>
+            </div>
+
+            {/* Add new interest form */}
+            {addingInterest && (
+                <div className="glass-card p-5 mb-5 border border-sky-500/20">
+                    <h3 className="text-sm font-semibold text-white mb-4">New Product Interest</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label className="block text-xs font-medium text-secondary mb-1">Subsector</label>
+                            <select
+                                value={newInterest.subSectorId}
+                                onChange={e => setNewInterest(p => ({ ...p, subSectorId: e.target.value, customProduct: '' }))}
+                                className="glass-input w-full px-3 py-2 text-sm"
+                            >
+                                <option value="">— Select a subsector —</option>
+                                {subSectors.map(ss => (
+                                    <option key={ss.id} value={ss.id}>{ss.name}</option>
+                                ))}
+                            </select>
+                        </div>
+                        <div>
+                            <label className="block text-xs font-medium text-secondary mb-1">
+                                Or custom product name <span className="text-muted font-normal">(if not in list)</span>
+                            </label>
+                            <input
+                                type="text"
+                                value={newInterest.customProduct}
+                                onChange={e => setNewInterest(p => ({ ...p, customProduct: e.target.value, subSectorId: '' }))}
+                                placeholder="e.g. Basmati Rice"
+                                className="glass-input w-full px-3 py-2 text-sm"
+                            />
+                        </div>
+                    </div>
+                    <div className="mb-4">
+                        <label className="block text-xs font-medium text-secondary mb-1">Notes / Requirements</label>
+                        <textarea
+                            rows={2}
+                            value={newInterest.notes}
+                            onChange={e => setNewInterest(p => ({ ...p, notes: e.target.value }))}
+                            placeholder="e.g. Prefer certified halal, bulk quantities…"
+                            className="glass-input w-full px-3 py-2 text-sm"
+                        />
+                    </div>
+                    <div className="flex gap-3">
+                        <button
+                            type="button"
+                            onClick={handleAddInterest}
+                            disabled={saving || (!newInterest.subSectorId && !newInterest.customProduct.trim())}
+                            className="btn-primary px-4 py-2 text-sm disabled:opacity-50"
+                        >
+                            {saving ? 'Adding…' : 'Add Interest'}
+                        </button>
+                        <button
+                            type="button"
+                            onClick={() => { setAddingInterest(false); setNewInterest({ subSectorId: '', customProduct: '', notes: '' }); }}
+                            className="btn-outline px-4 py-2 text-sm"
+                        >
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            )}
+
+            {loadingInterests ? (
+                <div className="glass-card p-8 text-center">
+                    <svg className="animate-spin h-6 w-6 mx-auto text-muted" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                    </svg>
+                </div>
+            ) : interests.length === 0 && !addingInterest ? (
+                <div className="glass-card p-8 text-center">
+                    <p className="text-muted text-sm">No product interests added yet. Click <span className="text-white font-medium">Add Interest</span> to get started.</p>
+                </div>
+            ) : (
+                <div className="space-y-4">
+                    {interests.map(interest => (
+                        <InterestCard
+                            key={interest.id}
+                            interest={interest}
+                            countryName={countryName}
+                            onDelete={() => handleDeleteInterest(interest.id)}
+                            onSaveNotes={notes => handleSaveNotes(interest.id, notes)}
+                            onUpdateCompanies={ids => handleUpdateCompanies(interest.id, ids)}
+                        />
+                    ))}
+                </div>
+            )}
+        </div>
+    );
+}
+
+/* ─── Single interest card ──────────────────────────────────────────────────── */
+
+function InterestCard({ interest, onDelete, onSaveNotes, onUpdateCompanies }) {
+    const [notes, setNotes] = useState(interest.notes || '');
+    const [notesDirty, setNotesDirty] = useState(false);
+    const [savingNotes, setSavingNotes] = useState(false);
+    const [companySearch, setCompanySearch] = useState('');
+    const [searchResults, setSearchResults] = useState([]);
+    const [searching, setSearching] = useState(false);
+    const [assignedCompanies, setAssignedCompanies] = useState(
+        interest.companies.map(ic => ic.company)
+    );
+
+    const label = interest.subSector ? interest.subSector.name : (interest.customProduct || 'Unnamed');
+    const sectorName = interest.subSector?.sector?.name || null;
+
+    useEffect(() => {
+        if (!companySearch.trim()) { setSearchResults([]); return; }
+        const timer = setTimeout(async () => {
+            setSearching(true);
+            try {
+                const res = await fetch(`/api/companies?q=${encodeURIComponent(companySearch)}`);
+                const data = await res.json();
+                // exclude already-assigned
+                const assignedIds = new Set(assignedCompanies.map(c => c.id));
+                setSearchResults((data.companies || []).filter(c => !assignedIds.has(c.id)).slice(0, 8));
+            } catch { setSearchResults([]); }
+            finally { setSearching(false); }
+        }, 300);
+        return () => clearTimeout(timer);
+    }, [companySearch, assignedCompanies]);
+
+    async function addCompany(company) {
+        const next = [...assignedCompanies, company];
+        setAssignedCompanies(next);
+        setCompanySearch('');
+        setSearchResults([]);
+        await onUpdateCompanies(next.map(c => c.id));
+    }
+
+    async function removeCompany(id) {
+        const next = assignedCompanies.filter(c => c.id !== id);
+        setAssignedCompanies(next);
+        await onUpdateCompanies(next.map(c => c.id));
+    }
+
+    async function saveNotes() {
+        setSavingNotes(true);
+        await onSaveNotes(notes);
+        setNotesDirty(false);
+        setSavingNotes(false);
+    }
+
+    return (
+        <div className="glass-card p-5 border border-white/10">
+            {/* Header */}
+            <div className="flex items-start justify-between gap-3 mb-4">
+                <div className="flex flex-wrap items-center gap-2">
+                    <h3 className="text-base font-bold text-white">{label}</h3>
+                    {sectorName && (
+                        <span className="px-2 py-0.5 rounded-full text-xs font-medium border border-emerald-500/30 text-emerald-300 bg-emerald-500/10">
+                            {sectorName}
+                        </span>
+                    )}
+                </div>
+                <button
+                    type="button"
+                    onClick={onDelete}
+                    className="shrink-0 p-1.5 rounded-lg text-muted hover:text-red-400 hover:bg-red-500/10 transition-colors"
+                    title="Remove interest"
+                >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                    </svg>
+                </button>
+            </div>
+
+            {/* Notes */}
+            <div className="mb-4">
+                <label className="block text-xs font-medium text-secondary mb-1">Notes / Requirements</label>
+                <div className="flex gap-2">
+                    <textarea
+                        rows={2}
+                        value={notes}
+                        onChange={e => { setNotes(e.target.value); setNotesDirty(true); }}
+                        placeholder="e.g. Prefer certified halal, bulk quantities…"
+                        className="glass-input flex-1 px-3 py-2 text-sm"
+                    />
+                    {notesDirty && (
+                        <button
+                            type="button"
+                            onClick={saveNotes}
+                            disabled={savingNotes}
+                            className="shrink-0 self-start px-3 py-2 text-xs font-medium rounded-lg bg-sky-600 hover:bg-sky-700 text-white disabled:opacity-50 transition-colors"
+                        >
+                            {savingNotes ? '…' : 'Save'}
+                        </button>
+                    )}
+                </div>
+            </div>
+
+            {/* Assigned companies */}
+            <div className="mb-3">
+                <p className="text-xs font-semibold text-muted uppercase tracking-wide mb-2">Recommended Companies</p>
+                {assignedCompanies.length > 0 ? (
+                    <div className="flex flex-wrap gap-2 mb-3">
+                        {assignedCompanies.map(company => (
+                            <span
+                                key={company.id}
+                                className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium border border-sky-500/30 text-sky-300 bg-sky-500/10"
+                            >
+                                {company.name}
+                                <button
+                                    type="button"
+                                    onClick={() => removeCompany(company.id)}
+                                    className="text-sky-400 hover:text-red-400 transition-colors"
+                                >
+                                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                </button>
+                            </span>
+                        ))}
+                    </div>
+                ) : (
+                    <p className="text-xs text-muted italic mb-2">No companies assigned yet.</p>
+                )}
+            </div>
+
+            {/* Company search */}
+            <div className="relative">
+                <input
+                    type="text"
+                    value={companySearch}
+                    onChange={e => setCompanySearch(e.target.value)}
+                    placeholder="Search and add a company…"
+                    className="glass-input w-full px-3 py-2 text-sm"
+                />
+                {searching && (
+                    <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                        <svg className="animate-spin h-4 w-4 text-muted" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                        </svg>
+                    </div>
+                )}
+                {searchResults.length > 0 && (
+                    <div className="absolute z-[9999] bottom-full mb-1 w-full rounded-lg border border-white/10 bg-[#1a1f2e] shadow-xl overflow-hidden max-h-60 overflow-y-auto">
+                        {searchResults.map(company => (
+                            <button
+                                key={company.id}
+                                type="button"
+                                onClick={() => addCompany(company)}
+                                className="w-full text-left px-4 py-2.5 hover:bg-white/10 transition-colors border-b border-white/5 last:border-b-0"
+                            >
+                                <p className="text-sm font-medium text-white">{company.name}</p>
+                                {company.representativeName && (
+                                    <p className="text-xs text-muted">{company.representativeName}</p>
+                                )}
+                            </button>
+                        ))}
+                    </div>
+                )}
+            </div>
         </div>
     );
 }

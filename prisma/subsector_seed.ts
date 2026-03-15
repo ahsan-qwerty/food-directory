@@ -94,7 +94,8 @@ const subsectorData: Prisma.SubSectorCreateInput[] = [
     // { name: 'Vegetable & animal oils and fats', hsCode: '1006', sector: { connect: { name: 'Oil Seeds & Oils' } } },
 
     // { name: 'Rice', hsCode: '1006', sector: { connect: { name: 'Cereals' } } },
-    { name: 'Non Basmati Rice', hsCode: '1006', sector: { connect: { name: 'Cereals' } } },
+    // { name: 'Non Basmati Rice', hsCode: '1006', sector: { connect: { name: 'Cereals' } } },
+    // { name: 'Basmati Rice', hsCode: '1006', sector: { connect: { name: 'Cereals' } } },
     // { name: 'Maize', hsCode: '1006', sector: { connect: { name: 'Cereals' } } },
     // { name: 'Wheat', hsCode: '1006', sector: { connect: { name: 'Cereals' } } },
     // { name: 'Cereal flours', hsCode: '1006', sector: { connect: { name: 'Cereals' } } },

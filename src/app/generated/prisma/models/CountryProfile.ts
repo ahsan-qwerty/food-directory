@@ -280,6 +280,7 @@ export type CountryProfileWhereInput = {
   otherImportsFromPakistanValue?: Prisma.DecimalNullableFilter<"CountryProfile"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFilter<"CountryProfile"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"CountryProfile"> | Date | string
+  interests?: Prisma.CountryProductInterestListRelationFilter
 }
 
 export type CountryProfileOrderByWithRelationInput = {
@@ -296,6 +297,7 @@ export type CountryProfileOrderByWithRelationInput = {
   otherImportsFromPakistanValue?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  interests?: Prisma.CountryProductInterestOrderByRelationAggregateInput
   _relevance?: Prisma.CountryProfileOrderByRelevanceInput
 }
 
@@ -316,6 +318,7 @@ export type CountryProfileWhereUniqueInput = Prisma.AtLeast<{
   otherImportsFromPakistanValue?: Prisma.DecimalNullableFilter<"CountryProfile"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFilter<"CountryProfile"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"CountryProfile"> | Date | string
+  interests?: Prisma.CountryProductInterestListRelationFilter
 }, "id" | "country">
 
 export type CountryProfileOrderByWithAggregationInput = {
@@ -371,6 +374,7 @@ export type CountryProfileCreateInput = {
   otherImportsFromPakistanValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  interests?: Prisma.CountryProductInterestCreateNestedManyWithoutCountryProfileInput
 }
 
 export type CountryProfileUncheckedCreateInput = {
@@ -387,6 +391,7 @@ export type CountryProfileUncheckedCreateInput = {
   otherImportsFromPakistanValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  interests?: Prisma.CountryProductInterestUncheckedCreateNestedManyWithoutCountryProfileInput
 }
 
 export type CountryProfileUpdateInput = {
@@ -402,6 +407,7 @@ export type CountryProfileUpdateInput = {
   otherImportsFromPakistanValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  interests?: Prisma.CountryProductInterestUpdateManyWithoutCountryProfileNestedInput
 }
 
 export type CountryProfileUncheckedUpdateInput = {
@@ -418,6 +424,7 @@ export type CountryProfileUncheckedUpdateInput = {
   otherImportsFromPakistanValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  interests?: Prisma.CountryProductInterestUncheckedUpdateManyWithoutCountryProfileNestedInput
 }
 
 export type CountryProfileCreateManyInput = {
@@ -529,6 +536,132 @@ export type CountryProfileSumOrderByAggregateInput = {
   otherImportsFromPakistanValue?: Prisma.SortOrder
 }
 
+export type CountryProfileScalarRelationFilter = {
+  is?: Prisma.CountryProfileWhereInput
+  isNot?: Prisma.CountryProfileWhereInput
+}
+
+export type CountryProfileCreateNestedOneWithoutInterestsInput = {
+  create?: Prisma.XOR<Prisma.CountryProfileCreateWithoutInterestsInput, Prisma.CountryProfileUncheckedCreateWithoutInterestsInput>
+  connectOrCreate?: Prisma.CountryProfileCreateOrConnectWithoutInterestsInput
+  connect?: Prisma.CountryProfileWhereUniqueInput
+}
+
+export type CountryProfileUpdateOneRequiredWithoutInterestsNestedInput = {
+  create?: Prisma.XOR<Prisma.CountryProfileCreateWithoutInterestsInput, Prisma.CountryProfileUncheckedCreateWithoutInterestsInput>
+  connectOrCreate?: Prisma.CountryProfileCreateOrConnectWithoutInterestsInput
+  upsert?: Prisma.CountryProfileUpsertWithoutInterestsInput
+  connect?: Prisma.CountryProfileWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CountryProfileUpdateToOneWithWhereWithoutInterestsInput, Prisma.CountryProfileUpdateWithoutInterestsInput>, Prisma.CountryProfileUncheckedUpdateWithoutInterestsInput>
+}
+
+export type CountryProfileCreateWithoutInterestsInput = {
+  country: string
+  overview?: string | null
+  population?: string | null
+  gdp?: string | null
+  currency?: string | null
+  additionalNotes?: string | null
+  topImportsFromWorld?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  otherImportsFromWorldValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  topImportsFromPakistan?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  otherImportsFromPakistanValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type CountryProfileUncheckedCreateWithoutInterestsInput = {
+  id?: number
+  country: string
+  overview?: string | null
+  population?: string | null
+  gdp?: string | null
+  currency?: string | null
+  additionalNotes?: string | null
+  topImportsFromWorld?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  otherImportsFromWorldValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  topImportsFromPakistan?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  otherImportsFromPakistanValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type CountryProfileCreateOrConnectWithoutInterestsInput = {
+  where: Prisma.CountryProfileWhereUniqueInput
+  create: Prisma.XOR<Prisma.CountryProfileCreateWithoutInterestsInput, Prisma.CountryProfileUncheckedCreateWithoutInterestsInput>
+}
+
+export type CountryProfileUpsertWithoutInterestsInput = {
+  update: Prisma.XOR<Prisma.CountryProfileUpdateWithoutInterestsInput, Prisma.CountryProfileUncheckedUpdateWithoutInterestsInput>
+  create: Prisma.XOR<Prisma.CountryProfileCreateWithoutInterestsInput, Prisma.CountryProfileUncheckedCreateWithoutInterestsInput>
+  where?: Prisma.CountryProfileWhereInput
+}
+
+export type CountryProfileUpdateToOneWithWhereWithoutInterestsInput = {
+  where?: Prisma.CountryProfileWhereInput
+  data: Prisma.XOR<Prisma.CountryProfileUpdateWithoutInterestsInput, Prisma.CountryProfileUncheckedUpdateWithoutInterestsInput>
+}
+
+export type CountryProfileUpdateWithoutInterestsInput = {
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  overview?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  population?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  gdp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  currency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  additionalNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  topImportsFromWorld?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  otherImportsFromWorldValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  topImportsFromPakistan?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  otherImportsFromPakistanValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type CountryProfileUncheckedUpdateWithoutInterestsInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  overview?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  population?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  gdp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  currency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  additionalNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  topImportsFromWorld?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  otherImportsFromWorldValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  topImportsFromPakistan?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  otherImportsFromPakistanValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+
+/**
+ * Count Type CountryProfileCountOutputType
+ */
+
+export type CountryProfileCountOutputType = {
+  interests: number
+}
+
+export type CountryProfileCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  interests?: boolean | CountryProfileCountOutputTypeCountInterestsArgs
+}
+
+/**
+ * CountryProfileCountOutputType without action
+ */
+export type CountryProfileCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CountryProfileCountOutputType
+   */
+  select?: Prisma.CountryProfileCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * CountryProfileCountOutputType without action
+ */
+export type CountryProfileCountOutputTypeCountInterestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CountryProductInterestWhereInput
+}
 
 
 export type CountryProfileSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -545,6 +678,8 @@ export type CountryProfileSelect<ExtArgs extends runtime.Types.Extensions.Intern
   otherImportsFromPakistanValue?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  interests?: boolean | Prisma.CountryProfile$interestsArgs<ExtArgs>
+  _count?: boolean | Prisma.CountryProfileCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["countryProfile"]>
 
 
@@ -566,10 +701,16 @@ export type CountryProfileSelectScalar = {
 }
 
 export type CountryProfileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "country" | "overview" | "population" | "gdp" | "currency" | "additionalNotes" | "topImportsFromWorld" | "otherImportsFromWorldValue" | "topImportsFromPakistan" | "otherImportsFromPakistanValue" | "createdAt" | "updatedAt", ExtArgs["result"]["countryProfile"]>
+export type CountryProfileInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  interests?: boolean | Prisma.CountryProfile$interestsArgs<ExtArgs>
+  _count?: boolean | Prisma.CountryProfileCountOutputTypeDefaultArgs<ExtArgs>
+}
 
 export type $CountryProfilePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "CountryProfile"
-  objects: {}
+  objects: {
+    interests: Prisma.$CountryProductInterestPayload<ExtArgs>[]
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     country: string
@@ -924,6 +1065,7 @@ readonly fields: CountryProfileFieldRefs;
  */
 export interface Prisma__CountryProfileClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  interests<T extends Prisma.CountryProfile$interestsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CountryProfile$interestsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CountryProductInterestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -983,6 +1125,10 @@ export type CountryProfileFindUniqueArgs<ExtArgs extends runtime.Types.Extension
    */
   omit?: Prisma.CountryProfileOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CountryProfileInclude<ExtArgs> | null
+  /**
    * Filter, which CountryProfile to fetch.
    */
   where: Prisma.CountryProfileWhereUniqueInput
@@ -1001,6 +1147,10 @@ export type CountryProfileFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Ex
    */
   omit?: Prisma.CountryProfileOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CountryProfileInclude<ExtArgs> | null
+  /**
    * Filter, which CountryProfile to fetch.
    */
   where: Prisma.CountryProfileWhereUniqueInput
@@ -1018,6 +1168,10 @@ export type CountryProfileFindFirstArgs<ExtArgs extends runtime.Types.Extensions
    * Omit specific fields from the CountryProfile
    */
   omit?: Prisma.CountryProfileOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CountryProfileInclude<ExtArgs> | null
   /**
    * Filter, which CountryProfile to fetch.
    */
@@ -1067,6 +1221,10 @@ export type CountryProfileFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Ext
    */
   omit?: Prisma.CountryProfileOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CountryProfileInclude<ExtArgs> | null
+  /**
    * Filter, which CountryProfile to fetch.
    */
   where?: Prisma.CountryProfileWhereInput
@@ -1115,6 +1273,10 @@ export type CountryProfileFindManyArgs<ExtArgs extends runtime.Types.Extensions.
    */
   omit?: Prisma.CountryProfileOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CountryProfileInclude<ExtArgs> | null
+  /**
    * Filter, which CountryProfiles to fetch.
    */
   where?: Prisma.CountryProfileWhereInput
@@ -1158,6 +1320,10 @@ export type CountryProfileCreateArgs<ExtArgs extends runtime.Types.Extensions.In
    */
   omit?: Prisma.CountryProfileOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CountryProfileInclude<ExtArgs> | null
+  /**
    * The data needed to create a CountryProfile.
    */
   data: Prisma.XOR<Prisma.CountryProfileCreateInput, Prisma.CountryProfileUncheckedCreateInput>
@@ -1186,6 +1352,10 @@ export type CountryProfileUpdateArgs<ExtArgs extends runtime.Types.Extensions.In
    * Omit specific fields from the CountryProfile
    */
   omit?: Prisma.CountryProfileOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CountryProfileInclude<ExtArgs> | null
   /**
    * The data needed to update a CountryProfile.
    */
@@ -1227,6 +1397,10 @@ export type CountryProfileUpsertArgs<ExtArgs extends runtime.Types.Extensions.In
    */
   omit?: Prisma.CountryProfileOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CountryProfileInclude<ExtArgs> | null
+  /**
    * The filter to search for the CountryProfile to update in case it exists.
    */
   where: Prisma.CountryProfileWhereUniqueInput
@@ -1253,6 +1427,10 @@ export type CountryProfileDeleteArgs<ExtArgs extends runtime.Types.Extensions.In
    */
   omit?: Prisma.CountryProfileOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CountryProfileInclude<ExtArgs> | null
+  /**
    * Filter which CountryProfile to delete.
    */
   where: Prisma.CountryProfileWhereUniqueInput
@@ -1273,6 +1451,30 @@ export type CountryProfileDeleteManyArgs<ExtArgs extends runtime.Types.Extension
 }
 
 /**
+ * CountryProfile.interests
+ */
+export type CountryProfile$interestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CountryProductInterest
+   */
+  select?: Prisma.CountryProductInterestSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CountryProductInterest
+   */
+  omit?: Prisma.CountryProductInterestOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CountryProductInterestInclude<ExtArgs> | null
+  where?: Prisma.CountryProductInterestWhereInput
+  orderBy?: Prisma.CountryProductInterestOrderByWithRelationInput | Prisma.CountryProductInterestOrderByWithRelationInput[]
+  cursor?: Prisma.CountryProductInterestWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CountryProductInterestScalarFieldEnum | Prisma.CountryProductInterestScalarFieldEnum[]
+}
+
+/**
  * CountryProfile without action
  */
 export type CountryProfileDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1284,4 +1486,8 @@ export type CountryProfileDefaultArgs<ExtArgs extends runtime.Types.Extensions.I
    * Omit specific fields from the CountryProfile
    */
   omit?: Prisma.CountryProfileOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CountryProfileInclude<ExtArgs> | null
 }
