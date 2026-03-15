@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
@@ -11,6 +11,38 @@ export default function RegisterPage() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [success, setSuccess] = useState(false);
+
+    // ── Authorization code gate ──────────────────────────────────────────────
+    const [accessCode, setAccessCode] = useState('');
+    const [codeInput, setCodeInput] = useState('');
+    const [codeError, setCodeError] = useState('');
+    const [codeChecking, setCodeChecking] = useState(false);
+    const codeInputRef = useRef(null);
+
+    const handleCodeSubmit = async (e) => {
+        e.preventDefault();
+        setCodeChecking(true);
+        setCodeError('');
+        try {
+            const res = await fetch('/api/register/verify-code', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ code: codeInput.trim() }),
+            });
+            const data = await res.json();
+            if (res.ok && data.valid) {
+                setAccessCode(codeInput.trim());
+            } else {
+                setCodeError('Invalid access code. Please check and try again.');
+                codeInputRef.current?.select();
+            }
+        } catch {
+            setCodeError('Failed to verify code. Please try again.');
+        } finally {
+            setCodeChecking(false);
+        }
+    };
+    // ────────────────────────────────────────────────────────────────────────
 
     const GCC_COUNTRIES = ['UAE', 'KSA', 'Qatar', 'Kuwait', 'Bahrain', 'Oman'];
 
@@ -130,6 +162,8 @@ export default function RegisterPage() {
                     // Send primary (first selected) IDs to the single-FK fields
                     sectorId: formData.sectorIds[0] ?? null,
                     subSectorId: formData.subSectorIds[0] ?? null,
+                    // Pass the verified access code
+                    registrationCode: accessCode,
                 }),
             });
 
@@ -160,6 +194,57 @@ export default function RegisterPage() {
             </div>
         );
     }
+
+    // ── Code gate ── show this screen until a valid code is entered ──────────
+    if (!accessCode) {
+        return (
+            <div className="page-wrapper flex items-center justify-center px-4">
+                <div className="glass-card-strong p-10 max-w-sm w-full">
+                    <div className="text-center mb-8">
+                        <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-sky-500/20 border border-sky-500/30 mb-4">
+                            <svg className="w-8 h-8 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
+                            </svg>
+                        </div>
+                        <h1 className="text-2xl font-bold text-white mb-1">Access Required</h1>
+                        <p className="text-secondary text-sm">Enter your authorization code to access the registration form.</p>
+                    </div>
+                    <form onSubmit={handleCodeSubmit} className="space-y-4">
+                        <div>
+                            <label className="block text-sm font-medium text-secondary mb-1.5">Authorization Code</label>
+                            <input
+                                ref={codeInputRef}
+                                type="text"
+                                value={codeInput}
+                                onChange={e => setCodeInput(e.target.value)}
+                                placeholder="Enter your code…"
+                                autoFocus
+                                autoComplete="off"
+                                className="glass-input w-full px-3 py-2.5 text-center tracking-widest font-mono text-lg uppercase"
+                            />
+                            {codeError && (
+                                <p className="mt-2 text-sm text-red-400">{codeError}</p>
+                            )}
+                        </div>
+                        <button
+                            type="submit"
+                            disabled={codeChecking || !codeInput.trim()}
+                            className="btn-primary w-full py-2.5 flex items-center justify-center gap-2 disabled:opacity-60"
+                        >
+                            {codeChecking && (
+                                <svg className="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                                </svg>
+                            )}
+                            {codeChecking ? 'Verifying…' : 'Continue'}
+                        </button>
+                    </form>
+                </div>
+            </div>
+        );
+    }
+    // ────────────────────────────────────────────────────────────────────────
 
     return (
         <div className="page-wrapper py-8 px-4">

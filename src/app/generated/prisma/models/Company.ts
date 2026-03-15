@@ -51,6 +51,7 @@ export type CompanyMinAggregateOutputType = {
   representativeEmail: string | null
   productsToBeDisplayed: string | null
   willingToExportToGCC: boolean | null
+  registrationCode: string | null
   sectorId: number | null
   subSectorId: number | null
   createdAt: Date | null
@@ -69,6 +70,7 @@ export type CompanyMaxAggregateOutputType = {
   representativeEmail: string | null
   productsToBeDisplayed: string | null
   willingToExportToGCC: boolean | null
+  registrationCode: string | null
   sectorId: number | null
   subSectorId: number | null
   createdAt: Date | null
@@ -90,6 +92,7 @@ export type CompanyCountAggregateOutputType = {
   gccCountries: number
   countriesAlreadyExportingTo: number
   countryExports: number
+  registrationCode: number
   sectorId: number
   subSectorId: number
   createdAt: number
@@ -122,6 +125,7 @@ export type CompanyMinAggregateInputType = {
   representativeEmail?: true
   productsToBeDisplayed?: true
   willingToExportToGCC?: true
+  registrationCode?: true
   sectorId?: true
   subSectorId?: true
   createdAt?: true
@@ -140,6 +144,7 @@ export type CompanyMaxAggregateInputType = {
   representativeEmail?: true
   productsToBeDisplayed?: true
   willingToExportToGCC?: true
+  registrationCode?: true
   sectorId?: true
   subSectorId?: true
   createdAt?: true
@@ -161,6 +166,7 @@ export type CompanyCountAggregateInputType = {
   gccCountries?: true
   countriesAlreadyExportingTo?: true
   countryExports?: true
+  registrationCode?: true
   sectorId?: true
   subSectorId?: true
   createdAt?: true
@@ -269,6 +275,7 @@ export type CompanyGroupByOutputType = {
   gccCountries: runtime.JsonValue
   countriesAlreadyExportingTo: runtime.JsonValue
   countryExports: runtime.JsonValue
+  registrationCode: string | null
   sectorId: number | null
   subSectorId: number | null
   createdAt: Date
@@ -313,6 +320,7 @@ export type CompanyWhereInput = {
   gccCountries?: Prisma.JsonFilter<"Company">
   countriesAlreadyExportingTo?: Prisma.JsonFilter<"Company">
   countryExports?: Prisma.JsonFilter<"Company">
+  registrationCode?: Prisma.StringNullableFilter<"Company"> | string | null
   sectorId?: Prisma.IntNullableFilter<"Company"> | number | null
   subSectorId?: Prisma.IntNullableFilter<"Company"> | number | null
   createdAt?: Prisma.DateTimeFilter<"Company"> | Date | string
@@ -343,6 +351,7 @@ export type CompanyOrderByWithRelationInput = {
   gccCountries?: Prisma.SortOrder
   countriesAlreadyExportingTo?: Prisma.SortOrder
   countryExports?: Prisma.SortOrder
+  registrationCode?: Prisma.SortOrderInput | Prisma.SortOrder
   sectorId?: Prisma.SortOrderInput | Prisma.SortOrder
   subSectorId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -377,6 +386,7 @@ export type CompanyWhereUniqueInput = Prisma.AtLeast<{
   gccCountries?: Prisma.JsonFilter<"Company">
   countriesAlreadyExportingTo?: Prisma.JsonFilter<"Company">
   countryExports?: Prisma.JsonFilter<"Company">
+  registrationCode?: Prisma.StringNullableFilter<"Company"> | string | null
   sectorId?: Prisma.IntNullableFilter<"Company"> | number | null
   subSectorId?: Prisma.IntNullableFilter<"Company"> | number | null
   createdAt?: Prisma.DateTimeFilter<"Company"> | Date | string
@@ -407,6 +417,7 @@ export type CompanyOrderByWithAggregationInput = {
   gccCountries?: Prisma.SortOrder
   countriesAlreadyExportingTo?: Prisma.SortOrder
   countryExports?: Prisma.SortOrder
+  registrationCode?: Prisma.SortOrderInput | Prisma.SortOrder
   sectorId?: Prisma.SortOrderInput | Prisma.SortOrder
   subSectorId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -436,6 +447,7 @@ export type CompanyScalarWhereWithAggregatesInput = {
   gccCountries?: Prisma.JsonWithAggregatesFilter<"Company">
   countriesAlreadyExportingTo?: Prisma.JsonWithAggregatesFilter<"Company">
   countryExports?: Prisma.JsonWithAggregatesFilter<"Company">
+  registrationCode?: Prisma.StringNullableWithAggregatesFilter<"Company"> | string | null
   sectorId?: Prisma.IntNullableWithAggregatesFilter<"Company"> | number | null
   subSectorId?: Prisma.IntNullableWithAggregatesFilter<"Company"> | number | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Company"> | Date | string
@@ -456,6 +468,7 @@ export type CompanyCreateInput = {
   gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countriesAlreadyExportingTo?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countryExports?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  registrationCode?: string | null
   createdAt?: Date | string
   sector?: Prisma.SectorCreateNestedOneWithoutCompaniesInput
   subSector?: Prisma.SubSectorCreateNestedOneWithoutCompaniesInput
@@ -484,6 +497,7 @@ export type CompanyUncheckedCreateInput = {
   gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countriesAlreadyExportingTo?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countryExports?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  registrationCode?: string | null
   sectorId?: number | null
   subSectorId?: number | null
   createdAt?: Date | string
@@ -511,6 +525,7 @@ export type CompanyUpdateInput = {
   gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countriesAlreadyExportingTo?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countryExports?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  registrationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sector?: Prisma.SectorUpdateOneWithoutCompaniesNestedInput
   subSector?: Prisma.SubSectorUpdateOneWithoutCompaniesNestedInput
@@ -539,6 +554,7 @@ export type CompanyUncheckedUpdateInput = {
   gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countriesAlreadyExportingTo?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countryExports?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  registrationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sectorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   subSectorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -567,6 +583,7 @@ export type CompanyCreateManyInput = {
   gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countriesAlreadyExportingTo?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countryExports?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  registrationCode?: string | null
   sectorId?: number | null
   subSectorId?: number | null
   createdAt?: Date | string
@@ -587,6 +604,7 @@ export type CompanyUpdateManyMutationInput = {
   gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countriesAlreadyExportingTo?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countryExports?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  registrationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -606,6 +624,7 @@ export type CompanyUncheckedUpdateManyInput = {
   gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countriesAlreadyExportingTo?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countryExports?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  registrationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sectorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   subSectorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -643,6 +662,7 @@ export type CompanyCountOrderByAggregateInput = {
   gccCountries?: Prisma.SortOrder
   countriesAlreadyExportingTo?: Prisma.SortOrder
   countryExports?: Prisma.SortOrder
+  registrationCode?: Prisma.SortOrder
   sectorId?: Prisma.SortOrder
   subSectorId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -667,6 +687,7 @@ export type CompanyMaxOrderByAggregateInput = {
   representativeEmail?: Prisma.SortOrder
   productsToBeDisplayed?: Prisma.SortOrder
   willingToExportToGCC?: Prisma.SortOrder
+  registrationCode?: Prisma.SortOrder
   sectorId?: Prisma.SortOrder
   subSectorId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -685,6 +706,7 @@ export type CompanyMinOrderByAggregateInput = {
   representativeEmail?: Prisma.SortOrder
   productsToBeDisplayed?: Prisma.SortOrder
   willingToExportToGCC?: Prisma.SortOrder
+  registrationCode?: Prisma.SortOrder
   sectorId?: Prisma.SortOrder
   subSectorId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -917,6 +939,7 @@ export type CompanyCreateWithoutSectorInput = {
   gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countriesAlreadyExportingTo?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countryExports?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  registrationCode?: string | null
   createdAt?: Date | string
   subSector?: Prisma.SubSectorCreateNestedOneWithoutCompaniesInput
   sectors?: Prisma.CompanySectorCreateNestedManyWithoutCompanyInput
@@ -944,6 +967,7 @@ export type CompanyUncheckedCreateWithoutSectorInput = {
   gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countriesAlreadyExportingTo?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countryExports?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  registrationCode?: string | null
   subSectorId?: number | null
   createdAt?: Date | string
   sectors?: Prisma.CompanySectorUncheckedCreateNestedManyWithoutCompanyInput
@@ -1000,6 +1024,7 @@ export type CompanyScalarWhereInput = {
   gccCountries?: Prisma.JsonFilter<"Company">
   countriesAlreadyExportingTo?: Prisma.JsonFilter<"Company">
   countryExports?: Prisma.JsonFilter<"Company">
+  registrationCode?: Prisma.StringNullableFilter<"Company"> | string | null
   sectorId?: Prisma.IntNullableFilter<"Company"> | number | null
   subSectorId?: Prisma.IntNullableFilter<"Company"> | number | null
   createdAt?: Prisma.DateTimeFilter<"Company"> | Date | string
@@ -1020,6 +1045,7 @@ export type CompanyCreateWithoutSubSectorInput = {
   gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countriesAlreadyExportingTo?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countryExports?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  registrationCode?: string | null
   createdAt?: Date | string
   sector?: Prisma.SectorCreateNestedOneWithoutCompaniesInput
   sectors?: Prisma.CompanySectorCreateNestedManyWithoutCompanyInput
@@ -1047,6 +1073,7 @@ export type CompanyUncheckedCreateWithoutSubSectorInput = {
   gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countriesAlreadyExportingTo?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countryExports?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  registrationCode?: string | null
   sectorId?: number | null
   createdAt?: Date | string
   sectors?: Prisma.CompanySectorUncheckedCreateNestedManyWithoutCompanyInput
@@ -1099,6 +1126,7 @@ export type CompanyCreateWithoutSectorsInput = {
   gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countriesAlreadyExportingTo?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countryExports?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  registrationCode?: string | null
   createdAt?: Date | string
   sector?: Prisma.SectorCreateNestedOneWithoutCompaniesInput
   subSector?: Prisma.SubSectorCreateNestedOneWithoutCompaniesInput
@@ -1126,6 +1154,7 @@ export type CompanyUncheckedCreateWithoutSectorsInput = {
   gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countriesAlreadyExportingTo?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countryExports?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  registrationCode?: string | null
   sectorId?: number | null
   subSectorId?: number | null
   createdAt?: Date | string
@@ -1168,6 +1197,7 @@ export type CompanyUpdateWithoutSectorsInput = {
   gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countriesAlreadyExportingTo?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countryExports?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  registrationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sector?: Prisma.SectorUpdateOneWithoutCompaniesNestedInput
   subSector?: Prisma.SubSectorUpdateOneWithoutCompaniesNestedInput
@@ -1195,6 +1225,7 @@ export type CompanyUncheckedUpdateWithoutSectorsInput = {
   gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countriesAlreadyExportingTo?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countryExports?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  registrationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sectorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   subSectorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1221,6 +1252,7 @@ export type CompanyCreateWithoutSubSectorsInput = {
   gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countriesAlreadyExportingTo?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countryExports?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  registrationCode?: string | null
   createdAt?: Date | string
   sector?: Prisma.SectorCreateNestedOneWithoutCompaniesInput
   subSector?: Prisma.SubSectorCreateNestedOneWithoutCompaniesInput
@@ -1248,6 +1280,7 @@ export type CompanyUncheckedCreateWithoutSubSectorsInput = {
   gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countriesAlreadyExportingTo?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countryExports?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  registrationCode?: string | null
   sectorId?: number | null
   subSectorId?: number | null
   createdAt?: Date | string
@@ -1290,6 +1323,7 @@ export type CompanyUpdateWithoutSubSectorsInput = {
   gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countriesAlreadyExportingTo?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countryExports?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  registrationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sector?: Prisma.SectorUpdateOneWithoutCompaniesNestedInput
   subSector?: Prisma.SubSectorUpdateOneWithoutCompaniesNestedInput
@@ -1317,6 +1351,7 @@ export type CompanyUncheckedUpdateWithoutSubSectorsInput = {
   gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countriesAlreadyExportingTo?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countryExports?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  registrationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sectorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   subSectorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1343,6 +1378,7 @@ export type CompanyCreateWithoutEventParticipationsInput = {
   gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countriesAlreadyExportingTo?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countryExports?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  registrationCode?: string | null
   createdAt?: Date | string
   sector?: Prisma.SectorCreateNestedOneWithoutCompaniesInput
   subSector?: Prisma.SubSectorCreateNestedOneWithoutCompaniesInput
@@ -1370,6 +1406,7 @@ export type CompanyUncheckedCreateWithoutEventParticipationsInput = {
   gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countriesAlreadyExportingTo?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countryExports?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  registrationCode?: string | null
   sectorId?: number | null
   subSectorId?: number | null
   createdAt?: Date | string
@@ -1412,6 +1449,7 @@ export type CompanyUpdateWithoutEventParticipationsInput = {
   gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countriesAlreadyExportingTo?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countryExports?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  registrationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sector?: Prisma.SectorUpdateOneWithoutCompaniesNestedInput
   subSector?: Prisma.SubSectorUpdateOneWithoutCompaniesNestedInput
@@ -1439,6 +1477,7 @@ export type CompanyUncheckedUpdateWithoutEventParticipationsInput = {
   gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countriesAlreadyExportingTo?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countryExports?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  registrationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sectorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   subSectorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1465,6 +1504,7 @@ export type CompanyCreateWithoutEmailStatusesInput = {
   gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countriesAlreadyExportingTo?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countryExports?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  registrationCode?: string | null
   createdAt?: Date | string
   sector?: Prisma.SectorCreateNestedOneWithoutCompaniesInput
   subSector?: Prisma.SubSectorCreateNestedOneWithoutCompaniesInput
@@ -1492,6 +1532,7 @@ export type CompanyUncheckedCreateWithoutEmailStatusesInput = {
   gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countriesAlreadyExportingTo?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countryExports?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  registrationCode?: string | null
   sectorId?: number | null
   subSectorId?: number | null
   createdAt?: Date | string
@@ -1534,6 +1575,7 @@ export type CompanyUpdateWithoutEmailStatusesInput = {
   gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countriesAlreadyExportingTo?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countryExports?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  registrationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sector?: Prisma.SectorUpdateOneWithoutCompaniesNestedInput
   subSector?: Prisma.SubSectorUpdateOneWithoutCompaniesNestedInput
@@ -1561,6 +1603,7 @@ export type CompanyUncheckedUpdateWithoutEmailStatusesInput = {
   gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countriesAlreadyExportingTo?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countryExports?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  registrationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sectorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   subSectorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1587,6 +1630,7 @@ export type CompanyCreateWithoutFeedbacksInput = {
   gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countriesAlreadyExportingTo?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countryExports?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  registrationCode?: string | null
   createdAt?: Date | string
   sector?: Prisma.SectorCreateNestedOneWithoutCompaniesInput
   subSector?: Prisma.SubSectorCreateNestedOneWithoutCompaniesInput
@@ -1614,6 +1658,7 @@ export type CompanyUncheckedCreateWithoutFeedbacksInput = {
   gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countriesAlreadyExportingTo?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countryExports?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  registrationCode?: string | null
   sectorId?: number | null
   subSectorId?: number | null
   createdAt?: Date | string
@@ -1656,6 +1701,7 @@ export type CompanyUpdateWithoutFeedbacksInput = {
   gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countriesAlreadyExportingTo?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countryExports?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  registrationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sector?: Prisma.SectorUpdateOneWithoutCompaniesNestedInput
   subSector?: Prisma.SubSectorUpdateOneWithoutCompaniesNestedInput
@@ -1683,6 +1729,7 @@ export type CompanyUncheckedUpdateWithoutFeedbacksInput = {
   gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countriesAlreadyExportingTo?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countryExports?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  registrationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sectorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   subSectorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1709,6 +1756,7 @@ export type CompanyCreateWithoutCountryInterestsInput = {
   gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countriesAlreadyExportingTo?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countryExports?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  registrationCode?: string | null
   createdAt?: Date | string
   sector?: Prisma.SectorCreateNestedOneWithoutCompaniesInput
   subSector?: Prisma.SubSectorCreateNestedOneWithoutCompaniesInput
@@ -1736,6 +1784,7 @@ export type CompanyUncheckedCreateWithoutCountryInterestsInput = {
   gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countriesAlreadyExportingTo?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countryExports?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  registrationCode?: string | null
   sectorId?: number | null
   subSectorId?: number | null
   createdAt?: Date | string
@@ -1778,6 +1827,7 @@ export type CompanyUpdateWithoutCountryInterestsInput = {
   gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countriesAlreadyExportingTo?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countryExports?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  registrationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sector?: Prisma.SectorUpdateOneWithoutCompaniesNestedInput
   subSector?: Prisma.SubSectorUpdateOneWithoutCompaniesNestedInput
@@ -1805,6 +1855,7 @@ export type CompanyUncheckedUpdateWithoutCountryInterestsInput = {
   gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countriesAlreadyExportingTo?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countryExports?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  registrationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sectorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   subSectorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1831,6 +1882,7 @@ export type CompanyCreateWithoutDelegationParticipationsInput = {
   gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countriesAlreadyExportingTo?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countryExports?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  registrationCode?: string | null
   createdAt?: Date | string
   sector?: Prisma.SectorCreateNestedOneWithoutCompaniesInput
   subSector?: Prisma.SubSectorCreateNestedOneWithoutCompaniesInput
@@ -1858,6 +1910,7 @@ export type CompanyUncheckedCreateWithoutDelegationParticipationsInput = {
   gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countriesAlreadyExportingTo?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countryExports?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  registrationCode?: string | null
   sectorId?: number | null
   subSectorId?: number | null
   createdAt?: Date | string
@@ -1900,6 +1953,7 @@ export type CompanyUpdateWithoutDelegationParticipationsInput = {
   gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countriesAlreadyExportingTo?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countryExports?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  registrationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sector?: Prisma.SectorUpdateOneWithoutCompaniesNestedInput
   subSector?: Prisma.SubSectorUpdateOneWithoutCompaniesNestedInput
@@ -1927,6 +1981,7 @@ export type CompanyUncheckedUpdateWithoutDelegationParticipationsInput = {
   gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countriesAlreadyExportingTo?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countryExports?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  registrationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sectorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   subSectorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1954,6 +2009,7 @@ export type CompanyCreateManySectorInput = {
   gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countriesAlreadyExportingTo?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countryExports?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  registrationCode?: string | null
   subSectorId?: number | null
   createdAt?: Date | string
 }
@@ -1973,6 +2029,7 @@ export type CompanyUpdateWithoutSectorInput = {
   gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countriesAlreadyExportingTo?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countryExports?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  registrationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subSector?: Prisma.SubSectorUpdateOneWithoutCompaniesNestedInput
   sectors?: Prisma.CompanySectorUpdateManyWithoutCompanyNestedInput
@@ -2000,6 +2057,7 @@ export type CompanyUncheckedUpdateWithoutSectorInput = {
   gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countriesAlreadyExportingTo?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countryExports?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  registrationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   subSectorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sectors?: Prisma.CompanySectorUncheckedUpdateManyWithoutCompanyNestedInput
@@ -2027,6 +2085,7 @@ export type CompanyUncheckedUpdateManyWithoutSectorInput = {
   gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countriesAlreadyExportingTo?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countryExports?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  registrationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   subSectorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -2047,6 +2106,7 @@ export type CompanyCreateManySubSectorInput = {
   gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countriesAlreadyExportingTo?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countryExports?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  registrationCode?: string | null
   sectorId?: number | null
   createdAt?: Date | string
 }
@@ -2066,6 +2126,7 @@ export type CompanyUpdateWithoutSubSectorInput = {
   gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countriesAlreadyExportingTo?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countryExports?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  registrationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sector?: Prisma.SectorUpdateOneWithoutCompaniesNestedInput
   sectors?: Prisma.CompanySectorUpdateManyWithoutCompanyNestedInput
@@ -2093,6 +2154,7 @@ export type CompanyUncheckedUpdateWithoutSubSectorInput = {
   gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countriesAlreadyExportingTo?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countryExports?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  registrationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sectorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sectors?: Prisma.CompanySectorUncheckedUpdateManyWithoutCompanyNestedInput
@@ -2120,6 +2182,7 @@ export type CompanyUncheckedUpdateManyWithoutSubSectorInput = {
   gccCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countriesAlreadyExportingTo?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   countryExports?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  registrationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sectorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -2225,6 +2288,7 @@ export type CompanySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   gccCountries?: boolean
   countriesAlreadyExportingTo?: boolean
   countryExports?: boolean
+  registrationCode?: boolean
   sectorId?: boolean
   subSectorId?: boolean
   createdAt?: boolean
@@ -2258,12 +2322,13 @@ export type CompanySelectScalar = {
   gccCountries?: boolean
   countriesAlreadyExportingTo?: boolean
   countryExports?: boolean
+  registrationCode?: boolean
   sectorId?: boolean
   subSectorId?: boolean
   createdAt?: boolean
 }
 
-export type CompanyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "profile" | "address" | "email" | "website" | "representativeName" | "representativeTel" | "representativeWhatsapp" | "representativeEmail" | "productsToBeDisplayed" | "willingToExportToGCC" | "gccCountries" | "countriesAlreadyExportingTo" | "countryExports" | "sectorId" | "subSectorId" | "createdAt", ExtArgs["result"]["company"]>
+export type CompanyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "profile" | "address" | "email" | "website" | "representativeName" | "representativeTel" | "representativeWhatsapp" | "representativeEmail" | "productsToBeDisplayed" | "willingToExportToGCC" | "gccCountries" | "countriesAlreadyExportingTo" | "countryExports" | "registrationCode" | "sectorId" | "subSectorId" | "createdAt", ExtArgs["result"]["company"]>
 export type CompanyInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   sector?: boolean | Prisma.Company$sectorArgs<ExtArgs>
   subSector?: boolean | Prisma.Company$subSectorArgs<ExtArgs>
@@ -2306,6 +2371,7 @@ export type $CompanyPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     gccCountries: runtime.JsonValue
     countriesAlreadyExportingTo: runtime.JsonValue
     countryExports: runtime.JsonValue
+    registrationCode: string | null
     sectorId: number | null
     subSectorId: number | null
     createdAt: Date
@@ -2702,6 +2768,7 @@ export interface CompanyFieldRefs {
   readonly gccCountries: Prisma.FieldRef<"Company", 'Json'>
   readonly countriesAlreadyExportingTo: Prisma.FieldRef<"Company", 'Json'>
   readonly countryExports: Prisma.FieldRef<"Company", 'Json'>
+  readonly registrationCode: Prisma.FieldRef<"Company", 'String'>
   readonly sectorId: Prisma.FieldRef<"Company", 'Int'>
   readonly subSectorId: Prisma.FieldRef<"Company", 'Int'>
   readonly createdAt: Prisma.FieldRef<"Company", 'DateTime'>

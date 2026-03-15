@@ -80,6 +80,8 @@ gccCountries         Json     @default("[]")
 countriesAlreadyExportingTo Json     @default("[]")
 // Per-country last-year export values  e.g. {"UAE": 500000, "KSA": 250000}
 countryExports       Json     @default("{}")
+// Authorization code used at registration time
+registrationCode     String?
 
 // Primary / legacy single-FK (kept for backward-compat with existing data & filters)
 sectorId Int?

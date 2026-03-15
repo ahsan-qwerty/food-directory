@@ -457,6 +457,17 @@ export default async function CompanyProfilePage({ params, searchParams }) {
                 >
                   Edit Company Details
                 </Link>
+                {isDev && company.registrationCode && (
+                  <div className="pt-2 mt-1 border-t border-yellow-500/20">
+                    <p className="text-xs font-semibold text-muted uppercase tracking-wide mb-1">Registered via Code</p>
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full font-mono text-xs font-bold border border-yellow-500/40 text-yellow-300 bg-yellow-500/10">
+                      <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
+                      </svg>
+                      {company.registrationCode}
+                    </span>
+                  </div>
+                )}
                 {isDev && (
                   <div className="pt-2 mt-1 border-t border-red-500/20">
                     <DeleteCompanyButton companyId={company.id} companyName={company.name} />

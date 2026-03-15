@@ -7,6 +7,15 @@ export async function POST(request) {
     try {
         const data = await request.json();
 
+        // ── Validate authorization code ──────────────────────────────────────
+        const submittedCode = typeof data.registrationCode === 'string' ? data.registrationCode.trim().toUpperCase() : '';
+        const raw = process.env.REGISTER_CODES || '';
+        const validCodes = raw.split(',').map(c => c.trim().toUpperCase()).filter(Boolean);
+        if (validCodes.length === 0 || !validCodes.includes(submittedCode)) {
+            return NextResponse.json({ error: 'Invalid or missing authorization code.' }, { status: 403 });
+        }
+        // ────────────────────────────────────────────────────────────────────
+
         // Validation
         if (!data.name || !data.name.trim()) {
             return NextResponse.json(
@@ -66,6 +75,7 @@ export async function POST(request) {
         // Prepare company data
         const companyData = {
             name: data.name.trim(),
+            registrationCode: submittedCode,
             profile: data.profile?.trim() || null,
             address: data.address?.trim() || null,
             email: data.email?.trim() || null,

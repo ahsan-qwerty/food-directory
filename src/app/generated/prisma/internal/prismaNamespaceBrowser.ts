@@ -136,6 +136,7 @@ export const CompanyScalarFieldEnum = {
   gccCountries: 'gccCountries',
   countriesAlreadyExportingTo: 'countriesAlreadyExportingTo',
   countryExports: 'countryExports',
+  registrationCode: 'registrationCode',
   sectorId: 'sectorId',
   subSectorId: 'subSectorId',
   createdAt: 'createdAt'
@@ -452,7 +453,8 @@ export const CompanyOrderByRelevanceFieldEnum = {
   representativeTel: 'representativeTel',
   representativeWhatsapp: 'representativeWhatsapp',
   representativeEmail: 'representativeEmail',
-  productsToBeDisplayed: 'productsToBeDisplayed'
+  productsToBeDisplayed: 'productsToBeDisplayed',
+  registrationCode: 'registrationCode'
 } as const
 
 export type CompanyOrderByRelevanceFieldEnum = (typeof CompanyOrderByRelevanceFieldEnum)[keyof typeof CompanyOrderByRelevanceFieldEnum]
