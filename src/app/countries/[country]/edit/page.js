@@ -392,7 +392,7 @@ function InterestsManager({ countryName }) {
                 <div className="glass-card p-5 mb-5 border border-sky-500/20">
                     <h3 className="text-sm font-semibold text-white mb-4">New Product Interest</h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                        <div>
+                        {/* <div>
                             <label className="block text-xs font-medium text-secondary mb-1">Subsector</label>
                             <select
                                 value={newInterest.subSectorId}
@@ -404,10 +404,11 @@ function InterestsManager({ countryName }) {
                                     <option key={ss.id} value={ss.id}>{ss.name}</option>
                                 ))}
                             </select>
-                        </div>
+                        </div> */}
                         <div>
                             <label className="block text-xs font-medium text-secondary mb-1">
-                                Or custom product name <span className="text-muted font-normal">(if not in list)</span>
+                                Product Name
+                                {/* <span className="text-muted font-normal">(if not in list)</span> */}
                             </label>
                             <input
                                 type="text"
