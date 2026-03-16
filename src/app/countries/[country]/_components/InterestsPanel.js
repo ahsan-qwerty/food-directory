@@ -6,16 +6,28 @@ import DownloadButton from './DownloadButton';
 
 /* ─── InterestsPanel ────────────────────────────────────────────────────────
    View mode by default. Each card has edit/delete icon buttons.
-   "Add Interest" button in the section header expands an inline form.
+   "Add Interest" opens a modal popup.
 ───────────────────────────────────────────────────────────────────────────── */
 export default function InterestsPanel({ countryName, initialInterests = [] }) {
     const [interests, setInterests] = useState(initialInterests);
-    const [addingInterest, setAddingInterest] = useState(false);
+    const [modalOpen, setModalOpen] = useState(false);
     const [newInterest, setNewInterest] = useState({ customProduct: '', notes: '' });
     const [saving, setSaving] = useState(false);
     const [justAddedId, setJustAddedId] = useState(null);
 
-    async function handleAddInterest() {
+    function openModal() {
+        setNewInterest({ customProduct: '', notes: '' });
+        setModalOpen(true);
+    }
+
+    function closeModal() {
+        if (saving) return;
+        setModalOpen(false);
+        setNewInterest({ customProduct: '', notes: '' });
+    }
+
+    async function handleAddInterest(e) {
+        e.preventDefault();
         if (!newInterest.customProduct.trim()) return;
         setSaving(true);
         try {
@@ -31,9 +43,8 @@ export default function InterestsPanel({ countryName, initialInterests = [] }) {
             const data = await res.json();
             if (res.ok) {
                 setInterests(prev => [...prev, data.interest]);
-                setNewInterest({ customProduct: '', notes: '' });
-                setAddingInterest(false);
-                setJustAddedId(data.interest.id); // triggers auto-scroll + edit on the new card
+                setJustAddedId(data.interest.id);
+                closeModal();
             }
         } catch (e) { console.error(e); }
         finally { setSaving(false); }
@@ -86,7 +97,7 @@ export default function InterestsPanel({ countryName, initialInterests = [] }) {
                     )}
                     <button
                         type="button"
-                        onClick={() => setAddingInterest(v => !v)}
+                        onClick={openModal}
                         className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium bg-emerald-600 hover:bg-emerald-700 text-white transition-colors"
                     >
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -97,67 +108,108 @@ export default function InterestsPanel({ countryName, initialInterests = [] }) {
                 </div>
             </div>
 
-            {/* Add new interest inline form */}
-            {addingInterest && (
-                <div className="mt-4 p-5 rounded-xl border border-emerald-500/20 bg-emerald-500/5 space-y-3">
-                    <p className="text-sm font-semibold text-white">New Product Interest</p>
-                    <div>
-                        <label className="block text-xs font-medium text-secondary mb-1">Product Name</label>
-                        <input
-                            type="text"
-                            value={newInterest.customProduct}
-                            onChange={e => setNewInterest(p => ({ ...p, customProduct: e.target.value }))}
-                            placeholder="e.g. Basmati Rice"
-                            className="glass-input w-full px-3 py-2 text-sm"
-                            autoFocus
-                        />
-                    </div>
-                    <div>
-                        <label className="block text-xs font-medium text-secondary mb-1">
-                            Notes / Requirements <span className="text-muted font-normal">(optional)</span>
-                        </label>
-                        <textarea
-                            rows={2}
-                            value={newInterest.notes}
-                            onChange={e => setNewInterest(p => ({ ...p, notes: e.target.value }))}
-                            placeholder="e.g. Prefer certified halal, bulk quantities…"
-                            className="glass-input w-full px-3 py-2 text-sm"
-                        />
-                    </div>
-                    <div className="flex gap-3">
-                        <button
-                            type="button"
-                            onClick={handleAddInterest}
-                            disabled={saving || !newInterest.customProduct.trim()}
-                            className="inline-flex items-center gap-1.5 px-4 py-2 text-sm font-medium rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white disabled:opacity-50 transition-colors"
-                        >
-                            {saving && (
-                                <svg className="animate-spin h-3.5 w-3.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+            {/* ── Add Interest Modal ─────────────────────────────────────── */}
+            {modalOpen && (
+                <div
+                    className="fixed inset-0 z-[9998] flex items-center justify-center p-4"
+                    onMouseDown={e => { if (e.target === e.currentTarget) closeModal(); }}
+                >
+                    {/* Backdrop */}
+                    <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
+
+                    {/* Dialog */}
+                    <div className="relative z-10 w-full max-w-md rounded-2xl border border-white/10 bg-[#141927] shadow-2xl p-6">
+                        {/* Modal header */}
+                        <div className="flex items-center justify-between mb-5">
+                            <h3 className="text-lg font-bold text-white">Add Product Interest</h3>
+                            <button
+                                type="button"
+                                onClick={closeModal}
+                                disabled={saving}
+                                className="p-1.5 rounded-lg text-muted hover:text-white hover:bg-white/10 transition-colors"
+                            >
+                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                                 </svg>
-                            )}
-                            {saving ? 'Adding…' : 'Add Interest'}
-                        </button>
-                        <button
-                            type="button"
-                            onClick={() => { setAddingInterest(false); setNewInterest({ customProduct: '', notes: '' }); }}
-                            className="px-4 py-2 text-sm font-medium rounded-lg text-muted hover:text-white hover:bg-white/10 transition-colors"
-                        >
-                            Cancel
-                        </button>
+                            </button>
+                        </div>
+
+                        <form onSubmit={handleAddInterest} className="space-y-4">
+                            <div>
+                                <label className="block text-sm font-medium text-secondary mb-1.5">
+                                    Product Name <span className="text-red-400">*</span>
+                                </label>
+                                <input
+                                    type="text"
+                                    value={newInterest.customProduct}
+                                    onChange={e => setNewInterest(p => ({ ...p, customProduct: e.target.value }))}
+                                    placeholder="e.g. Basmati Rice"
+                                    className="glass-input w-full px-3 py-2.5"
+                                    autoFocus
+                                    required
+                                />
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-medium text-secondary mb-1.5">
+                                    Notes / Requirements
+                                    <span className="text-muted font-normal ml-1">(optional)</span>
+                                </label>
+                                <textarea
+                                    rows={3}
+                                    value={newInterest.notes}
+                                    onChange={e => setNewInterest(p => ({ ...p, notes: e.target.value }))}
+                                    placeholder="e.g. Prefer certified halal, bulk quantities…"
+                                    className="glass-input w-full px-3 py-2.5 resize-none"
+                                />
+                            </div>
+
+                            {/* Modal actions */}
+                            <div className="flex items-center justify-end gap-3 pt-2">
+                                <button
+                                    type="button"
+                                    onClick={closeModal}
+                                    disabled={saving}
+                                    className="px-4 py-2 text-sm font-medium rounded-lg text-muted hover:text-white hover:bg-white/10 transition-colors"
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    type="submit"
+                                    disabled={saving || !newInterest.customProduct.trim()}
+                                    className="inline-flex items-center gap-2 px-5 py-2 text-sm font-semibold rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white disabled:opacity-50 transition-colors"
+                                >
+                                    {saving ? (
+                                        <>
+                                            <svg className="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                                            </svg>
+                                            Submitting…
+                                        </>
+                                    ) : (
+                                        <>
+                                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                                            </svg>
+                                            Submit Interest
+                                        </>
+                                    )}
+                                </button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             )}
 
             {/* Interest cards */}
-            {interests.length === 0 && !addingInterest ? (
+            {interests.length === 0 ? (
                 <div className="mt-5 text-center py-8 rounded-xl border border-dashed border-white/10">
                     <p className="text-muted text-sm">
                         No product interests added yet.{' '}
                         <button
                             type="button"
-                            onClick={() => setAddingInterest(true)}
+                            onClick={openModal}
                             className="text-emerald-400 hover:underline font-medium"
                         >
                             Add one now
