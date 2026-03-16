@@ -241,7 +241,7 @@ export default function CompaniesPage() {
                 </div>
 
                 {/* Row 2 — GCC country multi-select */}
-                <div>
+                {/* <div>
                   <label className="block text-sm font-medium text-secondary mb-2">
                     GCC Target Countries
                     {filters.gccCountries.length > 0 && (
@@ -273,7 +273,7 @@ export default function CompaniesPage() {
                       );
                     })}
                   </div>
-                </div>
+                </div> */}
               </>
             )}
           </div>
