@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { prisma } from '../../../lib/prismaClient';
 import { Suspense } from 'react';
-import DownloadButton from './_components/DownloadButton';
+import InterestsPanel from './_components/InterestsPanel';
 
 const GCC_COUNTRIES = ['UAE', 'KSA', 'Qatar', 'Kuwait', 'Bahrain', 'Oman'];
 
@@ -78,12 +78,12 @@ export default async function CountryProfilePage({ params }) {
                         <h1 className="text-3xl font-bold text-white">{countryName}</h1>
                         <p className="text-muted mt-1">AgroFood Import Profile</p>
                     </div>
-                    <Link
+                    {/* <Link
                         href={`/countries/${encodeURIComponent(countryName)}/edit`}
                         className="btn-outline px-4 py-2 text-sm"
                     >
                         {profile ? 'Edit Profile' : 'Add Profile'}
-                    </Link>
+                    </Link> */}
                 </div>
 
                 {!profile ? (
@@ -101,7 +101,7 @@ export default async function CountryProfilePage({ params }) {
                     <div className="space-y-8">
 
                         {/* Overview stats */}
-                        {(profile.population || profile.gdp || profile.currency) && (
+                        {/* {(profile.population || profile.gdp || profile.currency) && (
                             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                                 {profile.population && (
                                     <div className="glass-card p-5">
@@ -122,18 +122,18 @@ export default async function CountryProfilePage({ params }) {
                                     </div>
                                 )}
                             </div>
-                        )}
+                        )} */}
 
                         {/* Overview text */}
-                        {profile.overview && (
+                        {/* {profile.overview && (
                             <div className="glass-card p-6">
                                 <h2 className="text-xl font-bold text-white mb-3">Market Overview</h2>
                                 <p className="text-secondary leading-relaxed whitespace-pre-line">{profile.overview}</p>
                             </div>
-                        )}
+                        )} */}
 
                         {/* Top 10 imports from World */}
-                        <div className="glass-card p-6">
+                        {/* <div className="glass-card p-6">
                             <h2 className="text-xl font-bold text-white mb-1">
                                 Top AgroFood Imports from World
                             </h2>
@@ -169,10 +169,10 @@ export default async function CountryProfilePage({ params }) {
                                     </table>
                                 </div>
                             )}
-                        </div>
+                        </div> */}
 
                         {/* Top 10 imports from Pakistan */}
-                        <div className="glass-card p-6">
+                        {/* <div className="glass-card p-6">
                             <h2 className="text-xl font-bold text-white mb-1">
                                 Top AgroFood Imports from Pakistan
                             </h2>
@@ -208,101 +208,21 @@ export default async function CountryProfilePage({ params }) {
                                     </table>
                                 </div>
                             )}
-                        </div>
+                        </div> */}
 
                         {/* Additional notes */}
-                        {profile.additionalNotes && (
+                        {/* {profile.additionalNotes && (
                             <div className="glass-card p-6">
                                 <h2 className="text-xl font-bold text-white mb-3">Additional Notes</h2>
                                 <p className="text-secondary leading-relaxed whitespace-pre-line">{profile.additionalNotes}</p>
                             </div>
-                        )}
+                        )} */}
 
                         {/* Product / Subsector Interests & Recommended Companies */}
-                        {profile.interests && profile.interests.length > 0 && (
-                            <div className="glass-card p-6">
-                                {/* Section header + download-all button */}
-                                <div className="flex flex-wrap items-start justify-between gap-3 mb-1">
-                                    <div>
-                                        <h2 className="text-xl font-bold text-white">TDAP Recommended Companies</h2>
-                                        <p className="text-xs text-muted mt-0.5">Products/subsectors of interest and Pakistani companies best suited for each</p>
-                                    </div>
-                                    {profile.interests.some(i => i.companies.length > 0) && (
-                                        <DownloadButton
-                                            url={`/api/countries/${encodeURIComponent(countryName)}/interest-directory`}
-                                            filename={`${countryName.toLowerCase()}-all-products-directory.pdf`}
-                                            label="Download All Products Directory"
-                                            variant="purple"
-                                        />
-                                    )}
-                                </div>
-
-                                <div className="space-y-5 mt-5">
-                                    {profile.interests.map(interest => {
-                                        const label = interest.subSector
-                                            ? interest.subSector.name
-                                            : interest.customProduct || 'Unnamed Product';
-                                        const sectorName = interest.subSector?.sector?.name || null;
-                                        const slug = label.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
-                                        return (
-                                            <div key={interest.id} className="border border-white/10 rounded-xl p-5">
-                                                {/* Interest header */}
-                                                <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
-                                                    <div className="flex flex-wrap items-center gap-2">
-                                                        <h3 className="text-base font-bold text-white">{label}</h3>
-                                                        {sectorName && (
-                                                            <span className="px-2 py-0.5 rounded-full text-xs font-medium border border-emerald-500/30 text-emerald-300 bg-emerald-500/10">
-                                                                {sectorName}
-                                                            </span>
-                                                        )}
-                                                    </div>
-                                                    {interest.companies.length > 0 && (
-                                                        <DownloadButton
-                                                            url={`/api/countries/${encodeURIComponent(countryName)}/interest-directory?interestId=${interest.id}`}
-                                                            filename={`${countryName.toLowerCase()}-${slug}-directory.pdf`}
-                                                            label={`Download ${label} Directory`}
-                                                            variant="teal"
-                                                        />
-                                                    )}
-                                                </div>
-
-                                                {interest.notes && (
-                                                    <p className="text-secondary text-sm mb-4 leading-relaxed">{interest.notes}</p>
-                                                )}
-                                                {interest.companies.length > 0 ? (
-                                                    <div>
-                                                        <p className="text-xs font-semibold text-muted uppercase tracking-wide mb-2">Recommended Companies</p>
-                                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                                                            {interest.companies.map(({ company }) => (
-                                                                <Link
-                                                                    key={company.id}
-                                                                    href={`/companies/${company.id}`}
-                                                                    className="flex items-center gap-3 px-3 py-2.5 rounded-lg border border-white/10 hover:border-sky-500/40 hover:bg-sky-500/5 transition-colors group"
-                                                                >
-                                                                    <div className="w-7 h-7 rounded-full bg-sky-500/20 border border-sky-500/30 flex items-center justify-center shrink-0">
-                                                                        <span className="text-xs font-bold text-sky-300">
-                                                                            {company.name.charAt(0).toUpperCase()}
-                                                                        </span>
-                                                                    </div>
-                                                                    <div className="min-w-0">
-                                                                        <p className="text-sm font-medium text-white group-hover:text-sky-300 transition-colors line-clamp-1">{company.name}</p>
-                                                                        {company.representativeName && (
-                                                                            <p className="text-xs text-muted line-clamp-1">{company.representativeName}</p>
-                                                                        )}
-                                                                    </div>
-                                                                </Link>
-                                                            ))}
-                                                        </div>
-                                                    </div>
-                                                ) : (
-                                                    <p className="text-xs text-muted italic">No companies assigned yet.</p>
-                                                )}
-                                            </div>
-                                        );
-                                    })}
-                                </div>
-                            </div>
-                        )}
+                        <InterestsPanel
+                            countryName={countryName}
+                            initialInterests={profile.interests || []}
+                        />
 
                     </div>
                 )}
