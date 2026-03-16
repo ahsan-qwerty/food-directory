@@ -307,7 +307,7 @@ export default function RegisterPage() {
                             <div>
                                 <FormLabel>Website</FormLabel>
                                 <input
-                                    type="url" name="website"
+                                    type="text" name="website"
                                     value={formData.website} onChange={handleInputChange}
                                     placeholder="https://example.com"
                                     className="glass-input w-full px-3 py-2"

@@ -71,8 +71,8 @@ export default function EditCompanyPage() {
                         ? Object.fromEntries(Object.entries(c.productExports).map(([k, v]) => [k, String(v)]))
                         : {},
                     countriesAlreadyExportingTo: Array.isArray(c.countriesAlreadyExportingTo) ? c.countriesAlreadyExportingTo : [],
-                    sectorIds: c.sectorIds || (c.sectorId ? [c.sectorId] : []),
-                    subSectorIds: c.subSectorIds || (c.subSectorId ? [c.subSectorId] : []),
+                    sectorIds: (c.sectorIds?.length > 0) ? c.sectorIds : (c.sectorId ? [c.sectorId] : []),
+                    subSectorIds: (c.subSectorIds?.length > 0) ? c.subSectorIds : (c.subSectorId ? [c.subSectorId] : []),
                 });
                 setSectors(sData.sectors || []);
                 setSubSectors(ssData.subSectors || []);
@@ -81,30 +81,25 @@ export default function EditCompanyPage() {
             .finally(() => setLoading(false));
     }, [companyId]);
 
-    // Drop sub-sectors that no longer belong to selected sectors
-    useEffect(() => {
-        if (formData.sectorIds.length === 0) return;
-        setFormData(prev => ({
-            ...prev,
-            subSectorIds: prev.subSectorIds.filter(ssId =>
-                subSectors.some(ss => ss.id === ssId && prev.sectorIds.includes(ss.sectorId))
-            ),
-        }));
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [formData.sectorIds]);
-
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData(prev => ({ ...prev, [name]: value }));
     };
 
     const toggleSector = (id) =>
-        setFormData(prev => ({
-            ...prev,
-            sectorIds: prev.sectorIds.includes(id)
+        setFormData(prev => {
+            const newSectorIds = prev.sectorIds.includes(id)
                 ? prev.sectorIds.filter(s => s !== id)
-                : [...prev.sectorIds, id],
-        }));
+                : [...prev.sectorIds, id];
+            return {
+                ...prev,
+                sectorIds: newSectorIds,
+                // Remove sub-sectors that no longer belong to any selected sector
+                subSectorIds: prev.subSectorIds.filter(ssId =>
+                    subSectors.some(ss => ss.id === ssId && newSectorIds.includes(ss.sectorId))
+                ),
+            };
+        });
 
     const toggleSubSector = (id) =>
         setFormData(prev => ({
@@ -263,7 +258,7 @@ export default function EditCompanyPage() {
                             <div>
                                 <FormLabel>Website</FormLabel>
                                 <input
-                                    type="url" name="website"
+                                    type="text" name="website"
                                     value={formData.website} onChange={handleChange}
                                     placeholder="https://example.com"
                                     className="glass-input w-full px-3 py-2"

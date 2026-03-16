@@ -104,43 +104,17 @@ export default async function CompanyProfilePage({ params, searchParams }) {
             ))}
           </div>
 
-          {/* GCC Export */}
-          {(company.willingToExportToGCC || (Array.isArray(company.gccCountries) && company.gccCountries.length > 0)) && (
+          {/* GCC Target Countries — simple badges */}
+          {Array.isArray(company.gccCountries) && company.gccCountries.length > 0 && (
             <div className="mb-3">
-              {/* {company.willingToExportToGCC && (
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold border border-emerald-500/40 text-emerald-300 bg-emerald-500/10 mb-2">
-                  <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
-                  Willing to Export to GCC
-                </span>
-              )} */}
-              {Array.isArray(company.gccCountries) && company.gccCountries.length > 0 && (() => {
-                const exports = (typeof company.countryExports === 'object' && company.countryExports !== null && !Array.isArray(company.countryExports))
-                  ? company.countryExports : {};
-                const hasAnyExport = company.gccCountries.some(c => exports[c] != null && exports[c] !== '');
-                return (
-                  <div className="inline-block border border-white/10 rounded-lg overflow-hidden text-sm mt-1">
-                    <div className="grid grid-cols-[auto_auto] bg-white/5 px-3 py-1.5 border-b border-white/10 gap-x-8">
-                      <span className="text-xs font-semibold text-muted uppercase tracking-wide">Target Country</span>
-                      {hasAnyExport && <span className="text-xs font-semibold text-muted uppercase tracking-wide text-right">Last Year Export (USD)</span>}
-                    </div>
-                    {company.gccCountries.map(c => (
-                      <div key={c} className="grid grid-cols-[auto_auto] items-center px-3 py-2 border-b border-white/5 last:border-b-0 gap-x-8">
-                        <span className="text-sky-300 font-medium">{c}</span>
-                        {hasAnyExport && (
-                          <span className="text-right text-accent-green font-semibold">
-                            {exports[c] != null && exports[c] !== ''
-                              ? '$' + Number(exports[c]).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })
-                              : <span className="text-muted font-normal">—</span>
-                            }
-                          </span>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                );
-              })()}
+              <p className="text-xs font-semibold text-muted uppercase tracking-wide mb-2">Targeting GCC Markets:</p>
+              <div className="flex flex-wrap gap-2">
+                {company.gccCountries.map(c => (
+                  <span key={c} className="px-2.5 py-1 rounded-full text-xs font-medium border border-sky-500/40 text-sky-300 bg-sky-500/10">
+                    {c}
+                  </span>
+                ))}
+              </div>
             </div>
           )}
 
@@ -182,6 +156,67 @@ export default async function CompanyProfilePage({ params, searchParams }) {
                 <p className="text-secondary whitespace-pre-line">{company.productsToBeDisplayed}</p>
               </div>
             )}
+
+            {/* Export Performance by Product / Subsector */}
+            {(() => {
+              const productExports = (typeof company.productExports === 'object' && company.productExports !== null && !Array.isArray(company.productExports))
+                ? company.productExports : {};
+              // Show subsectors that have a recorded export value, matched against selected subsectors
+              const rows = allSubSectors.filter(Boolean).map(ss => ({
+                name: ss.name,
+                value: productExports[String(ss.id)],
+              })).filter(r => r.value != null && r.value !== '' && !isNaN(Number(r.value)));
+              if (rows.length === 0) return null;
+              return (
+                <div className="glass-card p-6">
+                  <h2 className="text-2xl font-bold text-white mb-4">Export Performance by Product</h2>
+                  <div className="border border-white/10 rounded-lg overflow-hidden">
+                    <div className="grid grid-cols-[1fr_auto] bg-white/5 px-4 py-2.5 border-b border-white/10">
+                      <span className="text-xs font-semibold text-muted uppercase tracking-wide">Product / Subsector</span>
+                      <span className="text-xs font-semibold text-muted uppercase tracking-wide text-right">Last Year Export (USD)</span>
+                    </div>
+                    {rows.map(r => (
+                      <div key={r.name} className="grid grid-cols-[1fr_auto] items-center px-4 py-3 border-b border-white/5 last:border-b-0 gap-x-8">
+                        <span className="text-sm font-medium text-white">{r.name}</span>
+                        <span className="text-sm font-semibold text-accent-green text-right">
+                          ${Number(r.value).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              );
+            })()}
+
+            {/* Export Performance by GCC Country */}
+            {(() => {
+              const gccCountries = Array.isArray(company.gccCountries) ? company.gccCountries : [];
+              if (gccCountries.length === 0) return null;
+              const countryExports = (typeof company.countryExports === 'object' && company.countryExports !== null && !Array.isArray(company.countryExports))
+                ? company.countryExports : {};
+              return (
+                <div className="glass-card p-6">
+                  <h2 className="text-2xl font-bold text-white mb-4">Export Performance by GCC Country</h2>
+                  <div className="border border-white/10 rounded-lg overflow-hidden">
+                    <div className="grid grid-cols-[1fr_auto] bg-white/5 px-4 py-2.5 border-b border-white/10">
+                      <span className="text-xs font-semibold text-muted uppercase tracking-wide">Target Country</span>
+                      <span className="text-xs font-semibold text-muted uppercase tracking-wide text-right">Last Year Export (USD)</span>
+                    </div>
+                    {gccCountries.map(c => (
+                      <div key={c} className="grid grid-cols-[1fr_auto] items-center px-4 py-3 border-b border-white/5 last:border-b-0 gap-x-8">
+                        <span className="text-sm font-medium text-sky-300">{c}</span>
+                        <span className="text-sm font-semibold text-right">
+                          {countryExports[c] != null && countryExports[c] !== ''
+                            ? <span className="text-accent-green">${Number(countryExports[c]).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}</span>
+                            : <span className="text-muted font-normal">—</span>
+                          }
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              );
+            })()}
 
             {/* Events participated in */}
             {eventParticipations.length > 0 && (
