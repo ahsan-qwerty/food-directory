@@ -96,6 +96,14 @@ export async function POST(request) {
                         .filter(([, v]) => !isNaN(v))
                 )
                 : {},
+            productExports: (typeof data.productExports === 'object' && data.productExports !== null && !Array.isArray(data.productExports))
+                ? Object.fromEntries(
+                    Object.entries(data.productExports)
+                        .filter(([, v]) => v !== '' && v != null)
+                        .map(([k, v]) => [k, parseFloat(v)])
+                        .filter(([, v]) => !isNaN(v))
+                )
+                : {},
             // Legacy single-FK fields (primary selection)
             sectorId: primarySectorId,
             subSectorId: primarySubSectorId,

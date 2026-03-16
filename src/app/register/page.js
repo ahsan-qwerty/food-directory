@@ -60,6 +60,7 @@ export default function RegisterPage() {
         willingToExportToGCC: false,
         gccCountries: [],
         countryExports: {},
+        productExports: {},
         countriesAlreadyExportingTo: [],
         sectorIds: [],
         subSectorIds: [],
@@ -81,25 +82,20 @@ export default function RegisterPage() {
         setFormData(prev => ({ ...prev, [name]: value }));
     };
 
-    // When sectors change, drop any sub-sectors that no longer belong to a selected sector
-    useEffect(() => {
-        if (formData.sectorIds.length === 0) return;
-        setFormData(prev => ({
-            ...prev,
-            subSectorIds: prev.subSectorIds.filter(ssId =>
-                subSectors.some(ss => ss.id === ssId && prev.sectorIds.includes(ss.sectorId))
-            ),
-        }));
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [formData.sectorIds]);
-
     const toggleSector = (id) => {
-        setFormData(prev => ({
-            ...prev,
-            sectorIds: prev.sectorIds.includes(id)
+        setFormData(prev => {
+            const newSectorIds = prev.sectorIds.includes(id)
                 ? prev.sectorIds.filter(s => s !== id)
-                : [...prev.sectorIds, id],
-        }));
+                : [...prev.sectorIds, id];
+            return {
+                ...prev,
+                sectorIds: newSectorIds,
+                // Remove sub-sectors that no longer belong to any selected sector
+                subSectorIds: prev.subSectorIds.filter(ssId =>
+                    subSectors.some(ss => ss.id === ssId && newSectorIds.includes(ss.sectorId))
+                ),
+            };
+        });
     };
 
     const toggleSubSector = (id) => {
@@ -130,6 +126,13 @@ export default function RegisterPage() {
         setFormData(prev => ({
             ...prev,
             countryExports: { ...prev.countryExports, [country]: value },
+        }));
+    };
+
+    const setProductExport = (subSectorId, value) => {
+        setFormData(prev => ({
+            ...prev,
+            productExports: { ...prev.productExports, [String(subSectorId)]: value },
         }));
     };
 
@@ -529,6 +532,40 @@ export default function RegisterPage() {
                                 </p>
                             )}
                         </div>
+
+                        {/* Product Export Performance */}
+                        {formData.subSectorIds.length > 0 && (
+                            <div className="mt-6">
+                                <h3 className="text-sm font-semibold text-secondary mb-1">
+                                    Export Performance by Product/Subsector
+                                    <span className="ml-1 text-xs font-normal text-muted">(last year export value in USD)</span>
+                                </h3>
+                                <div className="border border-white/10 rounded-lg overflow-hidden">
+                                    <div className="grid grid-cols-[1fr_auto] bg-white/5 px-4 py-2 border-b border-white/10">
+                                        <span className="text-xs font-semibold text-muted uppercase tracking-wide">Product / Subsector</span>
+                                        <span className="text-xs font-semibold text-muted uppercase tracking-wide w-48 text-right">Export Value (USD)</span>
+                                    </div>
+                                    {formData.subSectorIds.map(ssId => {
+                                        const ss = subSectors.find(s => s.id === ssId);
+                                        if (!ss) return null;
+                                        return (
+                                            <div key={ssId} className="grid grid-cols-[1fr_auto] items-center px-4 py-2.5 border-b border-white/5 last:border-b-0">
+                                                <span className="text-sm font-medium text-white">{ss.name}</span>
+                                                <input
+                                                    type="number"
+                                                    min="0"
+                                                    step="1"
+                                                    placeholder="0"
+                                                    value={formData.productExports[String(ssId)] ?? ''}
+                                                    onChange={e => setProductExport(ssId, e.target.value)}
+                                                    className="glass-input px-3 py-1.5 text-sm w-48 text-right"
+                                                />
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+                            </div>
+                        )}
                     </Section>
 
                     {/* Contact Person */}
