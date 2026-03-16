@@ -164,7 +164,7 @@ export default function CompaniesPage() {
           </div>
 
           {/* Filters */}
-          <div className="glass-card p-6 mb-8">
+          <div className="glass-card p-6">
             <div className="flex justify-between items-center mb-5">
               <h2 className="text-lg font-semibold text-white">Filter Companies</h2>
               {hasActiveFilters && (
@@ -280,7 +280,7 @@ export default function CompaniesPage() {
         </div>
 
         {/* ── GCC Markets strip — always visible ────────────────────────────── */}
-        <div className="glass-card p-4">
+        <div className="glass-card p-4 mb-4">
           <div className="flex items-center justify-between mb-3 gap-2 flex-wrap">
             <p className="text-xs font-semibold text-muted uppercase tracking-wide">GCC Markets</p>
             <button
