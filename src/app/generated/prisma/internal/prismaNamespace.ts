@@ -1763,6 +1763,7 @@ export const CompanyScalarFieldEnum = {
   gccCountries: 'gccCountries',
   countriesAlreadyExportingTo: 'countriesAlreadyExportingTo',
   countryExports: 'countryExports',
+  productExports: 'productExports',
   registrationCode: 'registrationCode',
   sectorId: 'sectorId',
   subSectorId: 'subSectorId',

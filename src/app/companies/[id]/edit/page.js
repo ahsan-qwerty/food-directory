@@ -31,6 +31,7 @@ export default function EditCompanyPage() {
         willingToExportToGCC: false,
         gccCountries: [],
         countryExports: {},
+        productExports: {},
         countriesAlreadyExportingTo: [],
         sectorIds: [],
         subSectorIds: [],
@@ -65,6 +66,9 @@ export default function EditCompanyPage() {
                     gccCountries: Array.isArray(c.gccCountries) ? c.gccCountries : [],
                     countryExports: (typeof c.countryExports === 'object' && c.countryExports !== null && !Array.isArray(c.countryExports))
                         ? Object.fromEntries(Object.entries(c.countryExports).map(([k, v]) => [k, String(v)]))
+                        : {},
+                    productExports: (typeof c.productExports === 'object' && c.productExports !== null && !Array.isArray(c.productExports))
+                        ? Object.fromEntries(Object.entries(c.productExports).map(([k, v]) => [k, String(v)]))
                         : {},
                     countriesAlreadyExportingTo: Array.isArray(c.countriesAlreadyExportingTo) ? c.countriesAlreadyExportingTo : [],
                     sectorIds: c.sectorIds || (c.sectorId ? [c.sectorId] : []),
@@ -130,6 +134,12 @@ export default function EditCompanyPage() {
         setFormData(prev => ({
             ...prev,
             countryExports: { ...prev.countryExports, [country]: value },
+        }));
+
+    const setProductExport = (subSectorId, value) =>
+        setFormData(prev => ({
+            ...prev,
+            productExports: { ...prev.productExports, [String(subSectorId)]: value },
         }));
 
     const toggleExportingCountry = (country) =>
@@ -463,6 +473,40 @@ export default function EditCompanyPage() {
                                 </p>
                             )}
                         </div>
+
+                        {/* Product Export Performance */}
+                        {formData.subSectorIds.length > 0 && (
+                            <div className="mt-6">
+                                <h3 className="text-sm font-semibold text-secondary mb-1">
+                                    Export Performance by Product/Subsector
+                                    <span className="ml-1 text-xs font-normal text-muted">(last year export value in USD)</span>
+                                </h3>
+                                <div className="border border-white/10 rounded-lg overflow-hidden">
+                                    <div className="grid grid-cols-[1fr_auto] bg-white/5 px-4 py-2 border-b border-white/10">
+                                        <span className="text-xs font-semibold text-muted uppercase tracking-wide">Product / Subsector</span>
+                                        <span className="text-xs font-semibold text-muted uppercase tracking-wide w-48 text-right">Export Value (USD)</span>
+                                    </div>
+                                    {formData.subSectorIds.map(ssId => {
+                                        const ss = subSectors.find(s => s.id === ssId);
+                                        if (!ss) return null;
+                                        return (
+                                            <div key={ssId} className="grid grid-cols-[1fr_auto] items-center px-4 py-2.5 border-b border-white/5 last:border-b-0">
+                                                <span className="text-sm font-medium text-white">{ss.name}</span>
+                                                <input
+                                                    type="number"
+                                                    min="0"
+                                                    step="1"
+                                                    placeholder="0"
+                                                    value={formData.productExports[String(ssId)] ?? ''}
+                                                    onChange={e => setProductExport(ssId, e.target.value)}
+                                                    className="glass-input px-3 py-1.5 text-sm w-48 text-right"
+                                                />
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+                            </div>
+                        )}
                     </Section>
 
                     {/* Contact Person */}

@@ -80,6 +80,8 @@ gccCountries         Json     @default("[]")
 countriesAlreadyExportingTo Json     @default("[]")
 // Per-country last-year export values  e.g. {"UAE": 500000, "KSA": 250000}
 countryExports       Json     @default("{}")
+// Per-subsector export performance values  e.g. {"5": 500000, "12": 250000}
+productExports       Json     @default("{}")
 // Authorization code used at registration time
 registrationCode     String?
 

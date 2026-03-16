@@ -107,14 +107,14 @@ export default async function CompanyProfilePage({ params, searchParams }) {
           {/* GCC Export */}
           {(company.willingToExportToGCC || (Array.isArray(company.gccCountries) && company.gccCountries.length > 0)) && (
             <div className="mb-3">
-              {company.willingToExportToGCC && (
+              {/* {company.willingToExportToGCC && (
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold border border-emerald-500/40 text-emerald-300 bg-emerald-500/10 mb-2">
                   <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                   </svg>
                   Willing to Export to GCC
                 </span>
-              )}
+              )} */}
               {Array.isArray(company.gccCountries) && company.gccCountries.length > 0 && (() => {
                 const exports = (typeof company.countryExports === 'object' && company.countryExports !== null && !Array.isArray(company.countryExports))
                   ? company.countryExports : {};

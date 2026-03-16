@@ -113,6 +113,23 @@ export async function GET(request) {
     });
   }
 
+  // Sort by product export value (descending) when a subsector filter is active
+  if (subSector) {
+    const subSectorId = Number(subSector);
+    if (!Number.isNaN(subSectorId)) {
+      companies = companies.sort((a, b) => {
+        const getVal = (c) => {
+          const exports = typeof c.productExports === 'object' && c.productExports !== null
+            ? c.productExports
+            : {};
+          const v = exports[String(subSectorId)];
+          return (v != null && !isNaN(v)) ? Number(v) : -1;
+        };
+        return getVal(b) - getVal(a);
+      });
+    }
+  }
+
   return NextResponse.json({
     companies,
     total: companies.length,
@@ -157,6 +174,14 @@ export async function PUT(request) {
         countryExports: (typeof body.countryExports === 'object' && body.countryExports !== null && !Array.isArray(body.countryExports))
           ? Object.fromEntries(
             Object.entries(body.countryExports)
+              .filter(([, v]) => v !== '' && v != null)
+              .map(([k, v]) => [k, parseFloat(v)])
+              .filter(([, v]) => !isNaN(v))
+          )
+          : {},
+        productExports: (typeof body.productExports === 'object' && body.productExports !== null && !Array.isArray(body.productExports))
+          ? Object.fromEntries(
+            Object.entries(body.productExports)
               .filter(([, v]) => v !== '' && v != null)
               .map(([k, v]) => [k, parseFloat(v)])
               .filter(([, v]) => !isNaN(v))
