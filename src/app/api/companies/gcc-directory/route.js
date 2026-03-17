@@ -8,9 +8,9 @@ function drawField(doc, label, value, x, y, labelWidth, valueMaxWidth, lineHeigh
     doc.text(label, x, y, { width: labelWidth, lineBreak: false });
     doc.font('Helvetica').fontSize(10).fillColor('#111111');
     const valueX = x + labelWidth + 8;
-    const textHeight = doc.heightOfString(String(value), { width: valueMaxWidth });
     doc.text(String(value), valueX, y, { width: valueMaxWidth });
-    return y + Math.max(lineHeight, textHeight) + 6;
+    // Use doc.y (actual cursor after draw) instead of estimating with heightOfString
+    return doc.y + 6;
 }
 
 function sanitize(val) {
@@ -175,7 +175,7 @@ export async function GET(request) {
                     // ── Company Name ─────────────────────────────────────────────────────
                     doc.font('Helvetica-Bold').fontSize(26).fillColor('#14532d');
                     doc.text(company.name || 'Unnamed Company', MARGIN, y, { width: CW });
-                    y += doc.heightOfString(company.name || 'Unnamed Company', { width: CW, fontSize: 26 }) + 6;
+                    y = doc.y + 6;
 
                     // ── Sector / SubSector breadcrumb ────────────────────────────────────
                     const allSectors = company.sectors?.map(cs => cs.sector?.name).filter(Boolean) || [];
@@ -192,24 +192,30 @@ export async function GET(request) {
                     if (sectorStr) {
                         doc.font('Helvetica').fontSize(10.5).fillColor('#166534');
                         doc.text(sectorStr, MARGIN, y, { width: CW });
-                        y += LINE_H;
+                        y = doc.y;
                     }
 
-                    // Divider (removed "Targeting" label)
+                    // Divider
                     y += 10;
                     doc.moveTo(MARGIN, y).lineTo(PAGE_W - MARGIN, y).strokeColor('#d1d5db').lineWidth(0.5).stroke();
                     y += SECTION_GAP;
 
+                    const LABEL_W = 90;
+                    const VAL_W = CW - LABEL_W - 8;
+
                     // ── Company Profile ──────────────────────────────────────────────────
                     const profileText = sanitize(company.profile);
                     if (profileText) {
+                        // Orphan guard: start a new page if not enough room for heading + a few lines
+                        if (y + LINE_H * 4 > FOOTER_Y) { doc.addPage(); y = MARGIN; }
                         doc.font('Helvetica-Bold').fontSize(12).fillColor('#166534');
                         doc.text('Company Profile', MARGIN, y);
-                        y += LINE_H + 6;
+                        y = doc.y + 6;
 
                         doc.font('Helvetica').fontSize(10.5).fillColor('#222222');
                         doc.text(profileText, MARGIN, y, { width: CW, lineGap: 3 });
-                        y += doc.heightOfString(profileText, { width: CW, lineGap: 3 }) + SECTION_GAP;
+                        // doc.y reflects actual cursor after text (may be on a new page after overflow)
+                        y = doc.y + SECTION_GAP;
 
                         doc.moveTo(MARGIN, y).lineTo(PAGE_W - MARGIN, y).strokeColor('#d1d5db').lineWidth(0.5).stroke();
                         y += SECTION_GAP;
@@ -218,27 +224,26 @@ export async function GET(request) {
                     // ── Products to be Displayed ─────────────────────────────────────────
                     const productsText = sanitize(company.productsToBeDisplayed);
                     if (productsText) {
+                        if (y + LINE_H * 4 > FOOTER_Y) { doc.addPage(); y = MARGIN; }
                         doc.font('Helvetica-Bold').fontSize(12).fillColor('#166534');
                         doc.text('Products to be Displayed', MARGIN, y);
-                        y += LINE_H + 6;
+                        y = doc.y + 6;
 
                         doc.font('Helvetica').fontSize(10.5).fillColor('#222222');
                         doc.text(productsText, MARGIN, y, { width: CW, lineGap: 3 });
-                        y += doc.heightOfString(productsText, { width: CW, lineGap: 3 }) + SECTION_GAP;
+                        y = doc.y + SECTION_GAP;
 
                         doc.moveTo(MARGIN, y).lineTo(PAGE_W - MARGIN, y).strokeColor('#d1d5db').lineWidth(0.5).stroke();
                         y += SECTION_GAP;
                     }
 
-                    // ── Contact layout ───────────────────────────────────────────────────
-                    const LABEL_W = 90;
-                    const VAL_W = CW - LABEL_W - 8;
-
+                    // ── Company Contact ──────────────────────────────────────────────────
                     const hasContact = sanitize(company.address) || sanitize(company.email) || sanitize(company.website);
                     if (hasContact) {
+                        if (y + LINE_H * 4 > FOOTER_Y) { doc.addPage(); y = MARGIN; }
                         doc.font('Helvetica-Bold').fontSize(12).fillColor('#166534');
                         doc.text('Company Contact', MARGIN, y);
-                        y += LINE_H + 8;
+                        y = doc.y + 8;
 
                         if (sanitize(company.address)) {
                             y = drawField(doc, 'Address', sanitize(company.address), MARGIN, y, LABEL_W, VAL_W, LINE_H);
@@ -252,12 +257,14 @@ export async function GET(request) {
                         y += SECTION_GAP;
                     }
 
+                    // ── Representative ───────────────────────────────────────────────────
                     const hasRep = sanitize(company.representativeName) || sanitize(company.representativeTel) ||
                         sanitize(company.representativeWhatsapp) || sanitize(company.representativeEmail);
                     if (hasRep) {
+                        if (y + LINE_H * 4 > FOOTER_Y) { doc.addPage(); y = MARGIN; }
                         doc.font('Helvetica-Bold').fontSize(12).fillColor('#166534');
                         doc.text('Representative', MARGIN, y);
-                        y += LINE_H + 8;
+                        y = doc.y + 8;
 
                         if (sanitize(company.representativeName)) {
                             y = drawField(doc, 'Name', sanitize(company.representativeName), MARGIN, y, LABEL_W, VAL_W, LINE_H);
@@ -315,14 +322,12 @@ export async function GET(request) {
             // ── Company Name ─────────────────────────────────────────────────────
             doc.font('Helvetica-Bold').fontSize(26).fillColor('#14532d');
             doc.text(company.name || 'Unnamed Company', MARGIN, y, { width: CW });
-            y += doc.heightOfString(company.name || 'Unnamed Company', { width: CW, fontSize: 26 }) + 6;
+            y = doc.y + 6;
 
             // ── Sector / SubSector breadcrumb ────────────────────────────────────
-            // Get all sectors and subsectors from junction tables
             const allSectors = company.sectors?.map(cs => cs.sector?.name).filter(Boolean) || [];
             const allSubSectors = company.subSectors?.map(css => css.subSector?.name).filter(Boolean) || [];
 
-            // Fallback to legacy fields if no junction data
             if (allSectors.length === 0 && company.sector?.name) {
                 allSectors.push(company.sector.name);
             }
@@ -334,26 +339,31 @@ export async function GET(request) {
             if (sectorStr) {
                 doc.font('Helvetica').fontSize(10.5).fillColor('#166534');
                 doc.text(sectorStr, MARGIN, y, { width: CW });
-                y += LINE_H;
+                y = doc.y;
             }
 
-            // Divider (removed "Targeting" label)
+            // Divider
             y += 10;
             doc.moveTo(MARGIN, y).lineTo(PAGE_W - MARGIN, y).strokeColor('#d1d5db').lineWidth(0.5).stroke();
             y += SECTION_GAP;
 
+            const LABEL_W = 90;
+            const VAL_W = CW - LABEL_W - 8;
+
             // ── Company Profile ──────────────────────────────────────────────────
             const profileText = sanitize(company.profile);
             if (profileText) {
+                // Orphan guard: start a new page if not enough room for heading + a few lines
+                if (y + LINE_H * 4 > FOOTER_Y) { doc.addPage(); y = MARGIN; }
                 doc.font('Helvetica-Bold').fontSize(12).fillColor('#166534');
                 doc.text('Company Profile', MARGIN, y);
-                y += LINE_H + 6;
+                y = doc.y + 6;
 
                 doc.font('Helvetica').fontSize(10.5).fillColor('#222222');
                 doc.text(profileText, MARGIN, y, { width: CW, lineGap: 3 });
-                y += doc.heightOfString(profileText, { width: CW, lineGap: 3 }) + SECTION_GAP;
+                // doc.y reflects actual cursor after text (may be on a new page after overflow)
+                y = doc.y + SECTION_GAP;
 
-                // Divider
                 doc.moveTo(MARGIN, y).lineTo(PAGE_W - MARGIN, y).strokeColor('#d1d5db').lineWidth(0.5).stroke();
                 y += SECTION_GAP;
             }
@@ -361,29 +371,26 @@ export async function GET(request) {
             // ── Products to be Displayed ─────────────────────────────────────────
             const productsText = sanitize(company.productsToBeDisplayed);
             if (productsText) {
+                if (y + LINE_H * 4 > FOOTER_Y) { doc.addPage(); y = MARGIN; }
                 doc.font('Helvetica-Bold').fontSize(12).fillColor('#166534');
                 doc.text('Products to be Displayed', MARGIN, y);
-                y += LINE_H + 6;
+                y = doc.y + 6;
 
                 doc.font('Helvetica').fontSize(10.5).fillColor('#222222');
                 doc.text(productsText, MARGIN, y, { width: CW, lineGap: 3 });
-                y += doc.heightOfString(productsText, { width: CW, lineGap: 3 }) + SECTION_GAP;
+                y = doc.y + SECTION_GAP;
 
-                // Divider
                 doc.moveTo(MARGIN, y).lineTo(PAGE_W - MARGIN, y).strokeColor('#d1d5db').lineWidth(0.5).stroke();
                 y += SECTION_GAP;
             }
 
-            // ── Contact layout ───────────────────────────────────────────────────
-            const LABEL_W = 90;
-            const VAL_W = CW - LABEL_W - 8;
-
-            // Company Contact
+            // ── Company Contact ──────────────────────────────────────────────────
             const hasContact = sanitize(company.address) || sanitize(company.email) || sanitize(company.website);
             if (hasContact) {
+                if (y + LINE_H * 4 > FOOTER_Y) { doc.addPage(); y = MARGIN; }
                 doc.font('Helvetica-Bold').fontSize(12).fillColor('#166534');
                 doc.text('Company Contact', MARGIN, y);
-                y += LINE_H + 8;
+                y = doc.y + 8;
 
                 if (sanitize(company.address)) {
                     y = drawField(doc, 'Address', sanitize(company.address), MARGIN, y, LABEL_W, VAL_W, LINE_H);
@@ -397,13 +404,14 @@ export async function GET(request) {
                 y += SECTION_GAP;
             }
 
-            // Representative
+            // ── Representative ───────────────────────────────────────────────────
             const hasRep = sanitize(company.representativeName) || sanitize(company.representativeTel) ||
                 sanitize(company.representativeWhatsapp) || sanitize(company.representativeEmail);
             if (hasRep) {
+                if (y + LINE_H * 4 > FOOTER_Y) { doc.addPage(); y = MARGIN; }
                 doc.font('Helvetica-Bold').fontSize(12).fillColor('#166534');
                 doc.text('Representative', MARGIN, y);
-                y += LINE_H + 8;
+                y = doc.y + 8;
 
                 if (sanitize(company.representativeName)) {
                     y = drawField(doc, 'Name', sanitize(company.representativeName), MARGIN, y, LABEL_W, VAL_W, LINE_H);

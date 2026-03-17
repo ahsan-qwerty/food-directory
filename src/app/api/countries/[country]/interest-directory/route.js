@@ -17,9 +17,9 @@ function drawField(doc, label, value, x, y, labelWidth, valueMaxWidth, lineHeigh
     doc.text(label, x, y, { width: labelWidth, lineBreak: false });
     doc.font('Helvetica').fontSize(10).fillColor('#111111');
     const valueX = x + labelWidth + 8;
-    const textHeight = doc.heightOfString(String(value), { width: valueMaxWidth });
     doc.text(String(value), valueX, y, { width: valueMaxWidth });
-    return y + Math.max(lineHeight, textHeight) + 6;
+    // Use doc.y (actual cursor after draw) instead of estimating with heightOfString
+    return doc.y + 6;
 }
 
 /** Draw one company page and return the doc (mutates in place) */
@@ -42,7 +42,7 @@ function addCompanyPage(doc, company, meta, pageNum, totalPages, constants) {
     // Company name
     doc.font('Helvetica-Bold').fontSize(26).fillColor('#14532d');
     doc.text(company.name || 'Unnamed Company', MARGIN, y, { width: CW });
-    y += doc.heightOfString(company.name || 'Unnamed Company', { width: CW, fontSize: 26 }) + 6;
+    y = doc.y + 6;
 
     // Sector / SubSector breadcrumb
     const allSectors = company.sectors?.map(cs => cs.sector?.name).filter(Boolean) || [];
@@ -53,7 +53,7 @@ function addCompanyPage(doc, company, meta, pageNum, totalPages, constants) {
     if (sectorStr) {
         doc.font('Helvetica').fontSize(10.5).fillColor('#166534');
         doc.text(sectorStr, MARGIN, y, { width: CW });
-        y += LINE_H;
+        y = doc.y;
     }
 
     // Divider
@@ -61,15 +61,21 @@ function addCompanyPage(doc, company, meta, pageNum, totalPages, constants) {
     doc.moveTo(MARGIN, y).lineTo(PAGE_W - MARGIN, y).strokeColor('#d1d5db').lineWidth(0.5).stroke();
     y += SECTION_GAP;
 
+    const LABEL_W = 90;
+    const VAL_W = CW - LABEL_W - 8;
+
     // Company profile
     const profileText = sanitize(company.profile);
     if (profileText) {
+        // Orphan guard: start a new page if not enough room for heading + a few lines
+        if (y + LINE_H * 4 > FOOTER_Y) { doc.addPage(); y = MARGIN; }
         doc.font('Helvetica-Bold').fontSize(12).fillColor('#166534');
         doc.text('Company Profile', MARGIN, y);
-        y += LINE_H + 6;
+        y = doc.y + 6;
         doc.font('Helvetica').fontSize(10.5).fillColor('#222222');
         doc.text(profileText, MARGIN, y, { width: CW, lineGap: 3 });
-        y += doc.heightOfString(profileText, { width: CW, lineGap: 3 }) + SECTION_GAP;
+        // doc.y reflects the actual cursor after text (may be on a new page after overflow)
+        y = doc.y + SECTION_GAP;
         doc.moveTo(MARGIN, y).lineTo(PAGE_W - MARGIN, y).strokeColor('#d1d5db').lineWidth(0.5).stroke();
         y += SECTION_GAP;
     }
@@ -77,24 +83,24 @@ function addCompanyPage(doc, company, meta, pageNum, totalPages, constants) {
     // Products to be displayed
     const productsText = sanitize(company.productsToBeDisplayed);
     if (productsText) {
+        if (y + LINE_H * 4 > FOOTER_Y) { doc.addPage(); y = MARGIN; }
         doc.font('Helvetica-Bold').fontSize(12).fillColor('#166534');
         doc.text('Products to be Displayed', MARGIN, y);
-        y += LINE_H + 6;
+        y = doc.y + 6;
         doc.font('Helvetica').fontSize(10.5).fillColor('#222222');
         doc.text(productsText, MARGIN, y, { width: CW, lineGap: 3 });
-        y += doc.heightOfString(productsText, { width: CW, lineGap: 3 }) + SECTION_GAP;
+        y = doc.y + SECTION_GAP;
         doc.moveTo(MARGIN, y).lineTo(PAGE_W - MARGIN, y).strokeColor('#d1d5db').lineWidth(0.5).stroke();
         y += SECTION_GAP;
     }
 
     // Contact
-    const LABEL_W = 90;
-    const VAL_W = CW - LABEL_W - 8;
     const hasContact = sanitize(company.address) || sanitize(company.email) || sanitize(company.website);
     if (hasContact) {
+        if (y + LINE_H * 4 > FOOTER_Y) { doc.addPage(); y = MARGIN; }
         doc.font('Helvetica-Bold').fontSize(12).fillColor('#166534');
         doc.text('Company Contact', MARGIN, y);
-        y += LINE_H + 8;
+        y = doc.y + 8;
         if (sanitize(company.address)) y = drawField(doc, 'Address', sanitize(company.address), MARGIN, y, LABEL_W, VAL_W, LINE_H);
         if (sanitize(company.email)) y = drawField(doc, 'Email', sanitize(company.email), MARGIN, y, LABEL_W, VAL_W, LINE_H);
         if (sanitize(company.website)) y = drawField(doc, 'Website', sanitize(company.website), MARGIN, y, LABEL_W, VAL_W, LINE_H);
@@ -105,9 +111,10 @@ function addCompanyPage(doc, company, meta, pageNum, totalPages, constants) {
     const hasRep = sanitize(company.representativeName) || sanitize(company.representativeTel) ||
         sanitize(company.representativeWhatsapp) || sanitize(company.representativeEmail);
     if (hasRep) {
+        if (y + LINE_H * 4 > FOOTER_Y) { doc.addPage(); y = MARGIN; }
         doc.font('Helvetica-Bold').fontSize(12).fillColor('#166534');
         doc.text('Representative', MARGIN, y);
-        y += LINE_H + 8;
+        y = doc.y + 8;
         if (sanitize(company.representativeName)) y = drawField(doc, 'Name', sanitize(company.representativeName), MARGIN, y, LABEL_W, VAL_W, LINE_H);
         if (sanitize(company.representativeTel)) y = drawField(doc, 'Phone', sanitize(company.representativeTel), MARGIN, y, LABEL_W, VAL_W, LINE_H);
         if (sanitize(company.representativeWhatsapp)) y = drawField(doc, 'WhatsApp', sanitize(company.representativeWhatsapp), MARGIN, y, LABEL_W, VAL_W, LINE_H);
