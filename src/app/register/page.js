@@ -387,7 +387,7 @@ export default function RegisterPage() {
                                                 <input
                                                     type="number"
                                                     min="0"
-                                                    step="1"
+                                                    step="any"
                                                     placeholder="0"
                                                     value={formData.countryExports[country] ?? ''}
                                                     onChange={e => setCountryExport(country, e.target.value)}
@@ -554,7 +554,7 @@ export default function RegisterPage() {
                                                 <input
                                                     type="number"
                                                     min="0"
-                                                    step="1"
+                                                    step="any"
                                                     placeholder="0"
                                                     value={formData.productExports[String(ssId)] ?? ''}
                                                     onChange={e => setProductExport(ssId, e.target.value)}
