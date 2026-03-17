@@ -21,7 +21,7 @@ function fmt(value) {
         ? parseFloat(value.toString())
         : Number(value);
     if (isNaN(n)) return '—';
-    return '$' + n.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+    return '$' + n.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
 }
 
 export async function generateMetadata({ params }) {

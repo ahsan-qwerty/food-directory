@@ -15,7 +15,7 @@ function parseProductExports(raw) {
 function fmt(value) {
     const n = Number(value);
     if (!value || isNaN(n)) return null;
-    return '$' + n.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+    return '$' + n.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
 }
 
 export default function ProductSearchPanel({ interests }) {

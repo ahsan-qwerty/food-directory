@@ -179,7 +179,7 @@ export default async function CompanyProfilePage({ params, searchParams }) {
                       <div key={r.name} className="grid grid-cols-[1fr_auto] items-center px-4 py-3 border-b border-white/5 last:border-b-0 gap-x-8">
                         <span className="text-sm font-medium text-white">{r.name}</span>
                         <span className="text-sm font-semibold text-accent-green text-right">
-                          ${Number(r.value).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
+                          ${Number(r.value).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 })}
                         </span>
                       </div>
                     ))}
@@ -207,7 +207,7 @@ export default async function CompanyProfilePage({ params, searchParams }) {
                         <span className="text-sm font-medium text-sky-300">{c}</span>
                         <span className="text-sm font-semibold text-right">
                           {countryExports[c] != null && countryExports[c] !== ''
-                            ? <span className="text-accent-green">${Number(countryExports[c]).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}</span>
+                            ? <span className="text-accent-green">${Number(countryExports[c]).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 })}</span>
                             : <span className="text-muted font-normal">—</span>
                           }
                         </span>
