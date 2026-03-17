@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { prisma } from '../../../lib/prismaClient';
 import { Suspense } from 'react';
 import InterestsPanel from './_components/InterestsPanel';
+import ProductSearchPanel from './_components/ProductSearchPanel';
 
 const GCC_COUNTRIES = ['UAE', 'KSA', 'Qatar', 'Kuwait', 'Bahrain', 'Oman'];
 
@@ -47,8 +48,15 @@ export default async function CountryProfilePage({ params }) {
                     subSector: { select: { id: true, name: true, sector: { select: { id: true, name: true } } } },
                     companies: {
                         include: {
-                            company: { select: { id: true, name: true, email: true, representativeName: true } },
+                            company: {
+                                select: {
+                                    id: true, name: true, email: true,
+                                    representativeName: true, representativeTel: true,
+                                    productExports: true,
+                                },
+                            },
                         },
+                        orderBy: { id: 'asc' },
                     },
                 },
             },
@@ -217,6 +225,12 @@ export default async function CountryProfilePage({ params }) {
                                 <p className="text-secondary leading-relaxed whitespace-pre-line">{profile.additionalNotes}</p>
                             </div>
                         )} */}
+
+                        {/* Product Search */}
+                        <div>
+                            <h2 className="text-xl font-bold text-white mb-3">Search by Product</h2>
+                            <ProductSearchPanel interests={profile.interests || []} />
+                        </div>
 
                         {/* Product / Subsector Interests & Recommended Companies */}
                         <InterestsPanel
