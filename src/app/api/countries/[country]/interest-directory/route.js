@@ -270,14 +270,27 @@ export async function GET(request, { params }) {
     for (const interest of activeInterests) {
         const productLabel = interest.subSector?.name || interest.customProduct || 'Product';
         const sectorName = interest.subSector?.sector?.name || null;
+        const subSectorId = interest.subSector?.id ?? null;
         const companyCount = interest.companies.length;
+
+        // Sort companies by their export value for this product (descending)
+        const sortedCompanies = [...interest.companies].sort((a, b) => {
+            const getExport = (ic) => {
+                if (!subSectorId || !ic.company.productExports) return 0;
+                const exports = typeof ic.company.productExports === 'string'
+                    ? (() => { try { return JSON.parse(ic.company.productExports); } catch { return {}; } })()
+                    : ic.company.productExports;
+                return Number(exports[String(subSectorId)]) || 0;
+            };
+            return getExport(b) - getExport(a);
+        });
 
         // Section header page
         pageNum++;
         addSectionPage(doc, countryName, productLabel, interest.notes, companyCount, sectorName, C);
 
         // Company pages
-        for (const { company } of interest.companies) {
+        for (const { company } of sortedCompanies) {
             pageNum++;
             const meta = `${countryName}  ·  ${productLabel}`;
             addCompanyPage(doc, company, meta, pageNum, totalPages, C);

@@ -55,6 +55,7 @@ export const ModelName = {
   SubSector: 'SubSector',
   Product: 'Product',
   Company: 'Company',
+  CompanyDailyFeedback: 'CompanyDailyFeedback',
   CompanySector: 'CompanySector',
   CompanySubSector: 'CompanySubSector',
   Event: 'Event',
@@ -144,6 +145,18 @@ export const CompanyScalarFieldEnum = {
 } as const
 
 export type CompanyScalarFieldEnum = (typeof CompanyScalarFieldEnum)[keyof typeof CompanyScalarFieldEnum]
+
+
+export const CompanyDailyFeedbackScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  date: 'date',
+  text: 'text',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CompanyDailyFeedbackScalarFieldEnum = (typeof CompanyDailyFeedbackScalarFieldEnum)[keyof typeof CompanyDailyFeedbackScalarFieldEnum]
 
 
 export const CompanySectorScalarFieldEnum = {
@@ -459,6 +472,13 @@ export const CompanyOrderByRelevanceFieldEnum = {
 } as const
 
 export type CompanyOrderByRelevanceFieldEnum = (typeof CompanyOrderByRelevanceFieldEnum)[keyof typeof CompanyOrderByRelevanceFieldEnum]
+
+
+export const CompanyDailyFeedbackOrderByRelevanceFieldEnum = {
+  text: 'text'
+} as const
+
+export type CompanyDailyFeedbackOrderByRelevanceFieldEnum = (typeof CompanyDailyFeedbackOrderByRelevanceFieldEnum)[keyof typeof CompanyDailyFeedbackOrderByRelevanceFieldEnum]
 
 
 export const EventOrderByRelevanceFieldEnum = {

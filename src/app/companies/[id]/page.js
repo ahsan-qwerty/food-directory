@@ -173,7 +173,7 @@ export default async function CompanyProfilePage({ params, searchParams }) {
                   <div className="border border-white/10 rounded-lg overflow-hidden">
                     <div className="grid grid-cols-[1fr_auto] bg-white/5 px-4 py-2.5 border-b border-white/10">
                       <span className="text-xs font-semibold text-muted uppercase tracking-wide">Product / Subsector</span>
-                      <span className="text-xs font-semibold text-muted uppercase tracking-wide text-right">Last Year Export (USD)</span>
+                      <span className="text-xs font-semibold text-muted uppercase tracking-wide text-right">Last Year Export (Million USD)</span>
                     </div>
                     {rows.map(r => (
                       <div key={r.name} className="grid grid-cols-[1fr_auto] items-center px-4 py-3 border-b border-white/5 last:border-b-0 gap-x-8">
@@ -200,7 +200,7 @@ export default async function CompanyProfilePage({ params, searchParams }) {
                   <div className="border border-white/10 rounded-lg overflow-hidden">
                     <div className="grid grid-cols-[1fr_auto] bg-white/5 px-4 py-2.5 border-b border-white/10">
                       <span className="text-xs font-semibold text-muted uppercase tracking-wide">Target Country</span>
-                      <span className="text-xs font-semibold text-muted uppercase tracking-wide text-right">Last Year Export (USD)</span>
+                      <span className="text-xs font-semibold text-muted uppercase tracking-wide text-right">Last Year Export (Million USD)</span>
                     </div>
                     {gccCountries.map(c => (
                       <div key={c} className="grid grid-cols-[1fr_auto] items-center px-4 py-3 border-b border-white/5 last:border-b-0 gap-x-8">

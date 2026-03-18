@@ -1,8 +1,18 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import Link from 'next/link';
 import DownloadButton from './DownloadButton';
+import CompanyFeedbackPanel from './CompanyFeedbackPanel';
+
+function parseProductExports(raw) {
+    if (!raw) return {};
+    if (typeof raw === 'object' && !Array.isArray(raw)) return raw;
+    if (typeof raw === 'string') {
+        try { return JSON.parse(raw); } catch { return {}; }
+    }
+    return {};
+}
 
 /* ─── InterestsPanel ────────────────────────────────────────────────────────
    View mode by default. Each card has edit/delete icon buttons.
@@ -416,30 +426,46 @@ function InterestCard({ interest, countryName, autoEdit, onAutoEditDone, onDelet
                         <p className="text-secondary text-sm mb-4 leading-relaxed">{notes}</p>
                     )}
 
-                    {/* Companies (read-only links) */}
+                    {/* Companies (read-only cards, sorted by export value for this product) */}
                     {assignedCompanies.length > 0 ? (
                         <div>
                             <p className="text-xs font-semibold text-muted uppercase tracking-wide mb-2">Recommended Companies</p>
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                                {assignedCompanies.map(company => (
-                                    <Link
-                                        key={company.id}
-                                        href={`/companies/${company.id}`}
-                                        className="flex items-center gap-3 px-3 py-2.5 rounded-lg border border-white/10 hover:border-sky-500/40 hover:bg-sky-500/5 transition-colors group"
-                                    >
-                                        <div className="w-7 h-7 rounded-full bg-sky-500/20 border border-sky-500/30 flex items-center justify-center shrink-0">
-                                            <span className="text-xs font-bold text-sky-300">
-                                                {company.name.charAt(0).toUpperCase()}
-                                            </span>
+                                {[...assignedCompanies]
+                                    .sort((a, b) => {
+                                        const subSectorId = interest.subSector?.id ?? null;
+                                        if (!subSectorId) return 0;
+                                        const aVal = Number(parseProductExports(a.productExports)[String(subSectorId)]) || 0;
+                                        const bVal = Number(parseProductExports(b.productExports)[String(subSectorId)]) || 0;
+                                        return bVal - aVal;
+                                    })
+                                    .map(company => (
+                                        <div key={company.id} className="rounded-lg border border-white/10 hover:border-sky-500/40 transition-colors bg-transparent">
+                                            <Link
+                                                href={`/companies/${company.id}`}
+                                                className="flex items-center gap-3 px-3 py-2.5 group"
+                                            >
+                                                <div className="w-7 h-7 rounded-full bg-sky-500/20 border border-sky-500/30 flex items-center justify-center shrink-0">
+                                                    <span className="text-xs font-bold text-sky-300">
+                                                        {company.name.charAt(0).toUpperCase()}
+                                                    </span>
+                                                </div>
+                                                <div className="min-w-0">
+                                                    <p className="text-sm font-medium text-white group-hover:text-sky-300 transition-colors line-clamp-1">{company.name}</p>
+                                                    {company.representativeName && (
+                                                        <p className="text-xs text-muted line-clamp-1">{company.representativeName}</p>
+                                                    )}
+                                                </div>
+                                            </Link>
+                                            {/* Daily feedback log — expandable per company */}
+                                            <div className="px-3 pb-2">
+                                                <CompanyFeedbackPanel
+                                                    companyId={company.id}
+                                                    companyName={company.name}
+                                                />
+                                            </div>
                                         </div>
-                                        <div className="min-w-0">
-                                            <p className="text-sm font-medium text-white group-hover:text-sky-300 transition-colors line-clamp-1">{company.name}</p>
-                                            {company.representativeName && (
-                                                <p className="text-xs text-muted line-clamp-1">{company.representativeName}</p>
-                                            )}
-                                        </div>
-                                    </Link>
-                                ))}
+                                    ))}
                             </div>
                         </div>
                     ) : (

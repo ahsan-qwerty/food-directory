@@ -101,8 +101,26 @@ delegationParticipations DelegationCompany[]
 feedbacks EventFeedback[]
 emailStatuses EventCompanyEmailStatus[]
 countryInterests CountryInterestCompany[]
+dailyFeedbacks   CompanyDailyFeedback[]
 
 createdAt DateTime @default(now())
+}
+
+// ── Daily feedback log per company ───────────────────────────────────────────
+model CompanyDailyFeedback {
+  id        Int      @id @default(autoincrement())
+  companyId Int
+  company   Company  @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  // The date this note is about (stored as date-only midnight UTC)
+  date      DateTime @db.Date
+  // Free-text feedback / activity log
+  text      String   @db.Text
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([companyId, date])
 }
 
 // ── Junction: Company ↔ Sector (many-to-many) ──────────────────────────────

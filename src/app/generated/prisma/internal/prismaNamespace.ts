@@ -388,6 +388,7 @@ export const ModelName = {
   SubSector: 'SubSector',
   Product: 'Product',
   Company: 'Company',
+  CompanyDailyFeedback: 'CompanyDailyFeedback',
   CompanySector: 'CompanySector',
   CompanySubSector: 'CompanySubSector',
   Event: 'Event',
@@ -418,7 +419,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "sector" | "subSector" | "product" | "company" | "companySector" | "companySubSector" | "event" | "eventSector" | "eventCompany" | "eventCompanyEmailStatus" | "eventFeedback" | "mission" | "countryProfile" | "countryProductInterest" | "countryInterestCompany" | "delegation" | "delegationCompany" | "delegationSector" | "seminar"
+    modelProps: "sector" | "subSector" | "product" | "company" | "companyDailyFeedback" | "companySector" | "companySubSector" | "event" | "eventSector" | "eventCompany" | "eventCompanyEmailStatus" | "eventFeedback" | "mission" | "countryProfile" | "countryProductInterest" | "countryInterestCompany" | "delegation" | "delegationCompany" | "delegationSector" | "seminar"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -683,6 +684,72 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.CompanyCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.CompanyCountAggregateOutputType> | number
+        }
+      }
+    }
+    CompanyDailyFeedback: {
+      payload: Prisma.$CompanyDailyFeedbackPayload<ExtArgs>
+      fields: Prisma.CompanyDailyFeedbackFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CompanyDailyFeedbackFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyDailyFeedbackPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CompanyDailyFeedbackFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyDailyFeedbackPayload>
+        }
+        findFirst: {
+          args: Prisma.CompanyDailyFeedbackFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyDailyFeedbackPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CompanyDailyFeedbackFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyDailyFeedbackPayload>
+        }
+        findMany: {
+          args: Prisma.CompanyDailyFeedbackFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyDailyFeedbackPayload>[]
+        }
+        create: {
+          args: Prisma.CompanyDailyFeedbackCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyDailyFeedbackPayload>
+        }
+        createMany: {
+          args: Prisma.CompanyDailyFeedbackCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        delete: {
+          args: Prisma.CompanyDailyFeedbackDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyDailyFeedbackPayload>
+        }
+        update: {
+          args: Prisma.CompanyDailyFeedbackUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyDailyFeedbackPayload>
+        }
+        deleteMany: {
+          args: Prisma.CompanyDailyFeedbackDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CompanyDailyFeedbackUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        upsert: {
+          args: Prisma.CompanyDailyFeedbackUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyDailyFeedbackPayload>
+        }
+        aggregate: {
+          args: Prisma.CompanyDailyFeedbackAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCompanyDailyFeedback>
+        }
+        groupBy: {
+          args: Prisma.CompanyDailyFeedbackGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CompanyDailyFeedbackGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CompanyDailyFeedbackCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CompanyDailyFeedbackCountAggregateOutputType> | number
         }
       }
     }
@@ -1773,6 +1840,18 @@ export const CompanyScalarFieldEnum = {
 export type CompanyScalarFieldEnum = (typeof CompanyScalarFieldEnum)[keyof typeof CompanyScalarFieldEnum]
 
 
+export const CompanyDailyFeedbackScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  date: 'date',
+  text: 'text',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CompanyDailyFeedbackScalarFieldEnum = (typeof CompanyDailyFeedbackScalarFieldEnum)[keyof typeof CompanyDailyFeedbackScalarFieldEnum]
+
+
 export const CompanySectorScalarFieldEnum = {
   id: 'id',
   companyId: 'companyId',
@@ -2088,6 +2167,13 @@ export const CompanyOrderByRelevanceFieldEnum = {
 export type CompanyOrderByRelevanceFieldEnum = (typeof CompanyOrderByRelevanceFieldEnum)[keyof typeof CompanyOrderByRelevanceFieldEnum]
 
 
+export const CompanyDailyFeedbackOrderByRelevanceFieldEnum = {
+  text: 'text'
+} as const
+
+export type CompanyDailyFeedbackOrderByRelevanceFieldEnum = (typeof CompanyDailyFeedbackOrderByRelevanceFieldEnum)[keyof typeof CompanyDailyFeedbackOrderByRelevanceFieldEnum]
+
+
 export const EventOrderByRelevanceFieldEnum = {
   name: 'name',
   description: 'description',
@@ -2399,6 +2485,7 @@ export type GlobalOmitConfig = {
   subSector?: Prisma.SubSectorOmit
   product?: Prisma.ProductOmit
   company?: Prisma.CompanyOmit
+  companyDailyFeedback?: Prisma.CompanyDailyFeedbackOmit
   companySector?: Prisma.CompanySectorOmit
   companySubSector?: Prisma.CompanySubSectorOmit
   event?: Prisma.EventOmit

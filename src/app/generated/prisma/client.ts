@@ -60,6 +60,11 @@ export type Product = Prisma.ProductModel
  */
 export type Company = Prisma.CompanyModel
 /**
+ * Model CompanyDailyFeedback
+ * 
+ */
+export type CompanyDailyFeedback = Prisma.CompanyDailyFeedbackModel
+/**
  * Model CompanySector
  * 
  */

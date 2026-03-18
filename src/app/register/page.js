@@ -379,7 +379,7 @@ export default function RegisterPage() {
                                     <div className="mt-4 border border-white/10 rounded-lg overflow-hidden">
                                         <div className="grid grid-cols-[1fr_auto] bg-white/5 px-4 py-2 border-b border-white/10">
                                             <span className="text-xs font-semibold text-muted uppercase tracking-wide">Country</span>
-                                            <span className="text-xs font-semibold text-muted uppercase tracking-wide w-48 text-right">Last Year Export (USD)</span>
+                                            <span className="text-xs font-semibold text-muted uppercase tracking-wide w-48 text-right">Last Year Export (Million USD)</span>
                                         </div>
                                         {formData.gccCountries.map(country => (
                                             <div key={country} className="grid grid-cols-[1fr_auto] items-center px-4 py-2.5 border-b border-white/5 last:border-b-0">
@@ -538,7 +538,7 @@ export default function RegisterPage() {
                             <div className="mt-6">
                                 <h3 className="text-sm font-semibold text-secondary mb-1">
                                     Export Performance by Product/Subsector
-                                    <span className="ml-1 text-xs font-normal text-muted">(last year export value in USD)</span>
+                                    <span className="ml-1 text-xs font-normal text-muted">(last year export value in Million USD)</span>
                                 </h3>
                                 <div className="border border-white/10 rounded-lg overflow-hidden">
                                     <div className="grid grid-cols-[1fr_auto] bg-white/5 px-4 py-2 border-b border-white/10">
