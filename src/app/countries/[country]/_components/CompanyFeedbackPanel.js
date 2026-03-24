@@ -1,10 +1,9 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 
 /* ─── helpers ─────────────────────────────────────────────────────────────── */
 function fmtDate(dateValue) {
-    // dateValue may be ISO string or Date
     const d = new Date(dateValue);
     return d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
 }
@@ -17,6 +16,16 @@ function todayString() {
     return `${y}-${m}-${d}`;
 }
 
+function isSameDay(dateValue) {
+    const d = new Date(dateValue);
+    const today = new Date();
+    return (
+        d.getUTCFullYear() === today.getFullYear() &&
+        d.getUTCMonth() === today.getMonth() &&
+        d.getUTCDate() === today.getDate()
+    );
+}
+
 /* ─── CompanyFeedbackPanel ────────────────────────────────────────────────── */
 export default function CompanyFeedbackPanel({ companyId, companyName }) {
     const [open, setOpen] = useState(false);
@@ -24,19 +33,21 @@ export default function CompanyFeedbackPanel({ companyId, companyName }) {
     const [loading, setLoading] = useState(false);
     const [fetched, setFetched] = useState(false);
 
-    // Form state
-    const [formOpen, setFormOpen] = useState(false);
-    const [date, setDate] = useState(todayString);
-    const [text, setText] = useState('');
-    const [code, setCode] = useState('');
-    const [submitting, setSubmitting] = useState(false);
-    const [formError, setFormError] = useState('');
-    const [formSuccess, setFormSuccess] = useState('');
+    // History toggle
+    const [historyOpen, setHistoryOpen] = useState(false);
 
     // Delete state
     const [deletingId, setDeletingId] = useState(null);
     const [deleteCode, setDeleteCode] = useState('');
     const [deleteError, setDeleteError] = useState('');
+
+    // Send link panel
+    const [sendOpen, setSendOpen] = useState(false);
+    const [sendCode, setSendCode] = useState('');
+    const [sendEmail, setSendEmail] = useState('');
+    const [sending, setSending] = useState(false);
+    const [sendError, setSendError] = useState('');
+    const [sendSuccess, setSendSuccess] = useState('');
 
     const fetchEntries = useCallback(async () => {
         setLoading(true);
@@ -58,37 +69,32 @@ export default function CompanyFeedbackPanel({ companyId, companyName }) {
         if (next && !fetched) fetchEntries();
     }
 
-    async function handleSubmit(e) {
+    async function handleSendLink(e) {
         e.preventDefault();
-        setFormError('');
-        setFormSuccess('');
-        setSubmitting(true);
+        setSendError('');
+        setSendSuccess('');
+        setSending(true);
         try {
-            const res = await fetch(`/api/companies/${companyId}/daily-feedback`, {
+            const res = await fetch(`/api/companies/${companyId}/send-feedback-link`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ registrationCode: code, date, text }),
+                body: JSON.stringify({
+                    registrationCode: sendCode,
+                    recipientEmail: sendEmail || undefined,
+                }),
             });
             const data = await res.json();
             if (res.ok) {
-                setEntries(prev => {
-                    const next = [data.entry, ...prev];
-                    // keep sorted by date desc
-                    next.sort((a, b) => new Date(b.date) - new Date(a.date));
-                    return next;
-                });
-                setFormSuccess('Feedback recorded successfully.');
-                setText('');
-                setCode('');
-                setDate(todayString());
-                setFormOpen(false);
+                setSendSuccess(`Email sent to ${data.sentTo}`);
+                setSendCode('');
+                setSendEmail('');
             } else {
-                setFormError(data.error || 'Failed to save feedback.');
+                setSendError(data.error || 'Failed to send email.');
             }
         } catch {
-            setFormError('Network error. Please try again.');
+            setSendError('Network error. Please try again.');
         } finally {
-            setSubmitting(false);
+            setSending(false);
         }
     }
 
@@ -117,6 +123,10 @@ export default function CompanyFeedbackPanel({ companyId, companyName }) {
         }
     }
 
+    // Derived: split entries into today vs history
+    const todayEntry = entries.find(e => isSameDay(e.date)) || null;
+    const historyEntries = entries.filter(e => !isSameDay(e.date));
+
     return (
         <div className="mt-2 border-t border-white/10 pt-2">
             {/* Toggle button */}
@@ -131,7 +141,7 @@ export default function CompanyFeedbackPanel({ companyId, companyName }) {
                 >
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
-                Daily Feedback Log
+                Daily Feedback
                 {fetched && entries.length > 0 && (
                     <span className="ml-1 inline-flex items-center justify-center w-4 h-4 rounded-full bg-amber-500/20 text-amber-300 text-[10px] font-bold">
                         {entries.length}
@@ -141,161 +151,218 @@ export default function CompanyFeedbackPanel({ companyId, companyName }) {
 
             {open && (
                 <div className="mt-3 space-y-3">
-                    {/* Add new entry button */}
-                    {!formOpen && (
-                        <button
-                            type="button"
-                            onClick={() => { setFormOpen(true); setFormError(''); setFormSuccess(''); }}
-                            className="flex items-center gap-1.5 text-xs font-medium text-sky-400 hover:text-sky-300 transition-colors"
-                        >
-                            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-                            </svg>
-                            Add Feedback Entry
-                        </button>
-                    )}
-
-                    {/* Add form */}
-                    {formOpen && (
-                        <form
-                            onSubmit={handleSubmit}
-                            className="rounded-lg border border-sky-500/20 bg-sky-500/5 p-3 space-y-2"
-                        >
-                            <p className="text-xs font-semibold text-sky-300 mb-1">New Feedback Entry</p>
-
-                            {/* Date */}
-                            <div className="flex items-center gap-2">
-                                <label className="text-xs text-muted w-16 shrink-0">Date</label>
-                                <input
-                                    type="date"
-                                    value={date}
-                                    onChange={e => setDate(e.target.value)}
-                                    required
-                                    className="glass-input px-2 py-1 text-xs flex-1"
-                                />
-                            </div>
-
-                            {/* Feedback text */}
-                            <div>
-                                <label className="text-xs text-muted block mb-1">What happened / Activity</label>
-                                <textarea
-                                    rows={3}
-                                    value={text}
-                                    onChange={e => setText(e.target.value)}
-                                    placeholder={`Describe the day's activity for ${companyName}…`}
-                                    required
-                                    className="glass-input w-full px-2 py-1.5 text-xs"
-                                />
-                            </div>
-
-                            {/* Registration code */}
-                            <div className="flex items-center gap-2">
-                                <label className="text-xs text-muted w-16 shrink-0">Auth Code</label>
-                                <input
-                                    type="password"
-                                    value={code}
-                                    onChange={e => setCode(e.target.value)}
-                                    placeholder="Company registration code"
-                                    required
-                                    autoComplete="off"
-                                    className="glass-input px-2 py-1 text-xs flex-1 font-mono"
-                                />
-                            </div>
-
-                            {formError && <p className="text-xs text-red-400">{formError}</p>}
-
-                            <div className="flex gap-2 pt-1">
-                                <button
-                                    type="submit"
-                                    disabled={submitting}
-                                    className="px-3 py-1 text-xs font-medium rounded-md bg-sky-600 hover:bg-sky-700 text-white disabled:opacity-50 transition-colors"
-                                >
-                                    {submitting ? 'Saving…' : 'Save Entry'}
-                                </button>
-                                <button
-                                    type="button"
-                                    onClick={() => { setFormOpen(false); setFormError(''); }}
-                                    className="px-3 py-1 text-xs font-medium rounded-md border border-white/20 text-muted hover:text-white transition-colors"
-                                >
-                                    Cancel
-                                </button>
-                            </div>
-                        </form>
-                    )}
-
-                    {formSuccess && (
-                        <p className="text-xs text-green-400">{formSuccess}</p>
-                    )}
-
-                    {/* Entries list */}
                     {loading && (
                         <p className="text-xs text-muted italic">Loading…</p>
                     )}
 
-                    {!loading && fetched && entries.length === 0 && (
-                        <p className="text-xs text-muted italic">No feedback entries yet.</p>
-                    )}
-
-                    {entries.length > 0 && (
-                        <div className="space-y-2">
-                            {entries.map(entry => (
-                                <div
-                                    key={entry.id}
-                                    className="rounded-lg border border-white/10 bg-white/3 px-3 py-2.5"
-                                >
-                                    <div className="flex items-start justify-between gap-2">
-                                        <span className="text-xs font-semibold text-amber-300 shrink-0">
-                                            {fmtDate(entry.date)}
-                                        </span>
+                    {!loading && fetched && (
+                        <>
+                            {/* ── TODAY'S FEEDBACK ─────────────────────────────── */}
+                            <div className="rounded-lg border border-white/10 bg-white/3 p-3">
+                                {/* Header row */}
+                                <div className="flex items-center justify-between mb-2">
+                                    <span className="text-xs font-semibold text-amber-300">
+                                        Today — {fmtDate(todayString() + 'T00:00:00Z')}
+                                    </span>
+                                    {todayEntry && (
                                         <button
                                             type="button"
                                             onClick={() => {
-                                                if (deletingId === entry.id) {
-                                                    setDeletingId(null);
-                                                    setDeleteCode('');
-                                                    setDeleteError('');
+                                                if (deletingId === todayEntry.id) {
+                                                    setDeletingId(null); setDeleteCode(''); setDeleteError('');
                                                 } else {
-                                                    setDeletingId(entry.id);
-                                                    setDeleteCode('');
-                                                    setDeleteError('');
+                                                    setDeletingId(todayEntry.id); setDeleteCode(''); setDeleteError('');
                                                 }
                                             }}
-                                            className="text-muted hover:text-red-400 transition-colors shrink-0"
-                                            title="Delete entry"
+                                            className="text-muted hover:text-red-400 transition-colors"
+                                            title="Delete today's entry"
                                         >
                                             <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                             </svg>
                                         </button>
-                                    </div>
-                                    <p className="text-xs text-secondary mt-1 leading-relaxed whitespace-pre-wrap">{entry.text}</p>
+                                    )}
+                                </div>
 
-                                    {/* Delete confirmation inline */}
-                                    {deletingId === entry.id && (
-                                        <div className="mt-2 flex items-center gap-2 flex-wrap">
+                                {todayEntry ? (
+                                    <>
+                                        <p className="text-xs text-secondary leading-relaxed whitespace-pre-wrap">
+                                            {todayEntry.text}
+                                        </p>
+                                        {deletingId === todayEntry.id && (
+                                            <div className="mt-2 flex items-center gap-2 flex-wrap">
+                                                <input
+                                                    type="password"
+                                                    value={deleteCode}
+                                                    onChange={e => setDeleteCode(e.target.value)}
+                                                    placeholder="Enter code to confirm"
+                                                    autoComplete="off"
+                                                    className="glass-input px-2 py-0.5 text-xs font-mono w-44"
+                                                />
+                                                <button
+                                                    type="button"
+                                                    onClick={() => handleDelete(todayEntry.id)}
+                                                    className="px-2 py-0.5 text-xs font-medium rounded bg-red-600 hover:bg-red-700 text-white transition-colors"
+                                                >
+                                                    Confirm Delete
+                                                </button>
+                                                {deleteError && <span className="text-xs text-red-400">{deleteError}</span>}
+                                            </div>
+                                        )}
+                                    </>
+                                ) : (
+                                    <p className="text-xs text-muted italic">No feedback submitted for today yet.</p>
+                                )}
+                            </div>
+
+                            {/* ── SEND FEEDBACK LINK ───────────────────────────── */}
+                            <div>
+                                {!sendOpen ? (
+                                    <button
+                                        type="button"
+                                        onClick={() => { setSendOpen(true); setSendError(''); setSendSuccess(''); }}
+                                        className="flex items-center gap-1.5 text-xs font-medium text-sky-400 hover:text-sky-300 transition-colors"
+                                    >
+                                        <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                        </svg>
+                                        Send Feedback Link to Company
+                                    </button>
+                                ) : (
+                                    <form
+                                        onSubmit={handleSendLink}
+                                        className="rounded-lg border border-sky-500/20 bg-sky-500/5 p-3 space-y-2"
+                                    >
+                                        <p className="text-xs font-semibold text-sky-300">
+                                            Send feedback form link to <span className="text-white">{companyName}</span>
+                                        </p>
+
+                                        {/* Optional override email */}
+                                        <div>
+                                            <label className="text-xs text-muted block mb-0.5">
+                                                Recipient Email <span className="opacity-60">(optional — uses company email if blank)</span>
+                                            </label>
+                                            <input
+                                                type="email"
+                                                value={sendEmail}
+                                                onChange={e => setSendEmail(e.target.value)}
+                                                placeholder="override@example.com"
+                                                autoComplete="off"
+                                                className="glass-input w-full px-2 py-1 text-xs"
+                                            />
+                                        </div>
+
+                                        {/* Auth code */}
+                                        <div className="flex items-center gap-2">
                                             <input
                                                 type="password"
-                                                value={deleteCode}
-                                                onChange={e => setDeleteCode(e.target.value)}
-                                                placeholder="Enter code to confirm"
+                                                value={sendCode}
+                                                onChange={e => setSendCode(e.target.value)}
+                                                placeholder="Your registration code"
+                                                required
                                                 autoComplete="off"
-                                                className="glass-input px-2 py-0.5 text-xs font-mono w-44"
+                                                className="glass-input flex-1 px-2 py-1 text-xs font-mono"
                                             />
                                             <button
-                                                type="button"
-                                                onClick={() => handleDelete(entry.id)}
-                                                className="px-2 py-0.5 text-xs font-medium rounded bg-red-600 hover:bg-red-700 text-white transition-colors"
+                                                type="submit"
+                                                disabled={sending}
+                                                className="px-3 py-1 text-xs font-medium rounded-md bg-sky-600 hover:bg-sky-700 text-white disabled:opacity-50 transition-colors whitespace-nowrap"
                                             >
-                                                Confirm Delete
+                                                {sending ? 'Sending…' : 'Send Email'}
                                             </button>
-                                            {deleteError && (
-                                                <span className="text-xs text-red-400">{deleteError}</span>
-                                            )}
+                                            <button
+                                                type="button"
+                                                onClick={() => { setSendOpen(false); setSendError(''); setSendSuccess(''); }}
+                                                className="px-2 py-1 text-xs text-muted hover:text-white transition-colors"
+                                            >
+                                                ✕
+                                            </button>
+                                        </div>
+
+                                        {sendError && <p className="text-xs text-red-400">{sendError}</p>}
+                                        {sendSuccess && <p className="text-xs text-green-400">{sendSuccess}</p>}
+                                    </form>
+                                )}
+                            </div>
+
+                            {/* ── HISTORY ──────────────────────────────────────── */}
+                            {historyEntries.length > 0 && (
+                                <div>
+                                    <button
+                                        type="button"
+                                        onClick={() => setHistoryOpen(p => !p)}
+                                        className="flex items-center gap-1.5 text-xs text-muted hover:text-white transition-colors"
+                                    >
+                                        <svg
+                                            className={`w-3 h-3 transition-transform ${historyOpen ? 'rotate-90' : ''}`}
+                                            fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                        >
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                        </svg>
+                                        History
+                                        <span className="ml-0.5 inline-flex items-center justify-center w-4 h-4 rounded-full bg-white/10 text-[10px] font-bold">
+                                            {historyEntries.length}
+                                        </span>
+                                    </button>
+
+                                    {historyOpen && (
+                                        <div className="mt-2 space-y-2">
+                                            {historyEntries.map(entry => (
+                                                <div
+                                                    key={entry.id}
+                                                    className="rounded-lg border border-white/10 bg-white/3 px-3 py-2.5"
+                                                >
+                                                    <div className="flex items-start justify-between gap-2">
+                                                        <span className="text-xs font-semibold text-amber-300/70 shrink-0">
+                                                            {fmtDate(entry.date)}
+                                                        </span>
+                                                        <button
+                                                            type="button"
+                                                            onClick={() => {
+                                                                if (deletingId === entry.id) {
+                                                                    setDeletingId(null); setDeleteCode(''); setDeleteError('');
+                                                                } else {
+                                                                    setDeletingId(entry.id); setDeleteCode(''); setDeleteError('');
+                                                                }
+                                                            }}
+                                                            className="text-muted hover:text-red-400 transition-colors shrink-0"
+                                                            title="Delete entry"
+                                                        >
+                                                            <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                            </svg>
+                                                        </button>
+                                                    </div>
+                                                    <p className="text-xs text-secondary mt-1 leading-relaxed whitespace-pre-wrap">
+                                                        {entry.text}
+                                                    </p>
+                                                    {deletingId === entry.id && (
+                                                        <div className="mt-2 flex items-center gap-2 flex-wrap">
+                                                            <input
+                                                                type="password"
+                                                                value={deleteCode}
+                                                                onChange={e => setDeleteCode(e.target.value)}
+                                                                placeholder="Enter code to confirm"
+                                                                autoComplete="off"
+                                                                className="glass-input px-2 py-0.5 text-xs font-mono w-44"
+                                                            />
+                                                            <button
+                                                                type="button"
+                                                                onClick={() => handleDelete(entry.id)}
+                                                                className="px-2 py-0.5 text-xs font-medium rounded bg-red-600 hover:bg-red-700 text-white transition-colors"
+                                                            >
+                                                                Confirm Delete
+                                                            </button>
+                                                            {deleteError && <span className="text-xs text-red-400">{deleteError}</span>}
+                                                        </div>
+                                                    )}
+                                                </div>
+                                            ))}
                                         </div>
                                     )}
                                 </div>
-                            ))}
-                        </div>
+                            )}
+                        </>
                     )}
                 </div>
             )}

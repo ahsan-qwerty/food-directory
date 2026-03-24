@@ -32,6 +32,16 @@ export function middleware(request) {
     return NextResponse.next();
   }
 
+  // Allow /events and /events/[id] (any sub-path under /events)
+  if (pathname === '/events' || pathname.startsWith('/events/')) {
+    return NextResponse.next();
+  }
+
+  // Allow /company-feedback (public page sent via email to companies)
+  if (pathname.startsWith('/company-feedback/')) {
+    return NextResponse.next();
+  }
+
   // Everything else → redirect to /companies (temporary protection)
   const companiesUrl = new URL('/companies', request.url);
   return NextResponse.redirect(companiesUrl);
