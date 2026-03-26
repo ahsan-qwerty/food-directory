@@ -22,6 +22,11 @@ export function middleware(request) {
     return NextResponse.next();
   }
 
+  // Allow /companies and /companies/[id] (any sub-path under /companies)
+  if (pathname === '/events' || pathname.startsWith('/events/')) {
+    return NextResponse.next();
+  }
+
   // Allow /register (code-gated at page/API level)
   if (pathname === '/register' || pathname.startsWith('/register/')) {
     return NextResponse.next();
