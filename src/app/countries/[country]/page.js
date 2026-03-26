@@ -84,7 +84,6 @@ export default async function CountryProfilePage({ params }) {
                             </Link>
                         </div>
                         <h1 className="text-3xl font-bold text-white">{countryName}</h1>
-                        <p className="text-muted mt-1">AgroFood Import Profile</p>
                     </div>
                     {/* <Link
                         href={`/countries/${encodeURIComponent(countryName)}/edit`}
