@@ -7,7 +7,7 @@ export const runtime = 'nodejs';
 const SMTP_HOST = process.env.SMTP_HOST || 'core46.hostingmadeeasy.com';
 const SMTP_PORT = Number(process.env.SMTP_PORT) || 465;
 const SMTP_USER = process.env.SMTP_USER || 'feedback@carrental.tdap.gov.pk';
-const SMTP_PASS = process.env.SMTP_PASSWORD;
+const SMTP_PASS = process.env.SMTP_PASSWORD || '5_TEA{CJimBptsTk';
 
 function getTransporter() {
     if (!SMTP_PASS) {

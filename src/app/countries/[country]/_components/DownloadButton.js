@@ -18,6 +18,10 @@ export default function DownloadButton({ url, filename, label, variant = 'blue',
             base: 'bg-teal-600 hover:bg-teal-700 text-white',
             busy: 'bg-teal-500 text-white cursor-wait',
         },
+        orange: {
+            base: 'bg-orange-600 hover:bg-orange-700 text-white',
+            busy: 'bg-orange-500 text-white cursor-wait',
+        },
     };
     const colors = colorMap[variant] ?? colorMap.blue;
 

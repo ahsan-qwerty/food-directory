@@ -24,6 +24,23 @@ export default function InterestsPanel({ countryName, initialInterests = [] }) {
     const [newInterest, setNewInterest] = useState({ customProduct: '', notes: '' });
     const [saving, setSaving] = useState(false);
     const [justAddedId, setJustAddedId] = useState(null);
+    const [selectedIds, setSelectedIds] = useState(new Set());
+
+    function toggleSelect(id) {
+        setSelectedIds(prev => {
+            const next = new Set(prev);
+            if (next.has(id)) next.delete(id);
+            else next.add(id);
+            return next;
+        });
+    }
+
+    function clearSelection() {
+        setSelectedIds(new Set());
+    }
+
+    const selectedCount = selectedIds.size;
+    const selectedInterestIds = [...selectedIds];
 
     function openModal() {
         setNewInterest({ customProduct: '', notes: '' });
@@ -97,11 +114,31 @@ export default function InterestsPanel({ countryName, initialInterests = [] }) {
                     </p>
                 </div>
                 <div className="flex items-center gap-2 flex-wrap">
+                    {selectedCount >= 2 && (
+                        <div className="flex items-center gap-2">
+                            <DownloadButton
+                                url={`/api/countries/${encodeURIComponent(countryName)}/interest-directory?interestIds=${selectedInterestIds.join(',')}`}
+                                filename={`${countryName.toLowerCase()}-selected-products-directory.pdf`}
+                                label={`Download Selected (${selectedCount})`}
+                                variant="orange"
+                            />
+                            <button
+                                type="button"
+                                onClick={clearSelection}
+                                title="Clear selection"
+                                className="p-1.5 rounded-lg text-muted hover:text-white hover:bg-white/10 transition-colors"
+                            >
+                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                        </div>
+                    )}
                     {interests.some(i => i.companies.length > 0) && (
                         <DownloadButton
                             url={`/api/countries/${encodeURIComponent(countryName)}/interest-directory`}
                             filename={`${countryName.toLowerCase()}-all-products-directory.pdf`}
-                            label="Download All Products Directory"
+                            label="Download All"
                             variant="purple"
                         />
                     )}
@@ -238,6 +275,8 @@ export default function InterestsPanel({ countryName, initialInterests = [] }) {
                             onDelete={() => handleDeleteInterest(interest.id)}
                             onSaveNotes={notes => handleSaveNotes(interest.id, notes)}
                             onUpdateCompanies={ids => handleUpdateCompanies(interest.id, ids)}
+                            selected={selectedIds.has(interest.id)}
+                            onToggleSelect={() => toggleSelect(interest.id)}
                         />
                     ))}
                 </div>
@@ -248,7 +287,7 @@ export default function InterestsPanel({ countryName, initialInterests = [] }) {
 
 /* ─── InterestCard ──────────────────────────────────────────────────────────── */
 
-function InterestCard({ interest, countryName, autoEdit, onAutoEditDone, onDelete, onSaveNotes, onUpdateCompanies }) {
+function InterestCard({ interest, countryName, autoEdit, onAutoEditDone, onDelete, onSaveNotes, onUpdateCompanies, selected = false, onToggleSelect }) {
     const [editing, setEditing] = useState(false);
     const cardRef = useRef(null);
 
@@ -360,11 +399,32 @@ function InterestCard({ interest, countryName, autoEdit, onAutoEditDone, onDelet
     const slug = label.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
 
     return (
-        <div ref={cardRef} className={`rounded-xl border p-5 transition-colors ${editing ? 'border-sky-500/30 bg-sky-500/5' : 'border-white/10 bg-white/3'}`}>
+        <div ref={cardRef} className={`rounded-xl border p-5 transition-colors ${editing
+                ? 'border-sky-500/30 bg-sky-500/5'
+                : selected
+                    ? 'border-orange-500/40 bg-orange-500/5'
+                    : 'border-white/10 bg-white/3'
+            }`}>
 
             {/* ── Header row ──────────────────────────────────────────────── */}
             <div className="flex items-start justify-between gap-3 mb-3">
                 <div className="flex flex-wrap items-center gap-2">
+                    {/* Selection checkbox — only in view mode */}
+                    {!editing && (
+                        <button
+                            type="button"
+                            onClick={onToggleSelect}
+                            title={selected ? 'Deselect' : 'Select for combined download'}
+                            className={`w-5 h-5 rounded flex items-center justify-center border transition-colors shrink-0 ${selected
+                                    ? 'bg-orange-500 border-orange-500 text-white'
+                                    : 'border-white/30 hover:border-orange-400 text-transparent hover:text-orange-400'
+                                }`}
+                        >
+                            <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                            </svg>
+                        </button>
+                    )}
                     <h3 className="text-base font-bold text-white">{label}</h3>
                     {sectorName && (
                         <span className="px-2 py-0.5 rounded-full text-xs font-medium border border-emerald-500/30 text-emerald-300 bg-emerald-500/10">
@@ -379,7 +439,7 @@ function InterestCard({ interest, countryName, autoEdit, onAutoEditDone, onDelet
                         <DownloadButton
                             url={`/api/countries/${encodeURIComponent(countryName)}/interest-directory?interestId=${interest.id}`}
                             filename={`${countryName.toLowerCase()}-${slug}-directory.pdf`}
-                            label={`Download ${label} Directory`}
+                            label={`Download`}
                             variant="teal"
                         />
                     )}
