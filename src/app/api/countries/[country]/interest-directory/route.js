@@ -219,11 +219,20 @@ export async function GET(request, { params }) {
 
     // Decide which interests to include
     let interests = profile.interests;
+    const interestIdsParam = searchParams.get('interestIds'); // comma-separated: "1,2,3"
     if (interestIdParam) {
         const targetId = Number(interestIdParam);
         interests = interests.filter(i => i.id === targetId);
         if (interests.length === 0) {
             return NextResponse.json({ error: 'Product interest not found' }, { status: 404 });
+        }
+    } else if (interestIdsParam) {
+        const targetIds = new Set(
+            interestIdsParam.split(',').map(s => Number(s.trim())).filter(n => !isNaN(n) && n > 0)
+        );
+        interests = interests.filter(i => targetIds.has(i.id));
+        if (interests.length === 0) {
+            return NextResponse.json({ error: 'No matching product interests found' }, { status: 404 });
         }
     }
 
@@ -246,18 +255,26 @@ export async function GET(request, { params }) {
     const C = { PAGE_W, PAGE_H, MARGIN, CW, LINE_H, SECTION_GAP, FOOTER_Y };
 
     const isSingle = Boolean(interestIdParam);
+    const isSubset = Boolean(interestIdsParam) && !isSingle;
 
     // Calculate total pages: one section header page per interest + one page per company
     const totalPages = activeInterests.reduce((sum, i) => sum + 1 + i.companies.length, 0);
+
+    let pdfTitle;
+    if (isSingle) {
+        pdfTitle = `${countryName} – ${activeInterests[0].subSector?.name || activeInterests[0].customProduct || 'Product'} Directory`;
+    } else if (isSubset) {
+        pdfTitle = `${countryName} – Selected Products Directory`;
+    } else {
+        pdfTitle = `${countryName} – All Product Interests Directory`;
+    }
 
     const doc = new PDFDocument({
         autoFirstPage: false,
         size: 'A4',
         margins: { top: MARGIN, bottom: MARGIN, left: MARGIN, right: MARGIN },
         info: {
-            Title: isSingle
-                ? `${countryName} – ${activeInterests[0].subSector?.name || activeInterests[0].customProduct || 'Product'} Directory`
-                : `${countryName} – All Product Interests Directory`,
+            Title: pdfTitle,
             Author: 'TDAP Food Directory',
         },
     });
@@ -302,9 +319,14 @@ export async function GET(request, { params }) {
 
     const pdfBuffer = Buffer.concat(chunks);
 
-    const slug = isSingle
-        ? `${countryName.toLowerCase()}-${(activeInterests[0].subSector?.name || activeInterests[0].customProduct || 'product').toLowerCase().replace(/\s+/g, '-')}-directory`
-        : `${countryName.toLowerCase()}-all-products-directory`;
+    let slug;
+    if (isSingle) {
+        slug = `${countryName.toLowerCase()}-${(activeInterests[0].subSector?.name || activeInterests[0].customProduct || 'product').toLowerCase().replace(/\s+/g, '-')}-directory`;
+    } else if (isSubset) {
+        slug = `${countryName.toLowerCase()}-selected-products-directory`;
+    } else {
+        slug = `${countryName.toLowerCase()}-all-products-directory`;
+    }
 
     const safeName = slug.replace(/[^a-z0-9-]/g, '');
 
