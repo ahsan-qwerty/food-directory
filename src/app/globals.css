@@ -178,6 +178,19 @@ body::before {
   z-index: 0;
 }
 
+/* ==========================================================================
+ * MARQUEE (Header Updates Ticker)
+ * ========================================================================== */
+@keyframes tdap-marquee-scroll {
+  0% {
+    transform: translateX(100%);
+  }
+
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
 /* Everything above the blobs */
 header,
 main,
@@ -247,6 +260,67 @@ footer,
     -webkit-backdrop-filter: blur(20px);
     border-bottom: 1px solid var(--header-border);
     box-shadow: 0 4px 24px rgba(0, 0, 0, 0.32);
+  }
+
+  /* ── Updates marquee bar ──────────────────────────────────────────────── */
+  .glass-marquee {
+    background: rgba(7, 15, 26, 0.88);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+  }
+
+  .marquee {
+    position: relative;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .marquee::before,
+  .marquee::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 48px;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  .marquee::before {
+    left: 0;
+    background: linear-gradient(to right, rgba(7, 15, 26, 0.95), rgba(7, 15, 26, 0));
+  }
+
+  .marquee::after {
+    right: 0;
+    background: linear-gradient(to left, rgba(7, 15, 26, 0.95), rgba(7, 15, 26, 0));
+  }
+
+  .marquee-inner {
+    display: flex;
+    width: max-content;
+    align-items: center;
+    gap: 1.25rem;
+    will-change: transform;
+    animation: tdap-marquee-scroll 26s linear infinite;
+  }
+
+  .marquee-track {
+    display: inline-flex;
+    align-items: center;
+    gap: 1.25rem;
+  }
+
+  /* Make ticker easy to click */
+  .marquee:hover .marquee-inner {
+    animation-play-state: paused;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-inner {
+      animation: none;
+    }
   }
 
   /* ── Glass footer ──────────────────────────────────────────────────────── */

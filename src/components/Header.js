@@ -7,8 +7,51 @@ import logo from '../../public/logo.png';
 export default function Header() {
   const router = useRouter();
 
+  const updates = [
+    {
+      id: 'advisory-2026-04-01',
+      label: 'Customer Advisory: Withholding of Ad-hoc Charges (1 Apr 2026)',
+      href: '/updates#advisory-2026-04-01',
+      kind: 'Advisory',
+    },
+  ];
+
   return (
     <header className="glass-header sticky top-0 z-50 px-4">
+      {/* Updates marquee */}
+      <div className="glass-marquee -mx-4 px-4">
+        <div className="container mx-auto px-4">
+          <div className="marquee py-2">
+            <div className="marquee-inner" aria-label="Latest updates ticker">
+              <div className="marquee-track">
+                {updates.map((u) => (
+                  <Link
+                    key={u.id}
+                    href={u.href}
+                    className="inline-flex items-center gap-2 text-xs font-semibold text-secondary hover:text-white transition-colors"
+                    title={u.label}
+                  >
+                    <span className="px-2 py-0.5 rounded-full border border-sky-500/30 text-sky-300 bg-sky-500/10">
+                      {u.kind}
+                    </span>
+                    <span className="truncate max-w-[70vw] sm:max-w-none">{u.label}</span>
+                    <span className="text-muted">→</span>
+                  </Link>
+                ))}
+                <span className="text-muted text-xs">•</span>
+                <Link
+                  href="/updates"
+                  className="text-xs font-semibold text-accent-green hover:underline"
+                  title="View all updates"
+                >
+                  View all updates
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div className="container mx-auto px-4 py-4">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
 

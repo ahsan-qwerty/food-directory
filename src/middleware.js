@@ -47,6 +47,11 @@ export function middleware(request) {
     return NextResponse.next();
   }
 
+  // Allow /updates and /updates/[id] (any sub-path under /updates)
+  if (pathname === '/updates' || pathname.startsWith('/updates/')) {
+    return NextResponse.next();
+  }
+
   // Everything else → redirect to /companies (temporary protection)
   const companiesUrl = new URL('/companies', request.url);
   return NextResponse.redirect(companiesUrl);
