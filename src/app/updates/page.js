@@ -16,6 +16,14 @@ const UPDATES = [
         href: '/updates#advisory-2026-04-01',
         image: customer_advisory,
     },
+    {
+        id: 'uae-alt-routes-2026-04-06',
+        type: 'Freight',
+        title: 'UAE Alternate Trade Routes',
+        date: '2026-04-06',
+        href: '/update/UAE Alternate Trade Routes_06-04-2026.pdf',
+        fileType: 'pdf',
+    },
 ];
 
 export default function UpdatesPage() {
@@ -48,16 +56,35 @@ export default function UpdatesPage() {
                             </div>
 
                             <div className="rounded-xl border border-white/10 bg-white/3 overflow-hidden">
-                                <div className="relative w-full" style={{ aspectRatio: '3 / 4' }}>
-                                    <Image
-                                        src={u.image}
-                                        alt={u.title}
-                                        fill
-                                        sizes="(max-width: 768px) 100vw, 800px"
-                                        className="object-contain bg-black/20"
-                                        priority
-                                    />
-                                </div>
+                                {u.fileType === 'pdf' ? (
+                                    <div className="p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                                        <div>
+                                            <p className="text-sm text-white font-semibold">PDF Document</p>
+                                            <p className="text-xs text-muted mt-1">Click below to open/download.</p>
+                                        </div>
+                                        <a
+                                            href={encodeURI(u.href)}
+                                            download
+                                            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold bg-blue-600 hover:bg-blue-700 text-white transition-colors"
+                                        >
+                                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                            </svg>
+                                            Download PDF
+                                        </a>
+                                    </div>
+                                ) : (
+                                    <div className="relative w-full" style={{ aspectRatio: '3 / 4' }}>
+                                        <Image
+                                            src={u.image}
+                                            alt={u.title}
+                                            fill
+                                            sizes="(max-width: 768px) 100vw, 800px"
+                                            className="object-contain bg-black/20"
+                                            priority
+                                        />
+                                    </div>
+                                )}
                             </div>
 
 

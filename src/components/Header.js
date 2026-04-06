@@ -7,13 +7,60 @@ import logo from '../../public/logo.png';
 export default function Header() {
   const router = useRouter();
 
+  function renderUpdateLink(u) {
+    const isStaticFile = typeof u.href === 'string' && u.href.startsWith('/update/');
+    const encodedHref = typeof u.href === 'string' ? encodeURI(u.href) : u.href;
+    const className = "inline-flex items-center gap-2 text-xs font-semibold text-secondary hover:text-white transition-colors";
+
+    // Static files (PDFs) should use a normal <a> so the browser opens/downloads it directly.
+    if (isStaticFile) {
+      return (
+        <a
+          key={u.id}
+          href={encodedHref}
+          download
+          className={className}
+          title={u.label}
+        >
+          <span className="px-2 py-0.5 rounded-full border border-sky-500/30 text-sky-300 bg-sky-500/10">
+            {u.kind}
+          </span>
+          <span className="truncate max-w-[70vw] sm:max-w-none">{u.label}</span>
+          <span className="text-muted">→</span>
+        </a>
+      );
+    }
+
+    return (
+      <Link
+        key={u.id}
+        href={encodedHref}
+        className={className}
+        title={u.label}
+      >
+        <span className="px-2 py-0.5 rounded-full border border-sky-500/30 text-sky-300 bg-sky-500/10">
+          {u.kind}
+        </span>
+        <span className="truncate max-w-[70vw] sm:max-w-none">{u.label}</span>
+        <span className="text-muted">→</span>
+      </Link>
+    );
+  }
+
   const updates = [
+    {
+      id: 'uae-alt-routes-2026-04-06',
+      label: 'UAE Alternate Trade Routes (06 Apr 2026) – PDF',
+      href: '/update/UAE Alternate Trade Routes_06-04-2026.pdf',
+      kind: 'Freight',
+    },
     {
       id: 'advisory-2026-04-01',
       label: 'Customer Advisory: Withholding of Ad-hoc Charges (1 Apr 2026)',
       href: '/updates#advisory-2026-04-01',
       kind: 'Advisory',
     },
+
   ];
 
   return (
@@ -24,20 +71,7 @@ export default function Header() {
           <div className="marquee py-2">
             <div className="marquee-inner" aria-label="Latest updates ticker">
               <div className="marquee-track">
-                {updates.map((u) => (
-                  <Link
-                    key={u.id}
-                    href={u.href}
-                    className="inline-flex items-center gap-2 text-xs font-semibold text-secondary hover:text-white transition-colors"
-                    title={u.label}
-                  >
-                    <span className="px-2 py-0.5 rounded-full border border-sky-500/30 text-sky-300 bg-sky-500/10">
-                      {u.kind}
-                    </span>
-                    <span className="truncate max-w-[70vw] sm:max-w-none">{u.label}</span>
-                    <span className="text-muted">→</span>
-                  </Link>
-                ))}
+                {updates.map(renderUpdateLink)}
                 <span className="text-muted text-xs">•</span>
                 <Link
                   href="/updates"
