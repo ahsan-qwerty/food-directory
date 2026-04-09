@@ -9,6 +9,14 @@ export const metadata = {
 
 const UPDATES = [
     {
+        id: 'oict-tariff-book-2026',
+        type: 'Tariff',
+        title: 'OICT Tariff Book 2026 v1.0',
+        date: '2026-04-09',
+        href: '/update/OICT-Tariff-Book-2026-v1.0.pdf',
+        fileType: 'pdf',
+    },
+    {
         id: 'advisory-2026-04-01',
         type: 'Advisory',
         title: 'Customer Advisory: Withholding of Ad-hoc Charges',

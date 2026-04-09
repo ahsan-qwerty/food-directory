@@ -49,6 +49,12 @@ export default function Header() {
 
   const updates = [
     {
+      id: 'oict-tariff-book-2026',
+      label: 'OICT Tariff Book 2026 v1.0 – PDF',
+      href: '/update/OICT-Tariff-Book-2026-v1.0.pdf',
+      kind: 'Tariff',
+    },
+    {
       id: 'uae-alt-routes-2026-04-06',
       label: 'UAE Alternate Trade Routes (06 Apr 2026) – PDF',
       href: '/update/UAE Alternate Trade Routes_06-04-2026.pdf',
@@ -60,7 +66,6 @@ export default function Header() {
       href: '/updates#advisory-2026-04-01',
       kind: 'Advisory',
     },
-
   ];
 
   return (

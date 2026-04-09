@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c/xampp/php/**)",
+      "Bash(ls /c/wamp*/bin/php/*/php.exe)",
+      "Read(//c/laragon/bin/**)",
+      "Bash(where php:*)"
+    ]
+  }
+}
