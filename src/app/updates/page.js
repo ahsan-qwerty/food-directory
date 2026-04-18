@@ -12,6 +12,14 @@ export const metadata = {
 
 const UPDATES = [
     {
+        id: 'vessel-update-ssf-valence-v0074-docx-hyphen',
+        type: 'Vessel',
+        title: 'Vessel Update – SSF VALENCE V-0074',
+        date: '2026-04-18',
+        href: '/update/Vessel-Update.docx',
+        fileType: 'docx',
+    },
+    {
         id: 'vessel-update-ssf-valence-v0074',
         type: 'Vessel',
         title: 'Vessel Update – SSF VALENCE V-0074',

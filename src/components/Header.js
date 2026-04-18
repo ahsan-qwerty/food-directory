@@ -49,6 +49,12 @@ export default function Header() {
 
   const updates = [
     {
+      id: 'vessel-update-ssf-valence-v0074-docx-hyphen',
+      label: 'Vessel Update – SSF VALENCE V-0074 – DOCX',
+      href: '/update/Vessel-Update.docx',
+      kind: 'Vessel',
+    },
+    {
       id: 'vessel-update-ssf-valence-v0074',
       label: 'Vessel Update – SSF VALENCE V-0074 – DOCX',
       href: '/update/Vessel Update.docx',
