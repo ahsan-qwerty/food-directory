@@ -12,6 +12,14 @@ export const metadata = {
 
 const UPDATES = [
     {
+        id: 'vessel-update-ssf-valence-v0074',
+        type: 'Vessel',
+        title: 'Vessel Update – SSF VALENCE V-0074',
+        date: '2026-04-18',
+        href: '/update/Vessel Update.docx',
+        fileType: 'docx',
+    },
+    {
         id: 'cargo-ssf-valence-v0074',
         type: 'Cargo',
         title: 'Cargo Update – SSF VALENCE V-0074 (KGTL)',
@@ -88,10 +96,10 @@ export default function UpdatesPage() {
                             </div>
 
                             <div className="rounded-xl border border-white/10 bg-white/3 overflow-hidden">
-                                {u.fileType === 'pdf' ? (
+                                {u.fileType ? (
                                     <div className="p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                                         <div>
-                                            <p className="text-sm text-white font-semibold">PDF Document</p>
+                                            <p className="text-sm text-white font-semibold">{String(u.fileType).toUpperCase()} Document</p>
                                             <p className="text-xs text-muted mt-1">Click below to open/download.</p>
                                         </div>
                                         <a
@@ -102,7 +110,7 @@ export default function UpdatesPage() {
                                             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                                             </svg>
-                                            Download PDF
+                                            Download {String(u.fileType).toUpperCase()}
                                         </a>
                                     </div>
                                 ) : u.notice ? (

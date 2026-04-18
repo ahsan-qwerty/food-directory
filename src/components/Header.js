@@ -49,6 +49,12 @@ export default function Header() {
 
   const updates = [
     {
+      id: 'vessel-update-ssf-valence-v0074',
+      label: 'Vessel Update – SSF VALENCE V-0074 – DOCX',
+      href: '/update/Vessel Update.docx',
+      kind: 'Vessel',
+    },
+    {
       id: 'cargo-ssf-valence-v0074',
       label: 'Cargo: SSF VALENCE V-0074 – Jeddah, ~500 TEUs, ETD 21 Apr 2026',
       href: '/updates#cargo-ssf-valence-v0074',
