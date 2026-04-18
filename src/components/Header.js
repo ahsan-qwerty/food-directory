@@ -49,6 +49,12 @@ export default function Header() {
 
   const updates = [
     {
+      id: 'cargo-ssf-valence-v0074',
+      label: 'Cargo: SSF VALENCE V-0074 – Jeddah, ~500 TEUs, ETD 21 Apr 2026',
+      href: '/updates#cargo-ssf-valence-v0074',
+      kind: 'Cargo',
+    },
+    {
       id: 'oict-tariff-book-2026',
       label: 'OICT Tariff Book 2026 v1.0 – PDF',
       href: '/update/OICT-Tariff-Book-2026-v1.0.pdf',

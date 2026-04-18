@@ -1,3 +1,6 @@
+
+
+
 import Link from 'next/link';
 import Image from 'next/image';
 import customer_advisory from '../../../public/update/customer_advisory.jpeg';
@@ -8,6 +11,27 @@ export const metadata = {
 };
 
 const UPDATES = [
+    {
+        id: 'cargo-ssf-valence-v0074',
+        type: 'Cargo',
+        title: 'Cargo Update – SSF VALENCE V-0074 (KGTL)',
+        date: '2026-04-18',
+        href: '/updates#cargo-ssf-valence-v0074',
+        notice: {
+            intro:
+                'Please be advised of the following cargo summary for SSF VALENCE V-0074 (KGTL):',
+            rows: [
+                { label: 'Total volume', value: '~500 TEUs' },
+                { label: 'Port of discharge (POD)', value: 'SAJED (JEDDAH)' },
+                { label: 'Tentative ETD', value: '21 April 2026' },
+            ],
+            focalPoint: {
+                heading: 'Focal point',
+                name: 'Mr. Kamal Siddiqui',
+                phone: '+92 301 8251373',
+            },
+        },
+    },
     {
         id: 'oict-tariff-book-2026',
         type: 'Tariff',
@@ -80,6 +104,35 @@ export default function UpdatesPage() {
                                             </svg>
                                             Download PDF
                                         </a>
+                                    </div>
+                                ) : u.notice ? (
+                                    <div className="p-6 space-y-6 text-secondary">
+                                        <p className="text-sm text-white/90 leading-relaxed">{u.notice.intro}</p>
+                                        <div className="space-y-3">
+                                            {u.notice.rows.map((row) => (
+                                                <div
+                                                    key={row.label}
+                                                    className="flex flex-col sm:flex-row sm:gap-6 sm:items-baseline border-b border-white/5 pb-3 last:border-0 last:pb-0"
+                                                >
+                                                    <span className="text-xs font-semibold text-muted uppercase tracking-wide shrink-0 sm:w-52">
+                                                        {row.label}
+                                                    </span>
+                                                    <span className="text-sm text-white">{row.value}</span>
+                                                </div>
+                                            ))}
+                                        </div>
+                                        <div className="pt-2 border-t border-white/10">
+                                            <p className="text-xs font-semibold text-muted uppercase tracking-wide mb-2">
+                                                {u.notice.focalPoint.heading}
+                                            </p>
+                                            <p className="text-sm text-white font-medium">{u.notice.focalPoint.name}</p>
+                                            <a
+                                                href={`tel:${u.notice.focalPoint.phone.replace(/\s/g, '')}`}
+                                                className="text-sm text-accent-green hover:underline mt-1 inline-block"
+                                            >
+                                                {u.notice.focalPoint.phone}
+                                            </a>
+                                        </div>
                                     </div>
                                 ) : (
                                     <div className="relative w-full" style={{ aspectRatio: '3 / 4' }}>
